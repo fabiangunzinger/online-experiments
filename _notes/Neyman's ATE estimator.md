@@ -442,15 +442,72 @@ $$
 \end{align}
 $$
 
-Which is what we needed to show. We proceed from here as follows:
+Which is what we needed to show. Using
+$$
+Y_i^+ = \frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0) 
+$$
+We proceed as follows:
 
 $$
 \begin{align}
 \mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
-&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
-- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+ \\[5pt]
-
 &=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2 \\[5pt]
+
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}\left[\left(\frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0)\right) 
+- \frac{1}{n}\sum_{i=1}^{n}\left(\frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0)\right) \right]^2 \\[5pt]
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}\left[\left(\frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0)\right) 
+- \left(\frac{n}{n_t}\frac{1}{n}\sum_{i=1}^{n}Y_i(1)  + \frac{n}{n_c}\frac{1}{n}\sum_{i=1}^{n}Y_i(0)\right) \right]^2 \\[5pt]
+
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}\left[\left(\frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0)\right) 
+- \left(\frac{n}{n_t}\overline{Y}(1)  + \frac{n}{n_c}\overline{Y}(0)\right) \right]^2 \\[5pt]
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}\left[
+\frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0)
+- \frac{n}{n_t}\overline{Y}(1) - \frac{n}{n_c}\overline{Y}(0)
+\right]^2 \\[5pt]
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}\left[
+\left(\frac{n}{n_t}Y_i(1) - \frac{n}{n_t}\overline{Y}(1)\right)
++ \left(\frac{n}{n_c}Y_i(0) - \frac{n}{n_c}\overline{Y}(0)\right)
+\right]^2 \\[5pt]
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}
+\left(\frac{n}{n_t}Y_i(1) - \frac{n}{n_t}\overline{Y}(1)\right)^2 \\[5pt]
+&\qquad
++ \frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}
+\left(\frac{n}{n_c}Y_i(0) - \frac{n}{n_c}\overline{Y}(0)\right)^2 \\[5pt]
+&\qquad 
++\frac{2n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}
+\left(\frac{n}{n_t}Y_i(1) - \frac{n}{n_t}\overline{Y}(1)\right)
+\left(\frac{n}{n_c}Y_i(0) - \frac{n}{n_c}\overline{Y}(0)\right)
+\\[5pt]
+
+&=\frac{n_t n_c}{n^3(n-1)}\frac{n^2}{n_t^2}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
+&\qquad
++ \frac{n_t n_c}{n^3(n-1)}\frac{n^2}{n_c^2}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+&\qquad 
++\frac{2n_t n_c}{n^3(n-1)}\frac{n}{n_c}\frac{n}{n_c}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+&=\frac{n_c}{n n_t (n-1)}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
+&\qquad
++ \frac{n_t}{n n_c (n-1)}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+&\qquad 
++\frac{2}{n(n-1)}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+
 \end{align}
 $$
 
