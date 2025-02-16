@@ -282,9 +282,9 @@ $$
 \end{align}
 $$
 
-The next step requires some involved manipulation of both terms on the right hand side, which we're going to do step-by-step, focusing on one term at a time.
+The next step requires some involved manipulation of both terms on the right hand side, which we're going to do on term at a time.
 
-We start with the first of those terms. The complement of the second term on the right is $\left(\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+\right)$, which we now add and subtract to get
+First, we'll artificially add and subtract the complement of the second term, $\left(\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+\right)$, which gives us:
 
 $$
 \begin{align}
@@ -292,8 +292,8 @@ $$
 &= \underbrace{\frac{n_t n_c}{n^4}\sum_{i=1}^{n}(Y_i^+)^2}_\text{A}
 - \underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i\neq j}Y_i^+Y_j^+}_\text{B}  \\[5pt]
 &\qquad 
-+\underbrace{\left(\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+\right)}_\text{C}
-- \underbrace{\left(\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+\right)}_\text{D}.
++\underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+}_\text{C}
+- \underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+}_\text{D}.
 \end{align}
 $$
 
@@ -308,11 +308,11 @@ $$
 \begin{align}
 \mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
 &= \underbrace{\frac{n_t n_c}{n^4}\sum_{i=1}^{n}(Y_i^+)^2}_\text{A}
-+\underbrace{\left(\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+\right)}_\text{C}
++\underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+}_\text{C}
 - \text{B} - \text{D} \\[5pt]
 
 &= \underbrace{\frac{n_t n_c}{n^4}\sum_{i=1}^{n}(Y_i^+)^2}_\text{A}
-+\underbrace{\left(\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2\right)}_\text{C}
++\underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2}_\text{C}
 - \text{B} - \text{D} \\[5pt]
 
 &= \left(\frac{n_t n_c}{n^4} + \frac{n_t n_c}{n^4 (n-1)}\right)\sum_{i=1}^{n}(Y_i^+)^2
@@ -321,27 +321,77 @@ $$
 &= \left(\frac{(n-1) n_t n_c + n_t n_c}{n^4 (n-1)}\right)\sum_{i=1}^{n}(Y_i^+)^2
 - \text{B} - \text{D} \\[5pt]
 
-&= \left(\frac{n_t n_c}{n^3 (n-1)}\right)\sum_{i=1}^{n}(Y_i^+)^2
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
 - \text{B} - \text{D} \\[5pt]
+
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i\neq j}Y_i^+Y_j^+}_\text{B}
+- \underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+}_\text{D}.
 \end{align}
 $$
 
-
-That gives us the new version of the first term we need.
-
-**Next, the second term, B above -- I'm here**
-
-
-Finally, using the fact that 
+Next, we use the fact that:
 
 $$
 \sum_{i=1}^{n}\sum_{i\neq j}Y_i^+Y_j^+ 
 + \sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+
 = \sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+,
 $$
-we rewrite combine the last two terms to get:
+to combine the $B$ and $D$ terms to get:
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
 
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i\neq j}Y_i^+Y_j^+}_\text{B}
+- \underbrace{\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+}_\text{D} \\[5pt]
 
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \frac{n_t n_c}{n^4 (n-1)}\left(\sum_{i=1}^{n}\sum_{i\neq j}Y_i^+Y_j^+
++ \sum_{i=1}^{n}\sum_{i=j}Y_i^+Y_j^+\right) \\[5pt]
+
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+ \\[5pt]
+
+\end{align}
+$$
+
+The next step is to show that the right hand side above equals:
+
+$$
+\frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2.
+$$
+To do this, we'll work backwards. Ignoring the multiplicative constant in front of the summation for now, we can expand the expression to get
+$$
+\begin{align}
+\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2
+
+= \sum_{i=1}^{n}\left[(Y_i^+)^2 - 2\overline{Y^+}Y_i^+  + \overline{Y^+}^2\right] \\[5pt]
+
+= \sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}\sum_{i=1}^{n}Y_i^+  + \sum_{i=1}^{n}\overline{Y^+}^2 \\[5pt]
+
+= \sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}n\frac{1}{n}\sum_{i=1}^{n}Y_i^+  + n\overline{Y^+}^2 \\[5pt]
+
+= \sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}n\overline{Y^+}  + n\overline{Y^+}^2 \\[5pt]
+
+= \sum_{i=1}^{n}(Y_i^+)^2 - 2n\overline{Y^+}^2  + n\overline{Y^+}^2 \\[5pt]
+
+= \sum_{i=1}^{n}(Y_i^+)^2 - n\overline{Y^+}^2\\[5pt]
+
+\end{align}
+$$
+
+Adding the constant back in, we thus have:
+$$
+\begin{align}
+\frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2
+
+= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2 - \frac{n_t n_c}{n^3 (n-1)}n\overline{Y^+}^2\\[5pt]
+
+= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2 - \frac{n_t n_c}{n^2 (n-1)}\overline{Y^+}^2\\[5pt]
+\end{align}
+$$
+Hence, we need to show that
 
 
 
@@ -349,20 +399,69 @@ $$
 \begin{align}
 \mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
 
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+ \\[5pt]
+
+&\stackrel{\text{show}}{=}
+\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2 \\[5pt]
 
 
-&= \left(\frac{n_t n_c}{n^4} + \frac{n_t n_c}{n^4 (n-1)}\right)\sum_{i=1}^{n}(Y_i^+)^2
-- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+  \\[5pt]
+&= \frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}\left[(Y_i^+)^2 - 2\overline{Y^+}Y_i^+  + \overline{Y^+}^2\right] \\[5pt]
 
-&=\frac{(n-1)n_t n_c + n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
-- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+  \\[5pt]
+&= \frac{n_t n_c}{n^3(n-1)}\left[\sum_{i=1}^{n}(Y_i^+)^2 
+- 2\overline{Y^+}\sum_{i=1}^{n}Y_i^+  + \sum_{i=1}^{n}\overline{Y^+}^2\right] \\[5pt]
 
-&=\frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
-- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+  \\[5pt]
+&= \frac{n_t n_c}{n^3(n-1)}\left[\sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}n\frac{1}{n}\sum_{i=1}^{n}Y_i^+  + n\overline{Y^+}^2\right] \\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\left[\sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}n\overline{Y^+}  + n\overline{Y^+}^2\right] \\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\left[\sum_{i=1}^{n}(Y_i^+)^2 - 2n\overline{Y^+}^2  + n\overline{Y^+}^2\right] \\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\left[\sum_{i=1}^{n}(Y_i^+)^2 - n\overline{Y^+}^2\right]\\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+)^2 
+- \frac{n_t n_c}{n^2(n-1)}\overline{Y^+}^2\\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+)^2 
+-\frac{n_t n_c}{n^2 (n-1)}
+\left(\overline{Y^+}\right)
+\left(\overline{Y^+}\right)
+\\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+)^2 
+- \frac{(nn)n_t n_c}{n^4 (n-1)}
+\left(\frac{1}{n}\sum_{i=1}^{n}Y_i^+\right)
+\left(\frac{1}{n}\sum_{j=1}^{n}Y_j^+\right) \\[5pt]
+
+&= \frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+)^2 
+-\frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}Y_i^+\sum_{j=1}^{n}Y_j^+ \\[5pt]
+
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+ \\[5pt]
+
+\end{align}
+$$
+
+Which is what we needed to show. We proceed from here as follows:
+
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+&= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2
+- \frac{n_t n_c}{n^4 (n-1)}\sum_{i=1}^{n}\sum_{j=1}^{n}Y_i^+Y_j^+ \\[5pt]
+
+&=\frac{n_t n_c}{n^3(n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2 \\[5pt]
 \end{align}
 $$
 
 
+
+
+
+
+
+
+## Footnotes
 
 [^fixed_values]: We need sample sized and potential outcomes to be fixed so that $\mathbb{E}[D_i n] = \mathbb{E}[D_i]\mathbb{E}[n]$, which is not true in general. It is true if $D_i$ and $n$ are independent, and one way to ensure they are independent is for $n$ and all other variables within the sum to be constants.
 
