@@ -512,7 +512,128 @@ $$
 $$
 
 
+We define the (true) variances of the potential outcomes in our sample and the variance of the unit-level treatment effects as follows:
 
+$$
+\begin{align}
+\sigma_{t}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
+
+\sigma_{c}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+
+\sigma_{ct}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2 \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \tau\right)^2 \\[5pt]
+
+\end{align}
+$$
+
+We can rewrite our expression for the variance of the unit-level treatment effect as:
+
+$$
+\begin{align}
+\sigma_{ct}^2
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2 \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \overline{Y}(1) + \overline{Y}(0)\right)^2 \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left[
+\left(Y_i(1) - \overline{Y}(1) \right)
+- \left(Y_i(0) - \overline{Y}(0)\right)
+\right]^2 \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left[
+\left(Y_i(1) - \overline{Y}(1) \right)^2
++ \left(Y_i(0) - \overline{Y}(0)\right)^2
+- 2\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right] \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)^2
++ \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+&\qquad- \frac{2}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+&= \sigma_{t}^2 + \sigma_{c}^2 - \frac{2}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+\end{align}
+$$
+Finally, solving for the expression we want to replace we the above variance expression, we get:
+
+
+$$
+\begin{align}
+\sigma_{ct}^2
+&= \sigma_{t}^2 + \sigma_{c}^2 - \frac{2}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+\sigma_{t}^2 + \sigma_{c}^2 - \sigma_{ct}^2
+&= \frac{2}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+\sigma_{t}^2 + \sigma_{c}^2 - \sigma_{ct}^2
+&= \frac{2}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+\frac{\sigma_{t}^2 + \sigma_{c}^2 - \sigma_{ct}^2}{n}
+&= \frac{2}{n(n-1)}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1) \right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+\end{align}
+$$
+
+Now, using those definition in our expression above, we get:
+
+
+
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+
+&=\frac{n_c}{n n_t (n-1)}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
+&\qquad
++ \frac{n_t}{n n_c (n-1)}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+&\qquad 
++\frac{2}{n(n-1)}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+&=\frac{n_c}{n n_t} \sigma_t^2 
++ \frac{n_t}{n n_c} \sigma_c^2 
++ \frac{\sigma_{t}^2 + \sigma_{c}^2 - \sigma_{ct}^2}{n}
+\\[5pt]
+
+&=\left(\frac{n_c}{n n_t} + \frac{1}{n}\right) \sigma_t^2 
++ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) \sigma_c^2 
+- \frac{\sigma_{ct}^2}{n}
+\\[5pt]
+
+&=\left(\frac{n_c + n_t}{n n_t}\right) \sigma_t^2 
++ \left(\frac{n_t + n_c}{n n_c}\right) \sigma_c^2 
+- \frac{\sigma_{ct}^2}{n}
+\\[5pt]
+
+&=\left(\frac{n}{n n_t}\right) \sigma_t^2 
++ \left(\frac{n}{n n_c}\right) \sigma_c^2 
+- \frac{\sigma_{ct}^2}{n}
+\\[5pt]
+
+&=\frac{\sigma_t^2}{n_t}  
++ \frac{\sigma_c^2 }{n_c}
+- \frac{\sigma_{ct}^2}{n}
+\\[5pt]
+
+\end{align}
+$$
 
 
 
