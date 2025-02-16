@@ -227,6 +227,36 @@ The next question is how precise our estimate it.
 
 ## Variance
 
+
+The aim is to show that
+
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+&=\frac{\sigma_t^2}{n_t}  
++ \frac{\sigma_c^2 }{n_c}
+- \frac{\sigma_{ct}^2}{n},
+\end{align}
+$$
+where the (true) variances of the potential outcomes and the variance of the unit-level treatment effects in our sample are defined as:
+
+$$
+\begin{align}
+\sigma_{t}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
+
+\sigma_{c}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+
+\sigma_{ct}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2 \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \tau\right)^2 \\[5pt]
+
+\end{align}
+$$
+
 We again start from @eq-neyman-two-parts:
 
 $$
@@ -512,24 +542,7 @@ $$
 $$
 
 
-We define the (true) variances of the potential outcomes in our sample and the variance of the unit-level treatment effects as follows:
 
-$$
-\begin{align}
-\sigma_{t}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
-
-\sigma_{c}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
-
-\sigma_{ct}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - Y_i(0) - \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2 \\[5pt]
-
-&= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - Y_i(0) - \tau\right)^2 \\[5pt]
-
-\end{align}
-$$
 
 We can rewrite our expression for the variance of the unit-level treatment effect as:
 
@@ -589,8 +602,6 @@ $$
 $$
 
 Now, using those definition in our expression above, we get:
-
-
 
 $$
 \begin{align}
