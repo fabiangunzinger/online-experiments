@@ -1,17 +1,33 @@
 [[_Experimentation]]
 
+This not extends the results of [[Neyman's ATE estimator (CRE)]] to advaned cases.
 
-- [[Mode of inference]] used throughout is randomisation-based rather than sampling-based: inference is directly justified by randomisation, not by assumption that sample of units in our experiment is a random sample of a larger population.
+## Comparison to simple two-sample case
 
-This section contains a step-by-step version of the derivation covered in Appendix A of chapter 6 in @imbens2015causal. Their derivation is complete but can be hard to follow. This version here fills in the missing steps to make it easier to follow along, but it remains tedious.
+In the classic two-sample problem, the outcomes in treatment are assumed to be **IID draws** from a distribution with mean $\mu_t$ and variance $\sigma_t^2$ and similar for control, and the variance of the  difference in means estimator is given by:
 
+$$
+\mathbb{V}(\hat{\tau}) = \frac{\sigma_t^2}{n_t} + \frac{\sigma_c^2}{n_c}.
+$$
+That is, there is no third term for the variance of the individual-level potential outcomes.
+
+Here, the variance is taken over the randomness of the outcomes because uncertainty is sampling based, whereas in the potential outcomes framework, where potential outcomes are fixed, the variance is taken over the randomisation distribution. 
+
+
+## BRE
+
+
+
+
+
+# CRE following imbens2015causal
 
 ## Estimand
 
 Individual-level causal effect is defined as:
-
-$\tau_i = Y_i(1)$ - $Y_i(0)$
-
+$$
+\tau_i = Y_i(1) - Y_i(0)
+$$
 In a setting with $i = 1, \dots, n$ units with fixed potential outcomes $Y_i(0)$ and $Y_i(1)$, where the only random component is the random assignment, captured by the assignment vector $W$, Neyman was interested in the population average treatment effect:
 
 $$
@@ -25,7 +41,25 @@ $$
 $$
 {#eq-neyman-estimand}
 
-This is our estimand of interest.
+The variances of the potential outcomes and the variance of the unit-level treatment effects in our sample are defined as:
+
+$$
+\begin{align}
+\sigma_{t}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
+
+\sigma_{c}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
+
+\sigma_{ct}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - Y_i(0) - \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2 \\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(\tau_i - \tau\right)^2 \\[5pt]
+
+\end{align}
+$$
+
 
 ## Estimator
 
@@ -235,28 +269,9 @@ $$
 \mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
 &=\frac{\sigma_t^2}{n_t}  
 + \frac{\sigma_c^2 }{n_c}
-- \frac{\sigma_{ct}^2}{n},
+- \frac{\sigma_{ct}^2}{n}.
 \end{align}
 $$
-where the (true) variances of the potential outcomes and the variance of the unit-level treatment effects in our sample are defined as:
-
-$$
-\begin{align}
-\sigma_{t}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)^2 \\[5pt]
-
-\sigma_{c}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(0) - \overline{Y}(0)\right)^2 \\[5pt]
-
-\sigma_{ct}^2 &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - Y_i(0) - \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2 \\[5pt]
-
-&= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - Y_i(0) - \tau\right)^2 \\[5pt]
-
-\end{align}
-$$
-
 We again start from @eq-neyman-two-parts:
 
 $$
@@ -541,9 +556,6 @@ $$
 \end{align}
 $$
 
-
-
-
 We can rewrite our expression for the variance of the unit-level treatment effect as:
 
 $$
@@ -579,7 +591,6 @@ $$
 \end{align}
 $$
 Finally, solving for the expression we want to replace we the above variance expression, we get:
-
 
 $$
 \begin{align}

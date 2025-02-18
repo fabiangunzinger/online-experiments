@@ -8,16 +8,31 @@
 Next
 - [x] Clean up stats of online experiments note
 
-- [ ] Find content from old stats_foundation chapter (or copy from github archive), create again, add indpendence vs uncorrelated, continue with derivation (talk about why we need assumption that Y_i fixed – if correlated with D_i, then e of estimator not zero)
+- [x] Find content from old stats_foundation chapter (or copy from github archive), create again, add indpendence vs uncorrelated, continue with derivation (talk about why we need assumption that Y_i fixed – if correlated with D_i, then e of estimator not zero)
+- [x] Add bday derivation notes to Neyman chapter (use Imbens and Rubin book notes as starting point and move neyman and bday derivation there so I still have neyman chapter`)
 
-- [ ] Add bday derivation notes to Neyman chapter (use Imbens and Rubin book notes as starting point and move neyman and bday derivation there so I still have neyman chapter`)
-- [ ] Understand and discuss different cases (super-population, etc) and discuss which ones I'm gonna talk about in the book and which ones are most relevant for online-experiments context. To consider, FS vs SP, CRE vs BRE, etc. Neyman is good starting point (I think it is, since it's the case where audience percentage is 100%), copy completed chapter from above and use as basis for stats notes (adapt notation: change N to n, consider using wager2024causal notation).
-- [ ] Write basic version of this chapter
-- [ ] Then
-	- [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
-	- [ ] Do BRE derivation for FS
-	- [ ] Possibly do SP derivations
-- [ ] Turn into paper in addition to book only (check with Max for relevant outlet if needed)
+- [ ] Neyman unbiasedness and variance derivation for CRE
+	- [x] Imbens and Rubin proof (Appendix 6.A)
+	- [ ] ding2023first proof (Chapter 4)
+
+- [ ] Perform derivation for BRE
+	- [ ] Taking n as given
+	- [ ] Modelling n as Binomial
+
+- [ ] Show that sigma_hat is unbiased estimator of sample variance sigma 
+	- [ ] Imbens and Rubin (Appendix 6.A)
+	- [ ] ding2023first lemma c4
+
+- [ ] Show that CLT is justified so we can do inference
+	- [ ] Imbens Rubin
+	- [ ] ding2023first (Chapter 4, Theorem 4.2), li2017general
+
+
+- [ ] Consider adding super population perspective for BRE case
+	- [ ] Argue that in contexts of A/B tests this doesn't make sense, since population is well defined. But understand what implications are. li2017general beginning of intro discusses this
+
+- [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
+- [ ] Write chapter and consider turning it into paper (check with Max for relevant outlet if needed)
 
 
 Later
