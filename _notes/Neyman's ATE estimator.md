@@ -1,6 +1,69 @@
 [[_Experimentation]]
 
-This not extends the results of [[Neyman's ATE estimator (CRE)]] to advaned cases.
+
+
+
+
+## CRE
+
+A completely randomised experiment has an assignment mechanism that assigns a fixed number $n_t$ to treatment and a fixed number $n_c = n - n_t$ to control in a way such that each assignment vector $\mathbf{W}$ with $\sum_{i=1}^{n}W_i = n_t$ has equal probability of being observed. There are $\frac{n!}{n_t! (n-n_t)!} = \binom{n}{n_t}$ such assignment vectors, which means that:
+
+$$
+P(\mathbf{W} = \mathbf{w}) = \frac{1}{\binom{n}{n_t}}.
+$$
+
+The vectors of potential outcomes $\mathbf{Y(1)} = (Y_i(1), ..., Y_n(1))$ and $\mathbf{Y(0)} = (Y_i(0), ..., Y_n(0))$ are generally viewed as fixed in the above definition.
+
+Alternatively, we can view them as random and condition on them, so that we have:
+
+$$
+P(\mathbf{W} = \mathbf{w} | \mathbf{Y(1)}, \mathbf{Y(0)}) = \frac{1}{\binom{n}{n_t}},
+$$
+because in a CRE, we have $\mathbf{W} \perp\!\!\!\perp \mathbf{Y(1)}, \mathbf{Y(0)}$.
+
+# todo next
+- Relate the above to SRS – is this the same? 
+- Pick up from footnote 1 on page 25 in ding2025first, which talks about conditioning and relation to BRE
+- Read wager2024causal for reference, too, to get clarity of how this all fits together
+- Then link to BRE section below
+- Next, link to IID section below that
+
+
+## BRE
+
+A Bernoulli randomised experiment has an assignment mechanism where the assignment of each unit is determined by a mechanism that is equivalent to a coin toss, such that $P(W_i = w) = q$, where $w \in {t, c}$ and $q \in [0, 1]$. Hence, the probability of observing any given assignment vector $\mathbf{W}$ is:
+
+$$
+P(\mathbf{W} = \mathbf{w}) = q^{n_t} (1-q)^{n_c},
+$$
+where $n_t = \sum_{i=1}^{n}W_i$ and $n_c = \sum_{i=1}^{n}(1 - W_i)$.
+
+We thus have:
+$$
+\begin{align}
+R_i &\sim \text{Bernoulli}(q) \\
+\mathbb{E}[{R_i}] &= q \\
+\mathbb{V}({R_i}) &= q(1-q)
+\end{align}
+$$
+and
+
+$$
+\begin{align}
+n_t &\sim \text{Binomial}(n, q) \\
+\mathbb{E}[{n_t}] &= nq \\
+\mathbb{V}({n_t}) &= nq(1-q)
+\end{align}
+$$
+
+Case where we assume fixed ns – todo:
+
+- Sometimes, people assume that $n$ is known, in which case $q = n/N$. This turns the setup into a CRE ([[Backup of Neyman's ATE estimator (CRE, imbens2015causal proof)]]). Why do that?
+	- It makes the math easier as it spares us from modelling $n$ as a Binomial random variable -- it seems that in the Bernoulli case, the variance isn't finite, while in the CRE case, it is (that's the case everyone works with).
+	- Second, by the time we analyse the data, we do know $n$, so the assumption isn't completely arbitrary
+
+
+
 
 ## Comparison to simple two-sample case
 

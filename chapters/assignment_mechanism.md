@@ -43,11 +43,3 @@ $$
 p_i(\mathbf{X}, \mathbf{Y}(1), \mathbf{Y}(0)) = p_i(\mathbf{X})
 $$
 
-
-### Bernoulli randomised experiment (BRE)
-
-- The assignment mechanism of a BRE is individualistic, probabilistic, and unconfounded. In the simplest case without stratification, it is also independent of covariates. In all cases, the assignment mechanism is fully under our control. For probability of treatment assignment $q$, we thus have:
-
-$$
-P(\mathbf{W} | \mathbf{X}, \mathbf{Y}(1), \mathbf{Y}(0)) = P(\mathbf{W}) = q^{n_t} (1-q)^{n_c}
-$$

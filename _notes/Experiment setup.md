@@ -1,6 +1,25 @@
 todo
 - Combine as needed
 
+## Experiment sampling note
+
+Online experiments usually use the following **sampling** approach to determine whether a user is part of an experiment:
+
+1. Create a hash string unique to each user. For example: `<user_id><experiment_id>`.
+
+2. Feed the hash string into a hash algorithm (often MD5) and receive a hash value.
+
+3. Use the hash value to determine whether a user is part of the experiment. Say we allocate 10% of traffic to the experiment. We then include the user only if their hash value falls within the bottom (or top) 10% of possible hash values.
+
+With this approach, the probability that a user is sampled into the experiment is independent of the sampling decisions of all other users. 
+
+We write $R_i = 1$ if user $i$ is part of the experiment sample and $R_i = 0$ if they aren't.
+
+If we sample $n$ users into the experiment, then each of our $N$ users is part of the experiment experiment with probability $n/N$. [^conditioning_on_n]
+  
+
+[^conditioning_on_n]: For each user in the super population, being part of the experiment sample is a [Bernoulli trial](https://en.wikipedia.org/wiki/Bernoulli_trial) with $R_i \sim \text{Bernoulli}(n/N)$ and, hence, $\E{R_i} = n/N$ and $\V{R_i} = n/N(1-n/N)$. I assume here that we know $n$. The reason for doing so is twofold. First, it makes the math easier as it spares us from modeling $n$ as a Binomial random variable. Second, by the time we analyse the data, we do know $n$.
+
 ## Setup notes 1
 
 - When deciding on the experiment setup we make two types of decisions.
@@ -11,7 +30,7 @@ todo
 
 - Technically, this type of experiment is called a [[Bernoulli randomised experiment]].
 
-- If we are treating $n$ as known, then the setting becomes equivalent to a [[Neyman's ATE estimator (CRE)]] (see discussion in [[Bernoulli randomised experiment]] for more detail)
+- If we are treating $n$ as known, then the setting becomes equivalent to a [[Backup of Neyman's ATE estimator (CRE, imbens2015causal proof)]] (see discussion in [[Bernoulli randomised experiment]] for more detail)
 
 
 ## Setup notes 2 (online experiments)
@@ -39,11 +58,11 @@ todo
 
 **Treatment assignment** for units in the experiment sample then works in the same way:
 
-1. We again create a unique -- but different[^different_hash] -- hash string for each unit.
+4. We again create a unique -- but different[^different_hash] -- hash string for each unit.
 
-2. We use the hash algorithm to generate a hash value
+5. We use the hash algorithm to generate a hash value
 
-3. If we wanted to allocate units equally to a control and treatment group, we could allocate all units with hash values within the bottom 50% of possible values to the treatment group and all others to the control group.
+6. If we wanted to allocate units equally to a control and treatment group, we could allocate all units with hash values within the bottom 50% of possible values to the treatment group and all others to the control group.
 
 - Hashed sampling and treatment assignment resembles sampling without replacement in that we can only include a given user in the experiment once, and resembles sampling with replacement in that **sampling and treatment assignment are independent** across units -- sampling any one unit does not alter the chance of being sampled for any other unit.[^dependent_sampling]
 
