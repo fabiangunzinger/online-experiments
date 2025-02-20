@@ -402,44 +402,10 @@ $$
 $$
 
 The next step is to show that the right hand side above equals:
-
 $$
 \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2.
 $$
-To do this, we'll work backwards. Ignoring the multiplicative constant in front of the summation for now, we can expand the expression to get
-$$
-\begin{align}
-\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2
-
-= \sum_{i=1}^{n}\left[(Y_i^+)^2 - 2\overline{Y^+}Y_i^+  + \overline{Y^+}^2\right] \\[5pt]
-
-= \sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}\sum_{i=1}^{n}Y_i^+  + \sum_{i=1}^{n}\overline{Y^+}^2 \\[5pt]
-
-= \sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}n\frac{1}{n}\sum_{i=1}^{n}Y_i^+  + n\overline{Y^+}^2 \\[5pt]
-
-= \sum_{i=1}^{n}(Y_i^+)^2 - 2\overline{Y^+}n\overline{Y^+}  + n\overline{Y^+}^2 \\[5pt]
-
-= \sum_{i=1}^{n}(Y_i^+)^2 - 2n\overline{Y^+}^2  + n\overline{Y^+}^2 \\[5pt]
-
-= \sum_{i=1}^{n}(Y_i^+)^2 - n\overline{Y^+}^2\\[5pt]
-
-\end{align}
-$$
-
-Adding the constant back in, we thus have:
-$$
-\begin{align}
-\frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+ - \overline{Y^+})^2
-
-= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2 - \frac{n_t n_c}{n^3 (n-1)}n\overline{Y^+}^2\\[5pt]
-
-= \frac{n_t n_c}{n^3 (n-1)}\sum_{i=1}^{n}(Y_i^+)^2 - \frac{n_t n_c}{n^2 (n-1)}\overline{Y^+}^2\\[5pt]
-\end{align}
-$$
 Hence, we need to show that
-
-
-
 $$
 \begin{align}
 \mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
@@ -486,13 +452,11 @@ $$
 
 \end{align}
 $$
-
 Which is what we needed to show. Using
 $$
 Y_i^+ = \frac{n}{n_t}Y_i(1)  + \frac{n}{n_c}Y_i(0) 
 $$
 We proceed as follows:
-
 $$
 \begin{align}
 \mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
