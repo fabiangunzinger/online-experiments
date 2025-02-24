@@ -2,11 +2,30 @@
 
 
 
+todo next
+- Understand proof in ding2023first
+	- Understand proofs in Appendix C
+	- Apply to CRE
+	- See whether I wanna replace imbens version below (do if its shorter)
+
+- Relate the above to SRS – is this the same? 
+- Pick up from footnote 1 on page 25 in ding2025first, which talks about conditioning and relation to BRE
+- Read wager2024causal for reference, too, to get clarity of how this all fits together
+- Then link to BRE section below
+- Next, link to IID section below that
+
+- Two entities to view as either fixed or random:
+	- Potential outcomes (Sampling perspective?)
+	- Sample sizes (BRE vs CRE)
+
+## Finite sample setup
+
+
 
 
 ## CRE
 
-A completely randomised experiment has an assignment mechanism that assigns a fixed number $n_t$ to treatment and a fixed number $n_c = n - n_t$ to control in a way such that each assignment vector $\mathbf{W}$ with $\sum_{i=1}^{n}W_i = n_t$ has equal probability of being observed. There are $\frac{n!}{n_t! (n-n_t)!} = \binom{n}{n_t}$ such assignment vectors, which means that:
+A completely randomised experiment has an assignment mechanism that assigns a fixed number of units $n_t$ to treatment and a fixed number $n_c = n - n_t$ to control in a way such that each assignment vector $\mathbf{W}$ with $\sum_{i=1}^{n}W_i = n_t$ has equal probability of being observed. There are $\frac{n!}{n_t! (n-n_t)!} = \binom{n}{n_t}$ such assignment vectors, which means that:
 
 $$
 P(\mathbf{W} = \mathbf{w}) = \frac{1}{\binom{n}{n_t}}.
@@ -21,17 +40,12 @@ P(\mathbf{W} = \mathbf{w} | \mathbf{Y(1)}, \mathbf{Y(0)}) = \frac{1}{\binom{n}{n
 $$
 because in a CRE, we have $\mathbf{W} \perp\!\!\!\perp \mathbf{Y(1)}, \mathbf{Y(0)}$.
 
-# todo next
-- Relate the above to SRS – is this the same? 
-- Pick up from footnote 1 on page 25 in ding2025first, which talks about conditioning and relation to BRE
-- Read wager2024causal for reference, too, to get clarity of how this all fits together
-- Then link to BRE section below
-- Next, link to IID section below that
+
 
 
 ## BRE
 
-A Bernoulli randomised experiment has an assignment mechanism where the assignment of each unit is determined by a mechanism that is equivalent to a coin toss, such that $P(W_i = w) = q$, where $w \in {t, c}$ and $q \in [0, 1]$. Hence, the probability of observing any given assignment vector $\mathbf{W}$ is:
+A Bernoulli randomised experiment has an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin toss, such that $P(W_i = 1) = q$ and $P(W_i = 0) = 1-q$ where $q \in [0, 1]$. Hence, the probability of observing any given assignment vector $\mathbf{W}$ is:
 
 $$
 P(\mathbf{W} = \mathbf{w}) = q^{n_t} (1-q)^{n_c},
@@ -41,9 +55,9 @@ where $n_t = \sum_{i=1}^{n}W_i$ and $n_c = \sum_{i=1}^{n}(1 - W_i)$.
 We thus have:
 $$
 \begin{align}
-R_i &\sim \text{Bernoulli}(q) \\
-\mathbb{E}[{R_i}] &= q \\
-\mathbb{V}({R_i}) &= q(1-q)
+W_i &\sim \text{Bernoulli}(q) \\
+\mathbb{E}[{W_i}] &= q \\
+\mathbb{V}({W_i}) &= q(1-q)
 \end{align}
 $$
 and
@@ -55,6 +69,9 @@ n_t &\sim \text{Binomial}(n, q) \\
 \mathbb{V}({n_t}) &= nq(1-q)
 \end{align}
 $$
+
+
+
 
 Case where we assume fixed ns – todo:
 
@@ -76,9 +93,7 @@ That is, there is no third term for the variance of the individual-level potenti
 
 Here, the variance is taken over the randomness of the outcomes because uncertainty is sampling based, whereas in the potential outcomes framework, where potential outcomes are fixed, the variance is taken over the randomisation distribution. 
 
-
-## BRE
-
+Difference to BRE: there is no correlation between values in two groups, whereas in potential outcomes framework there is, unless Y1 and Y0 are cuncorrelated for each unit.
 
 
 
