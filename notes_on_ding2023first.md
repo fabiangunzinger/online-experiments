@@ -1,4 +1,41 @@
 
+Lemmas in appendix C proof useful results. The discussion is based on a simple random sample, yet is then used in the main text for the proofs of Neyman's theorem in the case of CRE.
+
+## Context
+
+A finite population of $n$ units with associated values $\{c_1, ..., c_n\}$, and $\{d_1, ..., d_n\}$, with
+
+$$
+\begin{align}
+\mu_c = \frac{1}{n}\sum_{i=1}^{n}c_i, \qquad
+\sigma_c^2 = \frac{1}{n-1}\sum_{i=1}^{n}(c_i - \mu_c)^2 \\[5pt]
+
+\mu_d = \frac{1}{n}\sum_{i=1}^{n}d_i, \qquad
+\sigma_d^2 = \frac{1}{n-1}\sum_{i=1}^{n}(d_i - \mu_d)^2 \\[5pt]
+\end{align}
+$$
+and covariance:
+
+$$
+\sigma_{cd} = \frac{1}{n-1}\sum_{i=1}^{n}(c_i - \mu_c)(d_i - \mu_d).
+$$
+Under simple random sampling with inclusion indicator $W_i$, the sample means for a sample of size $n_t$ are:
+
+$$
+\begin{align}
+\bar{c} = \frac{1}{n_t}\sum_{i=1}^{n}W_i c_i, \qquad
+\hat{\sigma}_c^2 = \frac{1}{n_t-1}\sum_{i=1}^{n} W_i (c_i - \bar{c})^2 \\[5pt]
+
+\bar{d} = \frac{1}{n_t}\sum_{i=1}^{n}W_i d_i, \qquad
+\hat{\sigma}_d^2 = \frac{1}{n_t-1}\sum_{i=1}^{n} W_i (d_i - \bar{d})^2 \\[5pt]
+\end{align}
+$$
+and covariance:
+
+$$
+\hat{\sigma}_{cd} = \frac{1}{n_t-1}\sum_{i=1}^{n} W_i (c_i - \bar{c})(d_i - \bar{d}).
+$$
+
 ## Lemma C.1
 
 Gives first two moments of sampling indicator $W_i$.
@@ -67,8 +104,106 @@ Cov(W_i, W_j) &= -\frac{n_tn_c}{n^2(n-1)}& \text{} \\[5pt]
 $$
 
 
-
 ## Lemma C.2
 
-Let 
+Gives the first two moments of the sample means.
 
+Claim:
+
+The sample means have expectations
+$$
+\mathbb{E}[\bar{c}] = \mu_c \qquad \mathbb{E}[\bar{d}] = \mu_d,
+$$
+variances
+$$
+\mathbb{V}(\bar{c}) = \frac{n_c}{n n_t}\sigma_c^2
+\qquad
+\mathbb{V}(\bar{d}) = \frac{n_c}{n n_t}\sigma_d^2,
+$$
+and covariance
+$$
+Cov(\bar{c},\bar{d}) = \frac{n_c}{n n_t}\sigma_{cd}.
+$$
+Proof:
+
+The expectations follow from the linearity of the expectation operator and the expectation of the inclusion operator:
+
+$$
+\begin{align}
+\mathbb{E}[\bar{c}] 
+&= \mathbb{E}\left[\frac{1}{n_t}\sum_{i=1}^{n}W_i c_i\right]
+&\text{}
+\\[5pt]
+&= \frac{1}{n_t}\sum_{i=1}^{n}\mathbb{E}[W_i] c_i
+&\text{Linearity of }\mathbb{E}
+\\[5pt]
+&= \frac{1}{n_t}\sum_{i=1}^{n}\frac{n_t}{n} c_i
+&\text{}
+\\[5pt]
+&= \frac{1}{n}\sum_{i=1}^{n} c_i
+&\text{}
+\\[5pt]
+&=\mu_c
+\end{align}
+$$
+
+
+The covariance 
+
+$$
+\begin{align}
+Cov(\bar{c}, \bar{d})
+
+&=\mathbb{E}\left[\bar{c}\bar{d}\right] - \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
+&\text{Definition of covariance}
+\\[5pt]
+
+&=\mathbb{E}\left[\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i c_i\right)\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j d_j\right)\right] 
+- \mu_c\mu_d
+&\text{}
+\\[5pt]
+
+&=\mathbb{E}\left[\frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j=1}^{n}W_i W_j c_id_j\right] 
+- \mu_c\mu_d
+&\text{}
+\\[5pt]
+
+&=\mathbb{E}\left[
+\frac{1}{n_t^2}\sum_{i=1}^{n}W_i^2 c_id_i
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}W_i W_j c_id_j
+\right] 
+- \mu_c\mu_d
+&\text{}
+\\[5pt]
+
+&=\frac{1}{n_t^2}\sum_{i=1}^{n}\mathbb{E}\left[W_i^2\right] c_id_i
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}\mathbb{E}\left[W_i W_j\right] c_id_j
+- \mu_c\mu_d
+&\text{}
+\\[5pt]
+
+&=\frac{1}{n_t^2}\sum_{i=1}^{n}\mathbb{E}\left[W_i^2\right] c_id_i
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}\mathbb{E}\left[W_i W_j\right] c_id_j
+- \mu_c\mu_d
+&\text{}
+\\[5pt]
+
+
+\end{align}
+$$
+
+
+** I'm here **
+- Need to know above expectations –
+
+
+
+
+## Lemma C.3
+
+Gives the first moment of the sample variances and the covariance.
+
+
+## Lemma C.4
+
+Justifies the use of Wald-type confidence intervals.
