@@ -104,6 +104,104 @@ Cov(W_i, W_j) &= -\frac{n_tn_c}{n^2(n-1)}& \text{} \\[5pt]
 $$
 
 
+
+## Lemma F.1
+
+These results are skipped over in Ding but are useful for a complete understanding of the proofs below.
+
+We have 
+
+$\mathbb{E}[W_i^2] = \mathbb{E}[W_i] = \frac{n_t}{n}$
+
+and
+
+$\mathbb{E}[W_i W_j] = \frac{n_t}{n}\frac{n_t-1}{n-1}.$
+
+Proof:
+
+Given that $W_i \sim \text{Bern} \left( \frac{n_t}{n} \right)$, which implies that $W_i \in \{0, 1\}$, we have:
+
+$$
+W_i^2 =
+\begin{cases} 
+1 & 
+\text{if } W_i = 1\\[5pt]
+0 & 
+\text{if } W_i = 0\\[5pt]
+\end{cases}
+\qquad \implies
+W_i^2 = W_i
+$$Hence:
+
+$\mathbb{E}[W_i^2] = \mathbb{E}[W_i] = \frac{n_t}{n}$.
+
+Because $W_i$ is an indicator variable for which $E[W_i] = P(W_i = 1)$ and similar for $W_j$, we also have $E[W_i W_j] = P(W_i = 1, W_j = 1)$. 
+
+Hence, what we are looking for is the joint probability of selecting both units $i$ and $j$ as part of a sample of size $n_t$ from a finite population of size $n$.
+
+Number of ways to choose a sample of size $n_t$ from a finite population of size $n$:
+
+$$
+\left(
+    \begin{array}{c}
+      n \\
+      n_t
+    \end{array}
+  \right) = \frac{n!}{n_t!(n-n_t)!}.
+$$
+
+Number of ways to choose a sample of size $n_t$ that contains both $i$ and $j$:
+$$
+\left(
+    \begin{array}{c}
+      n-2 \\
+      n_t-2
+    \end{array}
+  \right) 
+  = \frac{(n-2)!}{(n_t-2)!((n-2)-(n_t-2))!}
+  = \frac{(n-2)!}{(n_t-2)!(n-n_t)!}.
+$$
+
+In general, the probability units $i$ and $j$ both being part of a sample of size $n_t$ is:
+
+$$
+P(W_i = 1, W_j = 1) 
+= \frac{\text{Number of ways to choose a sample of size } n_t \text{ containing }i, j}{\text{Number of ways to choose any sample of size }n_t}
+$$
+
+Hence, we have
+$$
+\begin{align}
+P(W_i = 1, W_j = 1) 
+&= \frac{
+\left(
+	\begin{array}{c}
+	  n-2 \\
+	  n_t-2
+	\end{array}
+\right)}
+{\left(
+	\begin{array}{c}
+	  n \\
+	  n_t
+	\end{array}
+\right)} \\[5pt]
+&= \frac{\frac{(n-2)!}{(n_t-2)!(n-n_t)!}}{\frac{n!}{n_t!(n-n_t)!}} \\[5pt]
+& = \frac{(n-2)!}{(n_t-2)!}\frac{n_t!}{n!} \\[5pt]
+& = \frac{(n-2)!}{(n_t-2)!}\frac{n_t(n_t-1)(n_t-2)!}{n(n-1)(n-2)!} \\[5pt]
+& = \frac{n_t(n_t-1)}{n(n-1)}.
+\end{align}
+$$
+There is also a more heuristic way to get the same result:
+
+1. The probability of selecting $i$ is $P(W_i = 1) = \frac{n_t}{n}$
+2. The probability of selecting $j$ given that $i$ is selected is $P(W_j = 1 | W_i = 1) = \frac{n_t - 1}{n-1}$
+3. Using the multiplication rule for joint probabilities we have
+$$
+P(W_i = 1, W_j = 1) = P(W_i=1)P(W_j=1|W_j=1)=\frac{n_t}{n}\frac{n_t-1}{n-1}.
+$$
+
+
 ## Lemma C.2
 
 Gives the first two moments of the sample means.
@@ -154,8 +252,30 @@ $$
 \begin{align}
 Cov(\bar{c}, \bar{d})
 
+&=\mathbb{E}\left[(\bar{c} - \mathbb{E}[\bar{c}])
+(\bar{d} - \mathbb{E}[\bar{d}])\right]
+&\text{}
+\\[5pt]
+
+&=\mathbb{E}\left[
+\bar{c}\bar{d}
+- \mathbb{E}[\bar{d}]\bar{c}
+- \mathbb{E}[\bar{c}]\bar{d}
++ \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\mathbb{E}\left[\bar{c}\bar{d}\right]
+- \mathbb{E}[\bar{d}]\mathbb{E}[\bar{c}]
+- \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
++ \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
+&\text{}
+\\[5pt]
+
 &=\mathbb{E}\left[\bar{c}\bar{d}\right] - \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
-&\text{Definition of covariance}
+&\text{}
 \\[5pt]
 
 &=\mathbb{E}\left[\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i c_i\right)\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j d_j\right)\right] 
@@ -182,19 +302,18 @@ Cov(\bar{c}, \bar{d})
 &\text{}
 \\[5pt]
 
-&=\frac{1}{n_t^2}\sum_{i=1}^{n}\mathbb{E}\left[W_i^2\right] c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}\mathbb{E}\left[W_i W_j\right] c_id_j
+&=\frac{1}{n_t^2}\sum_{i=1}^{n}\left(\frac{n_t}{n}\right) c_id_i
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}\left(\frac{n_t(n_t-1)}{n(n-1)}\right) c_id_j
 - \mu_c\mu_d
 &\text{}
 \\[5pt]
 
-
 \end{align}
 $$
 
+**I'm here**
 
-** I'm here **
-- Need to know above expectations –
+Above, I use results from Lemma F1. Chat uses fact that E(W_iW_j) = cov(W_i, W_j) + EW_i EW_j, which follows from covar definition. Both should be right, but they are different.
 
 
 
@@ -207,3 +326,6 @@ Gives the first moment of the sample variances and the covariance.
 ## Lemma C.4
 
 Justifies the use of Wald-type confidence intervals.
+
+
+
