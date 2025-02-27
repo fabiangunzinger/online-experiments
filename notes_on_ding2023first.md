@@ -1,6 +1,18 @@
 
 Lemmas in appendix C proof useful results. The discussion is based on a simple random sample, yet is then used in the main text for the proofs of Neyman's theorem in the case of CRE.
 
+
+## Notation
+
+To be closer to my own notation, I make the following changes to the notation in the text:
+
+- $n_1, n_o = n_t, n_c$
+- $\bar{x} = \mu_x$
+- $\hat{\bar{x}} = \bar{x}$
+- $S_x^2 = \sigma_x^2$
+- $S_{xy} = \sigma_{xy}$
+- $\hat{S}_x^2 = \hat{\sigma}_x^2$
+
 ## Context
 
 A finite population of $n$ units with associated values $\{c_1, ..., c_n\}$, and $\{d_1, ..., d_n\}$, with
@@ -35,74 +47,6 @@ and covariance:
 $$
 \hat{\sigma}_{cd} = \frac{1}{n_t-1}\sum_{i=1}^{n} W_i (c_i - \bar{c})(d_i - \bar{d}).
 $$
-
-## Lemma C.1
-
-Gives first two moments of sampling indicator $W_i$.
-
-Under SRS we have:
-
-$$
-\mathbb{E}(W_i) = \frac{n_t}{n}, \qquad \mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad Cov(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
-$$
-Proof:
-
-$$
-\begin{align}
-n_t &= \sum_{i=1}^{n}W_i &\\[5pt]
-\mathbb{E}[n_t] &= \mathbb{E}\left[\sum_{i=1}^{n}W_i\right] &\\[5pt]
-\mathbb{E}[n_t] &= n\mathbb{E}[W_i] & \text{symmetry of }W_is\\[5pt]
-n_t &= n\mathbb{E}[W_i] & n_t\text{ is constant}\\[5pt]
-\mathbb{E}[W_i] &= \frac{n_t}{n} & \\[5pt]
-\end{align}
-$$
-
-
-Given that 
-$$
-W_i \sim \text{Bern} \left( \frac{n_t}{n} \right),
-$$
-
-$$
-\begin{align}
-\mathbb{V}(W_i) &= \left(\frac{n_t}{n}\right) \left(1-\frac{n_t}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &= \left(\frac{n_t}{n}\right) \left(\frac{n-n_t}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &= \left(\frac{n_t}{n}\right) \left(\frac{n_c}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &= \frac{n_tn_c}{n^2} \\[5pt]
-\end{align}
-$$
-Finally:
-
-From the basic result that $\mathbb{V}(X + Y) = \mathbb{V}(X) + \mathbb{V}(Y) + 2Cov(X, Y)$, and the fact that symmetry implies that the variances and covariances of all $W_i$s are the same, we get:
-
-$$
-\begin{align}
-\mathbb{V}\left(\sum_{i=1}^{n}W_i\right) 
-&= \sum_{i=1}^{n}\mathbb{V}(W_i) + 2\sum_{i<j}^{n}Cov(W_i, W_j)
-& \\[5pt]
-
-\mathbb{V}\left(\sum_{i=1}^{n}W_i\right) 
-&= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
-& \text{symmetry} \\[5pt]
-
-\mathbb{V}\left(n_t\right) 
-&= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
-& \text{Def of }n_t \\[5pt]
-
-0 &= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
-& n_t\text{ is constant} \\[5pt]
-
-0 &= n\left(\frac{n_tn_c}{n^2}\right) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
-& \text{Result for } \mathbb{V}(W_i) \\[5pt]
-
-0 &= \left(\frac{n_tn_c}{n}\right) + n(n-1)Cov(W_i, W_j)
-& \text{} \\[5pt]
-
-Cov(W_i, W_j) &= -\frac{n_tn_c}{n^2(n-1)}& \text{} \\[5pt]
-
-\end{align}
-$$
-
 
 
 ## Lemma F.1
@@ -201,6 +145,75 @@ $$
 P(W_i = 1, W_j = 1) = P(W_i=1)P(W_j=1|W_j=1)=\frac{n_t}{n}\frac{n_t-1}{n-1}.
 $$
 
+## Lemma C.1
+
+Gives first two moments of sampling indicator $W_i$.
+
+Under SRS we have:
+
+$$
+\mathbb{E}(W_i) = \frac{n_t}{n}, \qquad \mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad Cov(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
+$$
+Proof:
+
+$$
+\begin{align}
+n_t &= \sum_{i=1}^{n}W_i &\\[5pt]
+\mathbb{E}[n_t] &= \mathbb{E}\left[\sum_{i=1}^{n}W_i\right] &\\[5pt]
+\mathbb{E}[n_t] &= n\mathbb{E}[W_i] & \text{symmetry of }W_is\\[5pt]
+n_t &= n\mathbb{E}[W_i] & n_t\text{ is constant}\\[5pt]
+\mathbb{E}[W_i] &= \frac{n_t}{n} & \\[5pt]
+\end{align}
+$$
+
+
+Given that 
+$$
+W_i \sim \text{Bern} \left( \frac{n_t}{n} \right),
+$$
+
+$$
+\begin{align}
+\mathbb{V}(W_i) &= \left(\frac{n_t}{n}\right) \left(1-\frac{n_t}{n}\right) \\[5pt]
+\mathbb{V}(W_i) &= \left(\frac{n_t}{n}\right) \left(\frac{n-n_t}{n}\right) \\[5pt]
+\mathbb{V}(W_i) &= \left(\frac{n_t}{n}\right) \left(\frac{n_c}{n}\right) \\[5pt]
+\mathbb{V}(W_i) &= \frac{n_tn_c}{n^2} \\[5pt]
+\end{align}
+$$
+Finally:
+
+From the basic result that $\mathbb{V}(X + Y) = \mathbb{V}(X) + \mathbb{V}(Y) + 2Cov(X, Y)$, and the fact that symmetry implies that the variances and covariances of all $W_i$s are the same, we get:
+
+$$
+\begin{align}
+\mathbb{V}\left(\sum_{i=1}^{n}W_i\right) 
+&= \sum_{i=1}^{n}\mathbb{V}(W_i) + 2\sum_{i<j}^{n}Cov(W_i, W_j)
+& \\[5pt]
+
+\mathbb{V}\left(\sum_{i=1}^{n}W_i\right) 
+&= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
+& \text{symmetry} \\[5pt]
+
+\mathbb{V}\left(n_t\right) 
+&= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
+& \text{Def of }n_t \\[5pt]
+
+0 &= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
+& n_t\text{ is constant} \\[5pt]
+
+0 &= n\left(\frac{n_tn_c}{n^2}\right) + 2\frac{n(n-1)}{2}Cov(W_i, W_j)
+& \text{Result for } \mathbb{V}(W_i) \\[5pt]
+
+0 &= \left(\frac{n_tn_c}{n}\right) + n(n-1)Cov(W_i, W_j)
+& \text{} \\[5pt]
+
+Cov(W_i, W_j) &= -\frac{n_tn_c}{n^2(n-1)}& \text{} \\[5pt]
+
+\end{align}
+$$
+
+
+
 
 ## Lemma C.2
 
@@ -246,8 +259,86 @@ $$
 $$
 
 
+
 The covariance 
 
+$$
+\begin{align}
+Cov(\bar{c}, \bar{d})
+
+&=Cov\left[
+\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i c_i\right),
+\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j d_j\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=Cov\left[
+\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i (c_i - \mu_c)\right),
+\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j (d_j - \mu_d)\right)
+\right]
+&\text{Invariance of addition}
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j=1}^{n}Cov\big(W_i(c_i - \mu_c), W_j(d_j - \mu_d)\big)
+&\text{Bilinearity of } Cov
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j=1}^{n}Cov\big(W_i, W_j\big)(c_i - \mu_c)(d_j - \mu_d)
+&\text{Multiplicative property of }Cov
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\sum_{i=1}^{n}\mathbb{V}(W_i^2)(c_i - \mu_c)(d_j - \mu_d)
++ \sum_{i=1}^{n}\sum_{i \neq j}Cov(W_i, W_j)(c_i - \mu_c)(d_j - \mu_d)
+\right]
+&\text{Separating cases}
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\sum_{i=1}^{n}\mathbb{V}(W_i)(c_i - \mu_c)(d_j - \mu_d)
++ \sum_{i=1}^{n}\sum_{i \neq j}Cov(W_i, W_j)(c_i - \mu_c)(d_j - \mu_d)
+\right]
+&\mathbb{V}(W_i^2) = \mathbb{V}(W_i)
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)(c_i - \mu_c)(d_j - \mu_d)
+- \sum_{i=1}^{n}\sum_{i \neq j}\left(\frac{n_tn_c}{n^2(n-1)}\right)(c_i - \mu_c)(d_j - \mu_d)
+\right]
+&\mathbb{V}(W_i^2) = \mathbb{V}(W_i)
+\\[5pt]
+
+
+\end{align}
+$$
+
+
+
+**I'm here**
+- Correct double summations (deng uses single ones, because these are vars, covars, so not double not needed probs)
+- move substituted terms in last line out of summation
+- 
+
+
+## Lemma C.3
+
+Gives the first moment of the sample variances and the covariance.
+
+
+## Lemma C.4
+
+Justifies the use of Wald-type confidence intervals.
+
+
+
+
+**Backup**
 $$
 \begin{align}
 Cov(\bar{c}, \bar{d})
@@ -310,22 +401,6 @@ Cov(\bar{c}, \bar{d})
 
 \end{align}
 $$
-
-**I'm here**
-
-Above, I use results from Lemma F1. Chat uses fact that E(W_iW_j) = cov(W_i, W_j) + EW_i EW_j, which follows from covar definition. Both should be right, but they are different.
-
-
-
-
-## Lemma C.3
-
-Gives the first moment of the sample variances and the covariance.
-
-
-## Lemma C.4
-
-Justifies the use of Wald-type confidence intervals.
 
 
 

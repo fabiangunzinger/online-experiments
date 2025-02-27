@@ -43,3 +43,56 @@ $$
 P(n, r) = C(n, r) \times r!
 $$  
 (Since for every combination, there are $r!$ ways to arrange it.)
+
+
+
+## Variance and covariance properties
+
+Building blocks for advanced manipulations.
+
+
+  
+$$
+\begin{align}
+Var(X + c) &= Var(X) \\
+Var(X + Y + c) &= Var(X + Y)
+\end{align}
+$$
+
+
+Add here covariance properties that show that
+
+cov(X + a, Y + b) = cov(X ,Y)
+
+
+$$
+\begin{align}
+Cov(\bar{c}, \bar{d})
+
+&=\mathbb{E}\left[(\bar{c} - \mathbb{E}[\bar{c}])
+(\bar{d} - \mathbb{E}[\bar{d}])\right]
+&\text{}
+\\[5pt]
+
+&=\mathbb{E}\left[
+\bar{c}\bar{d}
+- \mathbb{E}[\bar{d}]\bar{c}
+- \mathbb{E}[\bar{c}]\bar{d}
++ \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\mathbb{E}\left[\bar{c}\bar{d}\right]
+- \mathbb{E}[\bar{d}]\mathbb{E}[\bar{c}]
+- \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
++ \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
+&\text{}
+\\[5pt]
+
+&=\mathbb{E}\left[\bar{c}\bar{d}\right] - \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
+&\text{}
+\\[5pt]
+\end{align}
+$$
