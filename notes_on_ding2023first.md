@@ -2,6 +2,28 @@
 Lemmas in appendix C proof useful results. The discussion is based on a simple random sample, yet is then used in the main text for the proofs of Neyman's theorem in the case of CRE.
 
 
+## Applying ding notes to Neyman proof
+
+Move this section to main chapter once It's complete.
+
+Path to victory
+- [ ] Write out proof of lemma C.2 from Moleskin
+- [ ] Write down proof of Lemma 4.1 which is important
+- [ ] Write out definitions for means and variances for neyman problem (use notes form imbens)
+- [ ] Then use chat notes on lemma 2 ([here](https://chatgpt.com/share/67c14491-afb4-8005-a06c-b6634c6ab20f)) to apply to Neyman problem. Basic approach:
+	- [ ] Start with var tau = var y1 bar + var y2 bar - 2cov y1bar, y2bar
+	- [ ] I have these from lemma c2
+	- [ ] Use relationship between cov and var tau_i from lemma 4.1 and substitute
+
+
+
+
+
+
+
+
+
+
 ## Notation
 
 To be closer to my own notation, I make the following changes to the notation in the text:
@@ -213,8 +235,6 @@ Cov(W_i, W_j) &= -\frac{n_tn_c}{n^2(n-1)}& \text{} \\[5pt]
 $$
 
 
-
-
 ## Lemma C.2
 
 Gives the first two moments of the sample means.
@@ -293,7 +313,7 @@ Cov(\bar{c}, \bar{d})
 &=
 \frac{1}{n_t^2}\left[
 \sum_{i=1}^{n}\mathbb{V}(W_i^2)(c_i - \mu_c)(d_j - \mu_d)
-+ \sum_{i=1}^{n}\sum_{i \neq j}Cov(W_i, W_j)(c_i - \mu_c)(d_j - \mu_d)
++ \sum_{i=1}^{n}\sum_{j \neq i}Cov(W_i, W_j)(c_i - \mu_c)(d_j - \mu_d)
 \right]
 &\text{Separating cases}
 \\[5pt]
@@ -301,7 +321,7 @@ Cov(\bar{c}, \bar{d})
 &=
 \frac{1}{n_t^2}\left[
 \sum_{i=1}^{n}\mathbb{V}(W_i)(c_i - \mu_c)(d_j - \mu_d)
-+ \sum_{i=1}^{n}\sum_{i \neq j}Cov(W_i, W_j)(c_i - \mu_c)(d_j - \mu_d)
++ \sum_{i=1}^{n}\sum_{j \neq i}Cov(W_i, W_j)(c_i - \mu_c)(d_j - \mu_d)
 \right]
 &\mathbb{V}(W_i^2) = \mathbb{V}(W_i)
 \\[5pt]
@@ -309,22 +329,96 @@ Cov(\bar{c}, \bar{d})
 &=
 \frac{1}{n_t^2}\left[
 \sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)(c_i - \mu_c)(d_j - \mu_d)
-- \sum_{i=1}^{n}\sum_{i \neq j}\left(\frac{n_tn_c}{n^2(n-1)}\right)(c_i - \mu_c)(d_j - \mu_d)
+- \sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_tn_c}{n^2(n-1)}\right)(c_i - \mu_c)(d_j - \mu_d)
 \right]
 &\mathbb{V}(W_i^2) = \mathbb{V}(W_i)
 \\[5pt]
 
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(d_j - \mu_d)
+\right]
+&
+\\[5pt]
+\end{align}
+$$
 
+The sum of demeaned variables is zero, so that $\sum_{i=1}^{n}(c_i - \mu_c) = 0$ and  $\sum_{i=1}^{n}(d_i - \mu_d) = 0$. Hence:
+
+$$
+\begin{align}
+0 
+&= \sum_{i=1}^{n}(c_i - \mu_c)\sum_{j=1}^{n}(d_j - \mu_d) \\[5pt]
+&= \sum_{i=1}^{n}\sum_{j=1}^{n}(c_i - \mu_c)(d_j - \mu_d) \\[5pt]
+&= \sum_{i=1}^{n}(c_i - \mu_c)(d_i - \mu_d)
++ \sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(d_j - \mu_d) \\[5pt]
+\sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(d_j - \mu_d) &= 
+-\sum_{i=1}^{n}(c_i - \mu_c)(d_i - \mu_d)
+\end{align}
+$$
+
+Substituting this in the above equation we get:
+
+$$
+\begin{align}
+Cov(\bar{c}, \bar{d})
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(d_j - \mu_d)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\left(-\sum_{i=1}^{n}(c_i - \mu_c)(d_i - \mu_d)\right)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
++ \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_i - \mu_d)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{n_tn_c}{n^2} + \frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{n_tn_c(n-1) + n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{nn_tn_c - n_tn_c + n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{n_tn_c}{n(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+&\\[5pt]
+
+&=
+\frac{n_c}{n_tn}\frac{1}{n-1}\sum_{i=1}^{n}(c_i - \mu_c)(d_j - \mu_d)
+&\\[5pt]
+
+&=
+\frac{n_c}{n_tn}\sigma_{cd}
+&\\[5pt]
 \end{align}
 $$
 
 
-
 **I'm here**
-- Correct double summations (deng uses single ones, because these are vars, covars, so not double not needed probs)
-- move substituted terms in last line out of summation
-- 
-
+- Complete path to victory above
 
 ## Lemma C.3
 
@@ -381,20 +475,20 @@ Cov(\bar{c}, \bar{d})
 
 &=\mathbb{E}\left[
 \frac{1}{n_t^2}\sum_{i=1}^{n}W_i^2 c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}W_i W_j c_id_j
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j \neq i}W_i W_j c_id_j
 \right] 
 - \mu_c\mu_d
 &\text{}
 \\[5pt]
 
 &=\frac{1}{n_t^2}\sum_{i=1}^{n}\mathbb{E}\left[W_i^2\right] c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}\mathbb{E}\left[W_i W_j\right] c_id_j
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j \neq i}\mathbb{E}\left[W_i W_j\right] c_id_j
 - \mu_c\mu_d
 &\text{}
 \\[5pt]
 
 &=\frac{1}{n_t^2}\sum_{i=1}^{n}\left(\frac{n_t}{n}\right) c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{i \neq j}\left(\frac{n_t(n_t-1)}{n(n-1)}\right) c_id_j
++ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_t(n_t-1)}{n(n-1)}\right) c_id_j
 - \mu_c\mu_d
 &\text{}
 \\[5pt]
