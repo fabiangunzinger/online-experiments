@@ -7,9 +7,10 @@ Lemmas in appendix C proof useful results. The discussion is based on a simple r
 Move this section to main chapter once It's complete.
 
 Path to victory
-- [ ] Write out proof of lemma C.2 from Moleskin
-- [ ] Write down proof of Lemma 4.1 which is important
-- [ ] Write out definitions for means and variances for neyman problem (use notes form imbens)
+- [x] Write out proof of lemma C.2 from Moleskin
+- [ ] Start my setup with term definitions I use in my book
+- [ ] Write down proof of Lemma 4.1 which is important, use my definitiosn
+- [ ] Write out definitions for means and variances for neyman problem (use my definitions)
 - [ ] Then use chat notes on lemma 2 ([here](https://chatgpt.com/share/67c14491-afb4-8005-a06c-b6634c6ab20f)) to apply to Neyman problem. Basic approach:
 	- [ ] Start with var tau = var y1 bar + var y2 bar - 2cov y1bar, y2bar
 	- [ ] I have these from lemma c2
@@ -159,6 +160,11 @@ There is also a more heuristic way to get the same result:
 $$
 P(W_i = 1, W_j = 1) = P(W_i=1)P(W_j=1|W_j=1)=\frac{n_t}{n}\frac{n_t-1}{n-1}.
 $$
+
+## Lemma 4.1
+
+
+
 
 ## Lemma C.1
 
