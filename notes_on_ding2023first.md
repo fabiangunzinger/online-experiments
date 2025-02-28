@@ -17,13 +17,6 @@ Path to victory
 
 
 
-
-
-
-
-
-
-
 ## Notation
 
 To be closer to my own notation, I make the following changes to the notation in the text:
@@ -416,6 +409,144 @@ Cov(\bar{c}, \bar{d})
 \end{align}
 $$
 
+The variances are a special case of the above:
+
+
+$$
+\begin{align}
+\mathbb{V}(\bar{c})
+
+&=Cov\left[
+\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i c_i\right),
+\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j c_j\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=Cov\left[
+\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i (c_i - \mu_c)\right),
+\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j (c_j - \mu_c)\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j=1}^{n}Cov\big(W_i(c_i - \mu_c), W_j(c_j - \mu_c)\big)
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j=1}^{n}Cov\big(W_i, W_j\big)(c_i - \mu_c)(c_j - \mu_c)
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\sum_{i=1}^{n}\mathbb{V}(W_i^2)(c_i - \mu_c)^2
++ \sum_{i=1}^{n}\sum_{j \neq i}Cov(W_i, W_j)(c_i - \mu_c)(c_j - \mu_c)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\sum_{i=1}^{n}\mathbb{V}(W_i)(c_i - \mu_c)^2
++ \sum_{i=1}^{n}\sum_{j \neq i}Cov(W_i, W_j)(c_i - \mu_c)(c_j - \mu_c)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)(c_i - \mu_c)^2
+- \sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_tn_c}{n^2(n-1)}\right)(c_i - \mu_c)(c_j - \mu_c)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(c_j - \mu_c)
+\right]
+&\\[5pt]
+\end{align}
+$$
+
+
+Similar to above, we use the fact that demeaned variables sum to zero to obtain:
+
+$$
+\begin{align}
+0 
+&= \sum_{i=1}^{n}(c_i - \mu_c)\sum_{j=1}^{n}(c_j - \mu_c) \\[5pt]
+&= \sum_{i=1}^{n}\sum_{j=1}^{n}(c_i - \mu_c)(c_j - \mu_c) \\[5pt]
+&= \sum_{i=1}^{n}(c_i - \mu_c)^2
++ \sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(c_j - \mu_c) \\[5pt]
+\sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(c_j - \mu_c) &= 
+-\sum_{i=1}^{n}(c_i - \mu_c)^2
+\end{align}
+$$
+And we again substitute in the above equation to obtain:
+
+$$
+\begin{align}
+\mathbb{V}(\bar{c})
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}(c_i - \mu_c)(c_j - \mu_c)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\left(-\sum_{i=1}^{n}(c_i - \mu_c)^2\right)
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}\left[
+\left(\frac{n_tn_c}{n^2}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
++ \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+\right]
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{n_tn_c}{n^2} + \frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{(n-1)n_tn_c + n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{nn_tn_c - n_tn_c + n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+&\\[5pt]
+
+&=
+\frac{1}{n_t^2}
+\left(\frac{n_tn_c}{n(n-1)}\right)\sum_{i=1}^{n}(c_i - \mu_c)^2
+&\\[5pt]
+
+&=
+\frac{n_c}{nn_t}\frac{1}{n-1}\sum_{i=1}^{n}(c_i - \mu_c)^2
+&\\[5pt]
+
+&=
+\frac{n_c}{nn_t}\sigma_{c}^2
+&\\[5pt]
+
+\end{align}
+$$
+The derivation for $\sigma_c^2$ is analogous.
+
+
+
+
 
 **I'm here**
 - Complete path to victory above
@@ -428,73 +559,3 @@ Gives the first moment of the sample variances and the covariance.
 ## Lemma C.4
 
 Justifies the use of Wald-type confidence intervals.
-
-
-
-
-**Backup**
-$$
-\begin{align}
-Cov(\bar{c}, \bar{d})
-
-&=\mathbb{E}\left[(\bar{c} - \mathbb{E}[\bar{c}])
-(\bar{d} - \mathbb{E}[\bar{d}])\right]
-&\text{}
-\\[5pt]
-
-&=\mathbb{E}\left[
-\bar{c}\bar{d}
-- \mathbb{E}[\bar{d}]\bar{c}
-- \mathbb{E}[\bar{c}]\bar{d}
-+ \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
-\right]
-&\text{}
-\\[5pt]
-
-&=
-\mathbb{E}\left[\bar{c}\bar{d}\right]
-- \mathbb{E}[\bar{d}]\mathbb{E}[\bar{c}]
-- \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
-+ \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
-&\text{}
-\\[5pt]
-
-&=\mathbb{E}\left[\bar{c}\bar{d}\right] - \mathbb{E}[\bar{c}]\mathbb{E}[\bar{d}]
-&\text{}
-\\[5pt]
-
-&=\mathbb{E}\left[\left(\frac{1}{n_t}\sum_{i=1}^{n}W_i c_i\right)\left(\frac{1}{n_t}\sum_{j=1}^{n}W_j d_j\right)\right] 
-- \mu_c\mu_d
-&\text{}
-\\[5pt]
-
-&=\mathbb{E}\left[\frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j=1}^{n}W_i W_j c_id_j\right] 
-- \mu_c\mu_d
-&\text{}
-\\[5pt]
-
-&=\mathbb{E}\left[
-\frac{1}{n_t^2}\sum_{i=1}^{n}W_i^2 c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j \neq i}W_i W_j c_id_j
-\right] 
-- \mu_c\mu_d
-&\text{}
-\\[5pt]
-
-&=\frac{1}{n_t^2}\sum_{i=1}^{n}\mathbb{E}\left[W_i^2\right] c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j \neq i}\mathbb{E}\left[W_i W_j\right] c_id_j
-- \mu_c\mu_d
-&\text{}
-\\[5pt]
-
-&=\frac{1}{n_t^2}\sum_{i=1}^{n}\left(\frac{n_t}{n}\right) c_id_i
-+ \frac{1}{n_t^2}\sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_t(n_t-1)}{n(n-1)}\right) c_id_j
-- \mu_c\mu_d
-&\text{}
-\\[5pt]
-
-\end{align}
-$$
-
-
-
