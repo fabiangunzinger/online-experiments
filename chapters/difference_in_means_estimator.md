@@ -118,7 +118,8 @@ Given the observed data, a natural estimator is:
 
 $$
 \begin{align}
-\hat{\tau}^{\text{dm}} = \overline{Y}_t - \overline{Y}_c
+\hat{\tau}^{\text{dm}}
+= \overline{Y}_t - \overline{Y}_c
 \end{align}
 $$
 We analyse the properties of this estimators for different types of experiments (assignment mechanisms). In particular, we are interested in showing that the estimator is unbiased and to estimate its variance.
@@ -142,7 +143,63 @@ because in a CRE, we have $\mathbf{W} \perp\!\!\!\perp \mathbf{Y(1)}, \mathbf{Y(
 To start with, we view the potential outcomes as fixed. This is the approach Neyman was interested in, and that is discussed in @imbens2015causal and @ding2023first. My derivations are based on the approach in @ding2015first. A step-by-step derivation of the approach used in @imbens2015causal is provided in the appendix [[notes_on_imbens2015causal]].
 
 
-Ding notes translated to this context here
+In a CRE, the treatment indicator has the following properties:
+
+Ding Lemma C1 here ...
+
+We rewrite the estimator as
+
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+
+&=
+\overline{Y}_t - \overline{Y}_c
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+&\text{SUTVA}
+\\[5pt]
+
+\end{align}
+$$
+
+
+Unbiasedness of $\hat{\tau}^{\text{dm}}$:
+
+$$
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\right]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t}\sum_{i=1}^n \mathbb{E}[W_i]Y_i(1) - \frac{1}{n_c}\sum_{i=1}^n \mathbb{E}[(1-W_i)]Y_i(0)
+&\text{}
+\\[5pt]
+
+\end{align}
+
+$$
+
+
+Variance of tau dm:
+
+...
 
 
 
@@ -151,4 +208,9 @@ Ding notes translated to this context here
 
 
 
+Temp: used notation:
 
+$$
+\hat{\tau}^{\text{dm}}
+
+$$
