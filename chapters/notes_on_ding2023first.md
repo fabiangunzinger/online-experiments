@@ -6,17 +6,6 @@ Lemmas in appendix C proof useful results. The discussion is based on a simple r
 
 Move this section to main chapter once It's complete.
 
-Path to victory
-- [x] Write out proof of lemma C.2 from Moleskin
-- [ ] Start my setup with term definitions I use in my book
-- [ ] Write down proof of Lemma 4.1 which is important, use my definitiosn
-- [ ] Write out definitions for means and variances for neyman problem (use my definitions)
-- [ ] Then use chat notes on lemma 2 ([here](https://chatgpt.com/share/67c14491-afb4-8005-a06c-b6634c6ab20f)) to apply to Neyman problem. Basic approach:
-	- [ ] Start with var tau = var y1 bar + var y2 bar - 2cov y1bar, y2bar
-	- [ ] I have these from lemma c2
-	- [ ] Use relationship between cov and var tau_i from lemma 4.1 and substitute
-
-
 
 ## Notation
 
@@ -163,9 +152,6 @@ $$
 
 ## Lemma 4.1
 
-
-
-
 ## Lemma C.1
 
 Gives first two moments of sampling indicator $W_i$.
@@ -276,8 +262,6 @@ $$
 &=\mu_c
 \end{align}
 $$
-
-
 
 The covariance 
 
@@ -417,7 +401,6 @@ $$
 
 The variances are a special case of the above:
 
-
 $$
 \begin{align}
 \mathbb{V}(\bar{c})
@@ -550,13 +533,6 @@ $$
 $$
 The derivation for $\sigma_c^2$ is analogous.
 
-
-
-
-
-**I'm here**
-- Complete path to victory above
-
 ## Lemma C.3
 
 Gives the first moment of the sample variances and the covariance.
@@ -565,3 +541,7 @@ Gives the first moment of the sample variances and the covariance.
 ## Lemma C.4
 
 Justifies the use of Wald-type confidence intervals.
+
+
+## Theorem 4.1
+
