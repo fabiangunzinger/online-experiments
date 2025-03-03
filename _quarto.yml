@@ -12,10 +12,11 @@ book:
 
     - part: "Introduction"
       chapters:
-      - chapters/introduction.qmd
+      - chapters/introduction.md
 
     - part: chapters/statistics.md
       chapters:
+      - chapters/difference_in_means_estimator.md
       - chapters/stats_of_online_experiments.md
       - chapters/outcomes.md
       - chapters/standard_error.md
@@ -88,9 +89,10 @@ book:
 bibliography: /Users/fgunzinger/.dotfiles/latex/fabib.bib
 
 
-# format:
-#   html:
-#     theme: cosmo
+format:
+  html:
+    theme: cosmo
+    css: custom.scss
 #     include-in-header: "math_commands.html"
 #   pdf:
 #     documentclass: scrreprt

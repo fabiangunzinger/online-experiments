@@ -95,7 +95,7 @@ $$
 Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)
 $$
 
-We can estimate the finite sample statistics above using:
+We can estimate the finite sample statistics using:
 
 $$
 \begin{align}
@@ -142,10 +142,12 @@ because in a CRE, we have $\mathbf{W} \perp\!\!\!\perp \mathbf{Y(1)}, \mathbf{Y(
 
 To start with, we view the potential outcomes as fixed. This is the approach Neyman was interested in, and that is discussed in @imbens2015causal and @ding2023first. My derivations are based on the approach in @ding2015first. A step-by-step derivation of the approach used in @imbens2015causal is provided in the appendix [[notes_on_imbens2015causal]].
 
-
 In a CRE, the treatment indicator has the following properties:
 
-Ding Lemma C1 here ...
+$$
+\mathbb{E}(W_i) = \frac{n_t}{n}, \qquad \mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad \text{Cov}(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
+$$
+Proofs are in [[notes_on_ding2023first]].
 
 We rewrite the estimator as
 
@@ -182,18 +184,42 @@ $$
 
 &=
 \mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
 \right]
 &\text{}
 \\[5pt]
 
 &=
-\frac{1}{n_t}\sum_{i=1}^n \mathbb{E}[W_i]Y_i(1) - \frac{1}{n_c}\sum_{i=1}^n \mathbb{E}[(1-W_i)]Y_i(0)
+\frac{1}{n_t}\sum_{i=1}^n \mathbb{E}[W_i]Y_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n \mathbb{E}[(1-W_i)]Y_i(0)
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t}\sum_{i=1}^n \left(\frac{n_t}{n}\right)Y_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n \left(\frac{n_c}{n}\right)Y_i(0)
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n}\sum_{i=1}^n Y_i(1) 
+- \frac{1}{n}\sum_{i=1}^n Y_i(0)
+&\text{}
+\\[5pt]
+
+&=
+\overline{Y}(1) - \overline{Y}(0)
+&\text{}
+\\[5pt]
+
+&=
+\hat{\tau}^{\text{dm}} 
+\qquad\square
 &\text{}
 \\[5pt]
 
 \end{align}
-
 $$
 
 
@@ -208,9 +234,15 @@ Variance of tau dm:
 
 
 
-Temp: used notation:
+Temp: used notation for easy copying:
 
 $$
+\begin{align}
 \hat{\tau}^{\text{dm}}
+\\[5pt]
 
+\overline{Y}(1)
+\\[5pt]
+
+\end{align}
 $$

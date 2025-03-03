@@ -141,7 +141,7 @@ P(W_i = 1, W_j = 1)
 & = \frac{n_t(n_t-1)}{n(n-1)}.
 \end{align}
 $$
-There is also a more heuristic way to get the same result:
+A more heuristic way to get the same result:
 
 1. The probability of selecting $i$ is $P(W_i = 1) = \frac{n_t}{n}$
 2. The probability of selecting $j$ given that $i$ is selected is $P(W_j = 1 | W_i = 1) = \frac{n_t - 1}{n-1}$
@@ -159,7 +159,10 @@ Gives first two moments of sampling indicator $W_i$.
 Under SRS we have:
 
 $$
-\mathbb{E}(W_i) = \frac{n_t}{n}, \qquad \mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad Cov(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
+\mathbb{E}(W_i) = \frac{n_t}{n}, \qquad 
+\mathbb{E}(1-W_i) = \frac{n_t}{n}, \qquad
+\mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad 
+\text{Cov}(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
 $$
 Proof:
 
@@ -172,7 +175,16 @@ n_t &= n\mathbb{E}[W_i] & n_t\text{ is constant}\\[5pt]
 \mathbb{E}[W_i] &= \frac{n_t}{n} & \\[5pt]
 \end{align}
 $$
-
+and
+$$
+\begin{align}
+\mathbb{E}(1-W_i)
+&= \mathbb{E}(1) - \mathbb{E}(W_i) \\[5pt]
+&= 1 - \frac{n_t}{n} \\[5pt]
+&= \frac{n-n_t}{n} \\[5pt]
+&= \frac{n_c}{n} \\[5pt]
+\end{align}
+$$
 
 Given that 
 $$
