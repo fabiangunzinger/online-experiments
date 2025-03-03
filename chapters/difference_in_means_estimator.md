@@ -32,6 +32,7 @@ Perspectives
 	- Sample sizes (BRE vs CRE)
 
 
+
 ## Experiment setup
 
 Could add super population here, with population statistics $\mu_1, \sigma_1^2$, etc.
@@ -148,6 +149,13 @@ $$
 \mathbb{E}(W_i) = \frac{n_t}{n}, \qquad \mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad \text{Cov}(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
 $$
 Proofs are in [[notes_on_ding2023first]].
+
+<details>
+  <summary>Proofs</summary>
+  {{< include cre_ass_indicator.md >}}
+</details> 
+
+
 
 We rewrite the estimator as
 

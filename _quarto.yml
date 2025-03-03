@@ -69,7 +69,7 @@ book:
 
         - chapters/assignment_mechanism.md
         - chapters/notes_on_athey2017econometrics.md
-      # - chapters/stats_foundations.qmd
+        - chapters/stats_foundations.md
       # - chapters/projection.md
       # - chapters/fwl.qmd
       # - chapters/stats_details_like_lln_and_clt.qmd
@@ -93,13 +93,6 @@ format:
   html:
     theme: cosmo
     css: custom.scss
-#     include-in-header: "math_commands.html"
-#   pdf:
-#     documentclass: scrreprt
-#     include-in-header: "math_commands.tex"
-# jupyter: python3
-# callout-icon: false
-
 
 
 
