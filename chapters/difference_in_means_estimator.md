@@ -5,14 +5,10 @@ Steps to victory
 - [ ] Write single doc with all lemmas and proofs in this document to have a clean version containing everything while the ding lemmas are fresh in my head. Then, in a second step, think about how to present it.
 - [ ] CRE
 	- [ ] Potential outcomes fixed
+		- [x] imbens2015causal approach
 		- [ ] ding2023first approach
-			- [ ] Write down proof of Lemma 4.1 which is important, use my definitiosn
-			- [ ] Then use chat notes on lemma 2 ([here](https://chatgpt.com/share/67c14491-afb4-8005-a06c-b6634c6ab20f)) to apply to Neyman problem. Basic approach:
-				- [ ] Start with var tau = var y1 bar + var y2 bar - 2cov y1bar, y2bar
-				- [ ] I have these from lemma c2
-				- [ ] Use relationship between cov and var tau_i from lemma 4.1 and substitute
-			- [ ] Translate to my notation
-			- [ ] 
+			- [x] Get to end with gaps
+			- [ ] Fill in gaps
 		- [ ] Link to imbens2015causal approach in appendix
 	- [ ] Potential outcomes random, condition on them
 		- [ ] Pick up from footnote 1 on page 25 in ding2025first, which talks about conditioning and relation to BRE
@@ -327,6 +323,10 @@ $$
 \end{align}
 $$
 
+
+
+
+
 ### Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
 We rewrite the estimator as
@@ -477,6 +477,292 @@ $$
 &\text{}
 \\[5pt]
 
+&= 
+\sum_{i=1}^n \sum_{j=1}^n
+\text{Cov}\left(
+W_i \left(Y_i^+ - \overline{Y}^+\right),
+W_j \left(Y_j^+ - \overline{Y}^+\right)
+\right)
+&\text{}
+\\[5pt]
+
+&= 
+\sum_{i=1}^n \sum_{j=1}^n
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&\text{}
+\\[5pt]
+
+
+&= 
+\sum_{i=1}^n
+\mathbb{V}\left(W_i^2\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
++
+\sum_{i=1}^n \sum_{j \neq i}
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&\text{}
+\\[5pt]
+
+&= 
+\sum_{i=1}^n
+\mathbb{V}\left(W_i\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
++
+\sum_{i=1}^n \sum_{j \neq i}
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&\text{}
+\\[5pt]
+
+&=
+\sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
+- \sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_tn_c}{n^2(n-1)}\right)
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+
+&=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+\end{align}
+$$
+
+The sum of demeaned variables is zero. Hence, $\sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+) = 0$, which implies that:
+
+$$
+\begin{align}
+0 
+&= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)
+\sum_{j=1}^{n}(Y_j^+ - \overline{Y}^+) 
+\\[5pt]
+
+&= \sum_{i=1}^{n}\sum_{j=1}^{n}
+(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
+\\[5pt]
+
+&= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
++\sum_{i=1}^{n}\sum_{j \neq i}^{n}
+(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
+\\[5pt]
+
+-\sum_{i=1}^{n}\sum_{j \neq i}^{n}
+(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
+&= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
+\end{align}
+$$
+Substituting in the above equation, we get:
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+
+&=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+
+&=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
++ \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}
+\left(Y_i^+ - \overline{Y}^+\right)^2
+\\[5pt]
+
+&=
+\left(\frac{n_tn_c}{n^2} + \frac{n_tn_c}{n^2(n-1)}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&=
+\frac{n_tn_c(n-1) + n_tn_c}{n^2(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&=
+\frac{nn_tn_c - n_tn_c + n_tn_c}{n^2(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+\end{align}
+$$
+Using 
+
+$$
+Y_i^+ - \overline{Y}^+ 
+= \frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} 
+- \frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}
+$$
+and expanding the square term, we get:
+
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} 
+- \frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(
+\left(\frac{Y_i(1)}{n_t} - \frac{\overline{Y}(1)}{n_t}\right)
++ \left(\frac{Y_i(0)}{n_c} - \frac{\overline{Y}(0)}{n_c}\right)
+\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(
+\frac{1}{n_t}\left(Y_i(1) - \overline{Y}(1)\right)
++ \frac{1}{n_c}\left(Y_i(0) - \overline{Y}(0)\right)
+\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}\left[
+\sum_{i=1}^{n}\left(
+\frac{1}{n_t^2}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n_c^2}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n_t n_c}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}\left[
+\frac{1}{n_t^2}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n_c^2}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n_t n_c}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c}{n n_t}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{n_t}{n n_c}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{2}{n}S_{0,1}
+&\text{}
+\\[5pt]
+
+\end{align}
+$$
+Finally, using Lemma 4.1:
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+
+&=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{2}{n}S_{0,1}
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{1}{n}\left(S_1^2 + S_0^2 - S_{\tau_i}^2\right)
+&\text{}
+\\[5pt]
+
+&=
+\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
++ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+&=
+\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
++ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c + n_t}{n n_t} S_1^2
++ \frac{n_t + n_c}{n n_c} S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+&=
+\frac{S_1^2}{n_t}
++ \frac{S_0^2}{n_c} 
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+\end{align}
+$$
+
+
+
+
+
+
+$$
+\begin{align}
+\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
+
+&= 
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)\right)
+&\text{}
+\\[5pt]
+
+&= 
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} - \frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}
+\right)\right)
+&\text{}
+\\[5pt]
+
+&= 
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+
+\right)\right)
+&\text{}
+\\[5pt]
+
+&= 
+\text{Cov}\left(
+\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+\right),
+\sum_{j=1}^n W_j \left(Y_j^+ - \overline{Y}^+\right)
+\right)
+&\text{}
+\\[5pt]
+
 ...
 &\text{manipulations}
 \\[5pt]
@@ -488,8 +774,7 @@ $$
 \left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
 
-...
-&\text{sum to zero substitution and manipulations}
+&\text{Lemma X and manipulations}
 \\[5pt]
 
 &=
@@ -557,8 +842,7 @@ $$
 &\text{}
 \\[5pt]
 
-...
-&\text{using Lemma 4.1}
+&\text{Using Lemma 4.1}
 \\[5pt]
 
 &=
@@ -599,10 +883,6 @@ $$
 \end{align}
 $$
 
-Rearranging and expanding the sum:
-
-
-
 
 
 Temp: used notation for easy copying:
@@ -615,39 +895,6 @@ $$
 \overline{Y}(1)
 \\[5pt]
 
-\end{align}
-$$
-
-Backup
-
-$$
-\begin{align}
-a 
-
-&= 
-\text{Cov}\left(
-\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right),
-\sum_{j=1}^n W_j \left(\frac{Y_j(1)}{n_t} + \frac{Y_j(0)}{n_c}\right)
-\right)
-&\text{}
-\\[5pt]
-
-&= 
-\sum_{i=1}^n \sum_{j=1}^n
-\text{Cov}\left(
-W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right),
-W_j \left(\frac{Y_j(1)}{n_t} + \frac{Y_j(0)}{n_c}\right)
-\right)
-&\text{}
-\\[5pt]
-
-&= 
-\sum_{i=1}^n \sum_{j=1}^n
-\text{Cov}\left(W_i, W_j \right)
-\left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
-\left(\frac{Y_j(1)}{n_t} + \frac{Y_j(0)}{n_c}\right)
-&\text{}
-\\[5pt]
 \end{align}
 $$
 

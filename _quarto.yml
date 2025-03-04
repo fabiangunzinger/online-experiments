@@ -70,7 +70,6 @@ book:
         - chapters/notes_on_athey2017econometrics.md
         - chapters/stats_foundations.md
         - chapters/proof.md
-        - chapters/lemmas.md
       # - chapters/projection.md
       # - chapters/fwl.qmd
       # - chapters/stats_details_like_lln_and_clt.qmd
