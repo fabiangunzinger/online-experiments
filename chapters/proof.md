@@ -1,4 +1,10 @@
 
+# Proofs
+de
+fff
+
+
+## Proof 1 {#sec-proof1}
 The estimator \( \hat{\theta} \) is unbiased if:
 
 \[

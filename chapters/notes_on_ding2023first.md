@@ -543,7 +543,6 @@ $$
 
 \end{align}
 $$
-The derivation for $\sigma_c^2$ is analogous.
 
 ## Lemma C.3
 

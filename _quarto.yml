@@ -1,7 +1,7 @@
 project:
   type: book
   preview:
-    browser: false
+    browser: false 
 
 book:
   title: "Statistics and practice of online experiments"
@@ -66,10 +66,11 @@ book:
      #     - chapters/matching.qmd
     #     - chapters/regression_discontinuity.qmd
 
-
         - chapters/assignment_mechanism.md
         - chapters/notes_on_athey2017econometrics.md
         - chapters/stats_foundations.md
+        - chapters/proof.md
+        - chapters/lemmas.md
       # - chapters/projection.md
       # - chapters/fwl.qmd
       # - chapters/stats_details_like_lln_and_clt.qmd
