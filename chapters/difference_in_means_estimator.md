@@ -550,7 +550,7 @@ $$
 &\text{}
 \\[5pt]
 
-&\text{Using approach from Lemma XXX}
+&\text{Rewriting variance in terms of covariance}
 \\[5pt]
 
 &= 
