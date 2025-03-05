@@ -5,17 +5,17 @@
 - Files in `_notes` contain lots of valuable content. E.g. online experiment setup, experiment setup, Power, – check all of them and integrate either into main text or appendix 
 - `stats_of_online_experiments` are my old notes and contains important building blocks (I could split them up but, for now, don't worry about this)
 
-Next
+Steps to victory
 - [x] Clean up stats of online experiments note
 
 - [x] Find content from old stats_foundation chapter (or copy from github archive), create again, add indpendence vs uncorrelated, continue with derivation (talk about why we need assumption that Y_i fixed – if correlated with D_i, then e of estimator not zero)
 - [x] Add bday derivation notes to Neyman chapter (use Imbens and Rubin book notes as starting point and move neyman and bday derivation there so I still have neyman chapter`)
-
-- [ ] Neyman unbiasedness and variance derivation for CRE
+- [x] Neyman unbiasedness and variance derivation for CRE
 	- [x] Imbens and Rubin proof (Appendix 6.A)
-	- [ ] ding2023first proof (Chapter 4)
+	- [x] ding2023first proof (Chapter 4)
 
 - [ ] Perform derivation for BRE
+	- [ ]  [[temp – BRE and IID]]
 	- [ ] Taking n as given
 	- [ ] Modelling n as Binomial
 
@@ -27,11 +27,26 @@ Next
 	- [ ] Imbens Rubin
 	- [ ] ding2023first (Chapter 4, Theorem 4.2), li2017general
 
+- [ ] SRS 
+	- [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
+	- [ ] With replacement / IID approach
+		- [ ] Same as BRE?
+		- [ ] Relation to above approaches
+		- [ ] Why do we need potential outcomes?
+	- [ ] Without replacement
+		- [ ] Same as CRE?
+- [ ] Use [[stats_of_online_experiments]] to add context
 
-- [ ] Consider adding super population perspective for BRE case
-	- [ ] Argue that in contexts of A/B tests this doesn't make sense, since population is well defined. But understand what implications are. li2017general beginning of intro discusses this
+- [ ] Perspectives
+- Two entities to view as either fixed or random:
+	- Potential outcomes (Sampling perspective?)
+		- wager2024causal
+		- ding2023first footnote 1 on page 25
+	- Sample sizes (BRE vs CRE)
+- Focus can be on super population or finite sample
+	- Argue that in contexts of A/B tests this doesn't make sense, since population is well defined. But understand what implications are. 
+	- li2017general beginning of intro discusses this
 
-- [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
 - [ ] Write chapter and consider turning it into paper (check with Max for relevant outlet if needed)
 
 

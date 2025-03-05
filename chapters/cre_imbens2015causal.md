@@ -1,4 +1,7 @@
 
+This note contains the proof for unbiasedness and the derivation of the variance for the difference-in-means estimator for a CRE, following the approach of imbens2015causal.
+
+
 ## Estimand
 
 Individual-level causal effect is defined as:

@@ -1,34 +1,4 @@
-# Difference in means estimator
-
-Steps to victory
-- [x] Setup
-- [ ] Write single doc with all lemmas and proofs in this document to have a clean version containing everything while the ding lemmas are fresh in my head. Then, in a second step, think about how to present it.
-- [ ] CRE
-	- [ ] Potential outcomes fixed
-		- [x] imbens2015causal approach
-		- [x] ding2023first approach
-			- [x] Get to end with gaps
-			- [x] Fill in gaps
-		- [ ] Link to imbens2015causal approach in appendix
-	- [ ] Potential outcomes random, condition on them
-		- [ ] Pick up from footnote 1 on page 25 in ding2025first, which talks about conditioning and relation to BRE
-		- [ ] Read wager2024causal for reference, too, to get clarity of how this all fits together
-- [ ] BRE, see [[temp – BRE and IID]]
-- [ ] SRS 
-	- [ ] With replacement / IID approach
-		- [ ] Same as BRE?
-		- [ ] Relation to above approaches
-		- [ ] Why do we need potential outcomes?
-	- [ ] Without replacement
-		- [ ] Same as CRE?
-- [ ] Use [[stats_of_online_experiments]] to add context
-
-Perspectives
-- Two entities to view as either fixed or random:
-	- Potential outcomes (Sampling perspective?)
-	- Sample sizes (BRE vs CRE)
-
-
+This note contains the proof for unbiasedness and the derivation of the variance for the difference-in-means estimator for a CRE, following the approach of ding2023first.
 
 ## Experiment setup
 
@@ -143,7 +113,7 @@ P(\mathbf{W} = \mathbf{w} | \mathbf{Y(1)}, \mathbf{Y(0)}) = \frac{1}{\binom{n}{n
 $$
 because in a CRE, we have $\mathbf{W} \perp\!\!\!\perp \mathbf{Y(1)}, \mathbf{Y(0)}$.
 
-To start with, we view the potential outcomes as fixed. This is the approach Neyman was interested in, and that is discussed in @imbens2015causal and @ding2023first. My derivations are based on the approach in @ding2015first. A step-by-step derivation of the approach used in @imbens2015causal is provided in the appendix [[notes_on_imbens2015causal]].
+To start with, we view the potential outcomes as fixed. This is the approach Neyman was interested in, and that is discussed in @imbens2015causal and @ding2023first. My derivations are based on the approach in @ding2015first. A step-by-step derivation of the approach used in @imbens2015causal is provided in the appendix [[cre_imbens2015causal]].
 
 
 ### Building blocks
