@@ -93,7 +93,7 @@ $$
 Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)
 $$
 
-We can estimate the finite sample statistics using the treatment group means:
+We can estimate the finite sample statistics using the observed treatment group means:
 
 $$
 \begin{align}
@@ -102,7 +102,7 @@ $$
 \overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
 \end{align}
 $$
-and treatment group variances:
+and observed treatment group variances:
 
 $$
 \begin{align}
@@ -327,7 +327,7 @@ $$
 \end{align}
 $$
 
-### Lemma 4 {#sec-lemma4}
+#### Lemma 4 {#sec-lemma4}
 
 $$
 -\sum_{i=1}^{n}\sum_{j \neq i}^{n}
@@ -359,9 +359,56 @@ $$
 &= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
 \end{align}
 $$
+#### Lemma 5 {#sec-lemma5}
 
+This lemma is lemma 4.1 in @ding2023first, and states the relationship between variances and covariance of potential outcomes:
+$$
+2S_{0,1} = S^2_1 + S^2_0 - S^2_{\tau_i}
+$$
+**Proof:**
 
+$$
+\begin{align}
+S_{\tau_i}^2
 
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(
+Y_i(1) - Y_i(0)
+- \left(\overline{Y}(1) - \overline{Y}(0)\right)
+\right)^2
+\\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(
+\left(Y_i(1) - \overline{Y}(1)\right)
+- \left(Y_i(0) - \overline{Y}(0)\right)
+\right)^2
+\\[5pt]
+
+&= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(
+\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \left(Y_i(0) - \overline{Y}(0)\right)^2
+- 2\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right)
+\\[5pt]
+
+&= 
+\frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(0) - \overline{Y}(0)\right)^2
+- 2\frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\\[5pt]
+
+&= 
+S^2_1 + S^2_0 - 2S_{0, 1}
+\\[5pt]
+
+2S_{0, 1} &= S^2_1 + S^2_0 - S^2_{\tau_i}
+\end{align}
+$$
 
 ### Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
@@ -485,7 +532,7 @@ $$
 \right)
 \\[5pt]
 
-&\text{Demeaning leaves variance unchanged}
+&\text{Demeaning (leaves variance unchanged)}
 \\[5pt]
 
 &= 
@@ -494,7 +541,7 @@ $$
 &\text{}
 \\[5pt]
 
-&\text{Using shorthand notation } Y_i^+ = Y_i(1)/n_t + Y_i(0)/n_c
+&\text{Using shorthands } Y_i^+ = Y_i(1)/n_t + Y_i(0)/n_c \text{ and } \overline{Y}^+ = \overline{Y}(1)/n_t - \overline{Y}(0)/n_c
 \\[5pt]
 
 &= 
@@ -661,7 +708,7 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
 \\[5pt]
 
-&\text{Using Lemma 4.1}
+&\text{Using Lemma 5}
 \\[5pt]
 
 &=
@@ -702,27 +749,5 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \end{align}
 $$
 
-
-Temp: used notation for easy copying:
-
-$$
-\begin{align}
-\hat{\tau}^{\text{dm}}
-\\[5pt]
-
-\overline{Y}(1)
-\\[5pt]
-
-\end{align}
-$$
-
-Examples for how I could include proofs:
-
-<details>
-  <summary>Proofs</summary>
-  {{< include cre_ass_indicator.md >}}
-</details> 
-
-Proofs in @sec-proof1
 
 
