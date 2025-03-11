@@ -2,6 +2,22 @@
 
 These are evolving notes on my own thinking of choosing and defining metrics as I learn from my own experience and that of others.  
 
+
+
+## Calculating metrics in online experiments
+
+Elements:
+- Facts (Eppo), response variable (larsen2023statistical) – e.g. number of clicks per user
+- Metrics - e.g. average clicks per user
+
+See
+- https://www.microsoft.com/en-us/research/articles/metric-computation-for-multiple-backends/
+- Eppo docs
+- larsen2023statistical section 1.2
+
+
+
+
 ## Why good metrics matter
 
 - Good metrics ensure that everyone works towards the same goal in a way that is reliable, transparent, and provides accountability -- they ensure coherence across the company.

@@ -78,6 +78,12 @@ $$
 
 
 
+## One-sides vs two-sided tests
+
+- Instacard uses one-sided because they focus on improvements (hesterberg2024power section 2)
+
+
+
 
 ## Q&A
 

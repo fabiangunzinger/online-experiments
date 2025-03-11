@@ -96,3 +96,10 @@ Cov(\bar{c}, \bar{d})
 \\[5pt]
 \end{align}
 $$
+
+In general:
+
+$$
+\mathbb{E}[XY] = \mathbb{E}[X]\mathbb{E}[Y] + \text{Cov}(X, Y)
+$$
+

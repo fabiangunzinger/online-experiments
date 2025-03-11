@@ -15,7 +15,6 @@ Steps to victory
 	- [x] ding2023first proof (Chapter 4)
 
 - [ ] Perform derivation for BRE
-	- [ ]  [[temp – BRE and IID]]
 	- [ ] Taking n as given
 	- [ ] Modelling n as Binomial
 
@@ -27,15 +26,8 @@ Steps to victory
 	- [ ] Imbens Rubin
 	- [ ] ding2023first (Chapter 4, Theorem 4.2), li2017general
 
-- [ ] SRS 
-	- [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
-	- [ ] With replacement / IID approach
-		- [ ] Same as BRE?
-		- [ ] Relation to above approaches
-		- [ ] Why do we need potential outcomes?
-	- [ ] Without replacement
-		- [ ] Same as CRE?
-- [ ] Use [[stats_of_online_experiments]] to add context
+- [ ] Simple random samples – why using causal framework at all? 
+	- [ ] See [[iid_proofs]]
 
 - [ ] Perspectives
 - Two entities to view as either fixed or random:

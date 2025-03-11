@@ -1,3 +1,7 @@
+
+todo
+- integrate berman2021false on false discovery rates
+
 # Experiment configuration
 
 Configuring an experiment requires you to make decisions upfront. This section discusses how to make those decisions.
