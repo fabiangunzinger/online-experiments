@@ -133,10 +133,6 @@ $$
 
 
 
-# Neyman's repeated sampling approach
-
-See separate note
-
 
 
 ****

@@ -1,18 +1,15 @@
 
 **I've got lot of great content here. I just need to keep going! Keep going!**
 
-**Resources to draw on**
-- Files in `_notes` contain lots of valuable content. E.g. online experiment setup, experiment setup, Power, – check all of them and integrate either into main text or appendix 
-- `stats_of_online_experiments` are my old notes and contains important building blocks (I could split them up but, for now, don't worry about this)
+Pieces
+- [[stats_of_online_experiments]] has description of potential outcome framework and online experiment setup
+- [[cre_imbens2015causal]] contains cre derivations using Imbens approach
+- [[cre_ding2023first]] contains cre derivations using Ding approach
+- [[bre_ding2023first]] contain bre derivations – wip
+- [[iid_proofs]] contains two-sample case material and question why not just use this?
+
 
 Steps to victory
-- [x] Clean up stats of online experiments note
-
-- [x] Find content from old stats_foundation chapter (or copy from github archive), create again, add indpendence vs uncorrelated, continue with derivation (talk about why we need assumption that Y_i fixed – if correlated with D_i, then e of estimator not zero)
-- [x] Add bday derivation notes to Neyman chapter (use Imbens and Rubin book notes as starting point and move neyman and bday derivation there so I still have neyman chapter`)
-- [x] Neyman unbiasedness and variance derivation for CRE
-	- [x] Imbens and Rubin proof (Appendix 6.A)
-	- [x] ding2023first proof (Chapter 4)
 
 - [ ] Perform derivation for BRE
 	- [ ] Taking n as given
@@ -138,6 +135,13 @@ Stuff to consider
 - [ ] bojinov2023design section 5 for cool approach to experiment simulation that I might want to add to rosalie.
 
 ## Done
+
+- [x] Clean up stats of online experiments note
+- [x] Find content from old stats_foundation chapter (or copy from github archive), create again, add indpendence vs uncorrelated, continue with derivation (talk about why we need assumption that Y_i fixed – if correlated with D_i, then e of estimator not zero)
+- [x] Add bday derivation notes to Neyman chapter (use Imbens and Rubin book notes as starting point and move neyman and bday derivation there so I still have neyman chapter`)
+- [x] Neyman unbiasedness and variance derivation for CRE
+	- [x] Imbens and Rubin proof (Appendix 6.A)
+	- [x] ding2023first proof (Chapter 4)
 - [x] Write appendix files to summarise relevant content from each of the following (get info from as many sources as I need in order to have all I need for stats of experiments):
   - [x] athey2017econometrics
   - [x] imbens2015causal
