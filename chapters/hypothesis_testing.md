@@ -1,5 +1,13 @@
 # Hypothesis testing
 
+todo
+- Integrate kohavi2024false, berman2021false, colquhoun2019false.pdf
+- Multivariant tests
+
+Questions:
+- 95% CI for control and treatment overlap. Does this imply treatment is not significant?
+
+
 Suppose you have an idea for a new app feature, or algorithm, or design that you think will improve user experience. In this chapter we'll discuss different approaches for how to test whether your idea works.
 
 

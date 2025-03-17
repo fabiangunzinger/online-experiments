@@ -3,7 +3,6 @@
 todo
 - Look at this: https://rworks.dev/posts/simpsons-paradox/
 
-
 - Simpson's paradox happens due to a kind of omitted variable bias.
 
 - It can occur if pooling data overlooks a confounding driver of the data generation that affects the data in specific ways.

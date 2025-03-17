@@ -1,4 +1,4 @@
 [[False positive rate]], [[False discovery rate]]
 
-- The false positive rate is $P(significant result|no true effect)$
-- The false discovery rate is $P(no true effect|significant result)$
+- The false positive rate is $P(significant result | H0 true)$
+- The false discovery rate is $P(H0 true | significant result)$

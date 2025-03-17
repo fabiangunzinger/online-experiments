@@ -4,6 +4,11 @@ body {
     /* Adjust as needed */
 }
 
+/* Ensure section and chapter titles are not bold */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;  /* Override bold styling */
+}
+
 /* Custom styling for details section */
 details {
     background-color: #f9f9f9;

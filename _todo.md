@@ -6,14 +6,20 @@ Pieces
 - [[cre_imbens2015causal]] contains cre derivations using Imbens approach
 - [[cre_ding2023first]] contains cre derivations using Ding approach
 - [[bre_ding2023first]] contain bre derivations – wip
-- [[iid_proofs]] contains two-sample case material and question why not just use this?
+- [[iid_proofs]] contains two-sample case material
+- [[why_potential_outcomes]] answers that question based on Deng's online book
 
 
 Steps to victory
+- [ ] Move all obsidian notes to suitable chapters
+- [ ] Clean up chapters and set up broad book structure to create version I can commit
+- [ ] Keep going with below
+- [ ] Discusse why we need potential outcomes in the first place
+	- [ ] Look at early rubin papers
+	- [ ] Look at Rice and experimentation textbooks
 
 - [ ] Perform derivation for BRE
-	- [ ] Taking n as given
-	- [ ] Modelling n as Binomial
+	- [ ] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
 
 - [ ] Show that sigma_hat is unbiased estimator of sample variance sigma 
 	- [ ] Imbens and Rubin (Appendix 6.A)
@@ -22,9 +28,6 @@ Steps to victory
 - [ ] Show that CLT is justified so we can do inference
 	- [ ] Imbens Rubin
 	- [ ] ding2023first (Chapter 4, Theorem 4.2), li2017general
-
-- [ ] Simple random samples – why using causal framework at all? 
-	- [ ] See [[iid_proofs]]
 
 - [ ] Perspectives
 - Two entities to view as either fixed or random:
