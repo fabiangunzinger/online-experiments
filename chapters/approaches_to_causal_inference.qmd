@@ -1,10 +1,7 @@
 # Approaches to causal inference
 
-
 - See holland1986statistics
 - See also https://www.the100.ci/2024/06/26/sometimes-a-causal-effect-is-just-a-causal-effect-regardless-of-how-its-mediated-or-moderated/
-
-
 
 ## Perl
 
@@ -17,7 +14,6 @@ Directed Acyclic Graphs
   - Control for the confounder if it is available
   - Have a collider on the backdoor path
 - An analysis design meets the *backdoor criterion* if all backdoor paths are closed, in which case we have isolated a causal effect.
-
 
 ## Thought experiments
 

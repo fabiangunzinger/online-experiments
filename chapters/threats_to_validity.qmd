@@ -13,6 +13,12 @@ todo:
 
 - In my mind, some of the threats listed below, such as learning effects, could be listed as threats to either internal or external validity. I list them where I think they make most sense given the definitions, but one could argue about that and some authors make different choices -- what matters is that you think about them when designing an experiment!
 
+- Consider integrating @king2006dangers, section 3.2 onwards, types of biases:
+1. Omitted variable bias
+2. Posttreatment bias (including variables in X that are result of T)
+3. Interpolation bias ()
+4. Extrapolation bias
+
 
 
 **Violations of SUTVA**
@@ -26,8 +32,26 @@ todo:
 - Another way in which this aspect of SUTVA can be violated is when treatments are administered in different ways, e.g. by either giving patients medication or asking them to take the medication themselves.
 
 
+### Selection bias
+
+Common types of selection bias in data science:
+
+- The vast search effect (using the data to answer many questions will eventually reveal something interesting by mere chance -- if 20,000 people flip a coin 10 times, some will have 10 straight heads)
+
+- Nonrandom sampling
+
+- Cherry-picking data
+
+- Selecting specific time-intervals
+
+- Stopping experiments prematurely
+
+- Regression to the mean (occurs in settings where we measure outcomes repeatedly over time and where luck and skill combine to determine outcomes, since winners of one period will be less lucky next period and perform closer to the mean performer)
 
 
+Ways to guard against selection bias:
+
+- have one or many holdout datasets to confirm your results.
 
 
 

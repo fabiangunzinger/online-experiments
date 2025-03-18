@@ -132,7 +132,7 @@ If we sample $n$ users into the experiment, then each of our $N$ users is part o
 
 - When deciding on the experiment setup we make two types of decisions.
 
-- First, we decide whether the $n$ units in our experiment sample are the population of interest, or whether that population of interest is instead a larger super-population of size $N$ of which the $n$ units in the experiment sample are a random sample. Following @imbens2015causal, I refer to the former as the finite sample perspective and the later as the super population perspective. See more in [[Finite sample vs super-population perspectives]]
+- First, we decide whether the $n$ units in our experiment sample are the population of interest, or whether that population of interest is instead a larger super-population of size $N$ of which the $n$ units in the experiment sample are a random sample. Following @imbens2015causal, I refer to the former as the finite sample perspective and the later as the super population perspective. See more in [[super_population_perspective]]
 
 - Second, regardless of which of these two perspectives we adopt, we decide how to allocate the $n$ units in the experiment sample into a treatment and control group. The procedure for performing this allocation is called the [[Assignment mechanism]], and there are a number of different such mechanisms.
 

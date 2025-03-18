@@ -13,57 +13,65 @@ book:
     - part: chapters/statistics.md
       chapters:
       - chapters/stats_of_online_experiments.md
+
+      - chapters/experiment_setup.md
+      - chapters/estimands.md
       - chapters/outcomes.md
       - chapters/standard_error.md
-      - chapters/testing_and_cis.md
+      - chapters/hypothesis_testing.md
       - chapters/power.md
-      - chapters/analysis.md
+
     - part: chapters/practice.md
       chapters:
-        - chapters/threats_to_validity.qmd
-        # - chapters/important_topics.md
-        # - chapters/guiding_principles.qmd
-        # - chapters/metrics.md
-        # - chapters/experiment_configuration.md
-        # - chapters/decision_making.qmd
-        # - chapters/threats_to_validity.qmd
-        # - chapters/practical_issues.qmd
-        # - chapters/variance_reduction.qmd
-        # - chapters/network_experiments.qmd
-        # - chapters/heterogeneous_treatment_effects.qmd
-        # - chapters/long_term_effects.md
-        # - chapters/triggered_analysis.md
-        # - chapters/sequential_testing.md
-        # - chapters/multiple_hypothesis_correction.qmd
-        # - chapters/multi_arm_bandits.md
+      # - chapters/analysis.md
+      - chapters/threats_to_validity.qmd
+      - chapters/culture.qmd
+      - chapters/experiment_configuration.md
+      - chapters/experiment_design_template.md
+      - chapters/principles.qmd
 
-    # - part: "Designs"
-    # Discussion of experiment designs used in practice
-        # - chapters/experiment_designs.md
+      # - chapters/important_contepts.md
+      # - chapters/metrics.md
+      # - chapters/decision_making.qmd
+      # - chapters/threats_to_validity.qmd
+      # - chapters/practical_issues.qmd
+      # - chapters/variance_reduction.qmd
+      # - chapters/network_experiments.qmd
+      # - chapters/heterogeneous_treatment_effects.qmd
+      # - chapters/long_term_effects.md
+      # - chapters/triggered_analysis.md
+      # - chapters/sequential_testing.md
+      # - chapters/multiple_hypothesis_correction.qmd
+      # - chapters/multi_arm_bandits.md
+
+    - part: "Designs"
+      chapters:
+        - chapters/experiment_designs.md
+
     - part: chapters/philosophy.md
       chapters: 
       - chapters/limitations_criticism.md
-
-        # - chapters/ethics.qmd
+      - chapters/approaches_to_causal_inference.md
+      - chapters/history.qmd
 
     - part: chapters/platforms.md
       chapters:
         # - chapters/platform_architecture_at_jet.md
         - chapters/data_architecture.md
-        - chapters/examples.md
+        - chapters/platform_examples.md
 
     - part: "Appendices"
       chapters:
-
-        - chapters/quasi_experiments.qmd
+      - chapters/fisher.qmd
+        # - chapters/quasi_experiments.qmd
     # move this to above chapter    
      #     - chapters/matching.qmd
     #     - chapters/regression_discontinuity.qmd
 
-        - chapters/assignment_mechanism.md
-        - chapters/notes_on_athey2017econometrics.md
-        - chapters/stats_foundations.md
-        - chapters/proof.md
+        # - chapters/assignment_mechanism.md
+        # - chapters/notes_on_athey2017econometrics.md
+        # - chapters/stats_foundations.md
+        # - chapters/proof.md
       # - chapters/projection.md
       # - chapters/fwl.qmd
       # - chapters/stats_details_like_lln_and_clt.qmd
@@ -71,14 +79,18 @@ book:
       # - chapters/regression.qmd
       # - chapters/regression_for_experiments.qmd
       
-      # - chapters/fisher.qmd
+
       # - chapters/neyman.md
       # - chapters/treatment_effects.md
 
-      # - chapters/history.qmd
-      # - chapters/alternative_approaches.qmd
       # - chapters/useful_resources.qmd
       # - chapters/references.qmd
+
+    # Notes on quasi-experimental methods
+    # Not part of the book, just keeping them here to have all my notes in one place for now
+    # - chapters/interrupted_time_series.md
+
+
 
 bibliography: /Users/fgunzinger/.dotfiles/latex/fabib.bib
 

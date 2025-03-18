@@ -133,6 +133,23 @@ $$
 
 
 
+## Commonly used estimator for sampling variance
+
+A commonly used estimator (recommended in practice by IR!) is:
+
+$$
+\hat{V}^{neyman} = \frac{s_t^2}{N_t} + \frac{s_c^2}{N_c},
+$$
+
+where $s_t^2$ and $s_c^2$ are unbiased estimators of $S_t^2$ and $S_c^2$. This estimator is popular for a few reasons:
+
+1. If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance of $\bar{Y}_t^{obs} - \bar{Y}_c^{obs}$.
+
+2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{ct}^2$ is non-negative).
+
+3. It is always unbiased for $\hat{\tau}^{dif}$ as an estimator of the infinite super-population average treatment effect (see below).
+
+There are other options (see Section 6.5 in the IR book).
 
 
 ****
