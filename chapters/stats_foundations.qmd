@@ -14,11 +14,24 @@
 	- [[Simple random sampling]]
 	- [[Completely random sampling]]
 	- [[Stratified random sampling]]
-		- Randomly select $n_s$ from each stratum $S$ of a population of $N$
-		- On stratification: why does it reduce variance? Imagine an extreme case, where the number of strata were equal to the number of different units in the sample. In this case, the variance would be zero. Number of diff units here needs be individuals, but groups of units that share all relevant characteristics
-		- The mean outcome of the sample is denoted $\bar{x}$; that of the population, $\mu$.
+  - Randomly select $n_s$ from each stratum $S$ of a population of $N$
+  - On stratification: why does it reduce variance? Imagine an extreme case, where the number of strata were equal to the number of different units in the sample. In this case, the variance would be zero. Number of diff units here needs be individuals, but groups of units that share all relevant characteristics
+  - The mean outcome of the sample is denoted $\bar{x}$; that of the population, $\mu$.
 
 - Repeated sampling creates a [[Sampling distribution]]
+
+## Selection bias
+
+Common types of selection bias in data science:
+- The vast search effect (using the data to answer many questions will eventually reveal something interesting by mere chance -- if 20,000 people flip a coin 10 times, some will have 10 straight heads)
+- Nonrandom sampling
+- Cherry-picking data
+- Selecting specific time-intervals
+- Stopping experiments prematurely
+- Regression to the mean (occurs in settings where we measure outcomes repeatedly over time and where luck and skill combine to determine outcomes, since winners of one period will be less lucky next period and perform closer to the mean performer)
+
+Ways to guard against selection bias:
+- have one or many holdout datasets to confirm your results. 
 
 
 ### Sampling distributions
@@ -33,6 +46,32 @@
 
 	- The sampling distribution is the distribution of the sample statistic, and its spread is measured by the sampling variance or its square root, the standard error.
 
+- Plots below show that:
+  - Data distribution has larger spread than sampling distributions (each data point is a special case of a sample with n = 1)
+  - The spread of sampling distributions decreases with increasing sample size
+
+```
+rng = np.random.default_rng(2312)
+
+
+def means(data, sample_size, num_means=1000):
+    return rng.choice(data, (sample_size, num_means)).mean(0)
+
+
+# Create dataset with population and sample data
+data = pd.DataFrame({"Population": rng.normal(size=1_000_000)})
+for n in [10, 100, 1000]:
+    data = data.join(
+        pd.Series(means(data.Population, n), name=f"Means of samples of {n}")
+    )
+data = data.melt()
+
+
+g = sns.FacetGrid(data, col="variable")
+g.map(sns.histplot, "value", bins=40, stat="percent")
+g.set_axis_labels("Value", "Count")
+g.set_titles("{col_name}");
+```
 
 ### Variance and standard error
 
@@ -144,12 +183,13 @@ Figure shows that:
 $$
 \bar{x} \rightarrow \mu \text{ as } n \rightarrow \infty.
 $$
+
 - The (classical, Lindeberg-Lévy) central limit theorem describes the spread of the sampling distribution of $\bar{x}$ around $\mu$ during this convergence. In particular, it implies that for large enough $n$, the distribution of $\bar{x}$ will be close to a normal distribution with mean $\mu$ and variance $\sigma^2/n$. The above figures are a visual representation of this. Formally:
-$$
 
+$$
 \lim _{n\to\infty} \sqrt{n}(\bar{x} - \mu) \rightarrow \mathcal{N}\left(0,\sigma ^{2}\right).
-
 $$
+
 - This is useful because it means that irrespective of the underlying distribution (i.e. the distribution of the values in our sequence above), we can use the normal distribution and approximations to it (such as the t-distribution) to calculate sampling distributions when we do inference. Because of this, the CLT is at the heart of the theory of hypothesis testing and confidence intervals, and thus of much of classical statistics.
 
 - For experiments, this means that our estiamted treatment effect is normally distributed, which is what allows us to draw inferences from our experimental setting ot the population as a whole. The CLT is thus at the heart of the experimental approach.
@@ -349,6 +389,14 @@ $$
 $$
 
 
+
+## Confidence intervals
+
+- A CI is another way to learn about the variability of a test statistic. 
+
+- It can be calculated using the (standard) normal distribution or the t-distribution (if sample sizes are small).
+
+- But for data science purposes we can compute an x-percent CI from the bootstrap, following this algorithm: 1) Draw a large number of bootstrap samples and calculate the statistic of interest, 2) Trim [(100-x)/2] percent of the bootstrap results on either end of the distribution, 3) the trim points are the end point of the CI.
 
 ## Commonly used distributions
 

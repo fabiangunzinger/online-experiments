@@ -13,36 +13,37 @@ book:
     - part: chapters/statistics.md
       chapters:
       - chapters/stats_of_online_experiments.md
-
       - chapters/experiment_setup.md
-      - chapters/estimands.md
-      - chapters/outcomes.md
+      - chapters/outcomes_and_estimands.md
       - chapters/standard_error.md
-      - chapters/hypothesis_testing.md
+      # - chapters/hypothesis_testing.qmd
       - chapters/power.md
+      # - chapters/power_in_abtesting.md
 
     - part: chapters/practice.md
       chapters:
+
       # - chapters/analysis.md
-      - chapters/threats_to_validity.qmd
+      - chapters/threats_to_validity.md
       - chapters/culture.qmd
       - chapters/experiment_configuration.md
-      - chapters/experiment_design_template.md
       - chapters/principles.qmd
-
+      - chapters/triggered_analysis.md
+      - chapters/simpsons_paradox.md
       # - chapters/important_contepts.md
-      # - chapters/metrics.md
+      - chapters/metrics.md
       # - chapters/decision_making.qmd
       # - chapters/threats_to_validity.qmd
       # - chapters/practical_issues.qmd
       # - chapters/variance_reduction.qmd
       # - chapters/network_experiments.qmd
-      # - chapters/heterogeneous_treatment_effects.qmd
-      # - chapters/long_term_effects.md
+      - chapters/heterogeneous_treatment_effects.md
+      - chapters/long_term_effects.md
       # - chapters/triggered_analysis.md
       # - chapters/sequential_testing.md
       # - chapters/multiple_hypothesis_correction.qmd
       # - chapters/multi_arm_bandits.md
+      - chapters/good_experiments.md
 
     - part: "Designs"
       chapters:
@@ -52,7 +53,7 @@ book:
       chapters: 
       - chapters/limitations_criticism.md
       - chapters/approaches_to_causal_inference.md
-      - chapters/history.qmd
+      - chapters/history.md
 
     - part: chapters/platforms.md
       chapters:
@@ -62,33 +63,29 @@ book:
 
     - part: "Appendices"
       chapters:
-      - chapters/fisher.qmd
-        # - chapters/quasi_experiments.qmd
-    # move this to above chapter    
-     #     - chapters/matching.qmd
-    #     - chapters/regression_discontinuity.qmd
-
-        # - chapters/assignment_mechanism.md
-        # - chapters/notes_on_athey2017econometrics.md
-        # - chapters/stats_foundations.md
-        # - chapters/proof.md
+      # - chapters/fisher.qmd
+      - chapters/super_population_perspective.md
+      # - chapters/experiment_design_template.md
+      # - chapters/assignment_mechanism.md
+      # - chapters/notes_on_athey2017econometrics.md
+      # - chapters/stats_foundations.md
+      # - chapters/proof.md
       # - chapters/projection.md
       # - chapters/fwl.qmd
       # - chapters/stats_details_like_lln_and_clt.qmd
-
       # - chapters/regression.qmd
       # - chapters/regression_for_experiments.qmd
-      
-
       # - chapters/neyman.md
       # - chapters/treatment_effects.md
-
       # - chapters/useful_resources.qmd
       # - chapters/references.qmd
 
-    # Notes on quasi-experimental methods
-    # Not part of the book, just keeping them here to have all my notes in one place for now
-    # - chapters/interrupted_time_series.md
+      # Notes on quasi-experimental methods
+      # Not part of the book, just keeping them here to have all my notes in one place for now
+      # - chapters/quasi_experiments.qmd
+      # - chapters/interrupted_time_series.md
+      # - chapters/matching.qmd
+      # - chapters/regression_discontinuity.qmd
 
 
 

@@ -127,9 +127,8 @@ Guidelines for finding good KPIs
 
 - The challenge is to make sure that definitions across metric types and organisation levels cohere. Figure 6.1 in @kohavi2020trustworthy is a useful way to visualise this: it shows a large arrow containing many small arrows inside. This can represent goal metrics (large arrow) and driver metrics (small arrows) or organisational metrics (large arrows) and team metrics (small arrows). In each case, we want to make sure that the direction of the small arrows is as aligned as possible with the large arrow.
 
-![Useful visual metaphor for aligning organisation level metrics with lower-level metrics](../inputs/metric_alignment.png){width=75%}
-
-
+From Kohavi book (online [source](https://static.cambridge.org/binary/version/id/urn:cambridge.org:id:binary:20220822021434424-0986:9781108653985:72426fig6_1.png?pub-status=live))
+![](https://static.cambridge.org/binary/version/id/urn:cambridge.org:id:binary:20220822021434424-0986:9781108653985:72426fig6_1.png?pub-status=live)
 ### Goal metrics
 
 - Also "success metrics" or "North Star" metrics

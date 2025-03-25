@@ -11,8 +11,9 @@ Pieces
 
 
 Steps to victory
-- [ ] Move all obsidian notes to suitable chapters
+- [x] Move all obsidian notes to suitable chapters
 - [ ] Clean up chapters and set up broad book structure to create version I can commit
+	- [ ] Up to hypothesis_testing.md
 - [ ] Keep going with below
 - [ ] Discusse why we need potential outcomes in the first place
 	- [ ] Look at early rubin papers

@@ -251,16 +251,85 @@ N &= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 $$
 
 
+Give also per variant, as this is more useful to calculate sample size for experiments with n arms. 
+
+
+
+
+## How to choose key parameters
+
+### MDE
+
+- What are you balancing here? The size of the effect you are able to identify and the time it takes to do it.
+
+- All else equal, the smaller a change you want to be able to detect, the longer it will take for the experiment to run because you need more sample size.
+
+- The relevant question to ask here is "what counts as a practically relevant change?"
+
+- To answer that, consider:
+
+  - Maturity of service (the more mature, the smaller a change can be expected)
+
+  - Size of service (the larger, the smaller a change still generates a lot of revenue)
+
+  - Cost of change that need ot be covered
+
+    - Cost of fully building out feature for launch (can be 0 when fully built out for experiment or high if we use painted door)
+
+    - Cost of maintaining new code (new code has higher bugs, may increase code complexity and maintenance)
+
+    - Other costs: e.g. does CPU utilization increase?
+
+
+### Significance level
+
+- What are you balancing here? The probabilities of making a type I and type II error.
+
+- The higher significance level, the less likely we are to implement useless features (to make a Type I error) but the more likely we are to no implement useful features (to make a Type II error).
+
+- Hence, gotta balance cost of implementing useless feature and cost of not implementing useful feature.
+
+- Things that play into this:
+
+  - How long will feature be in effect (less long lowers risk of implementing)?
+
+  - How widely will it be deployed (less widely lowers risk of implementing)?
+
+  - How many users will see it / where in the funnel is it (later in funnel lowers risk of implementation)
+
+- What to do in practice:
+
+    - Start from baseline values ($alpha = 0.05$)
+
+    - Adjust depending on balance of risks
+
+### Power
+
+- What are you balancing here? The risk of making a Type II error and the time you have to wait for your results.
+
+- All else equal, the higher a level or power you want, the longer you'll have to run the experiment to accumulate the requried sample size.
+
+- Factors to consider:
+
+  - How costly is it to not implement a useful feature.
+
+
 
 
 ## Old notes
 
-<!-- ## Theory -->
-
-<!-- - Largely based on @duflo2007randomization -->
+Largely based on @duflo2007randomization
 
 
 Power basics
+
+![title](../inputs/power.png)
+
+
+$$
+n = \frac{(f(\alpha) + f(\beta))}{\text{Sample allocation}}\frac{\sigma}{\delta}
+$$
+
 
 - In the simplest possible, we randomly draw a sample of size $N$ from an identical population, so that our observations can be assumed to be i.i.d, and we allocate a fraction $P$ of our sample to treatment. We can then estiamte the treatment effect using the OLS regression
 
@@ -296,6 +365,12 @@ $$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^
 
 - SE($\beta$) also includes measurement error, so this is also a determinant of power.
 
+
+## Measuring power
+
+- Cohen (1977) proposes estimated effect size / standard deviation of outcome. This is useful to compare effects across studies and domains.
+
+- Bloom (1985) proposes MDE, useful for within study/domain comparisons. More directly interpretable.
 
 ## What determines power
 
@@ -334,6 +409,20 @@ $$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^
   
   - Only include triggered users
 
+
+Effect of one-sided testing on required sample size.
+
+In general:
+$$
+N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2
+$$
+
+For $\alpha = 0.05$, we have $t_{\alpha}^{ts} = 1.96$ and $t_{\alpha}^{os} = 1.65$, while for $\kappa = 0.8$ we have $t_{1 - \kappa} = 0.84$. Hence:
+$$
+\frac{N^{os}}{N^{ts}} = \frac{ (1.64 + 0.84)^2}{(1.96 + 0.84)^2} = \frac{6.2}{7.84} = 0.79
+$$
+
+Hence, for given levels of power and significance, a one-sided test requires about 21 percent fewer observations.
 
 
 ## Problems with low power

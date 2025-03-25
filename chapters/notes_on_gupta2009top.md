@@ -1,15 +1,3 @@
----
-title: "Top Challenges from the first Practical Online Controlled Experiment Summit"
-author: "Fabian Gunzinger"
-date: 5 June 2024
-date-format: D MMM YYYY
-slide-number: true
-format: html
-#   revealjs:
-#     smaller: true  
-bibliography: /Users/fabian.gunzinger/.dotfiles/latex/fabib.bib
----
-
 ## Intro
 
 - This 2019 conference invited representatives from experimentation leaders to discuss common challenges and solutions.

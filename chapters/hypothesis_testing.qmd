@@ -4,11 +4,38 @@ todo
 - Integrate kohavi2024false, berman2021false, colquhoun2019false.pdf
 - Multivariant tests
 
+- See ding2023first pdf page 72 for proof and derivation
+- See Rice 7.3.3
+- See Rice 6.2 on why this follows t distribution
+- For complete treatment and derivation of sampling distributions (incl. discussion of all the approximations and sample corrections), see Rice sampling chapter and my ipad notes.
+- See BIT blue book 4.3 for nice explanation of BH MHT correction
+
+
 Questions:
 - 95% CI for control and treatment overlap. Does this imply treatment is not significant?
 
-
 Suppose you have an idea for a new app feature, or algorithm, or design that you think will improve user experience. In this chapter we'll discuss different approaches for how to test whether your idea works.
+
+
+
+## Hypothesis testing
+
+To test whether the observed treatment effect is significantly different from zero, we test:
+
+$$
+H_0: \bar{Y}^{obs}_t = \bar{Y}^{obs}_c
+H_A: \bar{Y}^{obs}_t \neq \bar{Y}^{obs}_c.
+$$
+
+We calculate the test-statistic
+
+$$
+T = \frac{\hat{\tau}}{\sqrt{Var(\hat{\tau})}} \sim t_{(N_t + N_c - 2)},
+$$
+
+where $N_t + N_c - 2$ is number of degrees of freedom[^tdetails].
+
+
 
 
 ## Hypothesis testing
