@@ -46,6 +46,8 @@ $$
 
 - In principle, the potential outcomes can depend on the treatments for all units, so that for each unit, we have $2^n$ potential outcomes $Y_i(\mathbf{W})$.
 
+### SUTVA
+
 - Without further assumptions, an experiment would tell us the difference in the average outcomes of units in treatment and control, *given that precise assignment of the experiment*, which not help us estimate the effect of our universal policy.
 
 - To make progress, we need the Stable Unit Treatment Value Assumption. SUTVA has two components: no interference, and no hidden variations of treatments.
@@ -67,15 +69,99 @@ $$ {#eq-yi}
 
 - This is the precondition that allows us to compare outcomes of treated and untreated units to estimate the two quantities needed for the statistical solution to the Fundamental Problem: $\mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]$.
 
+### Assignment mechanism: randomisation
+
 - In order for these estimates to be valid estimates of the two quantities we need, it is critically important how units receive the treatment they receive.
 
 - This is the role of the assignment mechanism: the mechanism that determines how units are allocated into different treatment conditions.
 
-## Assignment in online experiments
+- In particular, allocation to treatment has to be random because if treatment allocation is random, then we have:
 
-### Bernoulli randomised experiment (BRE)
+Source: mostly harmless econometrics
 
-- The assignment mechanism of a BRE is individualistic, probabilistic, and unconfounded. In the simplest case without stratification, it is also independent of covariates. In all cases, the assignment mechanism is fully under our control. For probability of treatment assignment $q$, we thus have:
+(Population) average treatment effect:
+$$
+ATE = \mathbb{E}[Y_i(1) - Y_i(0)]
+$$
+Average treatment effect on the treated:
+$$
+ATT = \mathbb{E}[Y_i(1) - Y_i(0) \,|\, W_i=1]
+$$
+
+The observed difference is the sum of ATET and selection bias:
+
+$$
+\begin{align}
+
+\underbrace{
+\mathbb{E}[Y_i \,|\, W_i=1] - \mathbb{E}[Y_i \,|\, W_i=0]
+}_{\text{Observed difference}}
+
+\quad&=\quad
+\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
+\\[5pt]
+
+\quad&=\quad
+\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
+\\[5pt]
+&\quad\quad\, 
++\mathbb{E}[Y_i(0) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=1]
+\\[5pt]
+
+\quad&=\quad
+\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=1]
+\\[5pt]
+&\quad\quad\, 
++
+\mathbb{E}[Y_i(0) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
+\\[5pt]
+
+\quad&=\quad
+\underbrace{
+\mathbb{E}[Y_i(1) - Y_i(0) \,|\, W_i=1]
+}_{\text{ATT}}
+\\[5pt]
+&\quad\quad\, 
++
+\underbrace{
+\mathbb{E}[Y_i(0) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
+}_{\text{Selection bias}}
+\\[5pt]
+
+\end{align}
+$$
+Randomisation ensures that $\mathbb{E}[Y_i(0) \,|\, W_i=0] = \mathbb{E}[Y_i(0) \,|\, W_i=1]$ and thus solves the selection problem and also allows us to estimate the ATE (show this rigorously if needed):
+$$
+\begin{align}
+\mathbb{E}[Y_i \,|\, W_i=1] - \mathbb{E}[Y_i \,|\, W_i=0]
+
+\quad&=\quad
+\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
+\\[5pt]
+
+\quad&=\quad
+\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=1]
+\\[5pt]
+
+\quad&=\quad
+\underbrace{
+\mathbb{E}[Y_i(1) - Y_i(0) \,|\, W_i=1]
+}_{\text{ATT}}
+\\[5pt]
+
+\quad&=\quad
+\underbrace{
+\mathbb{E}[Y_i(1) - Y_i(0)]
+}_{\text{ATE}}
+\\[5pt]
+\end{align}
+$$
+
+
+
+- In online experiments, as least, this is not an assumption if we properly test the randomisation proceedure (see discussion of SRM in @sec-threats-to-validity)
+
+- In online experiments, the assignment mechanism is usually a BRE. The  assignment mechanism of a BRE is individualistic, probabilistic, and unconfounded. In the simplest case without stratification, it is also independent of covariates. In all cases, the assignment mechanism is fully under our control. For probability of treatment assignment $q$, we thus have:
 
 $$
 P(\mathbf{W} | \mathbf{X}, \mathbf{Y}(1), \mathbf{Y}(0)) = P(\mathbf{W}) = q^{n_t} (1-q)^{n_c}
@@ -89,16 +175,8 @@ $$
 
 - He does use Bernoulli sampling, which is what I need for online experiments. I just don'f fully understand how his perspective fits into the Imbens Rubin book / Athey Imbens one. 
 
-- Also, use my notes in Obsidian. There is a lot there.
 
-
-## Assumptions
-
-- SUTVA
-
-- Then we also require randomised assignments. In online experiments, as least, this is not an assumption if we properly test the randomisation proceedure (see discussion of SRM in @sec-threats-to-validity)
-
-Other related assumptions (not needed in online experiments, but discuss briefly)
+### Other related assumptions (not needed in online experiments, but discuss briefly)
 - Ignorability
 - Excludability
 	- Another key assumption, related to no hidden treatment variation, is that *assignment* to treatment affects outcomes only through the effect of the *administration* of the treatment -- being part of the treatment group does not have an effect on outcomes other than through the treatment itself.

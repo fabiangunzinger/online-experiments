@@ -15,6 +15,9 @@ Story:
 	- zhou2023all
 
 - Also discuss why not just use iid approach
+
+
+
 - Write draft and run past colleagues
 
 ## Experiment setup
@@ -657,7 +660,7 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 &=
 \frac{n_c}{n n_t}S_1^2
 + \frac{n_t}{n n_c}S_0^2
-+ \frac{2}{n}S_{0,1}
++ \frac{1}{n}2S_{0,1}
 &\text{}
 \\[5pt]
 

@@ -6,14 +6,13 @@ Pieces
 - [[cre_imbens2015causal]] contains cre derivations using Imbens approach
 - [[cre_ding2023first]] contains cre derivations using Ding approach
 - [[bre_ding2023first]] contain bre derivations – wip
-- [[iid_proofs]] contains two-sample case material
 - [[why_potential_outcomes]] answers that question based on Deng's online book
 
 
 Steps to victory
 - [x] Move all obsidian notes to suitable chapters
-- [ ] Clean up chapters and set up broad book structure to create version I can commit
-	- [ ] Up to hypothesis_testing.md
+- [x] Clean up chapters and set up broad book structure to create version I can commit
+	- [x] Up to hypothesis_testing.md
 - [ ] Keep going with below
 - [ ] Discusse why we need potential outcomes in the first place
 	- [ ] Look at early rubin papers
