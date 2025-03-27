@@ -71,6 +71,30 @@ rubin2005causal:
 
 - Design-based vs model-based inference – see modes of inference subsection in stats foundations section
 
+- All randomized experiments are assignment mechanisms with two critically important properties:
+
+	- **Ignorability**, which states that if treatment assignment is independent of potential outcomes conditional on covariates and observed outcomes, then the assignment mechanism can be ignored for the recovery of causal effects (instead of having to be modeled). Note: assignment doesn't have to be random for ignorability to hold, just to behave as if it were random given covariates and observed outcomes. (Section 3.2 in rubin1978bayesian actually suggests that for assignment mechanism to be ignorable, recording mechanism simply needs to record everything upon which assignment depends, which, I suppose, can always be captured by X and Yobs, so that the below notation is comprehensive but may not always be necessary in the sense that in some cases, we only need recording of X or yobs if assignment doesn't rely on the other of the two. For instance: "play-the-winner" example in paper relies on yobs only, whereas "balance patients characteristics" relies on X only) Formally:
+$$
+P(W|X, Y_i(1), Y_i(0)) = P(W|X, Y_i^{obs}),
+$$
+where
+$$
+Y_i^{obs} = W_iY_i(1) + (1 - W_i)Y_i(0).
+$$
+- 
+	- The unit-level probabilities of treatment assignment – the propensities – are between zero and one.
+
+- Historically, before formal modeling of assignment mechanism, people have used approaches consistent with above. For classical randomised experiments, they relied on **unconfoundedness**, 
+$$
+P(W|X, Y_i(1), Y_i(0)) = P(W|X)
+$$
+
+
+
+- See Rosenbaum and Rubin papers from the 1980s on propensity score to understand how it fits here: it's an approach to model the assignment mechanism.
+
+- Understand what precisely the science is and why it is called that (it's X, and potential outcomes, but why call it that?)
+- Then understand difference between modeling ass mech vs science (as discussed in last paragraph before section 5).
 
 
 
@@ -85,3 +109,52 @@ rubin1976inference:
 
 rubin1978bayesian:
 - First article to precisely state the conditions under which causal effects can be estimated from data
+
+
+
+## List of assumptions (temp, to be moved)
+
+
+### Ignorability
+
+States that if treatment assignment is independent of potential outcomes conditional on covariates and observed outcomes, then the assignment mechanism can be ignored for the recovery of causal effects (instead of having to be modeled). Note: assignment doesn't have to be random for ignorability to hold, just to behave as if it were random given covariates and observed outcomes.
+
+Section 3.2 in rubin1978bayesian actually suggests that for assignment mechanism to be ignorable, recording mechanism simply needs to record everything upon which assignment depends, which, I suppose, can always be captured by X and Yobs, so that the below notation is comprehensive but may not always be necessary in the sense that in some cases, we only need recording of X or yobs if assignment doesn't rely on the other of the two. For instance: "play-the-winner" example in paper relies on yobs only, whereas "balance patients characteristics" relies on X only.
+
+This is needed to ignore the assignment mechanism in Bayesian posterior inference (see rubin1978bayesian for details).
+
+Formally:
+$$
+P(W|X, Y_i(1), Y_i(0)) = P(W|X, Y_i^{obs}),
+$$
+where
+$$
+Y_i^{obs} = W_iY_i(1) + (1 - W_i)Y_i(0).
+$$
+
+### Unconfoundedness
+
+Aka (strong ignorability). Treatment is independent of potential outcomes given covariates. In practice, the following are used interchangeably to refer to this:
+- Ignorability 
+- Unconfoundedness
+- Selection on observables
+- No unmeasured confounding
+
+This is stronger than ignorability: it implies ignorability, but the reverse is not true.
+
+Formally:
+$$
+P(W|X, Y_i(1), Y_i(0)) = P(W|X)
+$$
+
+
+
+Note:
+
+As Rubin points out on page 43 in rubin1978bayesian, if we rely on simple random sampling and then conduct a completely randomised experiment, we have
+
+$$
+P(W|X, Y_i(1), Y_i(0)) = P(W),
+$$
+which implies both ignorability and confoundedness.
+
