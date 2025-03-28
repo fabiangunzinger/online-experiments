@@ -41,8 +41,13 @@ Steps to victory
 
 - [ ] Write chapter and consider turning it into paper (check with Max for relevant outlet if needed)
 
+- [ ] Problems/cases that help more deeply understand the approach
+	- [ ] Lords/Simpson paradox (see simpsons_paradox)
+	- [ ] Presence of concomitant variable (rubin2005causal section 7)
+
 
 Later
+- [ ] deng2017trustworthy on more general/complex cases in online experiment practice 
 - [ ] Add section on testing and CI
 - [ ] Add section on power calculations
     - [ ] Incorporate all metrics types to power calculation (see hesterberg2024power)

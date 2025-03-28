@@ -2,6 +2,8 @@
 
 - See holland1986statistics
 - See also https://www.the100.ci/2024/06/26/sometimes-a-causal-effect-is-just-a-causal-effect-regardless-of-how-its-mediated-or-moderated/
+- See discussion (also in comments) in this Gelman post: https://statmodeling.stat.columbia.edu/2012/09/11/advantages-of-the-instrumental-variables-or-potential-outcomes-approach-in-clarifying-causal-thinking/
+
 
 ## Perl
 

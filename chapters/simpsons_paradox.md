@@ -1,7 +1,14 @@
 # Simpson's paradox
 
 todo
+
+- Imbens and Rubin chapter on Lord's paradox
+
+- pearl2016lords: Great discussion of Lord's paradox, with reference to Rubin and Holland article on the subject (holland1982lords), and reference to interesting articles on Simpson's paradox (references 1 and 2).
+
 - Look at this: https://rworks.dev/posts/simpsons-paradox/
+
+- Look at: https://alexdeng.github.io/causal/simpson.html
 
 - Simpson's paradox happens due to a kind of omitted variable bias.
 

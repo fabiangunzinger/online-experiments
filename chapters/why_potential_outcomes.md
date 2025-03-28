@@ -6,6 +6,14 @@ Notes on [Randomised Experiment chapter](https://alexdeng.github.io/causal/rando
 Collect here material on the classic two-sample case. Discuss why using this in online experiments is incorrect. What error are we making?
 
 - [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
+	- [x] rubin2005causal (useful but no direct answer to question)
+	- [ ] rubin1974estimating
+	- [ ] this might give me the answer: https://www.adventuresinwhy.com/post/contingency-tables-potential-outcomes/
+	- [ ] cunningham2021causal (chapter 4)
+	- [ ] Ask ChatGPT
+
+
+
 - [ ] With replacement / IID approach
 	- [ ] Same as BRE?
 	- [ ] Relation to above approaches
@@ -89,13 +97,30 @@ $$
 P(W|X, Y_i(1), Y_i(0)) = P(W|X)
 $$
 
-
-
 - See Rosenbaum and Rubin papers from the 1980s on propensity score to understand how it fits here: it's an approach to model the assignment mechanism.
 
 - Understand what precisely the science is and why it is called that (it's X, and potential outcomes, but why call it that?)
 - Then understand difference between modeling ass mech vs science (as discussed in last paragraph before section 5).
 
+- Approaches to inference:
+	- Fisher
+	- Neyman
+	- Model-based (Rubin's preferred approach), which is the Bayesian approach to modeling unobserved potential outcomes – to modeling nature, in words of Rubin 
+- Seems like Rubin says in rubin1999teaching that choice of approach should be based on problem at hand – read more on this
+
+
+little2000causal
+- Very good and concise overview of the RCM
+
+rubin1999teaching
+- Text-based overview of RCM
+- Discusses structure of Harvard causal inference course and its rationale
+- Definition of causal effect using potential outcomes
+- Approach labelled Rubin Causal Model (RCM), though acknowledges that formal notation goes back to Neyman (1923) and intuitive idea goes back much further. Rubin's contribution is extension of framework beyond randomised experiments and beyond randomisation-based inference
+- Assumptions (non-interference, more encompassing SUTVA) ar eneeded – without them, causal inference is impossible.
+
+Rubin comment in dawid2000causal
+- Separation between the assignment mechanism (a model for treatment assignment given controls and potential outcomes) and a theory for nature (a model for the potential outcomes given controls). The former we can control at times (e.g. experiment) while the latter we cannot.
 
 
 
@@ -109,6 +134,7 @@ rubin1976inference:
 
 rubin1978bayesian:
 - First article to precisely state the conditions under which causal effects can be estimated from data
+
 
 
 
