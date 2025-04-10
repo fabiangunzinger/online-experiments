@@ -7,10 +7,26 @@ Collect here material on the classic two-sample case. Discuss why using this in 
 
 - [ ] Discuss why we need causal framework at all (what if we just do naive derivations treating t and c as independent samples)? What error are we making? (start with rubin1974estimating)
 	- [x] rubin2005causal (useful but no direct answer to question)
-	- [ ] rubin1974estimating
-	- [ ] this might give me the answer: https://www.adventuresinwhy.com/post/contingency-tables-potential-outcomes/
-	- [ ] cunningham2021causal (chapter 4)
+	- [x] rubin1974estimating - no answer
+	- [x] this might give me the answer: https://www.adventuresinwhy.com/post/contingency-tables-potential-outcomes/ - nop! not even close!
+	- [ ] wasserman book
+	- [ ] gerber & green book
+	- [ ] rice book
+
 	- [ ] Ask ChatGPT
+
+
+Why potential outcomes?
+- Clarifies what precisely we are trying to estimate: average individual treatment effect
+- Makes explicit the assumptions we need to make to do so: assuming that Y0 are the same in expectation (sth else?)
+ Next:
+ - Answer above question, and clearly write down outline of entire story including assumptions (I have that, just revisit and make sure it's complete) - have bre assuming n known as basis (which is basically CRE). For now that's fine.
+ - Then read cunningham2021causal (chapter 4) and titiunik2020natural for neat setup and write my section based on this
+ - Write up entire thing (i.e. unbiasedness and derivation of std)
+ - Then get feedback from colleagues and determine whether it's worth doing BRE without assumption of fixed n, and whether it's worth doing superpopulation perspective.
+ - At the same time, keep going with further sections: power, estimation, inference, ...
+
+
 
 
 
@@ -23,7 +39,7 @@ Collect here material on the classic two-sample case. Discuss why using this in 
 - [ ] Use [[stats_of_online_experiments]] to add context
 
 Material
-- ding2023first footnote 2 in chapter 4
+- ding2023first footnote 2 in chapter 4 and 
 
 
 

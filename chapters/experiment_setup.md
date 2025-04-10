@@ -1,5 +1,6 @@
 todo
 - Combine as needed
+- Look at titiunik2020natural for very neat descriptioin of the potential outcomes setup
 
 
 ## Experiment setup

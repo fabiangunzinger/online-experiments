@@ -47,6 +47,7 @@ Steps to victory
 
 
 Later
+- [ ] Read titiunik2020natural for neat definition of RCE and interesting discussion of types of randomness
 - [ ] deng2017trustworthy on more general/complex cases in online experiment practice 
 - [ ] Add section on testing and CI
 - [ ] Add section on power calculations
@@ -61,6 +62,12 @@ Later
     - [ ] Clean up rest of chapter
     - [ ] Power for different metric types (define continuous, proportion, ratio, etc. metrics -- how do they affect calculations?)
     - [ ] Build power calculator (check Statsig one — but add unbalanced samples option), build beautiful visualisations (use uv for package mgt)
+
+
+- Integrate Kohavi advanced topics into book: https://docs.google.com/document/d/12iy35z_aM5r76gqgq5f-mzVRwZoHjz4kBjv3rMULSEw/edit?tab=t.0#heading=h.3qu16rq6g769 
+
+- Integrate this into book: https://www.linkedin.com/posts/matheus-facure-7b0099117_alternative-experiment-designs-activity-7247577102797938688-s31_/?utm_source=share&utm_medium=member_desktop
+
 
 Even later:
 - [ ] Add super population case for ramp-up experiments (start with wager2024causal)
