@@ -21,6 +21,11 @@ Why potential outcomes?
 - Makes explicit the assumptions we need to make to do so: assuming that Y0 are the same in expectation (sth else?)
  Next:
  - Answer above question, and clearly write down outline of entire story including assumptions (I have that, just revisit and make sure it's complete) - have bre assuming n known as basis (which is basically CRE). For now that's fine.
+	 - Assumptions needed
+		 - SUTVA
+			 - What we need is to be able to write Y-i = WY1 + (1-W)Y0. For this we need i) independence from other's assignment, and ii) clearly defined meaning of Wi =1 and Wi = 0, becauese if they are not clearly defined then Y1/Y0 might not be stable. SUTVA handles both of these.
+		- Randomisation: to make sure that EY0 for W=1 equals 
+		- EY0 W=0
  - Then read cunningham2021causal (chapter 4) and titiunik2020natural for neat setup and write my section based on this
  - Write up entire thing (i.e. unbiasedness and derivation of std)
  - Then get feedback from colleagues and determine whether it's worth doing BRE without assumption of fixed n, and whether it's worth doing superpopulation perspective.
