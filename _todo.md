@@ -13,10 +13,6 @@ Steps to victory
 - [x] Move all obsidian notes to suitable chapters
 - [x] Clean up chapters and set up broad book structure to create version I can commit
 	- [x] Up to hypothesis_testing.md
-- [ ] Keep going with below
-- [ ] Discusse why we need potential outcomes in the first place
-	- [ ] Look at early rubin papers
-	- [ ] Look at Rice and experimentation textbooks
 
 - [ ] Perform derivation for BRE
 	- [ ] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)

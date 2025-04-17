@@ -1,24 +1,41 @@
+
 # The stats of online experiments
 
-## The potential outcomes framework and the fundamental problem of causal inference
 
-- The framework has three key features:
+#### The setup
 
-  1. Causal effects are associated with potential outcomes
-  2. Studying causal effects required multiple units
-  3. Central role of the assignment mechanism
+We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment. The population of units might be all visitors to our website and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or the control treatment and is exposed to the status-quo experience. We often refer to the two treatment conditions simply as "treatment" and "control".
 
-Their role is somewhat different, however: the first one is axiomatic: it's the starting point for how we think about causal effects and intimately linked to the notion that causal effects are always relative to a different state (see holland1986statistics notes, as well as Rubin interview). The second is a corollary from the first if we are unwilling to take the scientific solution (in Holland's words) to the Fundamental Problem: it's the insight that leads to the statistical solution. The third is a corollary of the second: to make the statistical solution work, the assignment mechanism is central.
+We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$.
 
-- Let's start with a single individual unit, $i$, which is usually a user but could also be a device, geographical district, or something else.
+Each unit $i$ has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment whereas $Y_i(0)$ is the outcome if they are in control. These outcomes are called "potential outcomes" because before the beginning of the experiment, each unit could potentially be exposed to either treatment condition. We collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. 
 
-- The binary treatment indicator $W_i \in \{0, 1\}$ indicates whether the individual is in treatment ($W_i = 1$) or control ($W_i = 0$).
+The causal effect of the treatment for individual $i$ is a comparison of the two potential outcomes, such as the difference $Y_i(1) - Y_i(0)$ or the ratio $Y_i(1)/Y_i(0)$. In online experiments, we usually focus on the difference and so we define the unit-level treatment effect as
 
-- The key notion of causal inference in this framework is the potential for exposing each unit to cause or treatment (regardless of whether it's possible in practice) –– each unit needs to be potentially exposable to any of the causes.
+$$
+\tau_i = Y_i(1) - Y_i(0).
+$$
+Because a unit can only ever be either in treatment in control but never both experiences at the same time, we can only ever observe one of the two potential outcomes, which means we can never directly observe $\tau_i$. This is the fundamental problem of causal inference $holland1986statistics. 
 
-- There is a potential outcome for each possible treatment: $Y_i(1)$ if $i$ is assigned to treatment and $Y_i(0)$ if $i$ is assigned to control.
+An experiment is one approach to deal with the fundamental problem.
 
-- The causal effect of the treatment for individual $i$ is a comparison of the two potential outcomes, such as the difference $Y_i(1) - Y_i(0)$ or the ratio $Y_i(1)/Y_i(0)$.
+#### The experiment setup
+
+- An experiment helps us deal with the fundamental problem by focusing on entire population of users and estimating average tau_i
+
+- At the population level, we then care about E[Y(1) - Y(0)]
+
+- Two possible cases: super population or finite sample perspective. I'm gonna focus on finite sample. Why
+	- That's often what we work with (exceptions are super large companies)
+	- It removes a layer of complication that is worth very little because results, ultimately, are basically the same (see imbens rubin book). Have a footnote explaining the main difference.
+
+- Given that we treat sample as population, we can rewrite E as sum
+- Use the below...
+
+- - -
+
+
+- 
 
 - Once treatment is assigned, we observe
 
@@ -32,6 +49,112 @@ $$
 - We can only ever observe one potential outcomes, which means that drawing inferences about the causal effect is impossible without additional assumptions. @holland1986statistics called this the fundamental problem of causal inference.
 
 - An experiment is one way to solve the fundamental problem.
+
+
+
+
+## Experiment setup
+
+Could add super population here, with population statistics $\mu_1, \sigma_1^2$, etc.
+
+...
+
+Finite sample of $n$ units, each with potential outcomes $Y_i(1)$ and $Y_i(0)$.
+
+Individual-level causal effects:
+$$
+\tau_i = Y_i(1) - Y_i(0)
+$$
+Finite sample average treatment effect:
+
+$$
+\tau_{\text{fs}}
+= \frac{1}{n}\sum_{i=1}^n \tau_i
+= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+= \overline{Y}(1) - \overline{Y}(0)
+$$
+
+Finite sample means and variances:
+
+$$
+\begin{align}
+\overline{Y}(1) = \frac{1}{n}\sum_{i=1}^n Y_i(1),
+\qquad
+S_1^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
+\\[5pt]
+\overline{Y}(0) = \frac{1}{n}\sum_{i=1}^n Y_i(0),
+\qquad
+S_0^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
+\\[5pt]
+\end{align}
+$$
+Variance of individual-level causal effects: 
+
+$$
+\begin{align}
+S_{\tau_i}^2
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - Y_i(0) 
+- \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2
+\\[5pt]
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(\tau_i - \tau_{\text{fs}}\right)^2 \\[5pt]
+\end{align}
+$$
+Covariance of potential outcomes:
+
+$$
+\begin{align}
+S_{0, 1} &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\end{align}
+$$
+
+We have data from a randomised experiment with assignment vector $\mathbf{W} = \{W_1, ... W_n\}$ where $n_t = \sum_{i=1}^n W_i$ units are allocated to treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units are allocated to control. 
+
+Observed outcomes are:
+$$ 
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)
+$$
+
+We can estimate the finite sample statistics using the observed treatment group means:
+
+$$
+\begin{align}
+\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
+\qquad
+\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\end{align}
+$$
+and observed treatment group variances:
+
+$$
+\begin{align}
+s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
+\qquad
+s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2
+\end{align}
+$$
+
+## Estimand and estimator of interest
+
+We are interested in the finite sample average treatment effect $\tau_{\text{fs}}$.
+
+Given the observed data, a natural estimator is:
+
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+= \overline{Y}_t - \overline{Y}_c
+\end{align}
+$$
+We analyse the properties of this estimators for different types of experiments (assignment mechanisms). In particular, we are interested in showing that the estimator is unbiased and to estimate its variance.
+
+
+
+
+
+
+
 
 
 ## Experiment setup
