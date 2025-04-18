@@ -1,5 +1,15 @@
 # Limitations and criticisms
 
+Outline of section:
+- Why are experiments considered the gold standard?
+- Why doesn't everyone agree
+
+What makes experiments the gold standard in the minds of many?
+1. The cleanest approach to the statistical solution in @holland1986statistics
+
+
+
+
 There are a number of issues here that I want to collect and develop further.
 
 ## Limitations of experiments
@@ -23,9 +33,9 @@ Need to ask the right questions
   publisher={British Medical Journal Publishing Group}
 }
 
-## RCT critique of Deaton and co.
+## RCT critique of Deaton and Cartwright
 
-- Read and understand critique of Deaton and coauthors, read also Imbens' response and overall understand debate here and develop my own thoughts.
+- Read and understand critique of deaton2018understanding, read also Imbens' response (imbens2018understanding) and overall understand debate here and develop my own thoughts.
 - How does this relate to tech?
 
 - Summary from @stevenson2024cause (see paper for more details and comprehensive list of sources)

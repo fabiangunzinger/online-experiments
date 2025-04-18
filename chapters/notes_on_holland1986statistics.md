@@ -100,7 +100,6 @@
 
 - This approach, too, is often used in everyday life.
 
-
 ### Independence
 
 - The statistical solution to the Fundamental Problem relies on estimating
