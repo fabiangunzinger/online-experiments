@@ -1,9 +1,13 @@
 
+Notation an conventions:
+- Running example: "your" behaviour/experience on an e-commerce app
+
 # The stats of online experiments
 
-#### The setup
 
-We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment. The population of units might be all the visitors to our website and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
+#### The fundamental problem of causal inference
+
+We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment. The population of units might be all the visitors to an e-comerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
 Each unit has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment whereas $Y_i(0)$ is the outcome if they are in control. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could potentially be exposed to either treatment condition. We collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. 
 
@@ -13,13 +17,14 @@ $$
 $$
 Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes – directly *observing unit-level treatment effects* is thus impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
 
-#### The experiment setup
+
+#### Experiments
 
 An experiment is one solution to the fundamental problem:[^scientific_solution] randomly assigning units from a population to either treatment or control allows us to *estimate average (unit-level) treatment effects*. In the words of @holland1986statistics [p. 947]:[^shortcut] 
 
 > "The important point is that [an experiment] replaces the impossible-to-observe causal effect of [a treatment] on a specific unit with the possible-to-estimate *average* causal effect of [the treatment] over a population of units."
 
-Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is the average of all these unit-level causal effects over the entire population:
+Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire population:
 
 $$
 \tau
@@ -28,128 +33,44 @@ $$
 = \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 = \overline{Y}(1) - \overline{Y}(0).
 $$
-The claim is that an experiment helps us estimate $\tau$. Let's see how this works.
 
-Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. After treatment assignment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$. 
+Let's see how an experiment can help us estimate $\tau$. Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. After treatment assignment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$. 
 
-We can calculate average outcomes for treatment and control units as:
-$$
-\begin{align}
-\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
-\qquad
-\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i,
-\end{align}
-$$
-and can calculate the difference between treatment and control average as:
+Because for each unit we observe $Y_i(1)$ if they are allocated to treatment and $Y_i(0)$ if they are allocated to control we might think that we have: 
 
 $$
-\hat{\tau} = \overline{Y}_t - \overline{Y}_c.
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 $$
 
-
-
-
-
-
-Finite sample means and variances:
-
-$$
-\begin{align}
-\overline{Y}(1) = \frac{1}{n}\sum_{i=1}^n Y_i(1),
-\qquad
-S_1^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
-\\[5pt]
-\overline{Y}(0) = \frac{1}{n}\sum_{i=1}^n Y_i(0),
-\qquad
-S_0^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
-\\[5pt]
-\end{align}
-$$
-Variance of individual-level causal effects: 
-
-$$
-\begin{align}
-S_{\tau_i}^2
-&= \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - Y_i(0) 
-- \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2
-\\[5pt]
-&= \frac{1}{n-1}\sum_{i=1}^{n}\left(\tau_i - \tau_{\text{fs}}\right)^2 \\[5pt]
-\end{align}
-$$
-Covariance of potential outcomes:
-
-$$
-\begin{align}
-S_{0, 1} &= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)
-\left(Y_i(0) - \overline{Y}(0)\right)
-\end{align}
-$$
-
-We have data from a randomised experiment with assignment vector $\mathbf{W} = \{W_1, ... W_n\}$ where $n_t = \sum_{i=1}^n W_i$ units are allocated to treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units are allocated to control. 
-
-
-
-- Once treatment is assigned, we observe
-
-$$
-Y_i^{obs} = Y_i(W_i) = \begin{cases} 
-   Y_i(1) & \text{if } W_i = 1 \\
-   Y_i(0)       & \text{if } W_i = 0
-  \end{cases}
-$$
-
-
-Observed outcomes are:
-$$ 
-Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)
-$$
-
-and observed treatment group variances:
-
-$$
-\begin{align}
-s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
-\qquad
-s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2
-\end{align}
-$$
-
-## Estimand and estimator of interest
-
-We are interested in the finite sample average treatment effect $\tau_{\text{fs}}$.
-
-Given the observed data, a natural estimator is:
-
-$$
-\begin{align}
-\hat{\tau}^{\text{dm}}
-= \overline{Y}_t - \overline{Y}_c
-\end{align}
-$$
-We analyse the properties of this estimators for different types of experiments (assignment mechanisms). In particular, we are interested in showing that the estimator is unbiased and to estimate its variance.
-
-
-
-
-
-
-
-
-
-- In principle, the potential outcomes can depend on the treatments for all units, so that for each unit, we have $2^n$ potential outcomes $Y_i(\mathbf{W})$.
+If unit $i$ is allocated to treatment we do observe a potential outcome in which they are in treatment, but in the context of an experiment with $n$ units that potential outcome could, in principle also depend on the treatment allocation of the remaining $n-1$ units. For example: your measured response to a new checkout flow in an e-commerce app might be different depending on whether or not your partner sees that same checkout flow and you both have the option to chose which flow you use. As a result, each unit's potential outcomes under treatment and control could be a function not only of their but of everyone's treatment allocation, leading to a total of $2^n$ potential outcomes $Y_i(\mathbf{W})$.
 
 ### SUTVA
 
-- Without further assumptions, an experiment would tell us the difference in the average outcomes of units in treatment and control, *given that precise assignment of the experiment*, which not help us estimate the effect of our universal policy.
+Without further assumptions, an experiment would tell us the difference in the average outcomes of units in treatment and control, *given that precise assignment of the experiment*, which would not help us estimate the effect of our universal policy.
 
-- To make progress, we need the Stable Unit Treatment Value Assumption. SUTVA has two components: no interference, and no hidden variations of treatments.
+There are two assumptions we need to move from $Y_i = Y_i(\mathbf{W})$ to $Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)$. 
 
-  - The no interference assumption states that a unit's potential outcomes are independent of the treatment assignment of all other units.
+After our discussion above the first is probably obvious: We need to assume that each unit's potential outcomes are independent of the treatment assignment of all other units. This is called *non-interference*. 
 
-  - The no hidden treatment variation states that a unit receiving a specific treatment level cannot receive different forms of that treatment level. This does *not* mean that the form of the treatment level has to be the same for each unit, but only that a given treatment level is well specified for a given unit. To use Imbens and Rubin's aspirin example: suppose we test the effect of aspirin on reducing headaches but have old and new aspirins which vary in strength, so that we effectively have three possible treatment statuses: no aspirin (control), weak aspirin, and strong aspirin. SUTVA does *not* require that all treatment units either get the weak or the strong aspirin, but requires that each unit can only receive one or the other in case they are treated, so that there is no ambiguity what form of the treatment a given unit will receive in case it is treated. (It would be permissible to have the treatment be randomly weak or strong, but this is not relevant in my world.) Remembering that what we want is the effect of a universal policy makes clear why this is important: we want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
+The second assumption is more subtle:
+
+The no hidden treatment variation states that a unit receiving a specific treatment level cannot receive different forms of that treatment level. 
+
+  This does *not* mean that the form of the treatment level has to be the same for each unit, but only that a given treatment level is well specified for a given unit. To use Imbens and Rubin's aspirin example: suppose we test the effect of aspirin on reducing headaches but have old and new aspirins which vary in strength, so that we effectively have three possible treatment statuses: no aspirin (control), weak aspirin, and strong aspirin. SUTVA does *not* require that all treatment units either get the weak or the strong aspirin, but requires that each unit can only receive one or the other in case they are treated, so that there is no ambiguity what form of the treatment a given unit will receive in case it is treated. (It would be permissible to have the treatment be randomly weak or strong, but this is not relevant in my world.) Remembering that what we want is the effect of a universal policy makes clear why this is important: we want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
+
+
+- No difference in behaviour depending on treatment administration – this is excludability, isn't it?
+
+
+
+
+
+Notice that, fundamentally, these assumptions all have the same intention:...
 
 - Both parts of SUTVA ensure that the potential outcomes, $Y_i(W_i)$, are well defined for each individual (the "treatment value" in SUTVA refers to "potential outcomes"). The no interference part ensures that these outcomes do not depend on the assignment of other units, while the no hidden treatment variation ensures that the precise form of each treatment level that any given unit receives is clear, which then ensures that the potential outcome for that treatment is also well defined (in the aspirin example: if it weren't clear whether treatment meant weak or strong aspirin for unit $i$, then the value for $Y_i(1)$ may vary depending on which aspirin $i$ ends up receiving, which means that potential outcome isn't well defined).
+
+
+To make progress, we need the Stable Unit Treatment Value Assumption. SUTVA has two components: no interference, and no hidden variations of treatments.
 
 - SUTVA is a strong assumption and can be violated in a number of ways. I'll discuss these, together with solutions, in @sec-threats-to-validity.
 
@@ -260,6 +181,11 @@ $$
 P(\mathbf{W} | \mathbf{X}, \mathbf{Y}(1), \mathbf{Y}(0)) = P(\mathbf{W}) = q^{n_t} (1-q)^{n_c}
 $$
 
+
+
+
+
+
 ****I'm here****
 
 - Reading Wager, it seems there are two relevant factors for inference: he just conditions on n to get a CRE, and then there is the question of whether to take a finite sample or super-population perspective. 
@@ -269,68 +195,54 @@ $$
 - He does use Bernoulli sampling, which is what I need for online experiments. I just don'f fully understand how his perspective fits into the Imbens Rubin book / Athey Imbens one. 
 
 
-### Other related assumptions (not needed in online experiments, but discuss briefly)
-- Ignorability
-- Excludability
-	- Another key assumption, related to no hidden treatment variation, is that *assignment* to treatment affects outcomes only through the effect of the *administration* of the treatment -- being part of the treatment group does not have an effect on outcomes other than through the treatment itself.
-	
-	- This could be violated if treatment units were somehow treated differently from control units (e.g. data collection was different)
-	
-	- The assumption is called "excludability" because it assumes that we can exclude from the potential outcome definition separate indicators for treatment assignment and administration. Instead, throughout, we use the indicator $w_i$, which captures whether unit $i$ was allocated to treatment, and assume that this perfectly corresponds to having been administered the treatment.
 
-Check:
-- See Wagner notes for 4 assumptions: https://web.stanford.edu/~swager/stats361.pdf 
-- duflo2006randomizationd
-- Mostly harmless metrics
-- Field experiments book
-- Kohavi papers/book
-- Imbens and Rubins
 
 Question:
 - You randomise at customer level. For analysis, you do the following: you calculate metrics at a restaurant level, then calculate variant level averages from the restaurant-level averages. Is there a problem? What is it? What assumptions are being violated? 
 
 
-## Estimand
 
-- We are generally interested in the effect of a universal policy -- a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. Also, while we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in average outcomes.
 
-- Hence, the estimand of interest (the theoretical quantity we try to estimate) is:
+
+### Excludability
+
+- Another key assumption, related to no hidden treatment variation, is that *assignment* to treatment affects outcomes only through the effect of the *administration* of the treatment -- being part of the treatment group does not have an effect on outcomes other than through the treatment itself.
+
+- This could be violated if treatment units were somehow treated differently from control units (e.g. data collection was different)
+
+- The assumption is called "excludability" because it assumes that we can exclude from the potential outcome definition separate indicators for treatment assignment and administration. Instead, throughout, we use the indicator $w_i$, which captures whether unit $i$ was allocated to treatment, and assume that this perfectly corresponds to having been administered the treatment.
+
+
+
+
+
+
+
+We can calculate average outcomes for treatment and control units as:
+$$
+\begin{align}
+\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
+\qquad
+\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i,
+\end{align}
+$$
+and can calculate the difference-in-means estimator as the difference between treatment and control average as:
 
 $$
-\tau = \bar{Y}(1) - \bar{Y}(0),
+\hat{\tau}^{\text{dm}} = \overline{Y}_t - \overline{Y}_c.
 $$
-
-  where ...
-
+What we want to know now is whether $\hat{\tau}^{\text{dm}}$ is a good estimator of $\tau$ in the sense that it is unbiased – whether, on average, we have $\hat{\tau}^{\text{dm}} = \tau$ – and what its variance is.
 
 
 
-
-
+  
+  
 
 
 
 
 
 
-
-## Commonly used estimator for sampling variance
-
-A commonly used estimator (recommended in practice by IR!) is:
-
-$$
-\hat{V}^{neyman} = \frac{s_t^2}{N_t} + \frac{s_c^2}{N_c},
-$$
-
-where $s_t^2$ and $s_c^2$ are unbiased estimators of $S_t^2$ and $S_c^2$. This estimator is popular for a few reasons:
-
-1. If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance of $\bar{Y}_t^{obs} - \bar{Y}_c^{obs}$.
-
-2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{ct}^2$ is non-negative).
-
-3. It is always unbiased for $\hat{\tau}^{dif}$ as an estimator of the infinite super-population average treatment effect (see below).
-
-There are other options (see Section 6.5 in the IR book).
 
 
 

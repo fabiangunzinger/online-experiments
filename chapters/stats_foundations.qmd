@@ -1,5 +1,13 @@
 # Statistics foundations
 
+
+## Other assumptions in casusal inference
+
+
+
+
+
+
 ## Modes of inference
 
 - see abadie2020sampling 

@@ -79,4 +79,3 @@ rubin1976inference:
 
 rubin1978bayesian:
 - First article to precisely state the conditions under which causal effects can be estimated from data
-
