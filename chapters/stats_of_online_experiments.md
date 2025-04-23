@@ -118,7 +118,15 @@ Let's tackle them in turn.
 
 Remember that what we ultimately want to learn about are unit-level differences in potential outcomes $Y_i(1)$ and $Y_i(0)$ – the outcomes we would observe if $i$ were exposed to treatment and control, respectively.
 
-Now let's say $i$ is allocated to treatment in our experiment. This means that for that particular experiment, the assignment vector $\mathbf{W}$ is such that the $i$ element is $W_i = 1$.
+Now let's say $i$ is allocated to treatment in our experiment. This means that for that particular experiment, the assignment vector $\mathbf{W}$ is such that the $i$ element is $W_i = 1$. The observed outcome is then:
+
+$$
+Y_i = Y_i(\mathbf{W}).
+$$
+That is: if unit $i$ is allocated to treatment in our experiment then the outcome we observe for unit $i$ is the potential outcome for unit $i$ where $i$ is allocated to treatment and the treatment assignments of all other units are as given in $\mathbf{W}$.
+
+
+
 
 ...
 
