@@ -11,8 +11,6 @@ The context
 
 
 
-
-
 Why potential outcomes?
 - Clarifies what precisely we are trying to estimate: average individual treatment effect
 - Makes explicit the assumptions we need to make to do so: assuming that Y0 are the same in expectation (sth else?)

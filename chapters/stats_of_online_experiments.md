@@ -4,10 +4,9 @@ Notation an conventions:
 
 # The stats of online experiments
 
-
 #### The fundamental problem of causal inference
 
-We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment. The population of units might be all the visitors to an e-comerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
+We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment. The population of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
 Each unit has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment whereas $Y_i(0)$ is the outcome if they are in control. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could potentially be exposed to either treatment condition. We collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. 
 
@@ -15,7 +14,7 @@ The causal effect of the treatment for unit $i$ is the difference between the tw
 $$
 \tau_i = Y_i(1) - Y_i(0).
 $$
-Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes – directly *observing unit-level treatment effects* is thus impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
+Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly *observing unit-level treatment effects* is impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
 
 
 #### Experiments
@@ -24,17 +23,186 @@ An experiment is one solution to the fundamental problem:[^scientific_solution] 
 
 > "The important point is that [an experiment] replaces the impossible-to-observe causal effect of [a treatment] on a specific unit with the possible-to-estimate *average* causal effect of [the treatment] over a population of units."
 
-Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire population:
+Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is an average across a population of units. In particular, we are usually interested in the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire population:
 
 $$
+\begin{align}
 \tau
-= \frac{1}{n}\sum_{i=1}^n \tau_i
-= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
-= \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
-= \overline{Y}(1) - \overline{Y}(0).
+&= \frac{1}{n}\sum_{i=1}^n \tau_i \\[5pt]
+&= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right) \\[5pt]
+&= \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0) \\[5pt]
+&= \overline{Y}(1) - \overline{Y}(0).
+\end{align}
 $$
 
-Let's see how an experiment can help us estimate $\tau$. Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. After treatment assignment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$. 
+Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W}$. After treatment assignment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
+
+To estimate $\tau$, we use the observed difference in means between the treatment and control units:
+
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+= \overline{Y}_t - \overline{Y}_c,
+\end{align}
+$$
+where
+
+$$
+\overline{Y}_t = \frac{1}{n_t}\sum_{i:W_i=1}Y_i = \frac{1}{n_t}\sum_{i=1}^nW_iY_i
+$$
+and
+$$
+\overline{Y}_c = \frac{1}{n_c}\sum_{i:W_i=0}Y_i = \frac{1}{n_c}\sum_{i=1}^n(1-W_i)Y_i
+$$
+
+In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
+
+### Unbiasedness of $\hat{\tau}^{\text{dm}}$
+
+To show unbiasedness, we need to show that $\mathbb{E}[{\hat{\tau}^{\text{dm}}}] = \tau$.[^omitted_contidioning]
+
+Hence, what we have to show is:
+
+$$
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\right]
+
+&=
+\mathbb{E}\left[
+\overline{Y}_t - \overline{Y}_c
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i\right] - \mathbb{E}\left[\frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\right]
+&\text{}
+\\[5pt]
+
+&\overset{!}{=}
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0) \\[5pt]
+
+&=
+\tau
+\end{align}
+$$
+
+Which shows that for treatment outcomes we have to show that
+$$
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i\right]
+\overset{!}{=}
+\frac{1}{n}\sum_{i=1}^nY_i(1)
+$$
+and similar for control outcomes.
+
+There are two pieces we need for this:
+
+1) Relate observed outcomes to potential outcomes – to do this, we need an assumption, SUTVA
+2) Get rid of the expectation and the assignment indicator $W_i$, and replace $\frac{1}{n_t}$ with $\frac{1}{n}$ – this we get from randomisation.
+
+Let's tackle them in turn.
+
+#### SUTVA links observed outcomes with potential outcomes of interest
+
+Remember that what we ultimately want to learn about are unit-level differences in potential outcomes $Y_i(1)$ and $Y_i(0)$ – the outcomes we would observe if $i$ were exposed to treatment and control, respectively.
+
+Now let's say $i$ is allocated to treatment in our experiment. This means that for that particular experiment, the assignment vector $\mathbf{W}$ is such that the $i$ element is $W_i = 1$.
+
+...
+
+
+#### Randomisation gives us unconditional potential outcomes of interest
+
+- We start with WY_i(1). This is akin to Y_i(1) | W_i = 1. We need Y_i(1). Randomisation gives us that.
+- It also gives us ATE instead of only ATT
+
+...
+
+#### Full proof
+
+
+$$
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\right]
+
+&=
+\mathbb{E}\left[
+\overline{Y}_t - \overline{Y}_c
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\right]
+&\text{}
+\\[5pt]
+
+&\text{SUTVA}
+\\[5pt]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_t}\sum_{i=1}^n \mathbb{E}[W_i]Y_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n \mathbb{E}[(1-W_i)]Y_i(0)
+&\text{}
+\\[5pt]
+
+&\text{Randomisation}
+\\[5pt]
+
+&=
+\frac{1}{n_t}\sum_{i=1}^n \left(\frac{n_t}{n}\right)Y_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n \left(\frac{n_c}{n}\right)Y_i(0)
+\\[5pt]
+
+&=
+\frac{1}{n}\sum_{i=1}^n Y_i(1) 
+- \frac{1}{n}\sum_{i=1}^n Y_i(0)
+&\text{}
+\\[5pt]
+
+&=
+\overline{Y}(1) - \overline{Y}(0)
+&\text{}
+\\[5pt]
+
+&=
+\tau
+\qquad\square
+&\text{}
+\\[5pt]
+\end{align}
+$$
+
+
+
+
+
+# Old notes
+
 
 Because for each unit we observe $Y_i(1)$ if they are allocated to treatment and $Y_i(0)$ if they are allocated to control we might think that we have: 
 
@@ -90,6 +258,10 @@ $$ {#eq-yi}
 - This is the role of the assignment mechanism: the mechanism that determines how units are allocated into different treatment conditions.
 
 - In particular, allocation to treatment has to be random because if treatment allocation is random, then we have:
+
+
+
+Appendix material: how does my approach above relate to the below?
 
 Source: mostly harmless econometrics
 
@@ -262,3 +434,5 @@ What we want to know now is whether $\hat{\tau}^{\text{dm}}$ is a good estimator
 [^scientific_solution]: @holland1986statistics discusses two solutions to the Fundamental Problem: one is the *statistical solution*, which relies on estimating average treatment effects across a large population of units while the other is the *scientific solution*, which uses homogeneity or invariance assumptions. The scientific solution works as follows: say we have one measurement of a units outcome under treatment from today and another measurement of their outcome under control from yesterday. If we are prepared to assume that control measurements are homogenous and invariant to time – that yesterday's control measurement equals the control measurement we would have taken today – then we can calculate the individual level causal effect by comparing the two measurements taken at different points in time. Our assumption is untestable, of course, but in lab experiments it is sometimes possible to make a strong case that it is plausible. It is also the approach we informally use in daily life, whenever we conclude that taking Paracetamol helps against headaches or that going to sleep early makes us feel better the next morning.
 
 [^shortcut]: I have taken a slight shortcut here by treating experiments as being synonymous with the statistical solution (see previous footnote) even though observational studies can serve the same purpose (albeit with additional assumptions). I do this because my focus here is on experiments. See, for instance, @imbens2015causal for an extensive discussion of experimental and observational approaches. 
+
+[^omitted_contidioning]: We treat each unit's potential outcomes as given and $n_t$ and $n_c$ as fixed, so the expectation is conditional on these factors: $\mathbb{E}[{\hat{\tau}^{\text{dm}}} | \mathbf{Y(1)}, \mathbf{Y(0)}, n_t, n_c] = \tau$. I omit this explicit conditioning to simplify the notation.
