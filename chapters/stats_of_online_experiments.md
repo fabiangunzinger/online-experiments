@@ -2,6 +2,9 @@
 Notation an conventions:
 - Running example: "your" behaviour/experience on an e-commerce app
 
+Questions I'm unsure about
+- Shound I start with potential outcomes, individual effect, then average effect, then dm estimator, then proofs *or* start with dm (what we get in experiment) and then show what it is and why we do it? For now, do first way, which is traditional and what I need for myself. Rewrite as needed.
+
 # The stats of online experiments
 
 #### The fundamental problem of causal inference
@@ -48,11 +51,17 @@ $$
 where
 
 $$
-\overline{Y}_t = \frac{1}{n_t}\sum_{i:W_i=1}Y_i = \frac{1}{n_t}\sum_{i=1}^nW_iY_i
+\begin{align}
+\overline{Y}_t &= \frac{1}{n_t}\sum_{i:W_i=1}Y_i \\[5pt]
+&= \frac{1}{n_t}\sum_{i=1}^nW_iY_i
+\end{align}
 $$
 and
 $$
-\overline{Y}_c = \frac{1}{n_c}\sum_{i:W_i=0}Y_i = \frac{1}{n_c}\sum_{i=1}^n(1-W_i)Y_i
+\begin{align}
+\overline{Y}_c &= \frac{1}{n_c}\sum_{i:W_i=0}Y_i \\[5pt]
+&= \frac{1}{n_c}\sum_{i=1}^n(1-W_i)Y_i
+\end{align}
 $$
 
 In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
@@ -94,6 +103,11 @@ $$
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0) \\[5pt]
 
 &=
+\overline{Y}(1) - \overline{Y}(0)
+&\text{}
+\\[5pt]
+
+&=
 \tau
 \end{align}
 $$
@@ -114,21 +128,87 @@ There are two pieces we need for this:
 
 Let's tackle them in turn.
 
-#### SUTVA links observed outcomes with potential outcomes of interest
+#### SUTVA links observed outcomes with potential outcomes
 
-Remember that what we ultimately want to learn about are unit-level differences in potential outcomes $Y_i(1)$ and $Y_i(0)$ – the outcomes we would observe if $i$ were exposed to treatment and control, respectively.
-
-Now let's say $i$ is allocated to treatment in our experiment. This means that for that particular experiment, the assignment vector $\mathbf{W}$ is such that the $i$ element is $W_i = 1$. The observed outcome is then:
+We want to learn something about unit-level differences in potential outcomes
 
 $$
-Y_i = Y_i(\mathbf{W}).
+\tau_i = Y_i(1) - Y_i(0),
 $$
-That is: if unit $i$ is allocated to treatment in our experiment then the outcome we observe for unit $i$ is the potential outcome for unit $i$ where $i$ is allocated to treatment and the treatment assignments of all other units are as given in $\mathbf{W}$.
+where a potential outcome is a function unit-indexed function of the treatment level, with the treatment levels in our case simply being "treatment" and "control", captured by the assignment indicator $W_i \in {0, 1}$. 
+
+Now say we run an experiment and unit $i$ is allocated to treatment. The $i$-th element of the assignment vector $\mathbf{W}$ of that experiment is thus $W_i = 1$, and we refer to this assignment vector as $\mathbf{W}^{(i=1)}$. 
+
+We know we can't observe $\tau_i$, but given that $i$ is in treatment we need to observe the potential outcome under treatment, $Y_i(1)$, to help us estimate $\hat{\tau}$. So we need 
+
+$$
+Y_i = Y_i(1).
+$$
+
+What we directly observe, however, is
+$$
+Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right).
+$$
+In words: the outcome we observe for unit $i$ in our experiment is not the potential outcome for $i$ under treatment, but the potential outcome for $i$ under the specific assignment vector of our experiment, $\mathbf{W}^{(i=1)}$. What does this mean concretely? It means that the observed outcome is a function not only of $i$'s treatment assignment but of:
+
+1. The assignment of all units in the experiment
+2. The precise form of the assigned treatment level received by unit $i$
+3. The way in which the treatment is administered to unit $i$
+
+We need:
+$$
+Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
+$$
+The only way to make progress is to assume what we need: that potential outcomes for unit $i$ are a function only of the treatment level unit $i$ itself receives and independent of
+
+1. the treatment assignments of all other units
+2. different forms of the treatment level (they either aren't available, don't matter, or are random)
+3. different ways of treatment administrations (they either aren't available, don't matter, or are random)
+
+This is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level – "treatment value" in the assumption's name refers to potential outcome.
+
+This allows us to write:
+
+$$
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0),
+$$
+and thus creates the link we need between observed and potential outcomes.
+
+
+Todo:
+- Link to two parts of assumption: no interference (1), no hidden variations of treatment (2, 3)
+- Explain name
+	- Check: Rubin, D. B. (1980). “Comment on D. Basu, 'Randomization Analysis of Experimental Data: The Fisher Randomization Test'.” _Journal of the American Statistical Association_ 75:591–593.
+	- rubin1986which
+- Why important: Remembering that what we want is the effect of a universal policy makes clear why this is important: we want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
+- Concrete example
+	- E-commerce website change to checkout flow can depend on:
+		- My partner treatment assignment
+		- Accidental server-side bug that creates different background colours for button
+		- Web-browser I use to view site
+- What SUTVA doesn't mean:
+	- That everyone receives the same form of treatment, just that I can only receive a single one / or doesn't matter / or is random – all we need is well specified function for index and treatment. This is very often misunderstood.
+	- Same for treatment administration.
+- Link 2 and 3 to excludability
+- SUTVA is a strong assumption and can be violated in a number of ways. I'll discuss these, together with solutions, in @sec-threats-to-validity.
 
 
 
 
-...
+
+
+Notice that, fundamentally, these assumptions all have the same intention:...
+
+- Both parts of SUTVA ensure that the potential outcomes, $Y_i(W_i)$, are well defined for each individual (the "treatment value" in SUTVA refers to "potential outcomes"). The no interference part ensures that these outcomes do not depend on the assignment of other units, while the no hidden treatment variation ensures that the precise form of each treatment level that any given unit receives is clear, which then ensures that the potential outcome for that treatment is also well defined (in the aspirin example: if it weren't clear whether treatment meant weak or strong aspirin for unit $i$, then the value for $Y_i(1)$ may vary depending on which aspirin $i$ ends up receiving, which means that potential outcome isn't well defined).
+
+
+
+
+
+
+
+
+
 
 
 #### Randomisation gives us unconditional potential outcomes of interest
@@ -210,54 +290,6 @@ $$
 
 
 # Old notes
-
-
-Because for each unit we observe $Y_i(1)$ if they are allocated to treatment and $Y_i(0)$ if they are allocated to control we might think that we have: 
-
-$$
-Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
-$$
-
-If unit $i$ is allocated to treatment we do observe a potential outcome in which they are in treatment, but in the context of an experiment with $n$ units that potential outcome could, in principle also depend on the treatment allocation of the remaining $n-1$ units. For example: your measured response to a new checkout flow in an e-commerce app might be different depending on whether or not your partner sees that same checkout flow and you both have the option to chose which flow you use. As a result, each unit's potential outcomes under treatment and control could be a function not only of their but of everyone's treatment allocation, leading to a total of $2^n$ potential outcomes $Y_i(\mathbf{W})$.
-
-### SUTVA
-
-Without further assumptions, an experiment would tell us the difference in the average outcomes of units in treatment and control, *given that precise assignment of the experiment*, which would not help us estimate the effect of our universal policy.
-
-There are two assumptions we need to move from $Y_i = Y_i(\mathbf{W})$ to $Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)$. 
-
-After our discussion above the first is probably obvious: We need to assume that each unit's potential outcomes are independent of the treatment assignment of all other units. This is called *non-interference*. 
-
-The second assumption is more subtle:
-
-The no hidden treatment variation states that a unit receiving a specific treatment level cannot receive different forms of that treatment level. 
-
-  This does *not* mean that the form of the treatment level has to be the same for each unit, but only that a given treatment level is well specified for a given unit. To use Imbens and Rubin's aspirin example: suppose we test the effect of aspirin on reducing headaches but have old and new aspirins which vary in strength, so that we effectively have three possible treatment statuses: no aspirin (control), weak aspirin, and strong aspirin. SUTVA does *not* require that all treatment units either get the weak or the strong aspirin, but requires that each unit can only receive one or the other in case they are treated, so that there is no ambiguity what form of the treatment a given unit will receive in case it is treated. (It would be permissible to have the treatment be randomly weak or strong, but this is not relevant in my world.) Remembering that what we want is the effect of a universal policy makes clear why this is important: we want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
-
-
-- No difference in behaviour depending on treatment administration – this is excludability, isn't it?
-
-
-
-
-
-Notice that, fundamentally, these assumptions all have the same intention:...
-
-- Both parts of SUTVA ensure that the potential outcomes, $Y_i(W_i)$, are well defined for each individual (the "treatment value" in SUTVA refers to "potential outcomes"). The no interference part ensures that these outcomes do not depend on the assignment of other units, while the no hidden treatment variation ensures that the precise form of each treatment level that any given unit receives is clear, which then ensures that the potential outcome for that treatment is also well defined (in the aspirin example: if it weren't clear whether treatment meant weak or strong aspirin for unit $i$, then the value for $Y_i(1)$ may vary depending on which aspirin $i$ ends up receiving, which means that potential outcome isn't well defined).
-
-
-To make progress, we need the Stable Unit Treatment Value Assumption. SUTVA has two components: no interference, and no hidden variations of treatments.
-
-- SUTVA is a strong assumption and can be violated in a number of ways. I'll discuss these, together with solutions, in @sec-threats-to-validity.
-
-- If SUTVA holds, however, then instead of $Y_i = Y_i(\mathbf{W})$ we have $Y_i = Y_i(W_i)$, which allows us to write:
-
-$$ Y_i^{obs} = W_iY_i(1) + (1 - W_i)Y_i(0)
-$$ {#eq-yi}
-
-- This is progress because now each unit's potential outcome is a function only of the unit's treatment assignment. As a result, the outcome we observe once the unit has been assigned, too, is a function of that unit's treatment assignment only.
-
-- This is the precondition that allows us to compare outcomes of treated and untreated units to estimate the two quantities needed for the statistical solution to the Fundamental Problem: $\mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]$.
 
 ### Assignment mechanism: randomisation
 
