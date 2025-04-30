@@ -31,39 +31,22 @@ Hence, instead of trying to observe unit-level causal effects, the quantity of i
 $$
 \begin{align}
 \tau
-&= \frac{1}{n}\sum_{i=1}^n \tau_i \\[5pt]
-&= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right) \\[5pt]
-&= \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0) \\[5pt]
-&= \overline{Y}(1) - \overline{Y}(0).
+:= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+= \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 $$
 
 Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W}$. After treatment assignment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
 
-To estimate $\tau$, we use the observed difference in means between the treatment and control units:
+To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
 
 $$
 \begin{align}
 \hat{\tau}^{\text{dm}}
-= \overline{Y}_t - \overline{Y}_c,
+:=
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \end{align}
 $$
-where
-
-$$
-\begin{align}
-\overline{Y}_t &= \frac{1}{n_t}\sum_{i:W_i=1}Y_i \\[5pt]
-&= \frac{1}{n_t}\sum_{i=1}^nW_iY_i
-\end{align}
-$$
-and
-$$
-\begin{align}
-\overline{Y}_c &= \frac{1}{n_c}\sum_{i:W_i=0}Y_i \\[5pt]
-&= \frac{1}{n_c}\sum_{i=1}^n(1-W_i)Y_i
-\end{align}
-$$
-
 In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
 
 ### Unbiasedness of $\hat{\tau}^{\text{dm}}$
@@ -71,7 +54,6 @@ In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased
 To show unbiasedness, we need to show that $\mathbb{E}[{\hat{\tau}^{\text{dm}}}] = \tau$.[^omitted_contidioning]
 
 Hence, what we have to show is:
-
 $$
 \begin{align}
 \mathbb{E}\left[
@@ -80,31 +62,20 @@ $$
 
 &=
 \mathbb{E}\left[
-\overline{Y}_t - \overline{Y}_c
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \right]
-&\text{}
 \\[5pt]
 
 &=
-\mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
-\right]
-&\text{}
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i\right]
 \\[5pt]
 
-&=
-\mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i\right] - \mathbb{E}\left[\frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
-\right]
-&\text{}
-\\[5pt]
-
-&\overset{!}{=}
-\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0) \\[5pt]
-
-&=
-\overline{Y}(1) - \overline{Y}(0)
-&\text{}
+&
+\enspace
+\overset{!}{=}
+\enspace
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 \\[5pt]
 
 &=
@@ -112,23 +83,15 @@ $$
 \end{align}
 $$
 
-Which shows that for treatment outcomes we have to show that
-$$
-\mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i\right]
-\overset{!}{=}
-\frac{1}{n}\sum_{i=1}^nY_i(1)
-$$
-and similar for control outcomes.
-
 There are two pieces we need for this:
 
-1) Relate observed outcomes to potential outcomes – to do this, we need an assumption, SUTVA
-2) Get rid of the expectation and the assignment indicator $W_i$, and replace $\frac{1}{n_t}$ with $\frac{1}{n}$ – this we get from randomisation.
+1) Link observed to potential outcomes so that $Y_i = Y_i(W_i)$. This requires the Stable Unit Treatment Assumption (SUTVA).
+
+2) Link treatment group averages to population averages so that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i$. This requires randomisation.
 
 Let's tackle them in turn.
 
-#### SUTVA links observed outcomes with potential outcomes
+#### SUTVA links observed outcomes to potential outcomes
 
 We want to learn something about unit-level differences in potential outcomes
 
@@ -159,66 +122,124 @@ We need:
 $$
 Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
 $$
-The only way to make progress is to assume what we need: that potential outcomes for unit $i$ are a function only of the treatment level unit $i$ itself receives and independent of
+The only way to make progress is to assume what we need: that potential outcomes for unit $i$ are a function only of the treatment level unit $i$ itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment. (i) above is referred to as "no interference" in the literature, (ii) as "no hidden variations of treatment".
 
-1. the treatment assignments of all other units
-2. different forms of the treatment level (they either aren't available, don't matter, or are random)
-3. different ways of treatment administrations (they either aren't available, don't matter, or are random)
+That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level – "treatment value" in the assumption's name refers to potential outcome. 
 
-This is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level – "treatment value" in the assumption's name refers to potential outcome.
+Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that $Y_i(W_i)$ is a clearly defined function for all $i$ and all possible treatment levels $W_i \in \{0, 1\}$. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.
 
-This allows us to write:
+[todo]
+In the context of our e-commerce app experiment, SUTVA means that potential outcomes for all customers are independent of treatment assignment of their partners (no interference) and that there their precise experience is pinned down by their mobile device and remains stable over time.
+Link to three elements above:
+(i) My partner treatment assignment
+(ii) Accidental server-side bug that creates different background colours for button
+(iii) Web-browser I use to view site
+
+Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
+
+SUTVA is a strong assumption and can be violated in a number of ways. I'll discuss these, together with solutions, in @sec-threats-to-validity.
+
+
+If SUTVA holds we have:
 
 $$
-Y_i = W_iY_i(1) + (1 - W_i)Y_i(0),
+Y_i = Y_i(W_i) = \begin{cases} 
+   Y_i(1) & \text{if } W_i = 1 \\
+   Y_i(0)       & \text{if } W_i = 0,
+  \end{cases}
 $$
-and thus creates the link we need between observed and potential outcomes.
+or, more compactly:
+$$
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
+$$
 
+This is the link between observed and potential outcomes we need.
 
-Todo:
-- Link to two parts of assumption: no interference (1), no hidden variations of treatment (2, 3)
-- Explain name
-	- Check: Rubin, D. B. (1980). “Comment on D. Basu, 'Randomization Analysis of Experimental Data: The Fisher Randomization Test'.” _Journal of the American Statistical Association_ 75:591–593.
-	- rubin1986which
-- Why important: Remembering that what we want is the effect of a universal policy makes clear why this is important: we want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
-- Concrete example
-	- E-commerce website change to checkout flow can depend on:
-		- My partner treatment assignment
-		- Accidental server-side bug that creates different background colours for button
-		- Web-browser I use to view site
-- What SUTVA doesn't mean:
-	- That everyone receives the same form of treatment, just that I can only receive a single one / or doesn't matter / or is random – all we need is well specified function for index and treatment. This is very often misunderstood.
-	- Same for treatment administration.
+In our unbiasedness proof, we now have
+
+$$
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\right]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\right]
+\\[5pt]
+
+&=
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i\right]
+\\[5pt]
+
+&\text{SUTVA}
+\\[5pt]
+
+&=
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)\right]
+\\[5pt]
+
+&
+\enspace
+\overset{!}{=}
+\enspace
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+
+&=
+\tau.
+\end{align}
+$$
+
+What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i$. This requires randomisation.
+
+todo:
+- Why called SUTVA, see @rubin1980randomization
 - Link 2 and 3 to excludability
-- SUTVA is a strong assumption and can be violated in a number of ways. I'll discuss these, together with solutions, in @sec-threats-to-validity.
 
+#### Randomisation links treatment groups to the population
 
+In math therms, it gives us unconditional potential outcomes by allowing us to replace
 
-
-
-
-Notice that, fundamentally, these assumptions all have the same intention:...
-
-- Both parts of SUTVA ensure that the potential outcomes, $Y_i(W_i)$, are well defined for each individual (the "treatment value" in SUTVA refers to "potential outcomes"). The no interference part ensures that these outcomes do not depend on the assignment of other units, while the no hidden treatment variation ensures that the precise form of each treatment level that any given unit receives is clear, which then ensures that the potential outcome for that treatment is also well defined (in the aspirin example: if it weren't clear whether treatment meant weak or strong aspirin for unit $i$, then the value for $Y_i(1)$ may vary depending on which aspirin $i$ ends up receiving, which means that potential outcome isn't well defined).
-
-
-
-
-
-
-
-
-
-
-
-#### Randomisation gives us unconditional potential outcomes of interest
-
+todo:
 - We start with WY_i(1). This is akin to Y_i(1) | W_i = 1. We need Y_i(1). Randomisation gives us that.
 - It also gives us ATE instead of only ATT
+- Link last line of below to Ding lemma 3
 
-...
 
-#### Full proof
+Notes:
+
+$$
+\begin{align}
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i(1) 
+\>|\> n_t, n_c, \mathbf{Y(1)}, \mathbf{Y(0)}
+\right]
+=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i(1)
+\>|\> n_t, n_c, \mathbf{Y(1)}, \mathbf{Y(0)}
+\right] 
+\quad&\text{Definition of }W_i
+\\[5pt]
+
+=
+\frac{1}{n_t}\sum_{i=1}^{n}\mathbb{E}[W_i\>|\> n_t, n_c, \mathbf{Y(1)}, \mathbf{Y(0)}]Y_i(1)
+\quad&\text{}
+\\[5pt]
+
+\end{align}
+$$
+
+
+
+
+
+
+#### Full proof for reference
 
 
 $$
@@ -476,3 +497,20 @@ What we want to know now is whether $\hat{\tau}^{\text{dm}}$ is a good estimator
 [^shortcut]: I have taken a slight shortcut here by treating experiments as being synonymous with the statistical solution (see previous footnote) even though observational studies can serve the same purpose (albeit with additional assumptions). I do this because my focus here is on experiments. See, for instance, @imbens2015causal for an extensive discussion of experimental and observational approaches. 
 
 [^omitted_contidioning]: We treat each unit's potential outcomes as given and $n_t$ and $n_c$ as fixed, so the expectation is conditional on these factors: $\mathbb{E}[{\hat{\tau}^{\text{dm}}} | \mathbf{Y(1)}, \mathbf{Y(0)}, n_t, n_c] = \tau$. I omit this explicit conditioning to simplify the notation.
+
+[^1]: To denote the sum over all units in a given treatment group $w$ I use $\sum_{W_i=w}$ as a shorthand for $\sum_{i:W_i=w}$ to keep the notation compact.
+
+
+
+
+## Graveyard
+
+$$
+\begin{align}
+\tau
+&= \frac{1}{n}\sum_{i=1}^n \tau_i \\[5pt]
+&= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right) \\[5pt]
+&= \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0) \\[5pt]
+&= \overline{Y}(1) - \overline{Y}(0).
+\end{align}
+$$
