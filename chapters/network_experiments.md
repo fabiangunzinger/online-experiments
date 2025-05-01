@@ -123,3 +123,8 @@ Analysis side
 
 - @karrer2021network describe network experimentation at Meta.
 
+
+## Q&A
+
+1. You randomise at customer level. For analysis, you do the following: you calculate metrics at a restaurant level, then calculate variant level averages from the restaurant-level averages. Is there a problem? What is it? What assumptions are being violated? 
+

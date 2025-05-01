@@ -1,24 +1,5 @@
 This note contains the proof for unbiasedness and the derivation of the variance for the difference-in-means estimator for a BRE, based on the ding2023first approach for a CRE.
 
-Story:
-- Online experiments are BREs
-- Yet, at point of analysis, sample sizes are fixed and we can analyse as CREs
-- See chat discussion
-	- See here: https://alexdeng.github.io/causal/randomintro.html (exactly what I want)
-
-- Generally, literature uses a potential outcome framework 
-	- @larsen2023statistical
-- Some vendors/literature assume fixed sample sizes
-	- @nordin2024precision
-
-- Others use an iid framework for motivation
-	- zhou2023all
-
-- Also discuss why not just use iid approach
-
-
-
-- Write draft and run past colleagues
 
 ## Experiment setup
 
