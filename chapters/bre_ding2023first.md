@@ -3,8 +3,111 @@ This note contains the proof for unbiasedness and the derivation of the variance
 
 ## Experiment setup
 
-See [[experiment_setup]]
+Could add super population here, with population statistics $\mu_1, \sigma_1^2$, etc.
 
+...
+
+Finite sample of $n$ units, each with potential outcomes $Y_i(1)$ and $Y_i(0)$.
+
+Individual-level causal effects:
+$$
+\tau_i = Y_i(1) - Y_i(0)
+$$
+Finite sample average treatment effect:
+
+$$
+\tau_{\text{fs}}
+= \frac{1}{n}\sum_{i=1}^n \tau_i
+= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+= \overline{Y}(1) - \overline{Y}(0)
+$$
+
+Finite sample means and variances:
+
+$$
+\begin{align}
+\overline{Y}(1) = \frac{1}{n}\sum_{i=1}^n Y_i(1),
+\qquad
+S_1^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
+\\[5pt]
+\overline{Y}(0) = \frac{1}{n}\sum_{i=1}^n Y_i(0),
+\qquad
+S_0^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
+\\[5pt]
+\end{align}
+$$
+Variance of individual-level causal effects: 
+
+$$
+\begin{align}
+S_{\tau_i}^2
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - Y_i(0) 
+- \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2
+\\[5pt]
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(\tau_i - \tau_{\text{fs}}\right)^2 \\[5pt]
+\end{align}
+$$
+Covariance of potential outcomes:
+
+$$
+\begin{align}
+S_{0, 1} &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\end{align}
+$$
+
+We have data from a randomised experiment with assignment vector $\mathbf{W} = \{W_1, ... W_n\}$ where $n_t = \sum_{i=1}^n W_i$ units are allocated to treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units are allocated to control. 
+
+
+
+- Once treatment is assigned, we observe
+
+$$
+Y_i^{obs} = Y_i(W_i) = \begin{cases} 
+   Y_i(1) & \text{if } W_i = 1 \\
+   Y_i(0)       & \text{if } W_i = 0
+  \end{cases}
+$$
+
+
+Observed outcomes are:
+$$ 
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0)
+$$
+
+We can estimate the finite sample statistics using the observed treatment group means:
+
+$$
+\begin{align}
+\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
+\qquad
+\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\end{align}
+$$
+and observed treatment group variances:
+
+$$
+\begin{align}
+s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
+\qquad
+s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2
+\end{align}
+$$
+
+## Estimand and estimator of interest
+
+We are interested in the finite sample average treatment effect $\tau_{\text{fs}}$.
+
+Given the observed data, a natural estimator is:
+
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+= \overline{Y}_t - \overline{Y}_c
+\end{align}
+$$
+We analyse the properties of this estimators for different types of experiments (assignment mechanisms). In particular, we are interested in showing that the estimator is unbiased and to estimate its variance.
 
 ## BRE
 
@@ -37,7 +140,7 @@ $$
 
 # Approach 1: condition on $n_t$ and $n_c$
 
-Treat $n_t$ as fixed, in which case $q=\frac{n_t}{n}$. This should be equivalent to a BRE, though I wanna check. Why do that?
+Treat $n_t$ as fixed, in which case $q=\frac{n_t}{n}$. This should be equivalent to a CRE, though I wanna check. Why do that?
 - It makes the math easier as it spares us from modelling $n_t$ as a Binomial random variable -- it seems that in the Bernoulli case, the variance isn't finite, while in the CRE case, it is (that's the case everyone works with).
 - Second, by the time we analyse the data, we do know $n$, so the assumption isn't completely arbitrary
 
@@ -50,7 +153,7 @@ Notes:
 ### Lemma B1:
 
 $$
-\mathbb{E}[W \;|\; \{Y_i(1), Y_i(0)\}_{i=1}^{n}, \;n_t] = \frac{n_t}{n}
+\mathbb{E}[W_i \;|\; \{Y_i(1), Y_i(0)\}_{i=1}^{n}, \;n_t] = \frac{n_t}{n}
 $$
 Proof:
 

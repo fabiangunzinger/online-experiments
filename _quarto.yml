@@ -13,7 +13,6 @@ book:
     - part: chapters/statistics.md
       chapters:
       - chapters/stats_of_online_experiments.md
-      - chapters/experiment_setup.md
       - chapters/outcomes_and_estimands.md
       - chapters/standard_error.md
       # - chapters/hypothesis_testing.qmd
@@ -64,6 +63,7 @@ book:
     - part: "Appendices"
       chapters:
       # - chapters/fisher.qmd
+      - chapters/experiment_setup.md
       - chapters/super_population_perspective.md
       # - chapters/experiment_design_template.md
       # - chapters/assignment_mechanism.md

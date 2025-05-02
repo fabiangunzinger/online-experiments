@@ -1,18 +1,8 @@
-
-Notation an conventions:
-- Running example: "your" behaviour/experience on an e-commerce app
-
-Questions I'm unsure about
-- Shound I start with potential outcomes, individual effect, then average effect, then dm estimator, then proofs *or* start with dm (what we get in experiment) and then show what it is and why we do it? For now, do first way, which is traditional and what I need for myself. Rewrite as needed.
-
-
-
-
 # The stats of online experiments
 
-#### The fundamental problem of causal inference
+## The fundamental problem of causal inference
 
-We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment. The population of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
+We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The population of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
 Each unit has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment whereas $Y_i(0)$ is the outcome if they are in control. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could potentially be exposed to either treatment condition. We collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. 
 
@@ -23,7 +13,7 @@ $$
 Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly *observing unit-level treatment effects* is impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
 
 
-#### Experiments
+## Experiments
 
 An experiment is one solution to the fundamental problem:[^scientific_solution] randomly assigning units from a population to either treatment or control allows us to *estimate average (unit-level) treatment effects*. In the words of @holland1986statistics [p. 947]:[^shortcut] 
 
@@ -39,7 +29,11 @@ $$
 \end{align}
 $$
 
-Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W}$. After treatment assignment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
+### Experiment setup
+
+Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. 
+
+We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
 
 To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
 
@@ -50,7 +44,47 @@ $$
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \end{align}
 $$
+
+The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.md#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
+
+$$
+P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
+$$
+
+
+We thus have:
+$$
+\begin{align}
+W_i &\sim \text{Bernoulli}(1/2) \\
+\mathbb{E}[{W_i}] &= 1/2 \\
+\end{align}
+$$
+and
+
+$$
+\begin{align}
+n_t &\sim \text{Binomial}(n, 1/2) \\
+\mathbb{E}[{n_t}] &= n(1/2) \\
+\end{align}
+$$
+
+
+*Question:*
+- *In an online experiment we dynamically allocate units to treatment using BRE assignment.*
+- *In Bernoulli randomised experiment with q = 1/2 we know that P(W_i) = 1/2, which implies E(W_i) = 1/2.*
+- *We also know that E(n_t) = n * 1/2 = n/2.*
+- *When we say that "if we take n_t as given, then E(W_i) = n_t / n", what precisely are we doing here? Are we modeling (approximating) an actual W_i = 1/2 as an E(W_i) = 1/2?* 
+
+
+
+
+
+The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units. 
+
 In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
+
+There are different ways to conceptualise and analyse an experiment of the kind I describe here. See @sec-experiment-setup.
+
 
 ### Context
 
@@ -66,20 +100,11 @@ Implications:
 - The number of units in treatment and control, $n_t$ and $n_c$ are given. I refer to them collectively as $\mathbf{n} = (n_t, n_c)$.
 
 
-todo:
-- See chat discussion
-	- See here: https://alexdeng.github.io/causal/randomintro.html (exactly what I want)
 
-- Generally, literature uses a potential outcome framework 
-	- @larsen2023statistical
-- Some vendors/literature assume fixed sample sizes
-	- @nordin2024precision
-
-- Others use an iid framework for motivation
-	- zhou2023all
 ### Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
 An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:
+
 $$
 \begin{align}
 \mathbb{E}\left[
@@ -487,31 +512,6 @@ $$
 
 
 
-- In online experiments, as least, this is not an assumption if we properly test the randomisation proceedure (see discussion of SRM in @sec-threats-to-validity)
-
-- In online experiments, the assignment mechanism is usually a BRE. The  assignment mechanism of a BRE is individualistic, probabilistic, and unconfounded. In the simplest case without stratification, it is also independent of covariates. In all cases, the assignment mechanism is fully under our control. For probability of treatment assignment $q$, we thus have:
-
-$$
-P(\mathbf{W} | \mathbf{X}, \mathbf{Y}(1), \mathbf{Y}(0)) = P(\mathbf{W}) = q^{n_t} (1-q)^{n_c}
-$$
-
-
-
-
-
-
-****I'm here****
-
-- Reading Wager, it seems there are two relevant factors for inference: he just conditions on n to get a CRE, and then there is the question of whether to take a finite sample or super-population perspective. 
-
-- The additional assumption (discussed in population asymptotics) of random sampling from super population holds for online experiments.
-
-- He does use Bernoulli sampling, which is what I need for online experiments. I just don'f fully understand how his perspective fits into the Imbens Rubin book / Athey Imbens one. 
-
-
-
-
-
 
 
 ## References
@@ -597,3 +597,7 @@ From holland
   3. Central role of the assignment mechanism
 
 Their role is somewhat different, however: the first one is axiomatic: it's the starting point for how we think about causal effects and intimately linked to the notion that causal effects are always relative to a different state (see holland1986statistics notes, as well as Rubin interview). The second is a corollary from the first if we are unwilling to take the scientific solution (in Holland's words) to the Fundamental Problem: it's the insight that leads to the statistical solution. The third is a corollary of the second: to make the statistical solution work, the assignment mechanism is central.
+
+[^2]: Our $n$ units are not a sample of a larger population that we hope to learn about. For a discussion on the difference between these approaches see @sec-experiment-setup.
+
+[^3]: See @sec-experimen-setup for a more detailed discussion of the treatment assignment mechanism and its implications.
