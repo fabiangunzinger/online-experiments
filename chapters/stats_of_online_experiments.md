@@ -50,9 +50,7 @@ The procedure we use the allocate units to treatment conditions is the [assignme
 $$
 P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
 $$
-
-
-We thus have:
+Because of their coin-toss-like nature assignments follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution) and the type of experiment is called a Bernoulli Randomised Experiment. Formally, we have:
 $$
 \begin{align}
 W_i &\sim \text{Bernoulli}(1/2) \\
@@ -64,34 +62,19 @@ and
 $$
 \begin{align}
 n_t &\sim \text{Binomial}(n, 1/2) \\
-\mathbb{E}[{n_t}] &= n(1/2) \\
+\mathbb{E}[{n_t}] &= n(1/2).
 \end{align}
 $$
 
+### Experiment analysis
 
-*Question:*
-- *In an online experiment we dynamically allocate units to treatment using BRE assignment.*
-- *In Bernoulli randomised experiment with q = 1/2 we know that P(W_i) = 1/2, which implies E(W_i) = 1/2.*
-- *We also know that E(n_t) = n * 1/2 = n/2.*
-- *When we say that "if we take n_t as given, then E(W_i) = n_t / n", what precisely are we doing here? Are we modeling (approximating) an actual W_i = 1/2 as an E(W_i) = 1/2?* 
+There are different approaches we could take to formally analyse such an experiment.
 
+Decisions:
 
+- We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. (See @sec-experiment-setup for details.
 
-
-
-The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units. 
-
-In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
-
-There are different ways to conceptualise and analyse an experiment of the kind I describe here. See @sec-experiment-setup.
-
-
-### Context
-
-There are different perspectives/approaches we could take (indicates choice here):
-- Superpopulation vs finite sample (latter: easier, corresponds to original theory, corresponds to reality for most firms)
-- CRE or BRE (latter: follows from real-time hash-based randomisation)
-- Given that we have BRE, condition on n or treat n as binomial variable (former: easier and corresponds to situation at time of analysis)
+- We can analyse the Bernoulli Randomised Experiment treating $n_t$ as a Binomial random variable or taking it as given. Because by the time of the analysis it is, in fact, given, I follow the latter approach.
 
 Implications:
 
@@ -99,7 +82,9 @@ Implications:
 
 - The number of units in treatment and control, $n_t$ and $n_c$ are given. I refer to them collectively as $\mathbf{n} = (n_t, n_c)$.
 
+- The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units. 
 
+In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
 
 ### Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
@@ -146,10 +131,9 @@ There are two pieces we need for this:
 
 1) Link observed to potential outcomes so that $Y_i = Y_i(W_i)$. This requires the Stable Unit Treatment Assumption (SUTVA).
 
-2) Link treatment group averages to population averages so that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
+2) Link treatment group averages to sample averages so that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
 Let's tackle them in turn.
-
 #### SUTVA links observed outcomes to potential outcomes
 
 We want to learn something about unit-level differences in potential outcomes
@@ -182,16 +166,11 @@ Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
 $$
 The only way to make progress is to assume what we need: that potential outcomes for unit $i$ are a function only of the treatment level unit $i$ itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment. (i) above is referred to as "no interference" in the literature, (ii) as "no hidden variations of treatment".
 
-That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level – "treatment value" in the assumption's name refers to potential outcome. 
+That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, "stable" [@rubin1980randomization].  
 
 Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that $Y_i(W_i)$ is a clearly defined function for all $i$ and all possible treatment levels $W_i \in \{0, 1\}$. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.
 
-[todo]
-In the context of our e-commerce app experiment, SUTVA means that potential outcomes for all customers are independent of treatment assignment of their partners (no interference) and that there their precise experience is pinned down by their mobile device and remains stable over time.
-Link to three elements above:
-(i) My partner treatment assignment
-(ii) Accidental server-side bug that creates different background colours for button
-(iii) Web-browser I use to view site
+In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends and the no-hidden-variation part means that there their precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that creates different background colours and the it is either clear whether a customer uses an Android or iOS app (or the experience is identical). But, again, SUTVA does not require that the active treatment looks exactly the same on iOS and Android apps just that for each unit in our experiment, their experience if they are part of the active treatment is pinned down.
 
 Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
 
@@ -265,15 +244,9 @@ $$
 
 What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
-todo:
-- Why called SUTVA, see @rubin1980randomization
-- Link 2 and 3 to excludability
-
 #### Randomisation links treatment groups to the population
 
 In math therms, it gives us unconditional potential outcomes.
-
-
 
 todo:
 - We start with WY_i(1). This is akin to Y_i(1) | W_i = 1. We need Y_i(1). Randomisation gives us that.
@@ -281,16 +254,15 @@ todo:
 - Link last line of below to Ding lemma 3
 
 
-Notes:
-
 
 $$
 \begin{align}
-\mathbb{E}\left[
-\frac{1}{n_t}\sum_{W_i=1}Y_i(1) 
+\mathbb{E}&\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
 \>|\>\mathbf{n}, \mathbf{Y(w)}
-\right]
-=
+\right] \\[5pt]
+
+&=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i(1)
 \>|\>\mathbf{n}, \mathbf{Y(w)}
@@ -298,18 +270,66 @@ $$
 \quad&\text{Definition of }W_i
 \\[5pt]
 
-=
+&=
 \frac{1}{n_t}\sum_{i=1}^{n}
-\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]
+\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(1)}]
 Y_i(1)
 \quad&\text{}
 \\[5pt]
 
+&=
+\frac{1}{n_t}\sum_{i=1}^{n}
+\left(\frac{n_t}{n}\right)
+Y_i(1)
+\quad&\text{Lemma 1}
+\\[5pt]
+
+&=
+\frac{1}{n}\sum_{i=1}^{n}
+Y_i(1)
+\quad&\text{}
+
+\end{align}
+$$
+Similarly:
+
+$$
+\begin{align}
+\mathbb{E}&\left[
+\frac{1}{n_c}\sum_{W_i=1}Y_i(0)
+\>|\>\mathbf{n}, \mathbf{Y(w)}
+\right] \\[5pt]
+
+&=
+\mathbb{E}\left[
+\frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i(0)
+\>|\>\mathbf{n}, \mathbf{Y(w)}
+\right] 
+\quad&\text{Definition of }W_i
+\\[5pt]
+
+&=
+\frac{1}{n_c}\sum_{i=1}^{n}
+\mathbb{E}[(1-W_i)\>|\>\mathbf{n}, \mathbf{Y(1)}]
+Y_i(0)
+\quad&\text{}
+\\[5pt]
+
+&=
+\frac{1}{n_c}\sum_{i=1}^{n}
+\left(\frac{n_c}{n}\right)
+Y_i(0)
+\quad&\text{Lemma 2}
+\\[5pt]
+
+&=
+\frac{1}{n}\sum_{i=1}^{n}
+Y_i(0)
+\quad&\text{}
+
 \end{align}
 $$
 
-
-What is $\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$?
 
 
 #### Full proof for reference
@@ -390,6 +410,8 @@ $$
 Questions
 
 1. Why do we need potential outcomes at all? Can't we interpret the difference from a simple comparison of averages as the causal effect?
+
+2. Why do randomised trials not require the excludability assumption in order to lead to unbiased results?
 
 Answer
 
@@ -598,6 +620,6 @@ From holland
 
 Their role is somewhat different, however: the first one is axiomatic: it's the starting point for how we think about causal effects and intimately linked to the notion that causal effects are always relative to a different state (see holland1986statistics notes, as well as Rubin interview). The second is a corollary from the first if we are unwilling to take the scientific solution (in Holland's words) to the Fundamental Problem: it's the insight that leads to the statistical solution. The third is a corollary of the second: to make the statistical solution work, the assignment mechanism is central.
 
-[^2]: Our $n$ units are not a sample of a larger population that we hope to learn about. For a discussion on the difference between these approaches see @sec-experiment-setup.
+[^2]: Our $n$ units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see @sec-experiment-setup.
 
 [^3]: See @sec-experimen-setup for a more detailed discussion of the treatment assignment mechanism and its implications.

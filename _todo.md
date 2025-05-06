@@ -14,6 +14,11 @@ Steps to victory
 - [x] Clean up chapters and set up broad book structure to create version I can commit
 	- [x] Up to hypothesis_testing.md
 
+
+- [ ] Replace population with sample in stats part, because we do have a sample rather than a population. It's just that we treat our sample as if it were the population (because it is). But a population in stats is usually the thing you infer sth about rather than to units you work with, so it would be confusing to use population. Instead, use sample and then be explicit that I use finite sample approach.
+
+
+
 - [ ] Perform derivation for BRE
 	- [ ] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
 
