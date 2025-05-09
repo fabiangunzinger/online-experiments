@@ -65,6 +65,7 @@ book:
       # - chapters/fisher.qmd
       - chapters/experiment_setup.md
       - chapters/super_population_perspective.md
+      - chapters/lemmas.md
       # - chapters/experiment_design_template.md
       # - chapters/assignment_mechanism.md
       # - chapters/notes_on_athey2017econometrics.md
