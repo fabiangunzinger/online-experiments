@@ -9,7 +9,15 @@ Given that $W_i \in \{0, 1\} \sim \text{Bernoulli}(q)$, and given that we take p
 $$
 \mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}] 
 =
-\frac{n_t}{n}.
+\frac{n_t}{n}
+$$
+
+and
+
+$$
+\mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}] 
+=
+\frac{n_c}{n}.
 $$
 **Proof:**
 
@@ -17,8 +25,8 @@ Given that $W_i \in \{0, 1\} \sim \text{Bernoulli}(q)$ we have:
 $$
 P(W_i = 1 \>|\>\mathbf{n}, \mathbf{Y(w)}) 
 =
-\frac{n_t}{n}
-$$and:
+\frac{n_t}{n}.
+$$Hence:
 $$
 \begin{align}
 \mathbb{E}&[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}] 
@@ -34,21 +42,11 @@ P(W_i = 1 \>|\>\mathbf{n}, \mathbf{Y(w)})
 \\[5pt]
 
 &= \frac{n_t}{n}
-\qquad\square
 \end{align}
 $$
-## Lemma 2
-
-Similar to Lemma 1, we have:
-$$
-\mathbb{E}[(1-W_i)\>|\>\mathbf{n}, \mathbf{Y(w)}] 
-=
-\frac{n_c}{n}.
-$$**Proof:**
-
+and
 $$
 \begin{align}
-
 \mathbb{E}&[(1-W_i)\>|\>\mathbf{n}, \mathbf{Y(w)}] 
 \\[5pt]
 
@@ -58,7 +56,6 @@ $$
 
 &=
 1 - \frac{n_t}{n}
-\quad&\text{Lemma 1}
 \\[5pt]
 
 &=
@@ -73,7 +70,7 @@ $$
 
 
 
-
+# Old lemmas
 
 #### Lemma 1 {#sec-lemma1}
 

@@ -1,5 +1,8 @@
 # The stats of online experiments
 
+todo
+- [ ] Use *sample* rather than *population* of $n$ units throughout to be consistent with literature and so I can be explicit about fact that we care about the sample at hand and, in the special case of online experiments, the sample often equals the population, which is why I don't worry about a super-population approach for now.
+
 ## The fundamental problem of causal inference
 
 We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The population of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
@@ -24,7 +27,7 @@ Hence, instead of trying to observe unit-level causal effects, the quantity of i
 $$
 \begin{align}
 \tau
-:= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
 = \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 $$
@@ -34,16 +37,6 @@ $$
 Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. 
 
 We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
-
-To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
-
-$$
-\begin{align}
-\hat{\tau}^{\text{dm}}
-:=
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\end{align}
-$$
 
 The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.md#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
 
@@ -65,6 +58,17 @@ n_t &\sim \text{Binomial}(n, 1/2) \\
 \mathbb{E}[{n_t}] &= n(1/2).
 \end{align}
 $$
+
+To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
+
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+=
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\end{align}
+$$
+
 
 ### Experiment analysis
 
@@ -89,6 +93,19 @@ In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased
 ### Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
 An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:
+
+$$
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\>|\>\mathbf{n}, \mathbf{Y(w)}
+\right]
+
+&=
+\tau.
+\end{align}
+$$
+Given our definitions above this is means showing that
 
 $$
 \begin{align}
@@ -129,7 +146,7 @@ $$
 
 There are two pieces we need for this:
 
-1) Link observed to potential outcomes so that $Y_i = Y_i(W_i)$. This requires the Stable Unit Treatment Assumption (SUTVA).
+1) Link observed to potential outcomes so that $Y_i = Y_i(W_i)$. This requires the Stable Unit Treatment Value Assumption (SUTVA).
 
 2) Link treatment group averages to sample averages so that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
@@ -144,7 +161,7 @@ where a potential outcome is a unit-indexed function of the treatment level, wit
 
 Now say we run an experiment and unit $i$ is allocated to treatment. The $i$-th element of the assignment vector $\mathbf{W}$ of that experiment is thus $W_i = 1$, and we refer to this assignment vector as $\mathbf{W}^{(i=1)}$. 
 
-We know we can't observe $\tau_i$, but given that $i$ is in treatment we need to observe the potential outcome under treatment, $Y_i(1)$, to help us estimate $\hat{\tau}$. So we need 
+We know we can't observe both $Y_i(0)$ and $Y_i(1)$, but given that $i$ is in treatment we can observe the potential outcome under treatment, $Y_i(1)$, which will help us estimate $\hat{\tau}$. So we need 
 
 $$
 Y_i = Y_i(1).
@@ -157,14 +174,14 @@ $$
 In words: the outcome we observe for unit $i$ in our experiment is not the potential outcome for $i$ under treatment, but the potential outcome for $i$ under the specific assignment vector of our experiment, $\mathbf{W}^{(i=1)}$. What does this mean concretely? It means that the observed outcome is a function not only of $i$'s treatment assignment but of:
 
 1. The assignment of all units in the experiment
-2. The precise form of the assigned treatment level received by unit $i$
-3. The way in which the treatment is administered to unit $i$
+2. The precise form of the assigned treatment level received by $i$
+3. The way in which said assigned treatment level is administered to $i$
 
 We need:
 $$
 Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
 $$
-The only way to make progress is to assume what we need: that potential outcomes for unit $i$ are a function only of the treatment level unit $i$ itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment. (i) above is referred to as "no interference" in the literature, (ii) as "no hidden variations of treatment".
+The only way to make progress is to assume what we need: that potential outcomes for unit $i$ are a function only of the treatment level unit $i$ itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment level. (i) above is referred to as "no interference" in the literature, (ii) as "no hidden variations of treatment".
 
 That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, "stable" [@rubin1980randomization].  
 
@@ -175,7 +192,6 @@ In the context of our e-commerce app experiment, the non-interference part of SU
 Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn't roll it out to anyone. To have any hope of estimating this we can't have treatment level's vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)
 
 SUTVA is a strong assumption and can be violated in a number of ways. I'll discuss these, together with solutions, in @sec-threats-to-validity.
-
 
 If SUTVA holds we have:
 
@@ -193,7 +209,6 @@ $$
 This is the link between observed and potential outcomes we need, and makes clear that we observe $Y_i(1)$ for units in treatment and $Y_i(0)$ for units in control.
 
 In our unbiasedness proof, we now have
-
 $$
 \begin{align}
 \mathbb{E}\left[
@@ -246,214 +261,157 @@ What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\ri
 
 #### Randomisation links treatment groups to the population
 
-In math therms, it gives us unconditional potential outcomes.
+Steps:
 
-todo:
-- We start with WY_i(1). This is akin to Y_i(1) | W_i = 1. We need Y_i(1). Randomisation gives us that.
-- It also gives us ATE instead of only ATT
-- Link last line of below to Ding lemma 3
+- We use the definition of $W_i$ to write  $\sum_{W_i=1}Y_i(1)$ as $\sum_{i=1}^{n} W_iY_i(1)$ and similarly for control units.
 
+- We use the linearity of $\mathbb{E}$ to move $\mathbb{E}$ inside the summation, where the only random element is $W_i$.
 
-
-$$
-\begin{align}
-\mathbb{E}&\left[
-\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
-\>|\>\mathbf{n}, \mathbf{Y(w)}
-\right] \\[5pt]
-
-&=
-\mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i(1)
-\>|\>\mathbf{n}, \mathbf{Y(w)}
-\right] 
-\quad&\text{Definition of }W_i
-\\[5pt]
-
-&=
-\frac{1}{n_t}\sum_{i=1}^{n}
-\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(1)}]
-Y_i(1)
-\quad&\text{}
-\\[5pt]
-
-&=
-\frac{1}{n_t}\sum_{i=1}^{n}
-\left(\frac{n_t}{n}\right)
-Y_i(1)
-\quad&\text{Lemma 1}
-\\[5pt]
-
-&=
-\frac{1}{n}\sum_{i=1}^{n}
-Y_i(1)
-\quad&\text{}
-
-\end{align}
-$$
-Similarly:
-
-$$
-\begin{align}
-\mathbb{E}&\left[
-\frac{1}{n_c}\sum_{W_i=1}Y_i(0)
-\>|\>\mathbf{n}, \mathbf{Y(w)}
-\right] \\[5pt]
-
-&=
-\mathbb{E}\left[
-\frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i(0)
-\>|\>\mathbf{n}, \mathbf{Y(w)}
-\right] 
-\quad&\text{Definition of }W_i
-\\[5pt]
-
-&=
-\frac{1}{n_c}\sum_{i=1}^{n}
-\mathbb{E}[(1-W_i)\>|\>\mathbf{n}, \mathbf{Y(1)}]
-Y_i(0)
-\quad&\text{}
-\\[5pt]
-
-&=
-\frac{1}{n_c}\sum_{i=1}^{n}
-\left(\frac{n_c}{n}\right)
-Y_i(0)
-\quad&\text{Lemma 2}
-\\[5pt]
-
-&=
-\frac{1}{n}\sum_{i=1}^{n}
-Y_i(0)
-\quad&\text{}
-
-\end{align}
-$$
-
-**I'm here**
-
-#### Full proof for reference
-
+- Use Lemma 1 (randomisation) to replace expectations with expected values.
 
 $$
 \begin{align}
 \mathbb{E}\left[
 \hat{\tau}^{\text{dm}}
+\>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 
 &=
 \mathbb{E}\left[
-\overline{Y}_t - \overline{Y}_c
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-&\text{}
 \\[5pt]
 
 &=
 \mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-&\text{}
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\>|\>\mathbf{n}, \mathbf{Y(w)}
+\right]
 \\[5pt]
 
 &\text{SUTVA}
 \\[5pt]
 
 &=
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
+\>|\>\mathbf{n}, \mathbf{Y(w)}\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
+\>|\>\mathbf{n}, \mathbf{Y(w)}\right]
+\\[5pt]
+
+&=
 \mathbb{E}\left[
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) 
-- \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i(1)
+\>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-&\text{}
+-
+\mathbb{E}\left[
+\frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i(0)
+\>|\>\mathbf{n}, \mathbf{Y(w)}
+\right]
 \\[5pt]
 
 &=
-\frac{1}{n_t}\sum_{i=1}^n \mathbb{E}[W_i]Y_i(1) 
-- \frac{1}{n_c}\sum_{i=1}^n \mathbb{E}[(1-W_i)]Y_i(0)
-&\text{}
+\frac{1}{n_t}\sum_{i=1}^{n}
+\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]
+Y_i(1)
+- 
+\frac{1}{n_c}\sum_{i=1}^{n}
+\mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]
+Y_i(0)
 \\[5pt]
 
-&\text{Randomisation}
-\\[5pt]
-
-&=
-\frac{1}{n_t}\sum_{i=1}^n \left(\frac{n_t}{n}\right)Y_i(1) 
-- \frac{1}{n_c}\sum_{i=1}^n \left(\frac{n_c}{n}\right)Y_i(0)
-\\[5pt]
-
-&=
-\frac{1}{n}\sum_{i=1}^n Y_i(1) 
-- \frac{1}{n}\sum_{i=1}^n Y_i(0)
-&\text{}
+&\text{Randomisation (Lemma 1)}
 \\[5pt]
 
 &=
-\overline{Y}(1) - \overline{Y}(0)
-&\text{}
+\frac{1}{n_t}\sum_{i=1}^{n}
+\left(\frac{n_t}{n}\right)
+Y_i(1)
+-
+\frac{1}{n_c}\sum_{i=1}^{n}
+\left(\frac{n_c}{n}\right)
+Y_i(0)
+\\[5pt]
+
+&=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 \\[5pt]
 
 &=
 \tau
-\qquad\square
-&\text{}
-\\[5pt]
 \end{align}
 $$
 
+The approach above *design-based* (link to @abadie2020sampling).
+
+See chat discussion for definition and contrast to observational.
 
 
-
-
-
-
-## Q&A
-
-Questions
-
-1. Why do we need potential outcomes at all? Can't we interpret the difference from a simple comparison of averages as the causal effect?
-
-2. Why do randomised trials not require the excludability assumption in order to lead to unbiased results?
-
-Answer
-
-1. 
-- What is definition of causal effect in suggested comparison?
-- What is source of randomisation?
-- Discuss textbook iid approach and why it's not a good model for our purpose.
-- Show that in practice, variance is the same
-
-In the classic two-sample problem, observations in the treatment group {y1s} and control group {y0s} are assumed to be IID draws from **two separate** distributions. Treatment observations are assumed to be **IID draws** from a distribution with mean $\mu_t$ and variance $\sigma_t^2$ and similar for control, and the variance of the  difference in means estimator is given by:
+In the main derivation above, we use a **design-based approach**:
+- We assume **random assignment** of treatment.
+- We show directly, using the assignment mechanism and properties of expectations, that:
 
 $$
-\mathbb{V}(\hat{\tau}) = \frac{\sigma_t^2}{n_t} + \frac{\sigma_c^2}{n_c}.
+\mathbb{E}[\hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)}] = \tau
 $$
-That is, there is no third term for the variance of the individual-level potential outcomes.
 
-In contrast, Rubin points out that for proper causal inference, {y1, y0} pairs are from the same distribution but we observe only one item of the pair.
+That is, the **difference-in-means estimator is unbiased** for the **average treatment effect (ATE)**.
 
-Differences:
-- Sampling based vs randomisation based variation: makes sense given that in IID case we are assumed to sample from population, whereas in FS case we are assumed to have all units, but randomise which item of the PO pair is observed.
-- Hence: the variance in IID is taken over the randomness of the outcomes because uncertainty is sampling based, whereas in the potential outcomes framework, where potential outcomes are fixed, the variance is taken over the randomisation distribution. 
-- As a result: there is no correlation between two groups in IID case (covar = 0) and hence no third term, whereas in FS case there is – why precisely? Because there is correlation between y1s and y2s – if there isn't, then the third term vanishes. See ding derivation. However, ultimately it's because there is heterogeneity in individual-level treatment effects. Why is that? Is that the same as PO correlation at individual level?
-- Weird, though, that Ding lemmas seem to be based on IID case!
+---
 
+This connects to the **observational / identification framework** commonly used in econometrics texts like *Angrist & Pischke*, which begins by noting:
 
+- The observed difference in outcomes:
 
+$$
+\mathbb{E}[Y_i \mid W_i = 1] - \mathbb{E}[Y_i \mid W_i = 0]
+$$
 
-# Old notes
+can be decomposed as:
 
-### Assignment mechanism: randomisation
+$$
+\underbrace{\mathbb{E}[Y_i(1) - Y_i(0) \mid W_i = 1]}_{\text{ATT}}
+\;+\;
+\underbrace{\mathbb{E}[Y_i(0) \mid W_i = 1] - \mathbb{E}[Y_i(0) \mid W_i = 0]}_{\text{Selection Bias}}
+$$
 
-- In order for these estimates to be valid estimates of the two quantities we need, it is critically important how units receive the treatment they receive.
+---
 
-- This is the role of the assignment mechanism: the mechanism that determines how units are allocated into different treatment conditions.
+**Random assignment implies:**
 
-- In particular, allocation to treatment has to be random because if treatment allocation is random, then we have:
+$$
+W_i \perp (Y_i(1), Y_i(0))
+$$
 
+which gives:
 
+$$
+\mathbb{E}[Y_i(0) \mid W_i = 1] = \mathbb{E}[Y_i(0) \mid W_i = 0]
+\quad \text{and} \quad
+\mathbb{E}[Y_i(1) \mid W_i = 1] = \mathbb{E}[Y_i(1)]
+$$
 
-Appendix material: how does my approach above relate to the below?
+So:
 
-Source: mostly harmless econometrics
+$$
+\text{ATT} = \text{ATE}
+\quad \text{and} \quad
+\text{Selection Bias} = 0
+$$
+
+Therefore:
+
+$$
+\mathbb{E}[Y_i \mid W_i = 1] - \mathbb{E}[Y_i \mid W_i = 0] = \mathbb{E}[Y_i(1) - Y_i(0)] = \text{ATE}
+$$
+
+Full derivation:
 
 (Population) average treatment effect:
 $$
@@ -531,6 +489,65 @@ $$
 \\[5pt]
 \end{align}
 $$
+---
+
+**Connection**
+
+- The **design-based proof** shows unbiasedness of the estimator using random assignment directly.
+- The **identification-based decomposition** explains how randomization ensures that ATT = ATE and removes selection bias.
+- Both frameworks **converge under random assignment**:
+  - One via potential outcomes and independence logic,
+  - The other via expectations over the experimental design.
+
+This shows how the design-based approach justifies the assumptions often taken as given in identification-based frameworks.
+
+
+
+
+## Q&A
+
+Questions
+
+1. Why do we need potential outcomes at all? Can't we interpret the difference from a simple comparison of averages as the causal effect?
+
+2. Why do randomised trials not require the excludability assumption in order to lead to unbiased results?
+
+Answer
+
+1. 
+- What is definition of causal effect in suggested comparison?
+- What is source of randomisation?
+- Discuss textbook iid approach and why it's not a good model for our purpose.
+- Show that in practice, variance is the same
+
+In the classic two-sample problem, observations in the treatment group {y1s} and control group {y0s} are assumed to be IID draws from **two separate** distributions. Treatment observations are assumed to be **IID draws** from a distribution with mean $\mu_t$ and variance $\sigma_t^2$ and similar for control, and the variance of the  difference in means estimator is given by:
+
+$$
+\mathbb{V}(\hat{\tau}) = \frac{\sigma_t^2}{n_t} + \frac{\sigma_c^2}{n_c}.
+$$
+That is, there is no third term for the variance of the individual-level potential outcomes.
+
+In contrast, Rubin points out that for proper causal inference, {y1, y0} pairs are from the same distribution but we observe only one item of the pair.
+
+Differences:
+- Sampling based vs randomisation based variation: makes sense given that in IID case we are assumed to sample from population, whereas in FS case we are assumed to have all units, but randomise which item of the PO pair is observed.
+- Hence: the variance in IID is taken over the randomness of the outcomes because uncertainty is sampling based, whereas in the potential outcomes framework, where potential outcomes are fixed, the variance is taken over the randomisation distribution. 
+- As a result: there is no correlation between two groups in IID case (covar = 0) and hence no third term, whereas in FS case there is – why precisely? Because there is correlation between y1s and y2s – if there isn't, then the third term vanishes. See ding derivation. However, ultimately it's because there is heterogeneity in individual-level treatment effects. Why is that? Is that the same as PO correlation at individual level?
+- Weird, though, that Ding lemmas seem to be based on IID case!
+
+
+
+
+# Old notes
+
+### Assignment mechanism: randomisation
+
+- In order for these estimates to be valid estimates of the two quantities we need, it is critically important how units receive the treatment they receive.
+
+- This is the role of the assignment mechanism: the mechanism that determines how units are allocated into different treatment conditions.
+
+- In particular, allocation to treatment has to be random because if treatment allocation is random, then we have:
+
 
 
 
@@ -623,3 +640,9 @@ Their role is somewhat different, however: the first one is axiomatic: it's the 
 [^2]: Our $n$ units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see @sec-experiment-setup.
 
 [^3]: See @sec-experimen-setup for a more detailed discussion of the treatment assignment mechanism and its implications.
+
+
+
+
+
+
