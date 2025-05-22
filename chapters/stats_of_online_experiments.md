@@ -1,8 +1,5 @@
 # The stats of online experiments
 
-todo
-- [ ] Use *sample* rather than *population* of $n$ units throughout to be consistent with literature and so I can be explicit about fact that we care about the sample at hand and, in the special case of online experiments, the sample often equals the population, which is why I don't worry about a super-population approach for now.
-
 ## The fundamental problem of causal inference
 
 We study a sample of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
