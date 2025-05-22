@@ -31,18 +31,20 @@ book:
       - chapters/simpsons_paradox.md
       # - chapters/important_contepts.md
       - chapters/metrics.md
+
+      # - chapters/good_experiments.md
+
       # - chapters/decision_making.qmd
       # - chapters/threats_to_validity.qmd
       # - chapters/practical_issues.qmd
       # - chapters/variance_reduction.qmd
       # - chapters/network_experiments.qmd
-      - chapters/heterogeneous_treatment_effects.md
-      - chapters/long_term_effects.md
+      # - chapters/heterogeneous_treatment_effects.md
+      # - chapters/long_term_effects.md
       # - chapters/triggered_analysis.md
       # - chapters/sequential_testing.md
       # - chapters/multiple_hypothesis_correction.qmd
       # - chapters/multi_arm_bandits.md
-      - chapters/good_experiments.md
 
     - part: "Designs"
       chapters:
@@ -62,14 +64,17 @@ book:
 
     - part: "Appendices"
       chapters:
-      # - chapters/fisher.qmd
       - chapters/experiment_setup.md
-      - chapters/super_population_perspective.md
+      - chapters/common_assumptions.md
       - chapters/lemmas.md
+
+      # - chapters/stats_foundations.md
+      # - chapters/link_to_identification_approach.md
+
+      # - chapters/fisher.qmd
       # - chapters/experiment_design_template.md
       # - chapters/assignment_mechanism.md
       # - chapters/notes_on_athey2017econometrics.md
-      # - chapters/stats_foundations.md
       # - chapters/proof.md
       # - chapters/projection.md
       # - chapters/fwl.qmd

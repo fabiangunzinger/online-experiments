@@ -5,9 +5,9 @@ todo
 
 ## The fundamental problem of causal inference
 
-We study a population of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The population of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
+We study a sample of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
-Each unit has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment whereas $Y_i(0)$ is the outcome if they are in control. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could potentially be exposed to either treatment condition. We collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. 
+Each unit has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment and $Y_i(0)$ is the outcome if they are in control. To simplify notation, we collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could be exposed to either treatment condition so that they can potentially experience either outcome. Once the experiment has started and units are assigned to treatment, only one of the two outcomes will be observed.
 
 The causal effect of the treatment for unit $i$ is the difference between the two potential outcomes:[^unit_level_treatment_effects]
 $$
@@ -15,14 +15,15 @@ $$
 $$
 Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly *observing unit-level treatment effects* is impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
 
-
 ## Experiments
+
+### Estimand
 
 An experiment is one solution to the fundamental problem:[^scientific_solution] randomly assigning units from a population to either treatment or control allows us to *estimate average (unit-level) treatment effects*. In the words of @holland1986statistics [p. 947]:[^shortcut] 
 
 > "The important point is that [an experiment] replaces the impossible-to-observe causal effect of [a treatment] on a specific unit with the possible-to-estimate *average* causal effect of [the treatment] over a population of units."
 
-Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is an average across a population of units. In particular, we are usually interested in the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire population:
+Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is an average across a sample of units. In particular, we are usually interested in the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire sample:
 
 $$
 \begin{align}
@@ -31,12 +32,11 @@ $$
 = \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 $$
+This is the estimand, the statistical quantity we are trying to estimate in our experiment.
 
-### Experiment setup
+### Setup
 
-Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. 
-
-We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
+Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
 
 The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.md#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
 
@@ -51,7 +51,6 @@ W_i &\sim \text{Bernoulli}(1/2) \\
 \end{align}
 $$
 and
-
 $$
 \begin{align}
 n_t &\sim \text{Binomial}(n, 1/2) \\
@@ -69,22 +68,23 @@ $$
 \end{align}
 $$
 
+This is our estimator, the algorithm we use to produce estimates of the estimand. 
 
-### Experiment analysis
+### Analysis
 
-There are different approaches we could take to formally analyse such an experiment.
+There are different approaches we could take to formally analyse our experiment.
 
 Decisions:
 
-- We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. (See @sec-experiment-setup for details.
+- We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our $n$ units, rather than using the estimate for our $n$ units to infer the average treatment effect on a larger population from which the $n$ units are drawn. I thus use a fully design-based approach (see @sec-experiment-setup for details)
 
-- We can analyse the Bernoulli Randomised Experiment treating $n_t$ as a Binomial random variable or taking it as given. Because by the time of the analysis it is, in fact, given, I follow the latter approach.
+- We can analyse the Bernoulli Randomised Experiment treating $n_t$ as a Binomial random variable or taking it as given. Because by the time of the analysis it is, in fact, given, I follow the latter approach. This approach also has the advantage of considerably simplifying the math.
 
 Implications:
 
-- Potential outcomes $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$ are fixed (because units are non-random but determined by sample I have). I refer to them collectively as $\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})$.
+- Our sample of $n$ units and the associated potential outcomes $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$ are fixed (because units are non-random but determined by sample I have). I refer to the potential outcomes collectively as $\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})$.
 
-- The number of units in treatment and control, $n_t$ and $n_c$ are given. I refer to them collectively as $\mathbf{n} = (n_t, n_c)$.
+- Once randomisation is complete the number of units in treatment and control, $n_t$ and $n_c$ are given. I refer to them collectively as $\mathbf{n} = (n_t, n_c)$.
 
 - The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units. 
 
@@ -348,173 +348,314 @@ Y_i(0)
 \end{align}
 $$
 
-The approach above *design-based* (link to @abadie2020sampling).
+**I'm here**
+- Need to introduce/link to definitions/lemmas used below
 
-See chat discussion for definition and contrast to observational.
-
-
-In the main derivation above, we use a **design-based approach**:
-- We assume **random assignment** of treatment.
-- We show directly, using the assignment mechanism and properties of expectations, that:
-
-$$
-\mathbb{E}[\hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)}] = \tau
-$$
-
-That is, the **difference-in-means estimator is unbiased** for the **average treatment effect (ATE)**.
-
----
-
-This connects to the **observational / identification framework** commonly used in econometrics texts like *Angrist & Pischke*, which begins by noting:
-
-- The observed difference in outcomes:
-
-$$
-\mathbb{E}[Y_i \mid W_i = 1] - \mathbb{E}[Y_i \mid W_i = 0]
-$$
-
-can be decomposed as:
-
-$$
-\underbrace{\mathbb{E}[Y_i(1) - Y_i(0) \mid W_i = 1]}_{\text{ATT}}
-\;+\;
-\underbrace{\mathbb{E}[Y_i(0) \mid W_i = 1] - \mathbb{E}[Y_i(0) \mid W_i = 0]}_{\text{Selection Bias}}
-$$
-
----
-
-**Random assignment implies:**
-
-$$
-W_i \perp (Y_i(1), Y_i(0))
-$$
-
-which gives:
-
-$$
-\mathbb{E}[Y_i(0) \mid W_i = 1] = \mathbb{E}[Y_i(0) \mid W_i = 0]
-\quad \text{and} \quad
-\mathbb{E}[Y_i(1) \mid W_i = 1] = \mathbb{E}[Y_i(1)]
-$$
-
-So:
-
-$$
-\text{ATT} = \text{ATE}
-\quad \text{and} \quad
-\text{Selection Bias} = 0
-$$
-
-Therefore:
-
-$$
-\mathbb{E}[Y_i \mid W_i = 1] - \mathbb{E}[Y_i \mid W_i = 0] = \mathbb{E}[Y_i(1) - Y_i(0)] = \text{ATE}
-$$
-
-Full derivation:
-
-(Population) average treatment effect:
-$$
-ATE = \mathbb{E}[Y_i(1) - Y_i(0)]
-$$
-Average treatment effect on the treated:
-$$
-ATT = \mathbb{E}[Y_i(1) - Y_i(0) \,|\, W_i=1]
-$$
-
-The observed difference is the sum of ATET and selection bias:
+### Variance of of $\hat{\tau}^{\text{dm}}$
 
 $$
 \begin{align}
-\underbrace{
-\mathbb{E}[Y_i \,|\, W_i=1] - \mathbb{E}[Y_i \,|\, W_i=0]
-}_{\text{Observed difference}}
 
-\quad&=\quad
-\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
-\\[5pt]
+\mathbb{V}\left(
+\hat{\tau}^{\text{dm}}
+\right)
 
-\quad&=\quad
-\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
-\\[5pt]
-&\quad\quad\, 
-+\mathbb{E}[Y_i(0) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=1]
+&=
+\mathbb{V}\left(
+\overline{Y}_t - \overline{Y}_c
+\right)
 \\[5pt]
 
-\quad&=\quad
-\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=1]
+&=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\right)
 \\[5pt]
-&\quad\quad\, 
+
+&\text{SUTVA}
+\\[5pt]
+
+&=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+\right)
+\\[5pt]
+
+&=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) 
+- \frac{1}{n_c}\sum_{i=1}^n Y_i(0)
++ \frac{1}{n_c}\sum_{i=1}^n W_iY_i(0)
+\right)
+\\[5pt]
+
+&=
+\mathbb{V}\left(
+\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
+- \frac{1}{n_c}\sum_{i=1}^n Y_i(0)
+\right)
+\\[5pt]
+
+&\text{Dropping constant term}
+\\[5pt]
+
+&=
+\mathbb{V}\left(
+\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
+\right)
+\\[5pt]
+
+&\text{Demeaning (leaves variance unchanged)}
+\\[5pt]
+
+&= 
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} - \left(\frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)
+\right)\right)
+&\text{}
+\\[5pt]
+
+&\text{Using shorthands } Y_i^+ = Y_i(1)/n_t + Y_i(0)/n_c \text{ and } \overline{Y}^+ = \overline{Y}(1)/n_t - \overline{Y}(0)/n_c
+\\[5pt]
+
+&= 
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+
+\right)\right)
+&\text{}
+\\[5pt]
+
+&\text{Rewriting variance in terms of covariance}
+\\[5pt]
+
+&= 
+\text{Cov}\left(
+\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+\right),
+\sum_{j=1}^n W_j \left(Y_j^+ - \overline{Y}^+\right)
+\right)
+&\text{}
+\\[5pt]
+
+&= 
+\sum_{i=1}^n \sum_{j=1}^n
+\text{Cov}\left(
+W_i \left(Y_i^+ - \overline{Y}^+\right),
+W_j \left(Y_j^+ - \overline{Y}^+\right)
+\right)
+&\text{}
+\\[5pt]
+
+&= 
+\sum_{i=1}^n \sum_{j=1}^n
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&\text{}
+\\[5pt]
+
+&= 
+\sum_{i=1}^n
+\mathbb{V}\left(W_i^2\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
 +
-\mathbb{E}[Y_i(0) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
+\sum_{i=1}^n \sum_{j \neq i}
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&\text{}
 \\[5pt]
 
-\quad&=\quad
-\underbrace{
-\mathbb{E}[Y_i(1) - Y_i(0) \,|\, W_i=1]
-}_{\text{ATT}}
-\\[5pt]
-&\quad\quad\, 
+&= 
+\sum_{i=1}^n
+\mathbb{V}\left(W_i\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
 +
-\underbrace{
-\mathbb{E}[Y_i(0) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
-}_{\text{Selection bias}}
+\sum_{i=1}^n \sum_{j \neq i}
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&\text{}
+\\[5pt]
+
+&=
+\sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
+- \sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_tn_c}{n^2(n-1)}\right)
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+
+&=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+
+&\text{Substituting from Lemma 4}
+\\[5pt]
+
+&=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
++ \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}
+\left(Y_i^+ - \overline{Y}^+\right)^2
+\\[5pt]
+
+&=
+\left(\frac{n_tn_c}{n^2} + \frac{n_tn_c}{n^2(n-1)}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&=
+\frac{n_tn_c(n-1) + n_tn_c}{n^2(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&=
+\frac{nn_tn_c - n_tn_c + n_tn_c}{n^2(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&\\[5pt]
+
+&\text{Reverting to full notation and expanding square term}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} 
+- \frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(
+\left(\frac{Y_i(1)}{n_t} - \frac{\overline{Y}(1)}{n_t}\right)
++ \left(\frac{Y_i(0)}{n_c} - \frac{\overline{Y}(0)}{n_c}\right)
+\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(
+\frac{1}{n_t}\left(Y_i(1) - \overline{Y}(1)\right)
++ \frac{1}{n_c}\left(Y_i(0) - \overline{Y}(0)\right)
+\right)^2
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}\left[
+\sum_{i=1}^{n}\left(
+\frac{1}{n_t^2}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n_c^2}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n_t n_c}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_tn_c}{n(n-1)}\left[
+\frac{1}{n_t^2}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n_c^2}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n_t n_c}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right]
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c}{n n_t}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{n_t}{n n_c}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{1}{n}2S_{0,1}
+&\text{}
+\\[5pt]
+
+&\text{Using Lemma 5}
+\\[5pt]
+
+&=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{1}{n}\left(S_1^2 + S_0^2 - S_{\tau_i}^2\right)
+&\text{}
+\\[5pt]
+
+&=
+\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
++ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+&=
+\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
++ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+&=
+\frac{n_c + n_t}{n n_t} S_1^2
++ \frac{n_t + n_c}{n n_c} S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
+\\[5pt]
+
+&=
+\frac{S_1^2}{n_t}
++ \frac{S_0^2}{n_c} 
+- \frac{S_{\tau_i}^2}{n}
+&\text{}
 \\[5pt]
 
 \end{align}
 $$
-Randomisation ensures that $\mathbb{E}[Y_i(0) \,|\, W_i=0] = \mathbb{E}[Y_i(0) \,|\, W_i=1]$ and thus solves the selection problem and also allows us to estimate the ATE (show this rigorously if needed):
+
+#### Commonly used estimator for sampling variance
+
+A commonly used estimator (recommended in practice by IR!) is:
+
 $$
-\begin{align}
-\mathbb{E}[Y_i \,|\, W_i=1] - \mathbb{E}[Y_i \,|\, W_i=0]
-
-\quad&=\quad
-\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=0]
-\\[5pt]
-
-\quad&=\quad
-\mathbb{E}[Y_i(1) \,|\, W_i=1] - \mathbb{E}[Y_i(0) \,|\, W_i=1]
-\\[5pt]
-
-\quad&=\quad
-\underbrace{
-\mathbb{E}[Y_i(1) - Y_i(0) \,|\, W_i=1]
-}_{\text{ATT}}
-\\[5pt]
-
-\quad&=\quad
-\underbrace{
-\mathbb{E}[Y_i(1) - Y_i(0)]
-}_{\text{ATE}}
-\\[5pt]
-\end{align}
+\hat{V}^{neyman} = \frac{s_t^2}{N_t} + \frac{s_c^2}{N_c},
 $$
----
 
-**Connection**
+where $s_t^2$ and $s_c^2$ are unbiased estimators of $S_t^2$ and $S_c^2$. This estimator is popular for a few reasons:
 
-- The **design-based proof** shows unbiasedness of the estimator using random assignment directly.
-- The **identification-based decomposition** explains how randomization ensures that ATT = ATE and removes selection bias.
-- Both frameworks **converge under random assignment**:
-  - One via potential outcomes and independence logic,
-  - The other via expectations over the experimental design.
+1. If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance of $\bar{Y}_t^{obs} - \bar{Y}_c^{obs}$.
 
-This shows how the design-based approach justifies the assumptions often taken as given in identification-based frameworks.
+2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{ct}^2$ is non-negative).
 
+3. It is always unbiased for $\hat{\tau}^{dif}$ as an estimator of the infinite super-population average treatment effect (see below).
+
+There are other options (see Section 6.5 in the IR book).
 
 
 
 ## Q&A
 
-Questions
+##### Question 1
 
-1. Why do we need potential outcomes at all? Can't we interpret the difference from a simple comparison of averages as the causal effect?
+Why do we need potential outcomes at all? Can't we interpret the difference from a simple comparison of averages as the causal effect?
 
-2. Why do randomised trials not require the excludability assumption in order to lead to unbiased results?
+##### Question 2
 
-Answer
+Why do randomised trials not require the excludability assumption in order to lead to unbiased results?
 
-1. 
+
+
+##### Answer 1
+
 - What is definition of causal effect in suggested comparison?
 - What is source of randomisation?
 - Discuss textbook iid approach and why it's not a good model for our purpose.
@@ -536,27 +677,13 @@ Differences:
 - Weird, though, that Ding lemmas seem to be based on IID case!
 
 
-
-
-# Old notes
-
-### Assignment mechanism: randomisation
-
-- In order for these estimates to be valid estimates of the two quantities we need, it is critically important how units receive the treatment they receive.
-
-- This is the role of the assignment mechanism: the mechanism that determines how units are allocated into different treatment conditions.
-
-- In particular, allocation to treatment has to be random because if treatment allocation is random, then we have:
+##### Answer 2
+...
 
 
 
 
 
-
-## References
-
-
-## Footnotes
 
 [^unit_level_treatment_effects]: In principle, the unit-level level causal effect can be any comparison between the potential outcomes, such as the difference $Y_i(1) - Y_i(0)$ or the ratio $Y_i(1)/Y_i(0)$. In online experiments, we usually focus on the difference.
 
@@ -568,78 +695,12 @@ Differences:
 
 [^1]: To denote the sum over all units in a given treatment group $w$ I use $\sum_{W_i=w}$ as a shorthand for $\sum_{i:W_i=w}$ to keep the notation compact.
 
-
-
-## List of assumptions (temp, to be moved)
-
-
-### Excludability
-
-- Another key assumption, related to no hidden treatment variation, is that *assignment* to treatment affects outcomes only through the effect of the *administration* of the treatment -- being part of the treatment group does not have an effect on outcomes other than through the treatment itself.
-
-- This could be violated if treatment units were somehow treated differently from control units (e.g. data collection was different)
-
-- The assumption is called "excludability" because it assumes that we can exclude from the potential outcome definition separate indicators for treatment assignment and administration. Instead, throughout, we use the indicator $w_i$, which captures whether unit $i$ was allocated to treatment, and assume that this perfectly corresponds to having been administered the treatment.
-
-
-### Ignorability
-
-States that if treatment assignment is independent of potential outcomes conditional on covariates and observed outcomes, then the assignment mechanism can be ignored for the recovery of causal effects (instead of having to be modeled). Note: assignment doesn't have to be random for ignorability to hold, just to behave as if it were random given covariates and observed outcomes.
-
-Section 3.2 in rubin1978bayesian actually suggests that for assignment mechanism to be ignorable, recording mechanism simply needs to record everything upon which assignment depends, which, I suppose, can always be captured by X and Yobs, so that the below notation is comprehensive but may not always be necessary in the sense that in some cases, we only need recording of X or yobs if assignment doesn't rely on the other of the two. For instance: "play-the-winner" example in paper relies on yobs only, whereas "balance patients characteristics" relies on X only.
-
-This is needed to ignore the assignment mechanism in Bayesian posterior inference (see rubin1978bayesian for details).
-
-Formally:
-$$
-P(W|X, Y_i(1), Y_i(0)) = P(W|X, Y_i^{obs}),
-$$
-where
-$$
-Y_i^{obs} = W_iY_i(1) + (1 - W_i)Y_i(0).
-$$
-
-### Unconfoundedness
-
-Aka (strong ignorability). Treatment is independent of potential outcomes given covariates. In practice, the following are used interchangeably to refer to this:
-- Ignorability 
-- Unconfoundedness
-- Selection on observables
-- No unmeasured confounding
-
-This is stronger than ignorability: it implies ignorability, but the reverse is not true.
-
-Formally:
-$$
-P(W|X, Y_i(1), Y_i(0)) = P(W|X)
-$$
-
-
-
-Note:
-
-As Rubin points out on page 43 in rubin1978bayesian, if we rely on simple random sampling and then conduct a completely randomised experiment, we have
-
-$$
-P(W|X, Y_i(1), Y_i(0)) = P(W),
-$$
-which implies both ignorability and confoundedness.
-
-## Potential outcomes framework details (tmp)
-
-From holland
-
-- The framework has three key features:
-
-  1. Causal effects are associated with potential outcomes
-  2. Studying causal effects required multiple units
-  3. Central role of the assignment mechanism
-
-Their role is somewhat different, however: the first one is axiomatic: it's the starting point for how we think about causal effects and intimately linked to the notion that causal effects are always relative to a different state (see holland1986statistics notes, as well as Rubin interview). The second is a corollary from the first if we are unwilling to take the scientific solution (in Holland's words) to the Fundamental Problem: it's the insight that leads to the statistical solution. The third is a corollary of the second: to make the statistical solution work, the assignment mechanism is central.
-
 [^2]: Our $n$ units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see @sec-experiment-setup.
 
 [^3]: See @sec-experimen-setup for a more detailed discussion of the treatment assignment mechanism and its implications.
+
+
+## References
 
 
 

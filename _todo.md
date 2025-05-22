@@ -14,43 +14,11 @@ Steps to victory
 - [x] Clean up chapters and set up broad book structure to create version I can commit
 	- [x] Up to hypothesis_testing.md
 
+- [x] Perform derivation for BRE
+	- [x] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
 
-- [ ] Replace population with sample in stats part, because we do have a sample rather than a population. It's just that we treat our sample as if it were the population (because it is). But a population in stats is usually the thing you infer sth about rather than to units you work with, so it would be confusing to use population. Instead, use sample and then be explicit that I use finite sample approach.
+- [ ] Complete BRE unbiasedness and variance calculation
 
-
-
-- [ ] Perform derivation for BRE
-	- [ ] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
-
-- [ ] Show that sigma_hat is unbiased estimator of sample variance sigma 
-	- [ ] Imbens and Rubin (Appendix 6.A)
-	- [ ] ding2023first lemma c4
-
-- [ ] Show that CLT is justified so we can do inference
-	- [ ] Imbens Rubin
-	- [ ] ding2023first (Chapter 4, Theorem 4.2), li2017general
-
-- [ ] Perspectives
-- Two entities to view as either fixed or random:
-	- Potential outcomes (Sampling perspective?)
-		- wager2024causal
-		- ding2023first footnote 1 on page 25
-	- Sample sizes (BRE vs CRE)
-- Focus can be on super population or finite sample
-	- Argue that in contexts of A/B tests this doesn't make sense, since population is well defined. But understand what implications are. 
-	- li2017general beginning of intro discusses this
-
-- [ ] Write chapter and consider turning it into paper (check with Max for relevant outlet if needed)
-
-- [ ] Problems/cases that help more deeply understand the approach
-	- [ ] Lords/Simpson paradox (see simpsons_paradox)
-	- [ ] Presence of concomitant variable (rubin2005causal section 7)
-
-
-Later
-- [ ] Read titiunik2020natural for neat definition of RCE and interesting discussion of types of randomness
-- [ ] deng2017trustworthy on more general/complex cases in online experiment practice 
-- [ ] Add section on testing and CI
 - [ ] Add section on power calculations
     - [ ] Incorporate all metrics types to power calculation (see hesterberg2024power)
     - [ ] Differentiate between relative and abs MDES (default is abs)
@@ -64,6 +32,26 @@ Later
     - [ ] Power for different metric types (define continuous, proportion, ratio, etc. metrics -- how do they affect calculations?)
     - [ ] Build power calculator (check Statsig one — but add unbalanced samples option), build beautiful visualisations (use uv for package mgt)
 
+- [ ] Add section on testing and CI
+- [ ] Show that CLT is justified so we can do inference
+	- [ ] Imbens Rubin
+	- [ ] wager
+	- [ ] ding2023first (Chapter 4, Theorem 4.2), li2017general
+
+- [ ] Show that sigma_hat is unbiased estimator of sample variance sigma 
+	- [ ] Imbens and Rubin (Appendix 6.A)
+	- [ ] ding2023first lemma c4
+
+- [ ] Write chapter and consider turning it into paper (check with Max for relevant outlet if needed)
+
+- [ ] Problems/cases that help more deeply understand the approach
+	- [ ] Lords/Simpson paradox (see simpsons_paradox)
+	- [ ] Presence of concomitant variable (rubin2005causal section 7)
+
+
+Later
+- [ ] Read titiunik2020natural for neat definition of RCE and interesting discussion of types of randomness
+- [ ] deng2017trustworthy on more general/complex cases in online experiment practice 
 
 - Integrate Kohavi advanced topics into book: https://docs.google.com/document/d/12iy35z_aM5r76gqgq5f-mzVRwZoHjz4kBjv3rMULSEw/edit?tab=t.0#heading=h.3qu16rq6g769 
 

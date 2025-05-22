@@ -3,93 +3,133 @@
 
 ## Other assumptions in casusal inference
 
-
-
-
-
-
 ## Modes of inference
 
 - see abadie2020sampling 
-
-
 ### From athey2017econometrics (my notes)
 
-- Sampling based:
-
-      - Also model-based (why?)
-
-      - This is the classical mode of inference in statistics and observational studies 
-
-      - Randomness results from random sampling.
-
-      - We assume that the population at hand is a random subsample of a (much) larger population, so that individual values are random.
-
-      - For instance, in $\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i$ we treat each $X_i$ as a random variable.
-
-      - In the context of experimentation, where we can write the treatment group mean as $\bar{Y}_t = \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i$, we treat the $W_i$s as fixed and $Y_i$s as random ("for each reserved slot in the treatment group, what is the value of the unit we randomly selected for that slot?")
-
-  - Randomisation based:
-
-    - Randomness results from random treatment assignment.
-
-    - In the context of experimentation, where we can write the treatment group mean as $\bar{Y}_t = \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i$, we treat the $W_i$s as random and $Y_i$s as fixed ("Out of all $n$ units with fixed potential outcomes that we have in our experiment sample, which ones got randomly allocated to the treatment group?")
-
+Sampling based:
+- Also model-based (why?)
+- This is the classical mode of inference in statistics and observational studies 
+- Randomness results from random sampling.
+- We assume that the population at hand is a random subsample of a (much) larger population, so that individual values are random.
+- For instance, in $\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i$ we treat each $X_i$ as a random variable.
+- In the context of experimentation, where we can write the treatment group mean as $\bar{Y}_t = \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i$, we treat the $W_i$s as fixed and $Y_i$s as random ("for each reserved slot in the treatment group, what is the value of the unit we randomly selected for that slot?")
+Randomisation based:
 
 ### Good chat GPT explanation
+*Written by ChatGPT (OpenAI), March 2025.*
 
-## 🧭 Why Do the Terms *Design-Based* and *Model-Based* Make Sense?
+Why Do the Terms *Design-Based* and *Model-Based* Make Sense?
 
-Great question — the terms **design-based** and **model-based** refer to **where the uncertainty comes from** and **what justifies your inference** in a causal or statistical analysis. The names make intuitive sense once you understand their core logic:
+- Great question — the terms **design-based** and **model-based** refer to **where the uncertainty comes from** and **what justifies your inference** in a causal or statistical analysis. The names make intuitive sense once you understand their core logic:
 
----
+**Design-Based Inference**: Uncertainty from the Design
 
-## 🧭 **Design-Based Inference**: Uncertainty from the Design
-
-### 🔹 Why “design-based”?
-Because **inference is justified by the experimental design itself** — specifically, the **randomization**.
-
+Why “design-based”?
+- Because **inference is justified by the experimental design itself** — specifically, the **randomization**.
 - The potential outcomes are assumed **fixed** (part of the “science” in Rubin's terms).
 - The only randomness comes from **how the treatment was assigned**, which is determined by the **experimental design** (e.g., flipping a fair coin).
 
 > 📌 The inference relies solely on the known **design of the experiment**, not on any model of the outcomes.
 
-### 🧠 Analogy:
-You’re not modeling anything — you’re just using the fact that “we randomly assigned treatment, so any observed differences must be causally interpretable.”
+Analogy:
+- You’re not modeling anything — you’re just using the fact that “we randomly assigned treatment, so any observed differences must be causally interpretable.”
 
----
+**Model-Based Inference**: Uncertainty from a Statistical Model
 
-## 🔍 **Model-Based Inference**: Uncertainty from a Statistical Model
-
-### 🔹 Why “model-based”?
-Because **inference is justified by a statistical model** for the data-generating process — not just the design.
-
+Why “model-based”?
+- Because **inference is justified by a statistical model** for the data-generating process — not just the design.
 - Units are thought of as drawn **randomly from a population**.
 - Potential outcomes are **random variables**.
 - You specify models for those outcomes: \( Y_i(1), Y_i(0) \sim \text{some distribution} \)
 
 > 📌 The validity of your inference depends on the **correctness of the model**, not just the study design.
 
-### 🧠 Analogy:
-You’re saying: “Let me make assumptions about how the data are generated, and then use probability to estimate causal effects based on those assumptions.”
+Analogy:
+- You’re saying: “Let me make assumptions about how the data are generated, and then use probability to estimate causal effects based on those assumptions.”
 
----
+Summary Table
 
-## 🔄 Summary Table
+| Term             | Why It Makes Sense                                     | Where Uncertainty Comes From | Key Assumption              |
+| ---------------- | ------------------------------------------------------ | ---------------------------- | --------------------------- |
+| **Design-Based** | Relies on **experimental design** (e.g. randomization) | Assignment mechanism         | Randomized treatment        |
+| **Model-Based**  | Relies on **statistical models** of outcomes           | Sampling or model error      | Correct model specification |
 
-| Term           | Why It Makes Sense         | Where Uncertainty Comes From | Key Assumption |
-|----------------|-----------------------------|-------------------------------|----------------|
-| **Design-Based** | Relies on **experimental design** (e.g. randomization) | Assignment mechanism | Randomized treatment |
-| **Model-Based**  | Relies on **statistical models** of outcomes | Sampling or model error | Correct model specification |
-
----
-
-## ✅ Why These Terms Are Intuitive
+Why These Terms Are Intuitive
 - **Design-based**: You get inference "for free" from the **structure of your design**, without modeling outcomes.
 - **Model-based**: You infer causal effects **by assuming a model** — inference comes from the model, not the design.
 
-*Written by ChatGPT (OpenAI), March 2025.*
 
+### Other chat conversation: What *precisely* makes the approach in the main text **design-based**?
+
+The key is that your derivation conditions on the **randomization mechanism** — that is, the known process by which treatment is assigned.
+
+### 🔹 1. Expectation taken over assignment mechanism
+
+You compute:
+
+$$
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)}
+\right]
+$$
+
+- The randomness here is over the **assignment vector** \( \mathbf{W} \) — i.e., how units are assigned to treatment or control.
+- The potential outcomes \( \mathbf{Y(w)} \) are treated as **fixed** (non-random).
+- This reflects the design of the experiment: if we re-ran the randomization, we’d get a different estimate \( \hat{\tau}^{\text{dm}} \), but the outcomes under treatment and control for each unit would remain the same.
+
+> **This is the hallmark of the design-based approach**:  
+> It treats assignment as the source of randomness, and all other aspects (units, outcomes, covariates) as fixed.
+
+---
+
+### 🔹 2. Unbiasedness is shown by averaging over random assignments
+
+You show:
+
+$$
+\mathbb{E}[\hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)}] = \tau
+$$
+
+This tells us that:
+- The estimator is **unbiased** *because of how the assignment was randomized*, not because of any assumptions about functional forms, ignorability, or data-generating processes.
+- That is: **randomization justifies the inference**, not a model of selection or outcome behavior.
+
+---
+
+### 🔹 3. No assumptions about ignorability or conditional independence
+
+You do **not** assume:
+- \( W_i \perp (Y_i(0), Y_i(1)) \mid X_i \) (as in observational methods),
+- or any structural model of selection or behavior.
+
+Instead, your inference relies solely on the **known randomization scheme** — e.g., Bernoulli or complete random assignment.
+
+---
+
+### 🧭 In contrast: Identification-based (observational) approach
+
+- Takes the data as generated by an **unknown, possibly non-random assignment**.
+- Makes assumptions (e.g., unconfoundedness) to justify:
+
+$$
+\mathbb{E}[Y_i(1) - Y_i(0)] = \mathbb{E}[Y_i \mid W_i = 1] - \mathbb{E}[Y_i \mid W_i = 0]
+$$
+
+- Assumes assignment is as good as random **after controlling for covariates**.
+
+---
+
+### 📌 Summary
+
+> The approach in the main text is **design-based** because it:
+> - Treats potential outcomes as fixed,  
+> - Takes expectations **only over the random assignment**,  
+> - Shows unbiasedness of the estimator purely from the **known experimental design**,  
+> - Requires **no modeling of selection**.
+
+This is fundamentally different from the identification-based approach, which models or assumes ignorability to equate observed and counterfactual outcomes.
 
 
 
@@ -242,29 +282,6 @@ Figure shows that:
 - The spread of sampling distributions decreases with increasing sample size
 
 - Data distribution has larger spread than sampling distributions (each data point is a special case of a sample with n = 1)
-
-
-## Modes of inference
-
-  - Sampling based:
-
-      - Also model-based (why?)
-
-      - This is the classical mode of inference in statistics and observational studies 
-
-      - Randomness results from random sampling.
-
-      - We assume that the population at hand is a random subsample of a (much) larger population, so that individual values are random.
-
-      - For instance, in $\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i$ we treat each $X_i$ as a random variable.
-
-      - In the context of experimentation, where we can write the treatment group mean as $\bar{Y}_t = \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i$, we treat the $W_i$s as fixed and $Y_i$s as random ("for each reserved slot in the treatment group, what is the value of the unit we randomly selected for that slot?")
-
-  - Randomisation based:
-
-    - Randomness results from random treatment assignment.
-
-    - In the context of experimentation, where we can write the treatment group mean as $\bar{Y}_t = \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i$, we treat the $W_i$s as random and $Y_i$s as fixed ("Out of all $n$ units with fixed potential outcomes that we have in our experiment sample, which ones got randomly allocated to the treatment group?")
 
 
 ## Law of large numbers and central limit theorems
