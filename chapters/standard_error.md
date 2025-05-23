@@ -80,35 +80,6 @@ $$
 \boxed{\se = \sefu}
 $${#eq-se}
 
-We could work with this, and sometimes do. But in the context of online
-experiments, because sample sizes are so large and treatment effects are usually
-small, people often assume equal sample sizes and variances, so that we have
-$\Nt = \Nc = N/2$ and $\vte = \vce = \vpe$. The common variance $\vpe$ is
-estimated by "pooling" $\vte$ and $\vce$ to create a degrees-of-freedom-weighted
-estimator of the form:
-
-$$
-\vpe = \vpef.
-$$
-
-Substituting all of the above in @eq-se results in 
-
-$$
-\se = \sqrt{\frac{\vpe + \vpe}{\N/2}} = \sqrt{\frac{4\vpe}{\N}} = \sefe
-$$
-
-For most of the text, I'll use this expression for the standard error. In some
-cases, though, it is useful to express the standard error in terms of the
-proportion of units allocated to the treatment group. Hence, instead of assuming
-equal sample sizes, we use $P$ to denote that proportion and $\N$ to denote
-total sample size, while maintaining the assumption of equal variance. After a little algebraic manipulation we then get:
-
-$$
-\se = \sqrt{\frac{\vpe}{P\N} + \frac{\vpe}{(1-P)\N}} = \sefep.
-$$
-
-Notice that for equal sample sizes, when $P=0.5$, this formulation is equivalent
-to the one above as expected.
 
 
 

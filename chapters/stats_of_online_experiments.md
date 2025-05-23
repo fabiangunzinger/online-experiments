@@ -1,6 +1,6 @@
 # The stats of online experiments
 
-## The fundamental problem of causal inference
+## Setup
 
 We study a sample of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
@@ -11,10 +11,6 @@ $$
 \tau_i = Y_i(1) - Y_i(0).
 $$
 Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly *observing unit-level treatment effects* is impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
-
-## Experiments
-
-### Estimand
 
 An experiment is one solution to the fundamental problem:[^scientific_solution] randomly assigning units from a population to either treatment or control allows us to *estimate average (unit-level) treatment effects*. In the words of @holland1986statistics [p. 947]:[^shortcut] 
 
@@ -28,12 +24,25 @@ $$
 = \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
 = \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
-$$
+$${#eq-estimand}
+
 This is the estimand, the statistical quantity we are trying to estimate in our experiment.
 
-### Setup
-
 Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
+
+To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
+
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+=
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\end{align}
+$$
+
+This is our estimator, the algorithm we use to produce estimates of the estimand. 
+
+## Assignment mechanism
 
 The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.md#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
 
@@ -55,19 +64,8 @@ n_t &\sim \text{Binomial}(n, 1/2) \\
 \end{align}
 $$
 
-To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
 
-$$
-\begin{align}
-\hat{\tau}^{\text{dm}}
-=
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\end{align}
-$$
-
-This is our estimator, the algorithm we use to produce estimates of the estimand. 
-
-### Analysis
+## Analysis
 
 There are different approaches we could take to formally analyse our experiment.
 
@@ -87,7 +85,7 @@ Implications:
 
 In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
 
-### Unbiasedness of $\hat{\tau}^{\text{dm}}$
+## Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
 An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:
 
@@ -148,7 +146,8 @@ There are two pieces we need for this:
 2) Link treatment group averages to sample averages so that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
 Let's tackle them in turn.
-#### SUTVA links observed outcomes to potential outcomes
+
+### SUTVA links observed outcomes to potential outcomes
 
 We want to learn something about unit-level differences in potential outcomes
 $$
@@ -256,7 +255,7 @@ $$
 
 What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
-#### Randomisation links treatment groups to the population
+### Randomisation links treatment groups to the population
 
 Steps:
 
@@ -264,7 +263,7 @@ Steps:
 
 - We use the linearity of $\mathbb{E}$ to move $\mathbb{E}$ inside the summation, where the only random element is $W_i$.
 
-- Use Lemma 1 (randomisation) to replace expectations with expected values.
+- Use [Lemma 1](lemmas.md#lemma-1) (randomisation) to replace expectations with expected values.
 
 $$
 \begin{align}
@@ -345,10 +344,82 @@ Y_i(0)
 \end{align}
 $$
 
-**I'm here**
-- Need to introduce/link to definitions/lemmas used below
+## Variance of of $\hat{\tau}^{\text{dm}}$
 
-### Variance of of $\hat{\tau}^{\text{dm}}$
+For the variance calculation below we need a few more definitions. We can define sample means and variances of the potential outcomes as:
+
+$$
+\begin{align}
+\overline{Y}(1) = \frac{1}{n}\sum_{i=1}^n Y_i(1),
+\qquad
+S_1^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
+\\[5pt]
+\overline{Y}(0) = \frac{1}{n}\sum_{i=1}^n Y_i(0),
+\qquad
+S_0^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
+\\[5pt]
+\end{align}
+$$
+
+We have already defined the sample average treatment effect in @eq-estimand. I rewrite it here for convenience and expand the definition using the above expressions:
+
+$$
+\begin{align}
+\tau 
+&= \frac{1}{n}\sum_{i=1}^n \tau_i
+\\[5pt]&= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+\\[5pt]&= \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]&= \overline{Y}(1) - \overline{Y}(0).
+\end{align}
+$$
+
+
+The variance of the individual-level causal effects is:
+
+$$
+\begin{align}
+S_{\tau_i}^2
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - Y_i(0) 
+- \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2
+\\[5pt]
+&= \frac{1}{n-1}\sum_{i=1}^{n}\left(\tau_i - \tau\right)^2 \\[5pt]
+\end{align}
+$$
+The covariance of potential outcomes is:
+$$
+\begin{align}
+S_{0, 1} &= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\end{align}
+$$
+
+
+Given the data from our experiment we can estimate the sample statistics using the observed treatment group means:
+
+$$
+\begin{align}
+\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
+\qquad
+\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\end{align}
+$$
+and observed treatment group variances:
+
+$$
+\begin{align}
+s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
+\qquad
+s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
+\end{align}
+$$
+For a proof that the above variances are unbiased estimators of the sample variances, see Appendix A in Chapter 6 of @imbens2015causal.
+
+
+
+All lemmas referred to below are [here](lemmas.md).
+
+We can then calculate the variance as:
 
 $$
 \begin{align}
@@ -359,7 +430,7 @@ $$
 
 &=
 \mathbb{V}\left(
-\overline{Y}_t - \overline{Y}_c
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \right)
 \\[5pt]
 
@@ -388,8 +459,16 @@ $$
 
 &=
 \mathbb{V}\left(
+\sum_{i=1}^n W_i\frac{Y_i(1)}{n_t} 
+- \sum_{i=1}^n \frac{Y_i(0)}{n_c}
++ \sum_{i=1}^n W_i\frac{Y_i(0)}{n_c}
+\right)
+\\[5pt]
+
+&=
+\mathbb{V}\left(
 \sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
-- \frac{1}{n_c}\sum_{i=1}^n Y_i(0)
+- \sum_{i=1}^n \frac{Y_i(0)}{n_c}
 \right)
 \\[5pt]
 
@@ -619,24 +698,63 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \end{align}
 $$
 
-#### Commonly used estimator for sampling variance
+This is the [sampling variance](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. The most widely used estimator in practice is:
+$$
+\hat{\mathbb{V}}\left(\hat{\tau}^{\text{dm}}\right)
+= \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
+$$
+In our context, the main advantages of this estimator are:
 
-A commonly used estimator (recommended in practice by IR!) is:
+1. If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance since in this case, $S^2_{\tau_i} = 0$.
+
+2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{\tau_i}^2$ is non-negative).
+
+## Standard error of $\hat{\tau}^{\text{dm}}$
+
+The [standard error](stats_fundamentals.md#sampling-distribution) of an estimator is simply the square root of its sampling variance, so that we have:
 
 $$
-\hat{V}^{neyman} = \frac{s_t^2}{N_t} + \frac{s_c^2}{N_c},
+SE\left(\hat{\tau}^{\text{dm}}\right)
+= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
+$$
+We could work with this, and sometimes do. But in the context of online experiments, because sample sizes are so large and treatment effects are usually small, people often assume equal sample sizes and variances, so that we have $n_t = n_c = n/2$ and $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
+
+$$
+s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 $$
 
-where $s_t^2$ and $s_c^2$ are unbiased estimators of $S_t^2$ and $S_c^2$. This estimator is popular for a few reasons:
+Substituting all of the above results in
 
-1. If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance of $\bar{Y}_t^{obs} - \bar{Y}_c^{obs}$.
+**I'm here**
 
-2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{ct}^2$ is non-negative).
 
-3. It is always unbiased for $\hat{\tau}^{dif}$ as an estimator of the infinite super-population average treatment effect (see below).
+$$
 
-There are other options (see Section 6.5 in the IR book).
+SE\left(\hat{\tau}^{\text{dm}}\right)
+= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 
+\se = \sqrt{\frac{\vpe + \vpe}{\N/2}} = \sqrt{\frac{4\vpe}{\N}} = \sefe
+$$
+
+For most of the text, I'll use this expression for the standard error. In some
+cases, though, it is useful to express the standard error in terms of the
+proportion of units allocated to the treatment group. Hence, instead of assuming
+equal sample sizes, we use $P$ to denote that proportion and $\N$ to denote
+total sample size, while maintaining the assumption of equal variance. After a little algebraic manipulation we then get:
+
+$$
+\se = \sqrt{\frac{\vpe}{P\N} + \frac{\vpe}{(1-P)\N}} = \sefep.
+$$
+
+Notice that for equal sample sizes, when $P=0.5$, this formulation is equivalent
+to the one above as expected.
+
+
+
+
+## Confidence intervals and testing
+
+- See ding2023first section 4.2 and imbens2015causal section 6.6.1 and 6.6.2 for justification for testing approach
 
 
 ## Q&A

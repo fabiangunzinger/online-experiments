@@ -5,7 +5,7 @@ In math, lemmas are proofs of intermediary results. Below the ones I use in the 
 
 ## Lemma 1
 
-Given that $W_i \in \{0, 1\} \sim \text{Bernoulli}(q)$, and given that we take potential outcomes $\mathbf{Y(w)} = \mathbf{Y(1)}, \mathbf{Y(0)}$ and sample sizes $\mathbf{n} = (n, n_t, n_c)$ as given, we have:
+Given that $W_i \in \{0, 1\} \sim \text{Bernoulli}(q)$, and given that we take potential outcomes $\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})$ and sample sizes $\mathbf{n} = (n, n_t, n_c)$ as given, we have:
 $$
 \mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}] 
 =

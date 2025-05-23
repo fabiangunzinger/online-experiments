@@ -167,7 +167,7 @@ Ways to guard against selection bias:
 - have one or many holdout datasets to confirm your results. 
 
 
-### Sampling distributions
+### Sampling distribution
 
 - A sampling distribution is the distribution of a statistic (e.g. the mean) over many repeated samples. Classical statistics is much concerned with making inferences from samples about the population based on such statistics.  
 
