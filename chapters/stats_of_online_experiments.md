@@ -720,8 +720,11 @@ The [standard error](stats_fundamentals.md#sampling-distribution) of an estimato
 $$
 SE\left(\hat{\tau}^{\text{dm}}\right)
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
-$$
-We could work with this, and sometimes do. But in the context of online experiments, because sample sizes are so large and treatment effects are usually small, people often assume equal sample sizes and variances, so that we have $n_t = n_c = n/2$ and $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
+$${#eq-se}
+
+### Assuming equal variances and sample sizes
+
+In the context of online experiments, because sample sizes are so large and treatment effects are usually small, people often assume equal sample sizes and variances, so that we have $n_t = n_c = n/2$ and $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
 
 $$
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
@@ -729,36 +732,36 @@ $$
 
 Substituting all of the above results in
 
-**I'm here**
-
-
 $$
-
 SE\left(\hat{\tau}^{\text{dm}}\right)
-= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
-
-\se = \sqrt{\frac{\vpe + \vpe}{\N/2}} = \sqrt{\frac{4\vpe}{\N}} = \sefe
+= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}
+= \sqrt{\frac{s^2}{\frac{n}{2}} + \frac{s^2}{\frac{n}{2}}}
+= \sqrt{\frac{4s^2}{n}}.
 $$
 
-For most of the text, I'll use this expression for the standard error. In some
-cases, though, it is useful to express the standard error in terms of the
-proportion of units allocated to the treatment group. Hence, instead of assuming
-equal sample sizes, we use $P$ to denote that proportion and $\N$ to denote
-total sample size, while maintaining the assumption of equal variance. After a little algebraic manipulation we then get:
+
+### In terms of allocation proportions
+
+Sometimes it is useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use $p$ to denote that proportion and $n$ to denote total sample size, while maintaining the assumption of equal variance. We can then write:
 
 $$
-\se = \sqrt{\frac{\vpe}{P\N} + \frac{\vpe}{(1-P)\N}} = \sefep.
+SE\left(\hat{\tau}^{\text{dm}}\right)
+= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}
+= \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
+= \sqrt{\frac{s^2}{np(1-p)}}.
 $$
 
-Notice that for equal sample sizes, when $P=0.5$, this formulation is equivalent
-to the one above as expected.
-
-
+For $p=0.5$, this formulation is equivalent to the one above as expected.
 
 
 ## Confidence intervals and testing
 
 - See ding2023first section 4.2 and imbens2015causal section 6.6.1 and 6.6.2 for justification for testing approach
+
+## Power
+
+
+
 
 
 ## Q&A
