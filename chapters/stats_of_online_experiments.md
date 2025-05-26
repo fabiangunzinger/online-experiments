@@ -415,8 +415,6 @@ s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
 $$
 For a proof that the above variances are unbiased estimators of the sample variances, see Appendix A in Chapter 6 of @imbens2015causal.
 
-
-
 All lemmas referred to below are [here](lemmas.md).
 
 We can then calculate the variance as:
@@ -539,6 +537,9 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
 \\[5pt]
 
+&\text{Lemma 2}
+\\[5pt]
+
 &= 
 \sum_{i=1}^n
 \mathbb{V}\left(W_i\right)
@@ -549,6 +550,9 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \left(Y_i^+ - \overline{Y}^+\right)
 \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
+\\[5pt]
+
+&\text{Lemma 3}
 \\[5pt]
 
 &=
@@ -565,7 +569,7 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
 
-&\text{Substituting from Lemma 4}
+&\text{Lemma 4}
 \\[5pt]
 
 &=
@@ -657,7 +661,7 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
 \\[5pt]
 
-&\text{Using Lemma 5}
+&\text{Lemma 5}
 \\[5pt]
 
 &=
