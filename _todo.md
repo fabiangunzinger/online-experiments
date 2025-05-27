@@ -1,14 +1,4 @@
 
-**I've got lot of great content here. I just need to keep going! Keep going!**
-
-Pieces
-- [[stats_of_online_experiments]] has description of potential outcome framework and online experiment setup
-- [[cre_imbens2015causal]] contains cre derivations using Imbens approach
-- [[cre_ding2023first]] contains cre derivations using Ding approach
-- [[bre_ding2023first]] contain bre derivations – wip
-- [[why_potential_outcomes]] answers that question based on Deng's online book
-
-
 Steps to victory
 - [x] Move all obsidian notes to suitable chapters
 - [x] Clean up chapters and set up broad book structure to create version I can commit
@@ -16,8 +6,7 @@ Steps to victory
 
 - [x] Perform derivation for BRE
 	- [x] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
-
-- [ ] Complete BRE unbiasedness and variance calculation
+- [x] Complete BRE unbiasedness and variance calculation
 
 - [ ] Add section on power calculations
     - [ ] Incorporate all metrics types to power calculation (see hesterberg2024power)

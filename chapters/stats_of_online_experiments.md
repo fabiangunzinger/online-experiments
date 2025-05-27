@@ -83,7 +83,7 @@ Implications:
 
 - The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units. 
 
-In the rest of this section we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance.
+In the next two sections we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance. (My approach is based on @ding2023first. For an alternative, see Appendix 6.B. in @imbens2015causal.)
 
 ## Unbiasedness of $\hat{\tau}^{\text{dm}}$
 
@@ -754,11 +754,6 @@ $$
 For $p=0.5$, this formulation is equivalent to the one above as expected.
 
 
-## Confidence intervals and testing
-
-- See ding2023first section 4.2 and imbens2015causal section 6.6.1 and 6.6.2 for justification for testing approach
-
-## Power
 
 
 
@@ -777,6 +772,18 @@ Why do randomised trials not require the excludability assumption in order to le
 
 
 ##### Answer 1
+
+
+Why potential outcomes?
+- Clarifies what precisely we are trying to estimate: average individual treatment effect
+- Makes explicit the assumptions we need to make to do so: assuming that Y0 are the same in expectation (sth else?)
+ - Assumptions needed
+	 - SUTVA
+		 - What we need is to be able to write Y-i = WY1 + (1-W)Y0. For this we need i) independence from other's assignment, and ii) clearly defined meaning of Wi =1 and Wi = 0, becauese if they are not clearly defined then Y1/Y0 might not be stable. SUTVA handles both of these.
+	- Randomisation: to make sure that EY0 for W=1 equals EY0 W=0
+Material
+- ding2023first footnote 2 in chapter 4 and 
+
 
 - What is definition of causal effect in suggested comparison?
 - What is source of randomisation?
@@ -798,13 +805,8 @@ Differences:
 - As a result: there is no correlation between two groups in IID case (covar = 0) and hence no third term, whereas in FS case there is – why precisely? Because there is correlation between y1s and y2s – if there isn't, then the third term vanishes. See ding derivation. However, ultimately it's because there is heterogeneity in individual-level treatment effects. Why is that? Is that the same as PO correlation at individual level?
 - Weird, though, that Ding lemmas seem to be based on IID case!
 
-
 ##### Answer 2
 ...
-
-
-
-
 
 
 [^unit_level_treatment_effects]: In principle, the unit-level level causal effect can be any comparison between the potential outcomes, such as the difference $Y_i(1) - Y_i(0)$ or the ratio $Y_i(1)/Y_i(0)$. In online experiments, we usually focus on the difference.
@@ -823,9 +825,3 @@ Differences:
 
 
 ## References
-
-
-
-
-
-

@@ -1,6 +1,4 @@
 
-
-
 # Power {#sec-power}
 
 todo:
@@ -9,7 +7,7 @@ todo:
 - integrate zhou2023all
 - Integrate hesterberg2024power
 - Integrate list2011so
-- 
+- Integrate [[power_in_abtesting]]
 
 
 Power is the probability that we reject the null hypothesis if it is false. It is a key component of experiment design because it determines the required sample size, which helps us determine how long we need to run an experiment for.
@@ -27,7 +25,20 @@ Blog post on 16 or 32 power confusion:
 
 
 
-## Understanding the formula that determines sample size
+## The power formula
+
+Power calculations for online experiments are usually based on the following formula:
+
+$$
+\begin{align}
+N = \frac{(z_{\alpha/2} + z_{1 - \beta})^2}{p(1-p)}\frac{\vpe}{\te^2}.
+\end{align}
+$$ {#eq-sample-size}
+
+
+
+
+Understanding the formula that determines sample size
 
 first explain all the elements ...
 
@@ -37,24 +48,6 @@ rhs is sampling distr under ha
 what is zk? 
 now derive bloom formula...
 
-
-
-
-## Implications of the formula
-
-## Rules of thumb -- the big 16 vs 32 confusion
-
-- There is another way to express the variance, which has led to massive
-confusion.
-
-- I'm pretty sure its the 1/N vs 1/(N/2) error that accounts for the wrong
-result, and nobody seems to derive this from first principles to check.
-
-- Is original wrong? Check in book -- access through WBS.
-
-## Different types of metrics
-
-## Power for quasi-experimental studies
 
 ## Deriving the sample size formula
 
@@ -221,6 +214,30 @@ of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
 
 We reject $\hn$ if $\tee$ is to the right of the critical value $\za$. Also,
 for a given level of power $\beta$, 
+
+
+
+
+
+
+
+## Implications of the formula
+
+## Rules of thumb -- the big 16 vs 32 confusion
+
+- There is another way to express the variance, which has led to massive
+confusion.
+
+- I'm pretty sure its the 1/N vs 1/(N/2) error that accounts for the wrong
+result, and nobody seems to derive this from first principles to check.
+
+- Is original wrong? Check in book -- access through WBS.
+
+## Different types of metrics
+
+## Power for quasi-experimental studies
+
+
 
 
 ## Useful rule of thumb

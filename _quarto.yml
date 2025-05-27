@@ -13,9 +13,7 @@ book:
     - part: chapters/statistics.md
       chapters:
       - chapters/stats_of_online_experiments.md
-      - chapters/outcomes_and_estimands.md
-      - chapters/standard_error.md
-      # - chapters/hypothesis_testing.qmd
+      - chapters/hypothesis_testing.md
       - chapters/power.md
       # - chapters/power_in_abtesting.md
 
@@ -68,6 +66,8 @@ book:
       - chapters/common_assumptions.md
       - chapters/lemmas.md
 
+
+      - chapters/outcomes_and_estimands.md
       # - chapters/stats_foundations.md
       # - chapters/link_to_identification_approach.md
 
