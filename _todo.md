@@ -8,6 +8,11 @@ Steps to victory
 	- [x] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
 - [x] Complete BRE unbiasedness and variance calculation
 
+
+- Replace n/2 with n_v or sth so that I can calculate required sample size per variant, which then allows for reasoning about effect of additional variants and its effect on sample size and runtime.
+
+
+
 - [ ] Add section on power calculations
     - [ ] Incorporate all metrics types to power calculation (see hesterberg2024power)
     - [ ] Differentiate between relative and abs MDES (default is abs)

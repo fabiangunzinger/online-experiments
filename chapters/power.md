@@ -37,26 +37,26 @@ The goal of this section is to demystify the formula. The best way to do that is
 
 ### Derivation from first principles
 
-- Power is the probability that we reject the null hypothesis if it is false:
-
+Power is the probability that we reject the null hypothesis if it is false:
 $$
 1 - \beta = P[\text{reject } H_0 | H_0 \text{ is false}].
 $$
-- To derive the formula for power, we thus have to start with testing proceedure
-that determines whether or not we reject $H_0$.
-
-- The null hypothesis asserts that there is no difference between treatment and
-control group, while the alternative hypothesis asserts that there is:
+To derive the formula for power, we thus have to start with the testing procedure that determines whether or not we reject $H_0$. The null hypothesis asserts that there is no difference between treatment and control group, while the alternative hypothesis asserts that there is:
 
 $$
 \begin{align}
-H_0: \te &= \tef = 0 \\
-H_A: \te &= \tef \neq 0.
+&H_0: \tau = 0 \\[5 pt]
+&H_A: \tau \neq 0.
 \end{align}
 $$
 
+We test the null hypothesis by constructing the test statistic
 
-- We test the null hypothesis by constructing the test statistic
+$$
+Z = 
+\frac{\hat{\tau}^{\text{dm}}}
+{SE\left(\hat{\tau}^{\text{dm}}\right)},
+$$
 
 $$
 Z = \frac{\tee}{\se}
