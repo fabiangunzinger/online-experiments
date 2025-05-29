@@ -85,7 +85,7 @@ Implications:
 
 In the next two sections we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance. (My approach is based on @ding2023first. For an alternative, see Appendix 6.B. in @imbens2015causal.)
 
-## Unbiasedness of $\hat{\tau}^{\text{dm}}$
+## Unbiasedness
 
 An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:
 
@@ -344,7 +344,7 @@ Y_i(0)
 \end{align}
 $$
 
-## Variance of of $\hat{\tau}^{\text{dm}}$
+## Variance
 
 For the variance calculation below we need a few more definitions. We can define sample means and variances of the potential outcomes as:
 
@@ -677,7 +677,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 - \frac{S_{\tau_i}^2}{n}
 &\text{}
 \\[5pt]
-
 \end{align}
 $${#eq-var}
 
@@ -710,7 +709,7 @@ In our context, the main advantages of this estimator are:
 
 2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{\tau_i}^2$ is non-negative).
 
-## Standard error of $\hat{\tau}^{\text{dm}}$
+## Standard error
 
 The [standard error](stats_fundamentals.md#sampling-distribution) of an estimator is simply the square root of its sampling variance. From @eq-var we thus have:
 
@@ -735,7 +734,7 @@ $$
 SE\left(\hat{\tau}^{\text{dm}}\right)
 = \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
 = \sqrt{\frac{s^2}{np(1-p)}}.
-$${eq-se-prop}
+$${#eq-se-prop}
 
 For $p=0.5$, this formulation is equivalent to @eq-se-equal as expected.
 

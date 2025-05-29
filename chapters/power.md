@@ -20,45 +20,20 @@ In this section, I want to do the following:
 
 - ...
 
-Blog post on 16 or 32 power confusion:
-- Reliably looking posts who get it wrong: (https://towardsdatascience.com/probing-into-minimum-sample-size-formula-derivation-and-usage-8db9a556280b --- starts with the wrong std error with N for total instead of variant sample size), there is also Kohavi book or paper that gets it wrong
-
-
-
-## The power formula
-
-Power calculations for online experiments are usually based on the following formula:
-
-$$
-\begin{align}
-N = \frac{(z_{\alpha/2} + z_{1 - \beta})^2}{p(1-p)}\frac{\vpe}{\te^2}.
-\end{align}
-$$ {#eq-sample-size}
-
-
-
-
-Understanding the formula that determines sample size
-
-first explain all the elements ...
-
-lh curve ...this is sampling dist of tee, know shape from sampling theory
-reject h0 if value larger than za
-rhs is sampling distr under ha
-what is zk? 
-now derive bloom formula...
-
-
 ## Deriving the sample size formula
 
-The power formula can be intimidating and abstract (all the more so, because
-there are many different versions floating around).
+In the context of online experiments, we usually fix the probabilities of making [Type I and Type II errors](hypothesis_testing$types_of_errors), $\alpha$ and $\beta$, define the smallest true effect we want to be able to detect, $\tau^*$, and calculate how many units we have to collect data for. [Assuming equal sample sizes and variances](stats_of_online_experiments#standard_error), the answer to this is given by:
+$$
+\begin{align}
+n = 4(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\tau^*},
+\end{align}
+$$ {#eq-sampsi}
 
-The goal of this section is to demystify the formula. The best way to do that is
-to derive it from first principles, which will helps us understand where the
-formula comes from. In addition to the derivation from first principles, I'll
-also show a couple other ways that are useful to understand it, and are a bit
-faster to use in practice.
+where $n$ is total sample size, $s^2$ is the [pooled variance](stats_of_online_experiments#standard_error) of the treatment groups, and $z_{\alpha/2}$ and $z_{1 - \beta}$ are the upper-tail probabilities in the standard normal distribution associated with the pre-specified significance and power.
+
+The power formula can be intimidating and abstract (all the more so, because there are many different versions floating around).
+
+The goal of this section is to demystify the formula. The best way to do that is to derive it from first principles, which helps us understand where the formula comes from and why it makes sense. In addition, I'll also show two more heuristic approaches to deriving the formula, which are faster to use in practice (e.g. to explain where the formula comes from to colleagues or stakeholders).
 
 ### Derivation from first principles
 
@@ -67,7 +42,6 @@ faster to use in practice.
 $$
 1 - \beta = P[\text{reject } H_0 | H_0 \text{ is false}].
 $$
-
 - To derive the formula for power, we thus have to start with testing proceedure
 that determines whether or not we reject $H_0$.
 
@@ -192,6 +166,13 @@ Use @list2011so
 
 ### Starting from graphical illustration
 
+
+lh curve ...this is sampling dist of tee, know shape from sampling theory
+reject h0 if value larger than za
+rhs is sampling distr under ha
+what is zk? 
+now derive bloom formula...
+
 @bloom1995minimum introduces the notion of the MDE as a useful way to quantify
 power. In the process, he also uses an intuitive way to derive the power formula
 based on an illustration of a typical hypothesis-testing scenario.
@@ -253,6 +234,9 @@ Matching both sides gives the harmonic mean as the effective sample size.
 ## Implications of the formula
 
 ## Rules of thumb -- the big 16 vs 32 confusion
+
+Blog post on 16 or 32 power confusion:
+- Reliably looking posts who get it wrong: (https://towardsdatascience.com/probing-into-minimum-sample-size-formula-derivation-and-usage-8db9a556280b --- starts with the wrong std error with N for total instead of variant sample size), there is also Kohavi book or paper that gets it wrong
 
 - There is another way to express the variance, which has led to massive
 confusion.
