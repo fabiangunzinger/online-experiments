@@ -219,6 +219,35 @@ for a given level of power $\beta$,
 
 
 
+## Effective sample size of test
+
+### Effective Sample Size in a Two-Sample Test (Equal Variances Assumed)
+
+When comparing two groups — treatment (size $N_T$) and control (size $N_C$) — and assuming equal variances, the effective sample size for estimating the variance of the difference in means is given by the harmonic mean:
+
+$$
+N_{\text{eff}} = \frac{1}{\frac{1}{N_T} + \frac{1}{N_C}}
+$$
+
+This arises because the variance of the difference in means is:
+
+$$
+\text{Var}(\bar{Y}_T - \bar{Y}_C) = \sigma^2 \left( \frac{1}{N_T} + \frac{1}{N_C} \right)
+$$
+
+If we treat this as equivalent to the variance under a single sample of size $N_{\text{eff}}$, then:
+
+$$
+\text{Var}(\text{difference}) = \frac{2\sigma^2}{N_{\text{eff}}}
+$$
+
+Matching both sides gives the harmonic mean as the effective sample size.
+
+### Interpretation
+
+- The harmonic mean weights smaller group sizes more heavily.
+- It reflects the information content for estimating differences — imbalanced samples reduce power.
+
 
 
 ## Implications of the formula

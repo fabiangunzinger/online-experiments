@@ -394,27 +394,6 @@ S_{0, 1} &= \frac{1}{n-1}\sum_{i=1}^{n}
 \end{align}
 $$
 
-
-Given the data from our experiment we can estimate the sample statistics using the observed treatment group means:
-
-$$
-\begin{align}
-\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
-\qquad
-\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
-\end{align}
-$$
-and observed treatment group variances:
-
-$$
-\begin{align}
-s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
-\qquad
-s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
-\end{align}
-$$
-For a proof that the above variances are unbiased estimators of the sample variances, see Appendix A in Chapter 6 of @imbens2015causal.
-
 All lemmas referred to below are [here](lemmas.md).
 
 We can then calculate the variance as:
@@ -700,9 +679,27 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
 
 \end{align}
-$$
+$${#eq-var}
 
-This is the [sampling variance](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. The most widely used estimator in practice is:
+This is the [sampling variance](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. However, we can observe treatment group means:
+
+$$
+\begin{align}
+\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
+\qquad
+\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\end{align}
+$$
+and treatment group variances:
+
+$$
+\begin{align}
+s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
+\qquad
+s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
+\end{align}
+$$
+It can be shown that the observed treatment group variances $s_t^2$ and $s_c^2$ are unbiased estimators of the sample variances $S_1^2$ and $S_0^2$ (see, for instance, Appendix A in Chapter 6 of @imbens2015causal). The last term in @eq-var, $S_{\tau_i}^2$, is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is:
 $$
 \hat{\mathbb{V}}\left(\hat{\tau}^{\text{dm}}\right)
 = \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
@@ -715,46 +712,32 @@ In our context, the main advantages of this estimator are:
 
 ## Standard error of $\hat{\tau}^{\text{dm}}$
 
-The [standard error](stats_fundamentals.md#sampling-distribution) of an estimator is simply the square root of its sampling variance, so that we have:
+The [standard error](stats_fundamentals.md#sampling-distribution) of an estimator is simply the square root of its sampling variance. From @eq-var we thus have:
 
 $$
 SE\left(\hat{\tau}^{\text{dm}}\right)
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 $${#eq-se}
 
-### Assuming equal variances and sample sizes
-
-In the context of online experiments, because sample sizes are so large and treatment effects are usually small, people often assume equal sample sizes and variances, so that we have $n_t = n_c = n/2$ and $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
-
+Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that $n_t = n_c = n/2$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
 $$
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 $$
-
-Substituting all of the above results in
-
+Substituting in @eq-se we then have:
 $$
 SE\left(\hat{\tau}^{\text{dm}}\right)
-= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}
 = \sqrt{\frac{s^2}{\frac{n}{2}} + \frac{s^2}{\frac{n}{2}}}
 = \sqrt{\frac{4s^2}{n}}.
-$$
+$${#eq-se-equal}
 
-
-### In terms of allocation proportions
-
-Sometimes it is useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use $p$ to denote that proportion and $n$ to denote total sample size, while maintaining the assumption of equal variance. We can then write:
-
+Finally, for the purpose of experiment design it is sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use $p$ to denote that proportion and $n$ to denote total sample size, while maintaining the assumption of equal variance. Again substituting in @eq-se we can then write:
 $$
 SE\left(\hat{\tau}^{\text{dm}}\right)
-= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}
 = \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
 = \sqrt{\frac{s^2}{np(1-p)}}.
-$$
+$${eq-se-prop}
 
-For $p=0.5$, this formulation is equivalent to the one above as expected.
-
-
-
+For $p=0.5$, this formulation is equivalent to @eq-se-equal as expected.
 
 
 
