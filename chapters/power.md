@@ -162,6 +162,35 @@ $$
 $$
 
 
+Final steps: use below comments for explanation
+$$
+\begin{align}
+1 - \beta 
+&= 
+\Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right) \\[1em]
+\Phi^{-1}(1 - \beta) 
+&= 
+\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2} \\[1em]
+\Phi^{-1}(1 - \beta) + z_{\alpha/2} 
+&= 
+\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} \\[1em]
+\sqrt{\frac{2s^2}{n_v}} 
+&= 
+\frac{\tau^*}{\Phi^{-1}(1 - \beta) + z_{\alpha/2}} \\[1em]
+\frac{2s^2}{n_v} 
+&= 
+\left(\frac{\tau^*}{\Phi^{-1}(1 - \beta) + z_{\alpha/2}}\right)^2 \\[1em]
+n_v 
+&= 
+\frac{2s^2}{\left(\frac{\tau^*}{\Phi^{-1}(1 - \beta) + z_{\alpha/2}}\right)^2} \\[1em]
+n_v 
+&= 
+\frac{2s^2\left(\Phi^{-1}(1 - \beta) + z_{\alpha/2}\right)^2}{\tau^{*2}}
+\end{align}
+$$
+
+
+
 
 $$
 1 - \beta = \Phi\left(\frac{\te}{\sefep} - z_{\alpha/2}\right), 
