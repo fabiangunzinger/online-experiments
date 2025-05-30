@@ -29,7 +29,7 @@ n = 4(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\tau^*},
 \end{align}
 $$ {#eq-sampsi}
 
-where $n$ is total sample size, $s^2$ is the [pooled variance](stats_of_online_experiments#standard_error) of the treatment groups, and $z_{\alpha/2}$ and $z_{1 - \beta}$ are the upper-tail probabilities in the standard normal distribution associated with the pre-specified significance and power.
+where $n$ is total sample size, $s^2$ is the [pooled variance](stats_of_online_experiments#standard_error) of the treatment groups, and $z_{\alpha/2}$ and $z_{1 - \beta}$ are the critical values of the standard normal distribution associated with the upper-tail probabilities of the pre-specified levels of significance $\alpha$ and power $1-\beta$.
 
 The power formula can be intimidating and abstract (all the more so, because there are many different versions floating around).
 
@@ -37,103 +37,131 @@ The goal of this section is to demystify the formula. The best way to do that is
 
 ### Derivation from first principles
 
-Power is the probability that we reject the null hypothesis if it is false:
-$$
-1 - \beta = P[\text{reject } H_0 | H_0 \text{ is false}].
-$$
-To derive the formula for power, we thus have to start with the testing procedure that determines whether or not we reject $H_0$. The null hypothesis asserts that there is no difference between treatment and control group, while the alternative hypothesis asserts that there is:
+Power is the probability that we reject the null hypothesis if there exists a true effect of size $\tau^*$. 
 
+We thus have:
 $$
 \begin{align}
 &H_0: \tau = 0 \\[5 pt]
-&H_A: \tau \neq 0.
+&H_A: \tau = \tau^*.
 \end{align}
 $$
 
 We test the null hypothesis by constructing the test statistic
-
 $$
 Z = 
 \frac{\hat{\tau}^{\text{dm}}}
 {SE\left(\hat{\tau}^{\text{dm}}\right)},
 $$
 
-$$
-Z = \frac{\tee}{\se}
-$$
-
-- and reject the null hypothesis if
-
-$$
-|Z| > z_{\alpha/2},
-$$
-
-where $z_{\alpha/2}$ is the critical value of the standard normal distribution at the $\alpha/2$ percentile. We thus reject $H_0$ if
-
-$$
-|\tee| > \se z_{\alpha/2}
-$$
-
-The power of the test is the probability that the test
-statistic falls into the rejection region if $H_A$ is true, which is:
-
-$$
-1 - \beta = P\left[|\tee| > \se z_{\alpha/2} | H_A \right].
-$$
-
-The test statistic falling into the lower or upper rejection region are mutually
-exclusive events, so the above is equal to
-
-$$
-1 - \beta = P\left[\tee > \se z_{\alpha/2} | H_A \right]
-+ P\left[\tee < -\se z_{\alpha/2} | H_A \right].
-$$
-
-Standardising, using the assumption that $H_A$ is true, we get
-
+and reject $H_0$ if if falls into the rejection region beyond the critical value $z_{\alpha/2}$. Because the standard normal distribution is symmetric, for a two-sided test we thus reject $Z$ if
 $$
 \begin{align}
-1 - \beta &= P\left[\frac{\tee - \te}{\se} > \frac{\se z_{\alpha/2} - \te}{\se}\right]
-+ P\left[\frac{\tee - \te}{\se} < \frac{- \se z_{\alpha/2} - \te}{\se}\right] \\
-&= P\left[Z > \frac{\se z_{\alpha/2} - \te}{\se}\right]
-+ P\left[Z < \frac{- \se z_{\alpha/2} - \te}{\se}\right], 
+|Z| &> z_{\alpha/2} \\[5pt]
+
+\left|\frac{\hat{\tau}^{\text{dm}}}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right| 
+&> z_{\alpha/2} \\[5pt]
+
+\left|\hat{\tau}^{\text{dm}}\right| 
+&> z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right).
 \end{align}
 $$
 
-which, using the standard normal CDF, $\Phi(z)$, we can rewrite as
-
+The power $1-\beta$ of the test given that $\tau = \tau^*$ is the probability that the test statistic $Z$ falls into the rejection region, which is:
 $$
-1 - \beta = \left[1 - \Phi\left(z_{\alpha/2} - \frac{\te}{\se}\right)\right]
-+ \left[\Phi\left(-z_{\alpha/2} - \frac{\te}{\se}\right)\right].
-$$
-
-The probability that we reject the null hypothesis for the wrong reason --
-because the test statistic falls below the lower critical value for a true
-positive effect or above the upper critical value for a true negative effect --
-is very small.[^type3error] Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms. We thus have:
-
-$$
-1 - \beta = 1 - \Phi\left(z_{\alpha/2} - \frac{\te}{\se}\right).
+1 - \beta = P\left[
+\left|\hat{\tau}^{\text{dm}}\right| 
+> z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right)
+\>\middle|\> H_A
+\right].
 $$
 
-Furthermore, using the symmetry of the standard normal
-distribution, which implies that $1 - \Phi(k) = \Phi(-k)$, we can simplify this
-to
-
+The test statistic falling into the lower or upper rejection region are mutually exclusive events, so the above is equal to
 $$
-1 - \beta = \Phi\left(\frac{\te}{\se} - z_{\alpha/2}\right).
-$$
-
-For a simple experiment with two variants with equal population variance, the
-estimated standard error of the treatment effect is given by (see @sec-experiment-stats) 
-
-$$
-\se = \sefe = \sefep
+1 - \beta 
+= P\left[
+\hat{\tau}^{\text{dm}} 
+> z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right)\>\middle|\> H_A
+\right]
++ P\left[
+\hat{\tau}^{\text{dm}} 
+< -z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right)\>\middle|\> H_A
+\right]
 $$
 
-where $\sev$ is the pooled estimator of the population variance, $\Nt$ and $\Nc$ are the number of units in the treatment and control groups, respectively, $\N = \Nt + \Nc$ is total sample size, and $P$ is the proportion of units in the treatment group.
+We can calculate these probabilities by standardising, which, using the standard normal CDF, $\Phi(z)$,  gives us
 
-For such an experiment, the power is thus given by
+$$
+\begin{align}
+1 - \beta 
+&= P\left[
+\frac{\hat{\tau}^{\text{dm}} - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+>
+\frac{z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\right]
+
++ P\left[
+\frac{\hat{\tau}^{\text{dm}} - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+<
+\frac{-z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\right]
+
+\\[5pt]
+
+&=
+P\left[Z > \frac{z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\right]
+
++ P\left[Z < \frac{-z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\right]
+
+\\[5pt]
+
+&=
+P\left[Z > z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\right]
+
++ P\left[Z < - z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\right]
+
+\\[5pt]
+
+&=1 - \Phi\left(z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
++ \Phi\left(- z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
+\end{align}
+$$
+
+The probability that we reject the null hypothesis for the wrong reason -- because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect -- is very small.[^type3error] Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms. We thus have:
+
+$$
+\begin{align}
+1 - \beta 
+= 
+1 - \Phi\left(z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
+\end{align}
+$$
+
+Using the symmetry of the standard normal distribution, which implies that $1 - \Phi(k) = \Phi(-k)$, we can simplify this to
+
+$$
+\begin{align}
+1 - \beta 
+= 
+\Phi\left(\frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)} - z_{\alpha/2}\right).
+\end{align}
+$$
+
+Assuming equal treatment group variance, we can use the standard error from @eq-se-equal, which gives us
+
+$$
+\begin{align}
+1 - \beta 
+= 
+\Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right).
+\end{align}
+$$
+
+
 
 $$
 1 - \beta = \Phi\left(\frac{\te}{\sefep} - z_{\alpha/2}\right), 

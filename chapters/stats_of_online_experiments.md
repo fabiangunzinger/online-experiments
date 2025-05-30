@@ -396,7 +396,7 @@ $$
 
 All lemmas referred to below are [here](lemmas.md).
 
-We can then calculate the variance as:
+We can then calculate the variance as (I do not explicitly condition on $\mathbf{n}$ and $\mathbf{Y(w)}$ here to keep the notation lighter):
 
 $$
 \begin{align}
@@ -718,15 +718,15 @@ SE\left(\hat{\tau}^{\text{dm}}\right)
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 $${#eq-se}
 
-Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that $n_t = n_c = n/2$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
+Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that $n_t = n_c = n_v$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
 $$
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 $$
 Substituting in @eq-se we then have:
 $$
 SE\left(\hat{\tau}^{\text{dm}}\right)
-= \sqrt{\frac{s^2}{\frac{n}{2}} + \frac{s^2}{\frac{n}{2}}}
-= \sqrt{\frac{4s^2}{n}}.
+= \sqrt{\frac{s^2}{n_v} + \frac{s^2}{n_v}}
+= \sqrt{\frac{2s^2}{n_v}}.
 $${#eq-se-equal}
 
 Finally, for the purpose of experiment design it is sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use $p$ to denote that proportion and $n$ to denote total sample size, while maintaining the assumption of equal variance. Again substituting in @eq-se we can then write:

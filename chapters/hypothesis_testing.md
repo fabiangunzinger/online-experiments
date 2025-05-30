@@ -3,27 +3,6 @@
 todo
 - Integrate kohavi2024false, berman2021false, colquhoun2019false.pdf
 
-## Hypothesis testing
-
-To test whether the observed treatment effect is significantly different from zero, we test:
-
-$$
-\begin{align}
-&H_0: \tau = 0 \\[5 pt]
-&H_A: \tau \neq 0
-\end{align}
-$$
-
-We calculate the test-statistic
-
-$$
-T = 
-\frac{\hat{\tau}^{\text{dm}}}
-{SE\left(\hat{\tau}^{\text{dm}}\right)} \sim t_{(N_t + N_c - 2)},
-$$
-
-where $N_t + N_c - 2$ is number of [degrees of freedom](stats_foundations.md#degrees-of-freedom).
-
 
 ## Types of errors
 
@@ -46,6 +25,32 @@ The false discovery rate
 - The false positive rate is $P(significant result | H0 true)$
 
 - The false discovery rate is $P(H0 true | significant result)$
+
+
+
+
+## Hypothesis testing
+
+To test whether the observed treatment effect is significantly different from zero, we test:
+
+$$
+\begin{align}
+&H_0: \tau = 0 \\[5 pt]
+&H_A: \tau \neq 0
+\end{align}
+$$
+
+We calculate the test-statistic
+
+$$
+T = 
+\frac{\hat{\tau}^{\text{dm}}}
+{SE\left(\hat{\tau}^{\text{dm}}\right)} \sim t_{(N_t + N_c - 2)},
+$$
+
+where $N_t + N_c - 2$ is number of [degrees of freedom](stats_foundations.md#degrees-of-freedom).
+
+
 
 
 
