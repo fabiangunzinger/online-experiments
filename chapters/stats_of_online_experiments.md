@@ -718,7 +718,7 @@ SE\left(\hat{\tau}^{\text{dm}}\right)
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 $${#eq-se}
 
-Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that $n_t = n_c = n_v$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
+Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that the sample size for each variant is $n_t = n_c = n_v$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
 $$
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 $$

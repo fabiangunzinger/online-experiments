@@ -1,15 +1,6 @@
 
 # Power {#sec-power}
 
-todo:
-- for framing on how to increase power, Integrate larsen2023statistical section 2
-- Introduce separate symbol for MDES -- sample size formula is very confusing otherwise
-- integrate zhou2023all
-- Integrate hesterberg2024power
-- Integrate list2011so
-- Integrate [[power_in_abtesting]]
-
-
 Power is the probability that we reject the null hypothesis if it is false. It is a key component of experiment design because it determines the required sample size, which helps us determine how long we need to run an experiment for.
 
 In this section, I want to do the following:
@@ -25,7 +16,7 @@ In this section, I want to do the following:
 In the context of online experiments, we usually fix the probabilities of making [Type I and Type II errors](hypothesis_testing$types_of_errors), $\alpha$ and $\beta$, define the smallest true effect we want to be able to detect, $\tau^*$, and calculate how many units we have to collect data for. [Assuming equal sample sizes and variances](stats_of_online_experiments#standard_error), the answer to this is given by:
 $$
 \begin{align}
-n = 4(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\tau^*},
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\tau^*},
 \end{align}
 $$ {#eq-sampsi}
 
@@ -89,7 +80,7 @@ $$
 \right]
 $$
 
-We can calculate these probabilities by standardising, which, using the standard normal CDF, $\Phi(z)$,  gives us
+We can calculate these probabilities by standardising, which gives us: 
 
 $$
 \begin{align}
@@ -122,16 +113,21 @@ P\left[Z > z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
 \right]
 
 + P\left[Z < - z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
-\right]
-
-\\[5pt]
-
-&=1 - \Phi\left(z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
-+ \Phi\left(- z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
+\right].
 \end{align}
 $$
 
-The probability that we reject the null hypothesis for the wrong reason -- because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect -- is very small.[^type3error] Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms. We thus have:
+Using the standard normal CDF, $\Phi(z)$, we get:
+
+$$
+\begin{align}
+1 - \beta 
+=1 - \Phi\left(z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
++ \Phi\left(- z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right).
+\end{align}
+$$
+
+The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect – sometimes called a [Type III error](https://en.wikipedia.org/wiki/Type_III_error) –, is very small. Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:
 
 $$
 \begin{align}
@@ -149,7 +145,7 @@ $$
 = 
 \Phi\left(\frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)} - z_{\alpha/2}\right).
 \end{align}
-$$
+$${#eq-power}
 
 Assuming equal treatment group variance, we can use the standard error from @eq-se-equal, which gives us
 
@@ -160,62 +156,47 @@ $$
 \Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right).
 \end{align}
 $$
-
-
-Final steps: use below comments for explanation
+To calculate the required sample size we need to solve for $n_v$. To do this, we use the inverse of $\Phi(z)$. Remember that $\Phi(z)$ takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value), so its inverse, $\Phi^{-1}(p)$, takes probabilities and returns z-values (the $z$ value with $p$ probability mass to its left). Hence, $\Phi^{-1}(1-\beta)$ refers to the critical value corresponding to the desired power of the test, which we defined above as $z_{1-\beta}$. Using this, we get:
 $$
 \begin{align}
-1 - \beta 
+
+\Phi^{-1}(1 - \beta)
 &= 
-\Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right) \\[1em]
-\Phi^{-1}(1 - \beta) 
+\Phi^{-1}\left(
+\Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right)
+\right) \\[5pt]
+
+z_{1-\beta}
 &= 
-\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2} \\[1em]
-\Phi^{-1}(1 - \beta) + z_{\alpha/2} 
+\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2} \\[5pt]
+
+z_{\alpha/2} + z_{1-\beta}
 &= 
-\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} \\[1em]
+\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} \\[5pt]
+
 \sqrt{\frac{2s^2}{n_v}} 
 &= 
-\frac{\tau^*}{\Phi^{-1}(1 - \beta) + z_{\alpha/2}} \\[1em]
-\frac{2s^2}{n_v} 
+\tau^* \frac{1}{z_{\alpha/2} + z_{1-\beta}} \\[5pt]
+
+\frac{2s^2}{n_v}
 &= 
-\left(\frac{\tau^*}{\Phi^{-1}(1 - \beta) + z_{\alpha/2}}\right)^2 \\[1em]
-n_v 
+\tau^{*2} \frac{1}{(z_{\alpha/2} + z_{1-\beta})^2} \\[5pt]
+
+\frac{2s^2}{n_v}
 &= 
-\frac{2s^2}{\left(\frac{\tau^*}{\Phi^{-1}(1 - \beta) + z_{\alpha/2}}\right)^2} \\[1em]
-n_v 
-&= 
-\frac{2s^2\left(\Phi^{-1}(1 - \beta) + z_{\alpha/2}\right)^2}{\tau^{*2}}
+\tau^{*2} \frac{1}{(z_{\alpha/2} + z_{1-\beta})^2} \\[5pt]
+
+n_v &= 2 (z_{\alpha/2} + z_{1-\beta})^2 \frac{s^2}{\tau^{*2}}.
 \end{align}
 $$
 
-
-
-
-$$
-1 - \beta = \Phi\left(\frac{\te}{\sefep} - z_{\alpha/2}\right), 
-$$
-
-which, with a bit of algebra (using $1/\sqrt{1/x} = \sqrt{x}$),
-we can rewrite as
-
-$$
-1 - \beta = \Phi\left(\frac{\te}{\sev}\sqrt{P(1-P)N} - z_{\alpha/2}\right).
-$$ {#eq-power}
-
-To calculate the required sample size for an experiment, we can rearrange
-@eq-power and solve for $N$. To do this, we use the inverse of the CDS function $\Phi(z)$. $\Phi(z)$ takes z-values and returns probabilities, so its inverse, $\Phi(p)^{-1}$, takes probabilities and returns z-values. Using this, we get:
-
+If, instead of using @eq-se-equal we use the standard error expressed in terms of sample proportions from @eq-se-prop, we get:
 $$
 \begin{align}
-\Phi(1 - \beta)^{-1} &= \Phi\left(\Phi\left(\frac{\te}{\sev}\sqrt{P(1-P)N} - z_{\alpha/2}\right)\right)^{-1} \\
-z_{1 - \beta} &= \frac{\te}{\sev}\sqrt{P(1-P)N} - z_{\alpha/2} \\
-\sqrt{P(1-P)N} &= (z_{1 - \beta} + z_{\alpha/2})\left(\frac{\sev}{\te}\right) \\
-N &= \frac{(z_{1 - \beta} + z_{\alpha/2})^2}{P(1-P)}\frac{\vpe}{\te^2}.
+n &= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\tau^{*2}},
 \end{align}
-$$ {#eq-sample-size}
-
-
+$$
+where the left-hand side, $n$ now refers to the total sample size in the experiment rather than the sample size per variant.
 
 ### Starting from Type I and Type II error conditions
 
@@ -253,9 +234,61 @@ of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
 We reject $\hn$ if $\tee$ is to the right of the critical value $\za$. Also,
 for a given level of power $\beta$, 
 
+Largely based on @duflo2007randomization
+
+
+Power basics
+
+![title](../inputs/power.png)
+
+
+$$
+n = \frac{(f(\alpha) + f(\beta))}{\text{Sample allocation}}\frac{\sigma}{\delta}
+$$
+
+
+- In the simplest possible, we randomly draw a sample of size $N$ from an identical population, so that our observations can be assumed to be i.i.d, and we allocate a fraction $P$ of our sample to treatment. We can then estiamte the treatment effect using the OLS regression
+
+$$ y = \alpha + \beta T + \epsilon$$
+
+- where the standard error of $\beta$ is given by $\sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$.
+
+- std error derivation (from standard variance result of two independent samples, using population fractions):
+
+$$
+std = \sqrt{\frac{\sigma^2}{N_t} + \frac{\sigma^2}{N_c}} = \sqrt{\frac{\sigma^2}{PN} + \frac{\sigma^2}{(1-P)N}} = ... = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}
+$$
+
+- The distribution on the left hand side below shows the distribution of our effect size estimator $\hat{\beta}$ if the null hypothesis is true.
+
+- We reject the null hypothesis if the estimated effect size is larger than the critical value $t_{\alpha}$, determined by the significance level $\alpha$. Hence, for this to happen we need $\hat{\beta} > t_{\alpha} * SE(\hat{\beta})$ (follows from rearranging the t-test formula).
+
+- On the right is the distribution of $\hat{\beta}$ if the true effect size is $\beta$.
+
+- The power of the test for a true effect size of $\beta$ is the area under this curve that falls to the right of $t_{\alpha}$. This is the probability that we reject the null hypothesis given that it is false.
+
+- Hence, to attain a power of $\kappa$ it must be that $\beta > (t_a + t_{1-\kappa}) * SE(\hat{\beta})$, where $t_{1-\kappa}$ is the value from a t-distribution that has $1-\kappa$ of its probability mass to the left (for $\kappa = 0.8$, $t_{1-\kappa} = 0.84$).
+
+- This means that the minimum detectable effect ($\delta$) is given by:
+
+$$ \delta = (t_a + tq_{1-\kappa}) * \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}} $$
+
+- Rearranding for the minimum required sample size we get:
+
+$$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2 $$
+
+- So that the required sample size is inversely proportional to the minimal effect size we wish to detect. This makes sense, it means that the smaller an effect we want to detect, the larger the samle size we need. In particular, given that $N \propto \delta^{-2}$, to detect an effect of half the size we need a sample four times the size.
+
+- SE($\beta$) also includes measurement error, so this is also a determinant of power.
 
 
 
+## Relative effects
+
+See zhou2023all
+## Correlated data
+
+See zhou2023all, hesterberg2024power
 
 ## Effective sample size of test
 
@@ -288,9 +321,8 @@ Matching both sides gives the harmonic mean as the effective sample size.
 
 
 
-## Implications of the formula
 
-## Rules of thumb -- the big 16 vs 32 confusion
+## Rule of thumb
 
 Blog post on 16 or 32 power confusion:
 - Reliably looking posts who get it wrong: (https://towardsdatascience.com/probing-into-minimum-sample-size-formula-derivation-and-usage-8db9a556280b --- starts with the wrong std error with N for total instead of variant sample size), there is also Kohavi book or paper that gets it wrong
@@ -302,16 +334,6 @@ confusion.
 result, and nobody seems to derive this from first principles to check.
 
 - Is original wrong? Check in book -- access through WBS.
-
-## Different types of metrics
-
-## Power for quasi-experimental studies
-
-
-
-
-## Useful rule of thumb
-
 
 
 Popular experiment textbooks and countless sources on the internet often refer to the rule-of thumb for the total sample size calculation that is given by:
@@ -403,54 +425,6 @@ Give also per variant, as this is more useful to calculate sample size for exper
 
 
 
-## Old notes
-
-Largely based on @duflo2007randomization
-
-
-Power basics
-
-![title](../inputs/power.png)
-
-
-$$
-n = \frac{(f(\alpha) + f(\beta))}{\text{Sample allocation}}\frac{\sigma}{\delta}
-$$
-
-
-- In the simplest possible, we randomly draw a sample of size $N$ from an identical population, so that our observations can be assumed to be i.i.d, and we allocate a fraction $P$ of our sample to treatment. We can then estiamte the treatment effect using the OLS regression
-
-$$ y = \alpha + \beta T + \epsilon$$
-
-- where the standard error of $\beta$ is given by $\sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$.
-
-- std error derivation (from standard variance result of two independent samples, using population fractions):
-
-$$
-std = \sqrt{\frac{\sigma^2}{N_t} + \frac{\sigma^2}{N_c}} = \sqrt{\frac{\sigma^2}{PN} + \frac{\sigma^2}{(1-P)N}} = ... = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}
-$$
-
-- The distribution on the left hand side below shows the distribution of our effect size estimator $\hat{\beta}$ if the null hypothesis is true.
-
-- We reject the null hypothesis if the estimated effect size is larger than the critical value $t_{\alpha}$, determined by the significance level $\alpha$. Hence, for this to happen we need $\hat{\beta} > t_{\alpha} * SE(\hat{\beta})$ (follows from rearranging the t-test formula).
-
-- On the right is the distribution of $\hat{\beta}$ if the true effect size is $\beta$.
-
-- The power of the test for a true effect size of $\beta$ is the area under this curve that falls to the right of $t_{\alpha}$. This is the probability that we reject the null hypothesis given that it is false.
-
-- Hence, to attain a power of $\kappa$ it must be that $\beta > (t_a + t_{1-\kappa}) * SE(\hat{\beta})$, where $t_{1-\kappa}$ is the value from a t-distribution that has $1-\kappa$ of its probability mass to the left (for $\kappa = 0.8$, $t_{1-\kappa} = 0.84$).
-
-- This means that the minimum detectable effect ($\delta$) is given by:
-
-$$ \delta = (t_a + tq_{1-\kappa}) * \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}} $$
-
-- Rearranding for the minimum required sample size we get:
-
-$$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2 $$
-
-- So that the required sample size is inversely proportional to the minimal effect size we wish to detect. This makes sense, it means that the smaller an effect we want to detect, the larger the samle size we need. In particular, given that $N \propto \delta^{-2}$, to detect an effect of half the size we need a sample four times the size.
-
-- SE($\beta$) also includes measurement error, so this is also a determinant of power.
 
 
 ## Measuring power
@@ -476,6 +450,8 @@ $$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^
 
 ## How to increase power
 
+- for framing on how to increase power, Integrate larsen2023statistical section 2
+
 - Power can be increased trivially by lowering the significance level, which we often don't want to do, or by increasing sample size, which we're often trying to avoid.
 
 - Increase effect size
@@ -489,28 +465,29 @@ $$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^
   - Show why with many treatment variants, higher share in control is better
 
 - Reduce metric variance
-  
-  - Choose metric with low variance (e.g. indicator)
-  
-  - Use variance reduction technique
-  
-  - Only include triggered users
+	- Choose metric with low variance
+		- Indicator variables
+		- Avoid count variables which have have increasing variance as experiment duration progresses
+	- Use variance reduction technique
+	- Trim outliers
+	- Only include triggered users
 
+- Use a one-sided test
 
-Effect of one-sided testing on required sample size.
-
-In general:
-$$
-N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2
-$$
-
-For $\alpha = 0.05$, we have $t_{\alpha}^{ts} = 1.96$ and $t_{\alpha}^{os} = 1.65$, while for $\kappa = 0.8$ we have $t_{1 - \kappa} = 0.84$. Hence:
-$$
-\frac{N^{os}}{N^{ts}} = \frac{ (1.64 + 0.84)^2}{(1.96 + 0.84)^2} = \frac{6.2}{7.84} = 0.79
-$$
-
-Hence, for given levels of power and significance, a one-sided test requires about 21 percent fewer observations.
-
+	Effect of one-sided testing on required sample size.
+	
+	In general:
+	$$
+	N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2
+	$$
+	
+	For $\alpha = 0.05$, we have $t_{\alpha}^{ts} = 1.96$ and $t_{\alpha}^{os} = 1.65$, while for $\kappa = 0.8$ we have $t_{1 - \kappa} = 0.84$. Hence:
+	$$
+	\frac{N^{os}}{N^{ts}} = \frac{ (1.64 + 0.84)^2}{(1.96 + 0.84)^2} = \frac{6.2}{7.84} = 0.79
+	$$
+	
+	Hence, for given levels of power and significance, a one-sided test requires about 21 percent fewer observations.
+	
 
 ## Problems with low power
 
@@ -521,6 +498,81 @@ Hence, for given levels of power and significance, a one-sided test requires abo
 
 - @kohavi2014seven point out (in rule 7) that while general advice suggets that the CLT provides a good approximation for n larger than 30, the large skew in online metrics often requires many moer users. They recomment 355 * (skewness coefficient)^2.
 
+The theory for power calculation was developed for metrics with fixed values such as hight or weight.
+
+- (During an experiment, the treatment will still change the metric values, but in practice we often make the sensible assumption that the treatment effect will be small, so that the variance between treatment and control are the same. This, in turn, then justifies use of pre-experiment data under the assumption that pre-experiment and experiment data will be very similar.)
+
+- In online experiments, we often experiment with metrics that are only defined for a specific period of time (e.g. conversion during a 1-month period starting on 15 March 2024).
+
+- This makes power calculation more complicated.
+
+- When calculating required sample size (and/or experiment duration) for an experiment we want to make sure that a Z-test performed at the end of the experiment with the required number of unique units has a certain pre-specified level of power.
+
+- To calculate that required sample size we input a baseline metric value and the metric standard deviation.
+
+- With metrics defined only for specific periods, how to calculate these two values is not straightforward.
+
+- Let's see what we generally do when a metric value is fixed. 
+
+- Actually, writing this and thinking of an example for the above makes me think that this might be an issue inherent to causal inference analysis. 
+
+- An example where we don't have the problem is if we want to compare the height of Londoners to the height of Berliners. Here, we'd do the following:
+
+	- Draw a random sample of Londoners and measure mean and variance of their heights.
+	- Do the same for a random sample of Berliners.
+	- Perform a Z-test and calculate its power.
+
+- Writing the above makes me realise that the issue is inherent in ex-ante power calculations:
+	- Even in the Londoners and Berliners height example above we'd run into the same problem if we wanted to calculate, before taking any samples, how many samples we'd have to take to have our Z-test be adequately powered.
+
+- The problem arises once we rearrange the power formula from
+
+$$
+1 - \beta = f(\sigma^2, \delta, P, z_\alpha, z_{1-\beta})
+$$
+to
+$$
+N = \frac{z_\alpha + z_{1-\beta}}{P(1-P)}\frac{\sigma^2}{\delta^2}
+$$
+- Because we would use the first version at the time we perform the analysis when we have all the required inputs, whereas we perform the second one before the analysis when we have to estimate $\sigma$ and $\delta$.
+
+- The core of the problem is that for many online experiment metrics baseline metric mean and variance change depending on (1) the size of the sample they are calculated from and (2) the period of time and period location they are calculated based on.
+
+- (1) is always the case, even in the Londoners and Berliners example above. It's inherent in performing power calculations.
+
+- (2) is an additional complications in many online experiments. The two components are period length and period location (i.e. do we measure period of length $t$ in January of September).
+
+- Outside of periods that are non-representative because of seasonality reasons, ignoring period location should usually not be a big problem.
+
+- However, period duration might make a difference.
+
+- So, the core problem is that in online experiments, in addition to approximating the sample we calculate metrics based on we also have to approximate the time period.
+
+
+- How big a difference does calculating means and stds based on different time periods make? The difference can be substantial. The below table shows means and std for order visit conversion for a set of UK users based on different period lengths.
+
+![[order-conversion-visit-different-periods.png|300]]
+
+- Required sample size is directly proportional to the sample variance, which means that using the variance based on one week instead of 1 month of data would increase required sample size by a factor of $\frac{0.36^2}{0.31^2} = 1.35$.
+
+- How hard is it to decently estimate an appropriate time-period? There are two parts we have to estimate: required number of unique units, and how long it takes to gather data from these many units.
+
+- The required number of units is determined by:
+	- Metric value mean (for experiment-period-length long period)
+	- Metric value variance (for experiment-period-length long period)
+
+- To amount of time it takes us to gather data for the required number of units depends on traffic to the precise point of the user-funnel/app where the bucketing for the experiment takes place.
+
+
+Solution:
+- To ensure that analysis is correctly powered, calculate power every day and stop once adequately powered.
+- If you want ex-ante guidance, use sensible approximations.
+
+- First best: to know when analysis is sufficiently powered, calculate power daily and stop experiment when required level of power reached. This ensures that we have both (1) sample we use for analysis and (2) period used for analysis.
+
+- Second best, if we performed power using data from, say, the first 7-days of the experiment period, we would have a subset of (1) and could intelligently estimate (2) because the observed traffic would take into account the bucketing point and we could estimate future traffic based on it (e.g. we can estimate unique user visits based on unique visits during first week, with different traffic being the result of different bucketing points, but we can estimate path for all bucketing points).
+
+- Third best, if we want to perform power calculation before the experiment starts (i.e. because we want to provide duration estimate during experiment config), we could use data from recent history (e.g. calculated monthly), and calculated separately for each metric, market, and based on other relevant dimensions such as different time period. Though, here, taking into account bucketing points might be challenging and hard to scale. So think about good approximations.
 
 
 ## Best practices
@@ -568,9 +620,6 @@ Answers:
 1. When using a cumulative metric such as number of likes, the variance of which will increase the longer the experiment runs, which will increase the standard error of our treatment effect estimate and lower our power. Remember that $SE(\hat{\tau}) = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$. So, whether this happens depends on what happens to $\frac{\sigma^2}{N}$, as experiment duration increases. A decrease in power is plausible -- likely, even! -- because $N$ will increase in a concave fashion over the course of the experiment duration (some users keep coming back), while $\sigma^2$ is likely to grow faster than linearly, which causes the ratio to increase and power to decrease. 
 
 2. The approach is suboptimal because products with few ratings will have much more variance than products with many ratings, and their average rating is thus less reliable. The problem is akin to small US states having the highest *and* lowest rates of kidney cancer, or small schools having highest *and* lowest average pupil performance. Fundamentally, it's a problem of low power -- the sample size is too low to reliably detect a true effect. The solution is to use a shrinkage method: use a weighted average of the product average rating and some global product rating, with the weight of the product average rating being proportional to the number of ratings. This way, products with few ratings will be average, while products with many ratings will reflect their own rating.
-
-[^type3error]: This kind of error is somtimes called a [Type III
-    error](https://en.wikipedia.org/wiki/Type_III_error)
 
 [^mutuallyexcl]: We can simply dd up the probability of the test statistic falling into the
 upper and lower tail because the two events are independent.
