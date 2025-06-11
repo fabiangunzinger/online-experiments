@@ -698,9 +698,11 @@ s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
 s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
 \end{align}
 $$
-It can be shown that the observed treatment group variances $s_t^2$ and $s_c^2$ are unbiased estimators of the sample variances $S_1^2$ and $S_0^2$ (see, for instance, Appendix A in Chapter 6 of @imbens2015causal). The last term in @eq-var, $S_{\tau_i}^2$, is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is:
+It can be shown that the observed treatment group variances $s_t^2$ and $s_c^2$ are unbiased estimators of the sample variances $S_1^2$ and $S_0^2$ (see, for instance, Appendix A in Chapter 6 of @imbens2015causal). The last term in @eq-var, $S_{\tau_i}^2$, is the variance of unit-level treatment effects, which is impossible to observe.
+
+As a result, the most widely used estimator in practice is:
 $$
-\hat{\mathbb{V}}\left(\hat{\tau}^{\text{dm}}\right)
+\hat{\mathbb{V}}
 = \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
 $$
 In our context, the main advantages of this estimator are:
@@ -714,7 +716,7 @@ In our context, the main advantages of this estimator are:
 The [standard error](stats_fundamentals.md#sampling-distribution) of an estimator is simply the square root of its sampling variance. From @eq-var we thus have:
 
 $$
-SE\left(\hat{\tau}^{\text{dm}}\right)
+\widehat{SE}
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 $${#eq-se}
 
@@ -724,14 +726,14 @@ s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 $$
 Substituting in @eq-se we then have:
 $$
-SE\left(\hat{\tau}^{\text{dm}}\right)
+\widehat{SE}^{\text{equal}}
 = \sqrt{\frac{s^2}{n_v} + \frac{s^2}{n_v}}
 = \sqrt{\frac{2s^2}{n_v}}.
 $${#eq-se-equal}
 
 Finally, for the purpose of experiment design it is sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use $p$ to denote that proportion and $n$ to denote total sample size, while maintaining the assumption of equal variance. Again substituting in @eq-se we can then write:
 $$
-SE\left(\hat{\tau}^{\text{dm}}\right)
+\widehat{SE}^{\text{prop}}
 = \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
 = \sqrt{\frac{s^2}{np(1-p)}}.
 $${#eq-se-prop}

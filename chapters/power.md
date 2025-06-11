@@ -13,14 +13,14 @@ In this section, I want to do the following:
 
 ## Deriving the sample size formula
 
-In the context of online experiments, we usually fix the probabilities of making [Type I and Type II errors](hypothesis_testing$types_of_errors), $\alpha$ and $\beta$, define the smallest true effect we want to be able to detect, $\tau^*$, and calculate how many units we have to collect data for. [Assuming equal sample sizes and variances](stats_of_online_experiments#standard_error), the answer to this is given by:
+In the context of online experiments, we usually fix the probabilities of making [Type I and Type II errors](hypothesis_testing$types_of_errors), $\alpha$ and $\beta$, define the smallest true absolute effect we want to be able to detect, $\Delta$, and calculate how many units we have to collect data for. [Assuming equal sample sizes and variances](stats_of_online_experiments#standard_error), the answer to this is given by:
 $$
 \begin{align}
-n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\tau^*},
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
 \end{align}
 $$ {#eq-sampsi}
 
-where $n$ is total sample size, $s^2$ is the [pooled variance](stats_of_online_experiments#standard_error) of the treatment groups, and $z_{\alpha/2}$ and $z_{1 - \beta}$ are the critical values of the standard normal distribution associated with the upper-tail probabilities of the pre-specified levels of significance $\alpha$ and power $1-\beta$.
+where $n_v$ is sample size per variant, $s^2$ is the [pooled variance](stats_of_online_experiments#standard_error) of the treatment groups, and $z_{\alpha/2}$ and $z_{1 - \beta}$ are the critical values of the standard normal distribution associated with the upper-tail probabilities of the pre-specified levels of significance $\alpha$ and power $1-\beta$.
 
 The power formula can be intimidating and abstract (all the more so, because there are many different versions floating around).
 
@@ -28,13 +28,13 @@ The goal of this section is to demystify the formula. The best way to do that is
 
 ### Derivation from first principles
 
-Power is the probability that we reject the null hypothesis if there exists a true effect of size $\tau^*$. 
+Power is the probability that we reject the null hypothesis if there exists a true effect of size $\Delta$. 
 
 We thus have:
 $$
 \begin{align}
 &H_0: \tau = 0 \\[5 pt]
-&H_A: \tau = \tau^*.
+&H_A: \tau = \Delta.
 \end{align}
 $$
 
@@ -42,7 +42,7 @@ We test the null hypothesis by constructing the test statistic
 $$
 Z = 
 \frac{\hat{\tau}^{\text{dm}}}
-{SE\left(\hat{\tau}^{\text{dm}}\right)},
+{\widehat{SE}},
 $$
 
 and reject $H_0$ if if falls into the rejection region beyond the critical value $z_{\alpha/2}$. Because the standard normal distribution is symmetric, for a two-sided test we thus reject $Z$ if
@@ -50,19 +50,19 @@ $$
 \begin{align}
 |Z| &> z_{\alpha/2} \\[5pt]
 
-\left|\frac{\hat{\tau}^{\text{dm}}}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right| 
+\left|\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}\right| 
 &> z_{\alpha/2} \\[5pt]
 
 \left|\hat{\tau}^{\text{dm}}\right| 
-&> z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right).
+&> z_{\alpha/2}\widehat{SE}.
 \end{align}
 $$
 
-The power $1-\beta$ of the test given that $\tau = \tau^*$ is the probability that the test statistic $Z$ falls into the rejection region, which is:
+The power $1-\beta$ of the test given that $\tau = \Delta$ is the probability that the test statistic $Z$ falls into the rejection region, which is:
 $$
 1 - \beta = P\left[
 \left|\hat{\tau}^{\text{dm}}\right| 
-> z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right)
+> z_{\alpha/2}\widehat{SE}
 \>\middle|\> H_A
 \right].
 $$
@@ -72,47 +72,49 @@ $$
 1 - \beta 
 = P\left[
 \hat{\tau}^{\text{dm}} 
-> z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right)\>\middle|\> H_A
+> z_{\alpha/2}\widehat{SE}\>\middle|\> H_A
 \right]
 + P\left[
 \hat{\tau}^{\text{dm}} 
-< -z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right)\>\middle|\> H_A
+< -z_{\alpha/2}\widehat{SE}\>\middle|\> H_A
 \right]
 $$
 
 We can calculate these probabilities by standardising, which gives us: 
 
+\widehat{SE}
+
 $$
 \begin{align}
 1 - \beta 
 &= P\left[
-\frac{\hat{\tau}^{\text{dm}} - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\frac{\hat{\tau}^{\text{dm}} - \Delta}{\widehat{SE}}
 >
-\frac{z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\frac{z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
 \right]
 
 + P\left[
-\frac{\hat{\tau}^{\text{dm}} - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\frac{\hat{\tau}^{\text{dm}} - \Delta}{\widehat{SE}}
 <
-\frac{-z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+\frac{-z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
 \right]
 
 \\[5pt]
 
 &=
-P\left[Z > \frac{z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+P\left[Z > \frac{z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
 \right]
 
-+ P\left[Z < \frac{-z_{\alpha/2}SE\left(\hat{\tau}^{\text{dm}}\right) - \tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
++ P\left[Z < \frac{-z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
 \right]
 
 \\[5pt]
 
 &=
-P\left[Z > z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
+P\left[Z > z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 \right]
 
-+ P\left[Z < - z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}
++ P\left[Z < - z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 \right].
 \end{align}
 $$
@@ -122,8 +124,8 @@ Using the standard normal CDF, $\Phi(z)$, we get:
 $$
 \begin{align}
 1 - \beta 
-=1 - \Phi\left(z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
-+ \Phi\left(- z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right).
+=1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right)
++ \Phi\left(- z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
 \end{align}
 $$
 
@@ -133,7 +135,7 @@ $$
 \begin{align}
 1 - \beta 
 = 
-1 - \Phi\left(z_{\alpha/2} - \frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)}\right)
+1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right)
 \end{align}
 $$
 
@@ -143,57 +145,55 @@ $$
 \begin{align}
 1 - \beta 
 = 
-\Phi\left(\frac{\tau^*}{SE\left(\hat{\tau}^{\text{dm}}\right)} - z_{\alpha/2}\right).
+\Phi\left(\frac{\Delta}{\widehat{SE}} - z_{\alpha/2}\right).
 \end{align}
 $${#eq-power}
 
-Assuming equal treatment group variance, we can use the standard error from @eq-se-equal, which gives us
+Next, remember that $\Phi(z)$ takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value), so its inverse, $\Phi^{-1}(p)$, takes probabilities and returns z-values (the $z$ value with $p$ probability mass to its left). Hence, $\Phi^{-1}(1-\beta)$ refers to the upper-tail critical value of the standard normal distribution that has $1-\beta$ probability mass to its right, and which we defined above as $z_{1-\beta}$. Using this, we get:
 
-$$
-\begin{align}
-1 - \beta 
-= 
-\Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right).
-\end{align}
-$$
-To calculate the required sample size we need to solve for $n_v$. To do this, we use the inverse of $\Phi(z)$. Remember that $\Phi(z)$ takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value), so its inverse, $\Phi^{-1}(p)$, takes probabilities and returns z-values (the $z$ value with $p$ probability mass to its left). Hence, $\Phi^{-1}(1-\beta)$ refers to the critical value corresponding to the desired power of the test, which we defined above as $z_{1-\beta}$. Using this, we get:
 $$
 \begin{align}
 
 \Phi^{-1}(1 - \beta)
 &= 
 \Phi^{-1}\left(
-\Phi\left(\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2}\right)
+\Phi\left(\frac{\Delta}{\widehat{SE}} - z_{\alpha/2}\right)
 \right) \\[5pt]
 
 z_{1-\beta}
 &= 
-\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} - z_{\alpha/2} \\[5pt]
+\frac{\Delta}{\widehat{SE}} - z_{\alpha/2} \\[5pt]
 
-z_{\alpha/2} + z_{1-\beta}
-&= 
-\frac{\tau^*}{\sqrt{\frac{2s^2}{n_v}}} \\[5pt]
+\Delta
+&= \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
+\end{align}
+$${#eq-mde}
 
-\sqrt{\frac{2s^2}{n_v}} 
-&= 
-\tau^* \frac{1}{z_{\alpha/2} + z_{1-\beta}} \\[5pt]
+This last line is in itself useful because it shows how the MDE is determined by the standard error and our choice of Type I and Type II probabilities.
 
-\frac{2s^2}{n_v}
-&= 
-\tau^{*2} \frac{1}{(z_{\alpha/2} + z_{1-\beta})^2} \\[5pt]
+Depending on the context, we can plug in any of the standard error versions [we defined earlier](stats_of_online_experiments#standard_error). To arrive at the above version, we use @eq-se-equal, which gives us:
 
-\frac{2s^2}{n_v}
-&= 
-\tau^{*2} \frac{1}{(z_{\alpha/2} + z_{1-\beta})^2} \\[5pt]
+$$
+\begin{align}
 
-n_v &= 2 (z_{\alpha/2} + z_{1-\beta})^2 \frac{s^2}{\tau^{*2}}.
+\Delta
+&= \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
+
+\Delta
+&= \sqrt{\frac{2s^2}{n_v}}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
+
+\Delta^2
+&= \frac{2s^2}{n_v}\left(z_{\alpha/2} + z_{1-\beta}\right)^2 \\[5pt]
+
+n_v
+&= 2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}
 \end{align}
 $$
 
 If, instead of using @eq-se-equal we use the standard error expressed in terms of sample proportions from @eq-se-prop, we get:
 $$
 \begin{align}
-n &= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\tau^{*2}},
+n &= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\Delta^2},
 \end{align}
 $$
 where the left-hand side, $n$ now refers to the total sample size in the experiment rather than the sample size per variant.

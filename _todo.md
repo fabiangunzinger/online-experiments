@@ -1,15 +1,9 @@
+Minimum
+- Clean version of potential outcomes, unbiasedness and variance, hypothesis testing, and power
 
-Steps to victory
-- [x] Move all obsidian notes to suitable chapters
-- [x] Clean up chapters and set up broad book structure to create version I can commit
-	- [x] Up to hypothesis_testing.md
+Bonus
+- Why not comparison of means?
 
-- [x] Perform derivation for BRE
-	- [x] Choose which approach to take: n as given or model as Binomial (I think as given makes more sense, given that this is what we have once we analyse the data)
-- [x] Complete BRE unbiasedness and variance calculation
-
-
-- Replace n/2 with n_v or sth so that I can calculate required sample size per variant, which then allows for reasoning about effect of additional variants and its effect on sample size and runtime.
 
 
 
