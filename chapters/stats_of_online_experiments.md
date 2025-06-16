@@ -658,13 +658,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
 
 &=
-\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
-+ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
-- \frac{S_{\tau_i}^2}{n}
-&\text{}
-\\[5pt]
-
-&=
 \frac{n_c + n_t}{n n_t} S_1^2
 + \frac{n_t + n_c}{n n_c} S_0^2
 - \frac{S_{\tau_i}^2}{n}
@@ -760,14 +753,11 @@ Why do randomised trials not require the excludability assumption in order to le
 
 Why potential outcomes?
 - Clarifies what precisely we are trying to estimate: average individual treatment effect
-- Makes explicit the assumptions we need to make to do so: assuming that Y0 are the same in expectation (sth else?)
- - Assumptions needed
-	 - SUTVA
-		 - What we need is to be able to write Y-i = WY1 + (1-W)Y0. For this we need i) independence from other's assignment, and ii) clearly defined meaning of Wi =1 and Wi = 0, becauese if they are not clearly defined then Y1/Y0 might not be stable. SUTVA handles both of these.
+- Makes explicit the assumptions we need to make to do so:
+	 - SUTVA: What we need is to be able to write Y-i = WY1 + (1-W)Y0. For this we need i) independence from other's assignment, and ii) clearly defined meaning of Wi =1 and Wi = 0, because if they are not clearly defined then Y1/Y0 might not be stable. SUTVA handles both of these.
 	- Randomisation: to make sure that EY0 for W=1 equals EY0 W=0
 Material
 - ding2023first footnote 2 in chapter 4 and 
-
 
 - What is definition of causal effect in suggested comparison?
 - What is source of randomisation?

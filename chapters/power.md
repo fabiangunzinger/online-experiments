@@ -1,32 +1,132 @@
 
 # Power {#sec-power}
 
-Power is the probability that we reject the null hypothesis if it is false. It is a key component of experiment design because it determines the required sample size, which helps us determine how long we need to run an experiment for.
+## Required sample size
 
-In this section, I want to do the following:
+The required sample size is determined by four factors:
 
-- Derive the formula for power from first principles.
+1. The probability of making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$, corresponds to the significance level of the test and has an associated with the upper-tail critical value $z_{\alpha/2}$ in a two-sided test.
 
-- Discuss implications of the formula for a number of experiment design aspects.
+2. The probability of making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$, determines the power of the test, $1-\beta$, and has associated critical value given by $z_{1 - \beta}$.
 
-- ...
+3. The standard deviation of the outcome variable, $s$.
 
-## Deriving the sample size formula
+4. The minimal detectable effect size, $\Delta$.
 
-In the context of online experiments, we usually fix the probabilities of making [Type I and Type II errors](hypothesis_testing$types_of_errors), $\alpha$ and $\beta$, define the smallest true absolute effect we want to be able to detect, $\Delta$, and calculate how many units we have to collect data for. [Assuming equal sample sizes and variances](stats_of_online_experiments#standard_error), the answer to this is given by:
+In the context of online experiments, we usually fix the significance level and desired power, calculate the estimate the outcome variable's standard deviation from historical data, fix the minimal detectable effect, and then calculate required sample size. Given these inputs, and  [assuming equal sample sizes and variances](stats_of_online_experiments#standard_error) for treatment and control variants, that required sample size per variant is given by:
 $$
 \begin{align}
 n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
 \end{align}
 $$ {#eq-sampsi}
 
-where $n_v$ is sample size per variant, $s^2$ is the [pooled variance](stats_of_online_experiments#standard_error) of the treatment groups, and $z_{\alpha/2}$ and $z_{1 - \beta}$ are the critical values of the standard normal distribution associated with the upper-tail probabilities of the pre-specified levels of significance $\alpha$ and power $1-\beta$.
+The power formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. Here, I want to derive the formula to demystify it.
 
-The power formula can be intimidating and abstract (all the more so, because there are many different versions floating around).
+### Bloom approach
 
-The goal of this section is to demystify the formula. The best way to do that is to derive it from first principles, which helps us understand where the formula comes from and why it makes sense. In addition, I'll also show two more heuristic approaches to deriving the formula, which are faster to use in practice (e.g. to explain where the formula comes from to colleagues or stakeholders).
+- @bloom1995minimum introduces the concept of MDE to measure and compare power and provides a useful heuristic approach to perform sample size calculations.
 
-### Derivation from first principles
+![title](../inputs/power.png)
+
+- In above figure, which is taken from @duflo2007using, the left hand curve is the sampling distribution of the estimator under $H_0$, where the true effect size is 0, and the right hand curve its sampling distribution under $H_A$, where the true effect size is $\Delta$. Because in online experiments sample sizes are usually large, these sampling distributions are well approximated by a standard normal distribution.
+
+
+
+
+- For a given significance level $\alpha$, the critical value $z_{a/2}$ in a two-sided test is the point in the $H_0$ distribution that has $\alpha/2$ of the probability mass to its right. We can also think of that critical critical value as a distance between the center of the distribution and the critical value.
+- For a given level of power, $1-\beta$, the critical value $z_{1-\beta}$ is the point in the $H_A$ distribution that has $1-\beta$ of the probability mass to its right. It, too, can be thought of as a distance.
+
+
+
+
+
+
+
+lh curve ...this is sampling dist of tee, know shape from sampling theory
+reject h0 if value larger than za
+rhs is sampling distr under ha
+what is zk? 
+now derive bloom formula...
+
+@bloom1995minimum introduces the notion of the MDE as a useful way to quantify
+power. In the process, he also uses an intuitive way to derive the power formula
+based on an illustration of a typical hypothesis-testing scenario.
+
+![Source: @duflo2007using, based on
+@bloom1995minimum.](../inputs/power.png){#fig-power}
+
+Let's start by understanding @fig-power, which visualises the setup of a
+one-sided hypothesis test where the true effect equals 0 under the null
+hypothesis and some positive constant $\te$ under the alternative hypothesis. Note that the curves are *not* the standard normal distribution,
+but the sampling distribution of our estimator $\tee$. This means that the standard
+deviation of the curves is given by the standard error of $\tee$, which is
+$\se$. Under the assumption of a homogenous treatment effect, the standard
+error is identical under $\hn$ and $\ha$, which is why the two curves have the
+same shape (see @sec-experiment-stats for details).
+
+the distribution will be the same under both the null and the alternative
+hypothesis, with the center of each distribution given by our hypothesised value
+of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
+
+We reject $\hn$ if $\tee$ is to the right of the critical value $\za$. Also,
+for a given level of power $\beta$, 
+
+Largely based on @duflo2007randomization
+
+
+Power basics
+
+
+
+$$
+n = \frac{(f(\alpha) + f(\beta))}{\text{Sample allocation}}\frac{\sigma}{\delta}
+$$
+
+
+- In the simplest possible, we randomly draw a sample of size $N$ from an identical population, so that our observations can be assumed to be i.i.d, and we allocate a fraction $P$ of our sample to treatment. We can then estiamte the treatment effect using the OLS regression
+
+$$ y = \alpha + \beta T + \epsilon$$
+
+- where the standard error of $\beta$ is given by $\sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$.
+
+- std error derivation (from standard variance result of two independent samples, using population fractions):
+
+$$
+std = \sqrt{\frac{\sigma^2}{N_t} + \frac{\sigma^2}{N_c}} = \sqrt{\frac{\sigma^2}{PN} + \frac{\sigma^2}{(1-P)N}} = ... = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}
+$$
+
+- The distribution on the left hand side below shows the distribution of our effect size estimator $\hat{\beta}$ if the null hypothesis is true.
+
+- We reject the null hypothesis if the estimated effect size is larger than the critical value $t_{\alpha}$, determined by the significance level $\alpha$. Hence, for this to happen we need $\hat{\beta} > t_{\alpha} * SE(\hat{\beta})$ (follows from rearranging the t-test formula).
+
+- On the right is the distribution of $\hat{\beta}$ if the true effect size is $\beta$.
+
+- The power of the test for a true effect size of $\beta$ is the area under this curve that falls to the right of $t_{\alpha}$. This is the probability that we reject the null hypothesis given that it is false.
+
+- Hence, to attain a power of $\kappa$ it must be that $\beta > (t_a + t_{1-\kappa}) * SE(\hat{\beta})$, where $t_{1-\kappa}$ is the value from a t-distribution that has $1-\kappa$ of its probability mass to the left (for $\kappa = 0.8$, $t_{1-\kappa} = 0.84$).
+
+- This means that the minimum detectable effect ($\delta$) is given by:
+
+$$ \delta = (t_a + tq_{1-\kappa}) * \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}} $$
+
+- Rearranding for the minimum required sample size we get:
+
+$$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2 $$
+
+- So that the required sample size is inversely proportional to the minimal effect size we wish to detect. This makes sense, it means that the smaller an effect we want to detect, the larger the samle size we need. In particular, given that $N \propto \delta^{-2}$, to detect an effect of half the size we need a sample four times the size.
+
+- SE($\beta$) also includes measurement error, so this is also a determinant of power.
+
+
+
+
+
+
+
+
+### Two-equations approach
+
+### First-principles approach
 
 Power is the probability that we reject the null hypothesis if there exists a true effect of size $\Delta$. 
 
@@ -201,85 +301,6 @@ where the left-hand side, $n$ now refers to the total sample size in the experim
 ### Starting from Type I and Type II error conditions
 
 Use @list2011so
-
-### Starting from graphical illustration
-
-
-lh curve ...this is sampling dist of tee, know shape from sampling theory
-reject h0 if value larger than za
-rhs is sampling distr under ha
-what is zk? 
-now derive bloom formula...
-
-@bloom1995minimum introduces the notion of the MDE as a useful way to quantify
-power. In the process, he also uses an intuitive way to derive the power formula
-based on an illustration of a typical hypothesis-testing scenario.
-
-![Source: @duflo2007using, based on
-@bloom1995minimum.](../inputs/power.png){#fig-power}
-
-Let's start by understanding @fig-power, which visualises the setup of a
-one-sided hypothesis test where the true effect equals 0 under the null
-hypothesis and some positive constant $\te$ under the alternative hypothesis. Note that the curves are *not* the standard normal distribution,
-but the sampling distribution of our estimator $\tee$. This means that the standard
-deviation of the curves is given by the standard error of $\tee$, which is
-$\se$. Under the assumption of a homogenous treatment effect, the standard
-error is identical under $\hn$ and $\ha$, which is why the two curves have the
-same shape (see @sec-experiment-stats for details).
-
-the distribution will be the same under both the null and the alternative
-hypothesis, with the center of each distribution given by our hypothesised value
-of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
-
-We reject $\hn$ if $\tee$ is to the right of the critical value $\za$. Also,
-for a given level of power $\beta$, 
-
-Largely based on @duflo2007randomization
-
-
-Power basics
-
-![title](../inputs/power.png)
-
-
-$$
-n = \frac{(f(\alpha) + f(\beta))}{\text{Sample allocation}}\frac{\sigma}{\delta}
-$$
-
-
-- In the simplest possible, we randomly draw a sample of size $N$ from an identical population, so that our observations can be assumed to be i.i.d, and we allocate a fraction $P$ of our sample to treatment. We can then estiamte the treatment effect using the OLS regression
-
-$$ y = \alpha + \beta T + \epsilon$$
-
-- where the standard error of $\beta$ is given by $\sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$.
-
-- std error derivation (from standard variance result of two independent samples, using population fractions):
-
-$$
-std = \sqrt{\frac{\sigma^2}{N_t} + \frac{\sigma^2}{N_c}} = \sqrt{\frac{\sigma^2}{PN} + \frac{\sigma^2}{(1-P)N}} = ... = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}
-$$
-
-- The distribution on the left hand side below shows the distribution of our effect size estimator $\hat{\beta}$ if the null hypothesis is true.
-
-- We reject the null hypothesis if the estimated effect size is larger than the critical value $t_{\alpha}$, determined by the significance level $\alpha$. Hence, for this to happen we need $\hat{\beta} > t_{\alpha} * SE(\hat{\beta})$ (follows from rearranging the t-test formula).
-
-- On the right is the distribution of $\hat{\beta}$ if the true effect size is $\beta$.
-
-- The power of the test for a true effect size of $\beta$ is the area under this curve that falls to the right of $t_{\alpha}$. This is the probability that we reject the null hypothesis given that it is false.
-
-- Hence, to attain a power of $\kappa$ it must be that $\beta > (t_a + t_{1-\kappa}) * SE(\hat{\beta})$, where $t_{1-\kappa}$ is the value from a t-distribution that has $1-\kappa$ of its probability mass to the left (for $\kappa = 0.8$, $t_{1-\kappa} = 0.84$).
-
-- This means that the minimum detectable effect ($\delta$) is given by:
-
-$$ \delta = (t_a + tq_{1-\kappa}) * \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}} $$
-
-- Rearranding for the minimum required sample size we get:
-
-$$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2 $$
-
-- So that the required sample size is inversely proportional to the minimal effect size we wish to detect. This makes sense, it means that the smaller an effect we want to detect, the larger the samle size we need. In particular, given that $N \propto \delta^{-2}$, to detect an effect of half the size we need a sample four times the size.
-
-- SE($\beta$) also includes measurement error, so this is also a determinant of power.
 
 
 
