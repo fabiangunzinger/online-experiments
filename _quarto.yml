@@ -14,28 +14,28 @@ book:
   # date: "2/12/2024"
   chapters:
     - index.md
-    - part: Introduction
-      chapters:
-      - chapters/introduction.md # For now, I discuss here larger questions such as why stats in business, and causal inference vs prediction.
-    - part: chapters/statistics.md
-      chapters:
-      - chapters/stats_of_online_experiments.md
-      - chapters/hypothesis_testing.md
-      - chapters/power.md
+    # - part: Introduction
+      # chapters:
+      # - chapters/introduction.md # For now, I discuss here larger questions such as why stats in business, and causal inference vs prediction.
+    # - part: chapters/statistics.md
+      # chapters:
+    - chapters/stats_of_online_experiments.md
+      # - chapters/hypothesis_testing.md
+    - chapters/power.md
       # - chapters/power_in_abtesting.md
 
-    - part: chapters/practice.md
-      chapters:
+    # - part: chapters/practice.md
+    #   chapters:
 
       # - chapters/analysis.md
-      - chapters/threats_to_validity.md
-      - chapters/culture.qmd
-      - chapters/experiment_configuration.md
-      - chapters/principles.qmd
-      - chapters/triggered_analysis.md
-      - chapters/simpsons_paradox.md
+      # - chapters/threats_to_validity.md
+      # - chapters/culture.qmd
+      # - chapters/experiment_configuration.md
+      # - chapters/principles.qmd
+      # - chapters/triggered_analysis.md
+      # - chapters/simpsons_paradox.md
       # - chapters/important_contepts.md
-      - chapters/metrics.md
+      # - chapters/metrics.md
 
       # - chapters/good_experiments.md
 
@@ -51,30 +51,30 @@ book:
       # - chapters/multiple_hypothesis_correction.qmd
       # - chapters/multi_arm_bandits.md
 
-    - part: "Designs"
-      chapters:
-        - chapters/experiment_designs.md
+    # - part: "Designs"
+    #   chapters:
+    #     - chapters/experiment_designs.md
 
-    - part: chapters/philosophy.md
-      chapters: 
-      - chapters/limitations_criticism.md
-      - chapters/approaches_to_causal_inference.md
-      - chapters/history.md
+    # - part: chapters/philosophy.md
+    #   chapters: 
+    #   - chapters/limitations_criticism.md
+    #   - chapters/approaches_to_causal_inference.md
+    #   - chapters/history.md
 
-    - part: chapters/platforms.md
-      chapters:
-        # - chapters/platform_architecture_at_jet.md
-        - chapters/data_architecture.md
-        - chapters/platform_examples.md
+    # - part: chapters/platforms.md
+    #   chapters:
+    #     - chapters/platform_architecture_at_jet.md
+    #     - chapters/data_architecture.md
+    #     - chapters/platform_examples.md
 
-    - part: "Appendices"
-      chapters:
-      - chapters/experiment_setup.md
-      - chapters/common_assumptions.md
-      - chapters/lemmas.md
+    # - part: "Appendices"
+    #   chapters:
+    #   - chapters/experiment_setup.md
+    #   - chapters/common_assumptions.md
+    #   - chapters/lemmas.md
 
 
-      - chapters/outcomes_and_estimands.md
+    #   - chapters/outcomes_and_estimands.md
       # - chapters/stats_foundations.md
       # - chapters/link_to_identification_approach.md
 
