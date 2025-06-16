@@ -1,5 +1,12 @@
 project:
   type: book
+  output-dir: docs
+
+website:
+  title: "Online Experiments"
+  site-url: https://fabiangunzinger.github.io/online-experiments/
+  repo-url: https://github.com/fabiangunzinger/online-experiments
+  repo-branch: main
 
 book:
   title: "Online experiments"
