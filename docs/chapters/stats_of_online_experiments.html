@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; The stats of online experiments – Online experiments</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/hypothesis_testing.html" rel="next">
+<link href="../chapters/statistics.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../custom.scss">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/statistics.html">Statistics</a></li><li class="breadcrumb-item"><a href="../chapters/stats_of_online_experiments.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Online experiments</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/stats_of_online_experiments.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/hypothesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/culture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Culture</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Experiment configuration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Guiding principles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/triggered_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Triggered analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/simpsons_paradox.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simpson’s paradox</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Metrics</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Designs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_designs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Experiment designs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/philosophy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Philosophy</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/limitations_criticism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Limitations and criticisms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/approaches_to_causal_inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Approaches to causal inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">History</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/platforms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Platforms</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/data_architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data architecture</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/platform_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Platform examples</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/common_assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Excludability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/outcomes_and_estimands.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Causal estimands</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">2.1</span> Setup</a></li>
+  <li><a href="#assignment-mechanism" id="toc-assignment-mechanism" class="nav-link" data-scroll-target="#assignment-mechanism"><span class="header-section-number">2.2</span> Assignment mechanism</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">2.3</span> Analysis</a></li>
+  <li><a href="#unbiasedness" id="toc-unbiasedness" class="nav-link" data-scroll-target="#unbiasedness"><span class="header-section-number">2.4</span> Unbiasedness</a>
+  <ul class="collapse">
+  <li><a href="#sutva-links-observed-outcomes-to-potential-outcomes" id="toc-sutva-links-observed-outcomes-to-potential-outcomes" class="nav-link" data-scroll-target="#sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">2.4.1</span> SUTVA links observed outcomes to potential outcomes</a></li>
+  <li><a href="#randomisation-links-treatment-groups-to-the-population" id="toc-randomisation-links-treatment-groups-to-the-population" class="nav-link" data-scroll-target="#randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">2.4.2</span> Randomisation links treatment groups to the population</a></li>
+  </ul></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">2.5</span> Variance</a></li>
+  <li><a href="#standard-error" id="toc-standard-error" class="nav-link" data-scroll-target="#standard-error"><span class="header-section-number">2.6</span> Standard error</a></li>
+  <li><a href="#qa" id="toc-qa" class="nav-link" data-scroll-target="#qa"><span class="header-section-number">2.7</span> Q&amp;A</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">2.8</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/statistics.html">Statistics</a></li><li class="breadcrumb-item"><a href="../chapters/stats_of_online_experiments.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="setup" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">2.1</span> Setup</h2>
+<p>We study a sample of <span class="math inline">\(n\)</span> units, indexed by <span class="math inline">\(i = 1, \dots, n\)</span>, to learn about the effect of a binary treatment on these units.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is “binary” because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as “treatment” and “control”.</p>
+<p>Each unit has two potential outcomes: <span class="math inline">\(Y_i(1)\)</span> is the outcome for unit <span class="math inline">\(i\)</span> if they are in treatment and <span class="math inline">\(Y_i(0)\)</span> is the outcome if they are in control. To simplify notation, we collect all unit-level potential outcomes in the <span class="math inline">\(n \times 1\)</span> vectors <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span>. These outcomes are “potential outcomes” because before the start of the experiment, each unit could be exposed to either treatment condition so that they can potentially experience either outcome. Once the experiment has started and units are assigned to treatment, only one of the two outcomes will be observed.</p>
+<p>The causal effect of the treatment for unit <span class="math inline">\(i\)</span> is the difference between the two potential outcomes:<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math display">\[
+\tau_i = Y_i(1) - Y_i(0).
+\]</span> Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly <em>observing unit-level treatment effects</em> is impossible. This is the fundamental problem of causal inference <span class="citation" data-cites="holland1986statistics">(<a href="#ref-holland1986statistics" role="doc-biblioref">Holland 1986</a>)</span>.</p>
+<p>An experiment is one solution to the fundamental problem:<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> randomly assigning units from a population to either treatment or control allows us to <em>estimate average (unit-level) treatment effects</em>. In the words of <span class="citation" data-cites="holland1986statistics">Holland (<a href="#ref-holland1986statistics" role="doc-biblioref">1986, 947</a>)</span>:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<blockquote class="blockquote">
+<p>“The important point is that [an experiment] replaces the impossible-to-observe causal effect of [a treatment] on a specific unit with the possible-to-estimate <em>average</em> causal effect of [the treatment] over a population of units.”</p>
+</blockquote>
+<p>Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the <em>estimand</em> – in an experiment is an average across a sample of units. In particular, we are usually interested in the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire sample:</p>
+<p><span id="eq-estimand"><span class="math display">\[
+\begin{align}
+\tau
+= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+= \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
+\end{align}
+\tag{2.1}\]</span></span></p>
+<p>This is the estimand, the statistical quantity we are trying to estimate in our experiment.</p>
+<p>Running an experiment with our <span class="math inline">\(n\)</span> units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator <span class="math inline">\(W_i \in \{0, 1\}\)</span> to indicate treatment exposure for unit <span class="math inline">\(i\)</span> and write <span class="math inline">\(W_i = 1\)</span> if they are in treatment and <span class="math inline">\(W_i = 0\)</span> if they are in control. We collect all unit-level treatment indicators in the <span class="math inline">\(n \times 1\)</span> vector <span class="math inline">\(\mathbf{W} = (W_1, W_2, \dots, W_n)'\)</span>. At the end of the experiment, we have <span class="math inline">\(n_t = \sum_{i=1}^n W_i\)</span> units in treatment and the remaining <span class="math inline">\(n_c = \sum_{i=1}^n (1-W_i)\)</span> units in control. For each unit, we observe outcome <span class="math inline">\(Y_i\)</span>.</p>
+<p>To estimate <span class="math inline">\(\tau\)</span>, we use the observed difference in means between the treatment and control units:<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p><span class="math display">\[
+\begin{align}
+\hat{\tau}^{\text{dm}}
+=
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\end{align}
+\]</span></p>
+<p>This is our estimator, the algorithm we use to produce estimates of the estimand.</p>
+</section>
+<section id="assignment-mechanism" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="assignment-mechanism"><span class="header-section-number">2.2</span> Assignment mechanism</h2>
+<p>The procedure we use the allocate units to treatment conditions is the <a href="../chapters/experiment_setup.html#assignment-mechanism">assignment mechanism</a>. In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that <span class="math inline">\(P(W_i) = q\)</span>, where <span class="math inline">\(q \in [0, 1]\)</span>. Throughout, I’ll focus on the most common case where <span class="math inline">\(q=\frac{1}{2}\)</span>, so that we have:</p>
+<p><span class="math display">\[
+P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
+\]</span> Because of their coin-toss-like nature assignments follow a <a href="https://en.wikipedia.org/wiki/Bernoulli_distribution">Bernoulli distribution</a> and the type of experiment is called a Bernoulli Randomised Experiment. Formally, we have: <span class="math display">\[
+\begin{align}
+W_i &amp;\sim \text{Bernoulli}(1/2) \\
+\mathbb{E}[{W_i}] &amp;= 1/2 \\
+\end{align}
+\]</span> and <span class="math display">\[
+\begin{align}
+n_t &amp;\sim \text{Binomial}(n, 1/2) \\
+\mathbb{E}[{n_t}] &amp;= n(1/2).
+\end{align}
+\]</span></p>
+</section>
+<section id="analysis" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">2.3</span> Analysis</h2>
+<p>There are different approaches we could take to formally analyse our experiment.</p>
+<p>Decisions:</p>
+<ul>
+<li><p>We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our <span class="math inline">\(n\)</span> units, rather than using the estimate for our <span class="math inline">\(n\)</span> units to infer the average treatment effect on a larger population from which the <span class="math inline">\(n\)</span> units are drawn. I thus use a fully design-based approach (see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 18</span></a> for details)</p></li>
+<li><p>We can analyse the Bernoulli Randomised Experiment treating <span class="math inline">\(n_t\)</span> as a Binomial random variable or taking it as given. Because by the time of the analysis it is, in fact, given, I follow the latter approach. This approach also has the advantage of considerably simplifying the math.</p></li>
+</ul>
+<p>Implications:</p>
+<ul>
+<li><p>Our sample of <span class="math inline">\(n\)</span> units and the associated potential outcomes <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span> are fixed (because units are non-random but determined by sample I have). I refer to the potential outcomes collectively as <span class="math inline">\(\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})\)</span>.</p></li>
+<li><p>Once randomisation is complete the number of units in treatment and control, <span class="math inline">\(n_t\)</span> and <span class="math inline">\(n_c\)</span> are given. I refer to them collectively as <span class="math inline">\(\mathbf{n} = (n_t, n_c)\)</span>.</p></li>
+<li><p>The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units.</p></li>
+</ul>
+<p>In the next two sections we show that <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is an unbiased estimator of <span class="math inline">\(\tau\)</span> and calculate its variance. (My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="#ref-ding2023first" role="doc-biblioref">2023</a>)</span>. For an alternative, see Appendix 6.B. in <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>.)</p>
+</section>
+<section id="unbiasedness" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="unbiasedness"><span class="header-section-number">2.4</span> Unbiasedness</h2>
+<p>An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:</p>
+<p>$$ <span class="math display">\[\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+
+&amp;=
+\tau.
+\end{align}\]</span> $$ Given our definitions above this is means showing that</p>
+<p>$$ <span class="math display">\[\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;
+\enspace
+\overset{!}{=}
+\enspace
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+
+&amp;=
+\tau
+\end{align}\]</span> $$</p>
+<p>There are two pieces we need for this:</p>
+<ol type="1">
+<li><p>Link observed to potential outcomes so that <span class="math inline">\(Y_i = Y_i(W_i)\)</span>. This requires the Stable Unit Treatment Value Assumption (SUTVA).</p></li>
+<li><p>Link treatment group averages to sample averages so that <span class="math inline">\(\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)\)</span>. This requires randomisation.</p></li>
+</ol>
+<p>Let’s tackle them in turn.</p>
+<section id="sutva-links-observed-outcomes-to-potential-outcomes" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">2.4.1</span> SUTVA links observed outcomes to potential outcomes</h3>
+<p>We want to learn something about unit-level differences in potential outcomes <span class="math display">\[
+\tau_i = Y_i(1) - Y_i(0),
+\]</span> where a potential outcome is a unit-indexed function of the treatment level, with the treatment levels in our case simply being “treatment” and “control”, captured by the assignment indicator <span class="math inline">\(W_i \in {0, 1}\)</span>.</p>
+<p>Now say we run an experiment and unit <span class="math inline">\(i\)</span> is allocated to treatment. The <span class="math inline">\(i\)</span>-th element of the assignment vector <span class="math inline">\(\mathbf{W}\)</span> of that experiment is thus <span class="math inline">\(W_i = 1\)</span>, and we refer to this assignment vector as <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>.</p>
+<p>We know we can’t observe both <span class="math inline">\(Y_i(0)\)</span> and <span class="math inline">\(Y_i(1)\)</span>, but given that <span class="math inline">\(i\)</span> is in treatment we can observe the potential outcome under treatment, <span class="math inline">\(Y_i(1)\)</span>, which will help us estimate <span class="math inline">\(\hat{\tau}\)</span>. So we need</p>
+<p><span class="math display">\[
+Y_i = Y_i(1).
+\]</span></p>
+<p>What we directly observe, however, is <span class="math display">\[
+Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right).
+\]</span> In words: the outcome we observe for unit <span class="math inline">\(i\)</span> in our experiment is not the potential outcome for <span class="math inline">\(i\)</span> under treatment, but the potential outcome for <span class="math inline">\(i\)</span> under the specific assignment vector of our experiment, <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>. What does this mean concretely? It means that the observed outcome is a function not only of <span class="math inline">\(i\)</span>’s treatment assignment but of:</p>
+<ol type="1">
+<li>The assignment of all units in the experiment</li>
+<li>The precise form of the assigned treatment level received by <span class="math inline">\(i\)</span></li>
+<li>The way in which said assigned treatment level is administered to <span class="math inline">\(i\)</span></li>
+</ol>
+<p>We need: <span class="math display">\[
+Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
+\]</span> The only way to make progress is to assume what we need: that potential outcomes for unit <span class="math inline">\(i\)</span> are a function only of the treatment level unit <span class="math inline">\(i\)</span> itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment level. (i) above is referred to as “no interference” in the literature, (ii) as “no hidden variations of treatment”.</p>
+<p>That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, “stable” <span class="citation" data-cites="rubin1980randomization">(<a href="#ref-rubin1980randomization" role="doc-biblioref">Rubin 1980</a>)</span>.</p>
+<p>Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that <span class="math inline">\(Y_i(W_i)\)</span> is a clearly defined function for all <span class="math inline">\(i\)</span> and all possible treatment levels <span class="math inline">\(W_i \in \{0, 1\}\)</span>. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.</p>
+<p>In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends and the no-hidden-variation part means that there their precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that creates different background colours and the it is either clear whether a customer uses an Android or iOS app (or the experience is identical). But, again, SUTVA does not require that the active treatment looks exactly the same on iOS and Android apps just that for each unit in our experiment, their experience if they are part of the active treatment is pinned down.</p>
+<p>Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn’t roll it out to anyone. To have any hope of estimating this we can’t have treatment level’s vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)</p>
+<p>SUTVA is a strong assumption and can be violated in a number of ways. I’ll discuss these, together with solutions, in <a href="threats_to_validity.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
+<p>If SUTVA holds we have:</p>
+<p><span class="math display">\[
+Y_i = Y_i(W_i) = \begin{cases}
+   Y_i(1) &amp; \text{if } W_i = 1 \\
+   Y_i(0)       &amp; \text{if } W_i = 0,
+  \end{cases}
+\]</span> or, more compactly: <span class="math display">\[
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
+\]</span></p>
+<p>This is the link between observed and potential outcomes we need, and makes clear that we observe <span class="math inline">\(Y_i(1)\)</span> for units in treatment and <span class="math inline">\(Y_i(0)\)</span> for units in control.</p>
+<p>In our unbiasedness proof, we now have $$ <span class="math display">\[\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;\text{SUTVA}
+\\[5pt]
+
+&amp;=
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+\\[5pt]
+
+&amp;
+\enspace
+\overset{!}{=}
+\enspace
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+
+&amp;=
+\tau
+\end{align}\]</span> $$</p>
+<p>What remains is to show that <span class="math inline">\(\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)\)</span>. This requires randomisation.</p>
+</section>
+<section id="randomisation-links-treatment-groups-to-the-population" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">2.4.2</span> Randomisation links treatment groups to the population</h3>
+<p>Steps:</p>
+<ul>
+<li><p>We use the definition of <span class="math inline">\(W_i\)</span> to write <span class="math inline">\(\sum_{W_i=1}Y_i(1)\)</span> as <span class="math inline">\(\sum_{i=1}^{n} W_iY_i(1)\)</span> and similarly for control units.</p></li>
+<li><p>We use the linearity of <span class="math inline">\(\mathbb{E}\)</span> to move <span class="math inline">\(\mathbb{E}\)</span> inside the summation, where the only random element is <span class="math inline">\(W_i\)</span>.</p></li>
+<li><p>Use <a href="../chapters/lemmas.html#lemma-1">Lemma 1</a> (randomisation) to replace expectations with expected values.</p></li>
+</ul>
+<p>$$ <span class="math display">\[\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;\text{SUTVA}
+\\[5pt]
+
+&amp;=
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+\\[5pt]
+
+&amp;=
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i(1)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+-
+\mathbb{E}\left[
+\frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i(0)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+\\[5pt]
+
+&amp;=
+\frac{1}{n_t}\sum_{i=1}^{n}
+\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
+Y_i(1)
+-
+\frac{1}{n_c}\sum_{i=1}^{n}
+\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
+Y_i(0)
+\\[5pt]
+
+&amp;\text{Randomisation (Lemma 1)}
+\\[5pt]
+
+&amp;=
+\frac{1}{n_t}\sum_{i=1}^{n}
+\left(\frac{n_t}{n}\right)
+Y_i(1)
+-
+\frac{1}{n_c}\sum_{i=1}^{n}
+\left(\frac{n_c}{n}\right)
+Y_i(0)
+\\[5pt]
+
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+
+&amp;=
+\tau
+\end{align}\]</span> $$</p>
+</section>
+</section>
+<section id="variance" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="variance"><span class="header-section-number">2.5</span> Variance</h2>
+<p>For the variance calculation below we need a few more definitions. We can define sample means and variances of the potential outcomes as:</p>
+<p><span class="math display">\[
+\begin{align}
+\overline{Y}(1) = \frac{1}{n}\sum_{i=1}^n Y_i(1),
+\qquad
+S_1^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
+\\[5pt]
+\overline{Y}(0) = \frac{1}{n}\sum_{i=1}^n Y_i(0),
+\qquad
+S_0^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
+\\[5pt]
+\end{align}
+\]</span></p>
+<p>We have already defined the sample average treatment effect in <a href="#eq-estimand" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>. I rewrite it here for convenience and expand the definition using the above expressions:</p>
+<p><span class="math display">\[
+\begin{align}
+\tau
+&amp;= \frac{1}{n}\sum_{i=1}^n \tau_i
+\\[5pt]&amp;= \frac{1}{n}\sum_{i=1}^n \left(Y_i(1) - Y_i(0)\right)
+\\[5pt]&amp;= \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]&amp;= \overline{Y}(1) - \overline{Y}(0).
+\end{align}
+\]</span></p>
+<p>The variance of the individual-level causal effects is:</p>
+<p><span class="math display">\[
+\begin{align}
+S_{\tau_i}^2
+&amp;= \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - Y_i(0)
+- \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2
+\\[5pt]
+&amp;= \frac{1}{n-1}\sum_{i=1}^{n}\left(\tau_i - \tau\right)^2 \\[5pt]
+\end{align}
+\]</span> The covariance of potential outcomes is: <span class="math display">\[
+\begin{align}
+S_{0, 1} &amp;= \frac{1}{n-1}\sum_{i=1}^{n}
+\left(Y_i(1) - \overline{Y}(1)\right)
+\left(Y_i(0) - \overline{Y}(0)\right)
+\end{align}
+\]</span></p>
+<p>All lemmas referred to below are <a href="../chapters/lemmas.html">here</a>.</p>
+<p>We can then calculate the variance as (I do not explicitly condition on <span class="math inline">\(\mathbf{n}\)</span> and <span class="math inline">\(\mathbf{Y(w)}\)</span> here to keep the notation lighter):</p>
+<p>$$ <span class="math display">\[\begin{align}
+
+\mathbb{V}\left(
+\hat{\tau}^{\text{dm}}
+\right)
+
+&amp;=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\right)
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\right)
+\\[5pt]
+
+&amp;\text{SUTVA}
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
+\right)
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(
+\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1)
+- \frac{1}{n_c}\sum_{i=1}^n Y_i(0)
++ \frac{1}{n_c}\sum_{i=1}^n W_iY_i(0)
+\right)
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(
+\sum_{i=1}^n W_i\frac{Y_i(1)}{n_t}
+- \sum_{i=1}^n \frac{Y_i(0)}{n_c}
++ \sum_{i=1}^n W_i\frac{Y_i(0)}{n_c}
+\right)
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(
+\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
+- \sum_{i=1}^n \frac{Y_i(0)}{n_c}
+\right)
+\\[5pt]
+
+&amp;\text{Dropping constant term}
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(
+\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
+\right)
+\\[5pt]
+
+&amp;\text{Demeaning (leaves variance unchanged)}
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} - \left(\frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)
+\right)\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;\text{Using shorthands } Y_i^+ = Y_i(1)/n_t + Y_i(0)/n_c \text{ and } \overline{Y}^+ = \overline{Y}(1)/n_t - \overline{Y}(0)/n_c
+\\[5pt]
+
+&amp;=
+\mathbb{V}\left(\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+
+\right)\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;\text{Rewriting variance in terms of covariance}
+\\[5pt]
+
+&amp;=
+\text{Cov}\left(
+\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+\right),
+\sum_{j=1}^n W_j \left(Y_j^+ - \overline{Y}^+\right)
+\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\sum_{i=1}^n \sum_{j=1}^n
+\text{Cov}\left(
+W_i \left(Y_i^+ - \overline{Y}^+\right),
+W_j \left(Y_j^+ - \overline{Y}^+\right)
+\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\sum_{i=1}^n \sum_{j=1}^n
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\sum_{i=1}^n
+\mathbb{V}\left(W_i^2\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
++
+\sum_{i=1}^n \sum_{j \neq i}
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;\text{Lemma 2}
+\\[5pt]
+
+&amp;=
+\sum_{i=1}^n
+\mathbb{V}\left(W_i\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
++
+\sum_{i=1}^n \sum_{j \neq i}
+\text{Cov}\left(W_i, W_j \right)
+\left(Y_i^+ - \overline{Y}^+\right)
+\left(Y_j^+ - \overline{Y}^+\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;\text{Lemma 3}
+\\[5pt]
+
+&amp;=
+\sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)
+\left(Y_i^+ - \overline{Y}^+\right)^2
+- \sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_tn_c}{n^2(n-1)}\right)
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+
+&amp;=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}
+\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
+\\[5pt]
+
+&amp;\text{Lemma 4}
+\\[5pt]
+
+&amp;=
+\left(\frac{n_tn_c}{n^2}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
++ \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}
+\left(Y_i^+ - \overline{Y}^+\right)^2
+\\[5pt]
+
+&amp;=
+\left(\frac{n_tn_c}{n^2} + \frac{n_tn_c}{n^2(n-1)}\right)
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&amp;\\[5pt]
+
+&amp;=
+\frac{n_tn_c(n-1) + n_tn_c}{n^2(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&amp;\\[5pt]
+
+&amp;=
+\frac{nn_tn_c - n_tn_c + n_tn_c}{n^2(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&amp;\\[5pt]
+
+&amp;=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
+&amp;\\[5pt]
+
+&amp;\text{Reverting to full notation and expanding square term}
+\\[5pt]
+
+&amp;=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}
+- \frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)^2
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(
+\left(\frac{Y_i(1)}{n_t} - \frac{\overline{Y}(1)}{n_t}\right)
++ \left(\frac{Y_i(0)}{n_c} - \frac{\overline{Y}(0)}{n_c}\right)
+\right)^2
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_tn_c}{n(n-1)}
+\sum_{i=1}^{n}\left(
+\frac{1}{n_t}\left(Y_i(1) - \overline{Y}(1)\right)
++ \frac{1}{n_c}\left(Y_i(0) - \overline{Y}(0)\right)
+\right)^2
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_tn_c}{n(n-1)}\left[
+\sum_{i=1}^{n}\left(
+\frac{1}{n_t^2}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n_c^2}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n_t n_c}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right)
+\right]
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_tn_c}{n(n-1)}\left[
+\frac{1}{n_t^2}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{1}{n_c^2}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n_t n_c}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+\right]
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_c}{n n_t}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
++ \frac{n_t}{n n_c}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
++ \frac{2}{n}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{1}{n}2S_{0,1}
+&amp;\text{}
+\\[5pt]
+
+&amp;\text{Lemma 5}
+\\[5pt]
+
+&amp;=
+\frac{n_c}{n n_t}S_1^2
++ \frac{n_t}{n n_c}S_0^2
++ \frac{1}{n}\left(S_1^2 + S_0^2 - S_{\tau_i}^2\right)
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
++ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{n_c + n_t}{n n_t} S_1^2
++ \frac{n_t + n_c}{n n_c} S_0^2
+- \frac{S_{\tau_i}^2}{n}
+&amp;\text{}
+\\[5pt]
+
+&amp;=
+\frac{S_1^2}{n_t}
++ \frac{S_0^2}{n_c}
+- \frac{S_{\tau_i}^2}{n}
+&amp;\text{}
+\\[5pt]
+\end{align}\]</span> $${#eq-var}</p>
+<p>This is the <a href="stats_foundations.md#sampling-distribution">sampling variance</a> of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span>. It’s a theoretical quantity we cannot directly observe. However, we can observe treatment group means:</p>
+<p><span class="math display">\[
+\begin{align}
+\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
+\qquad
+\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+\end{align}
+\]</span> and treatment group variances:</p>
+<p><span class="math display">\[
+\begin{align}
+s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
+\qquad
+s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
+\end{align}
+\]</span> It can be shown that the observed treatment group variances <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the sample variances <span class="math inline">\(S_1^2\)</span> and <span class="math inline">\(S_0^2\)</span> (see, for instance, Appendix A in Chapter 6 of <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>). The last term in <span class="quarto-unresolved-ref">?eq-var</span>, <span class="math inline">\(S_{\tau_i}^2\)</span>, is the variance of unit-level treatment effects, which is impossible to observe.</p>
+<p>As a result, the most widely used estimator in practice is: <span class="math display">\[
+\hat{\mathbb{V}}
+= \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
+\]</span> In our context, the main advantages of this estimator are:</p>
+<ol type="1">
+<li><p>If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance since in this case, <span class="math inline">\(S^2_{\tau_i} = 0\)</span>.</p></li>
+<li><p>If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since <span class="math inline">\(S_{\tau_i}^2\)</span> is non-negative).</p></li>
+</ol>
+</section>
+<section id="standard-error" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="standard-error"><span class="header-section-number">2.6</span> Standard error</h2>
+<p>The <a href="stats_fundamentals.md#sampling-distribution">standard error</a> of an estimator is simply the square root of its sampling variance. From <span class="quarto-unresolved-ref">?eq-var</span> we thus have:</p>
+<p><span id="eq-se"><span class="math display">\[
+\widehat{SE}
+= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
+\tag{2.2}\]</span></span></p>
+<p>Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that the sample size for each variant is <span class="math inline">\(n_t = n_c = n_v\)</span>, and equal variances, so that <span class="math inline">\(s_t^2 = s_c^2 = s^2\)</span>. The common variance <span class="math inline">\(s^2\)</span> is estimated by “pooling” the treatment group variances to create a <a href="stats_foundations.md#degrees-of-freedom">degrees-of-freedom-weighted</a> estimator of the form: <span class="math display">\[
+s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
+\]</span> Substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> we then have: <span id="eq-se-equal"><span class="math display">\[
+\widehat{SE}^{\text{equal}}
+= \sqrt{\frac{s^2}{n_v} + \frac{s^2}{n_v}}
+= \sqrt{\frac{2s^2}{n_v}}.
+\tag{2.3}\]</span></span></p>
+<p>Finally, for the purpose of experiment design it is sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use <span class="math inline">\(p\)</span> to denote that proportion and <span class="math inline">\(n\)</span> to denote total sample size, while maintaining the assumption of equal variance. Again substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> we can then write: <span id="eq-se-prop"><span class="math display">\[
+\widehat{SE}^{\text{prop}}
+= \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
+= \sqrt{\frac{s^2}{np(1-p)}}.
+\tag{2.4}\]</span></span></p>
+<p>For <span class="math inline">\(p=0.5\)</span>, this formulation is equivalent to <a href="#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>2.3</span></a> as expected.</p>
+</section>
+<section id="qa" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="qa"><span class="header-section-number">2.7</span> Q&amp;A</h2>
+<section id="question-1" class="level5" data-number="2.7.0.0.1">
+<h5 data-number="2.7.0.0.1" class="anchored" data-anchor-id="question-1"><span class="header-section-number">2.7.0.0.1</span> Question 1</h5>
+<p>Why do we need potential outcomes at all? Can’t we interpret the difference from a simple comparison of averages as the causal effect?</p>
+</section>
+<section id="question-2" class="level5" data-number="2.7.0.0.2">
+<h5 data-number="2.7.0.0.2" class="anchored" data-anchor-id="question-2"><span class="header-section-number">2.7.0.0.2</span> Question 2</h5>
+<p>Why do randomised trials not require the excludability assumption in order to lead to unbiased results?</p>
+</section>
+<section id="answer-1" class="level5" data-number="2.7.0.0.3">
+<h5 data-number="2.7.0.0.3" class="anchored" data-anchor-id="answer-1"><span class="header-section-number">2.7.0.0.3</span> Answer 1</h5>
+<p>Why potential outcomes? - Clarifies what precisely we are trying to estimate: average individual treatment effect - Makes explicit the assumptions we need to make to do so: - SUTVA: What we need is to be able to write Y-i = WY1 + (1-W)Y0. For this we need i) independence from other’s assignment, and ii) clearly defined meaning of Wi =1 and Wi = 0, because if they are not clearly defined then Y1/Y0 might not be stable. SUTVA handles both of these. - Randomisation: to make sure that EY0 for W=1 equals EY0 W=0 Material - ding2023first footnote 2 in chapter 4 and</p>
+<ul>
+<li>What is definition of causal effect in suggested comparison?</li>
+<li>What is source of randomisation?</li>
+<li>Discuss textbook iid approach and why it’s not a good model for our purpose.</li>
+<li>Show that in practice, variance is the same</li>
+</ul>
+<p>In the classic two-sample problem, observations in the treatment group {y1s} and control group {y0s} are assumed to be IID draws from <strong>two separate</strong> distributions. Treatment observations are assumed to be <strong>IID draws</strong> from a distribution with mean <span class="math inline">\(\mu_t\)</span> and variance <span class="math inline">\(\sigma_t^2\)</span> and similar for control, and the variance of the difference in means estimator is given by:</p>
+<p><span class="math display">\[
+\mathbb{V}(\hat{\tau}) = \frac{\sigma_t^2}{n_t} + \frac{\sigma_c^2}{n_c}.
+\]</span> That is, there is no third term for the variance of the individual-level potential outcomes.</p>
+<p>In contrast, Rubin points out that for proper causal inference, {y1, y0} pairs are from the same distribution but we observe only one item of the pair.</p>
+<p>Differences: - Sampling based vs randomisation based variation: makes sense given that in IID case we are assumed to sample from population, whereas in FS case we are assumed to have all units, but randomise which item of the PO pair is observed. - Hence: the variance in IID is taken over the randomness of the outcomes because uncertainty is sampling based, whereas in the potential outcomes framework, where potential outcomes are fixed, the variance is taken over the randomisation distribution. - As a result: there is no correlation between two groups in IID case (covar = 0) and hence no third term, whereas in FS case there is – why precisely? Because there is correlation between y1s and y2s – if there isn’t, then the third term vanishes. See ding derivation. However, ultimately it’s because there is heterogeneity in individual-level treatment effects. Why is that? Is that the same as PO correlation at individual level? - Weird, though, that Ding lemmas seem to be based on IID case!</p>
+</section>
+<section id="answer-2" class="level5" data-number="2.7.0.0.4">
+<h5 data-number="2.7.0.0.4" class="anchored" data-anchor-id="answer-2"><span class="header-section-number">2.7.0.0.4</span> Answer 2</h5>
+<p>…</p>
+</section>
+</section>
+<section id="references" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="references"><span class="header-section-number">2.8</span> References</h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ding2023first" class="csl-entry" role="listitem">
+Ding, Peng. 2023. <span>“A First Course in Causal Inference.”</span> <a href="https://arxiv.org/abs/2305.18793">https://arxiv.org/abs/2305.18793</a>.
+</div>
+<div id="ref-holland1986statistics" class="csl-entry" role="listitem">
+Holland, Paul W. 1986. <span>“Statistics and Causal Inference.”</span> <em>Journal of the American Statistical Association</em> 81 (396): 945–60.
+</div>
+<div id="ref-imbens2015causal" class="csl-entry" role="listitem">
+Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
+</div>
+<div id="ref-rubin1980randomization" class="csl-entry" role="listitem">
+Rubin, Donald B. 1980. <span>“Randomization Analysis of Experimental Data: The Fisher Randomization Test Comment.”</span> <em>Journal of the American Statistical Association</em> 75 (371): 591–93.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Our <span class="math inline">\(n\)</span> units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 18</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In principle, the unit-level level causal effect can be any comparison between the potential outcomes, such as the difference <span class="math inline">\(Y_i(1) - Y_i(0)\)</span> or the ratio <span class="math inline">\(Y_i(1)/Y_i(0)\)</span>. In online experiments, we usually focus on the difference.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><span class="citation" data-cites="holland1986statistics">Holland (<a href="#ref-holland1986statistics" role="doc-biblioref">1986</a>)</span> discusses two solutions to the Fundamental Problem: one is the <em>statistical solution</em>, which relies on estimating average treatment effects across a large population of units while the other is the <em>scientific solution</em>, which uses homogeneity or invariance assumptions. The scientific solution works as follows: say we have one measurement of a units outcome under treatment from today and another measurement of their outcome under control from yesterday. If we are prepared to assume that control measurements are homogenous and invariant to time – that yesterday’s control measurement equals the control measurement we would have taken today – then we can calculate the individual level causal effect by comparing the two measurements taken at different points in time. Our assumption is untestable, of course, but in lab experiments it is sometimes possible to make a strong case that it is plausible. It is also the approach we informally use in daily life, whenever we conclude that taking Paracetamol helps against headaches or that going to sleep early makes us feel better the next morning.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I have taken a slight shortcut here by treating experiments as being synonymous with the statistical solution (see previous footnote) even though observational studies can serve the same purpose (albeit with additional assumptions). I do this because my focus here is on experiments. See, for instance, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> for an extensive discussion of experimental and observational approaches.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>To denote the sum over all units in a given treatment group <span class="math inline">\(w\)</span> I use <span class="math inline">\(\sum_{W_i=w}\)</span> as a shorthand for <span class="math inline">\(\sum_{i:W_i=w}\)</span> to keep the notation compact.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/statistics.html" class="pagination-link" aria-label="Statistics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Statistics</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/hypothesis_testing.html" class="pagination-link" aria-label="Hypothesis testing">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

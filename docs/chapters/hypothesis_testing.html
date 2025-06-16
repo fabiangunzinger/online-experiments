@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Hypothesis testing – Online experiments</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/power.html" rel="next">
+<link href="../chapters/stats_of_online_experiments.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../custom.scss">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/statistics.html">Statistics</a></li><li class="breadcrumb-item"><a href="../chapters/hypothesis_testing.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Online experiments</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/stats_of_online_experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/hypothesis_testing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/culture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Culture</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Experiment configuration</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Guiding principles</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/triggered_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Triggered analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/simpsons_paradox.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simpson’s paradox</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/metrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Metrics</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Designs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_designs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Experiment designs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/philosophy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Philosophy</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/limitations_criticism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Limitations and criticisms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/approaches_to_causal_inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Approaches to causal inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">History</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../chapters/platforms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Platforms</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/data_architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Data architecture</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/platform_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Platform examples</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/common_assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Excludability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/outcomes_and_estimands.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Causal estimands</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#types-of-errors" id="toc-types-of-errors" class="nav-link active" data-scroll-target="#types-of-errors"><span class="header-section-number">3.1</span> Types of errors</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">3.2</span> Hypothesis testing</a></li>
+  <li><a href="#justification-for-use-of-testing-distribution" id="toc-justification-for-use-of-testing-distribution" class="nav-link" data-scroll-target="#justification-for-use-of-testing-distribution"><span class="header-section-number">3.3</span> Justification for use of testing distribution</a></li>
+  <li><a href="#understanding-p-values" id="toc-understanding-p-values" class="nav-link" data-scroll-target="#understanding-p-values"><span class="header-section-number">3.4</span> Understanding P-values</a>
+  <ul class="collapse">
+  <li><a href="#history-of-the-p-value" id="toc-history-of-the-p-value" class="nav-link" data-scroll-target="#history-of-the-p-value"><span class="header-section-number">3.4.1</span> History of the P-value</a></li>
+  <li><a href="#the-base-rate-fallacy" id="toc-the-base-rate-fallacy" class="nav-link" data-scroll-target="#the-base-rate-fallacy"><span class="header-section-number">3.4.2</span> The base-rate fallacy</a></li>
+  </ul></li>
+  <li><a href="#limitations-of-hypothesis-testing" id="toc-limitations-of-hypothesis-testing" class="nav-link" data-scroll-target="#limitations-of-hypothesis-testing"><span class="header-section-number">3.5</span> Limitations of hypothesis testing</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">3.6</span> Confidence intervals</a></li>
+  <li><a href="#testing-and-ci-duality" id="toc-testing-and-ci-duality" class="nav-link" data-scroll-target="#testing-and-ci-duality"><span class="header-section-number">3.7</span> Testing and CI duality</a></li>
+  <li><a href="#one-sides-vs-two-sided-tests" id="toc-one-sides-vs-two-sided-tests" class="nav-link" data-scroll-target="#one-sides-vs-two-sided-tests"><span class="header-section-number">3.8</span> One-sides vs two-sided tests</a></li>
+  <li><a href="#multivariant-tests" id="toc-multivariant-tests" class="nav-link" data-scroll-target="#multivariant-tests"><span class="header-section-number">3.9</span> Multivariant tests</a></li>
+  <li><a href="#multiple-hypothesis-correction" id="toc-multiple-hypothesis-correction" class="nav-link" data-scroll-target="#multiple-hypothesis-correction"><span class="header-section-number">3.10</span> Multiple hypothesis correction</a></li>
+  <li><a href="#qa" id="toc-qa" class="nav-link" data-scroll-target="#qa"><span class="header-section-number">3.11</span> Q&amp;A</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/statistics.html">Statistics</a></li><li class="breadcrumb-item"><a href="../chapters/hypothesis_testing.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>todo - Integrate kohavi2024false, berman2021false, colquhoun2019false.pdf</p>
+<section id="types-of-errors" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">3.1</span> Types of errors</h2>
+<p>With the above proceedure, there are two types of mistakes we can make:</p>
+<ul>
+<li><p>We can reject <span class="math inline">\(H_O\)</span> when it is true. This is called a Type I error and leads to a false positive. The probability of this type of error is denoted <span class="math inline">\(\alpha\)</span>.</p></li>
+<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a Type II error and leads to a false negative. The probability of this type of error is denoted <span class="math inline">\(\beta\)</span>.</p></li>
+</ul>
+<p>Provide detail of Neyman approach/insight (cannot control these for single experiment, but can control in the long-run over many experiments). Implications: how to interpret (and not interpret test results).</p>
+<p>The complements of these two errors are:</p>
+<ul>
+<li><p>The confidence level, the probability that we do not reject <span class="math inline">\(H_O\)</span> if it is false – the probebility of a true negative – given by <span class="math inline">\(1 - \alpha\)</span>.</p></li>
+<li><p>Power, the probability that we do reject <span class="math inline">\(H_O\)</span> if it is false – the probability of a true positive – given by <span class="math inline">\(1 - \beta\)</span>.</p></li>
+</ul>
+<p>The false discovery rate</p>
+<ul>
+<li><p>The false positive rate is <span class="math inline">\(P(significant result | H0 true)\)</span></p></li>
+<li><p>The false discovery rate is <span class="math inline">\(P(H0 true | significant result)\)</span></p></li>
+</ul>
+</section>
+<section id="hypothesis-testing" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">3.2</span> Hypothesis testing</h2>
+<p>To test whether the observed treatment effect is significantly different from zero, we test:</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;H_0: \tau = 0 \\[5 pt]
+&amp;H_A: \tau \neq 0
+\end{align}
+\]</span></p>
+<p>We calculate the test-statistic</p>
+<p><span class="math display">\[
+T =
+\frac{\hat{\tau}^{\text{dm}}}
+{SE\left(\hat{\tau}^{\text{dm}}\right)} \sim t_{(N_t + N_c - 2)},
+\]</span></p>
+<p>where <span class="math inline">\(N_t + N_c - 2\)</span> is number of <a href="stats_foundations.md#degrees-of-freedom">degrees of freedom</a>.</p>
+</section>
+<section id="justification-for-use-of-testing-distribution" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="justification-for-use-of-testing-distribution"><span class="header-section-number">3.3</span> Justification for use of testing distribution</h2>
+<p>Why can we use t/z distribution?</p>
+<p>To integrate: Note that the test statistic follows a t-distribution because we have to estimate the variance (that is, if we replace the true variance with its estimate when standardising a normal variable, the result follows a Student’s t-distribution). So, this has nothing to do with the CLT. However, for the test statistic to follow a student distribution, the numerator has to follow a normal distribution. Often, though, the underlying data is not normal, so that its approximately normal only for large enough samples, due to the CLT. At the same time, the t-distribution also converges to normal as the sample size increases. Hence, one we have a sample size large enough to justify using the t-distribution, we might as well use a z-test. As pointed out in Chapter 9 in <span class="citation" data-cites="rice2006mathematical">Rice (<a href="#ref-rice2006mathematical" role="doc-biblioref">2006</a>)</span>, the test statistic above only follows a t-distribution if we use the pooled variance, but for large sample sizes, the distribution is still approximately t or normal.</p>
+<ul>
+<li>See ding2023first section 4.2 and imbens2015causal section 6.6.1 and 6.6.2 for justification for testing approach</li>
+<li>See ding2023first pdf page 72 for proof and derivation</li>
+<li>See Rice 7.3.3</li>
+<li>See Rice 6.2 on why this follows t distribution</li>
+<li>For complete treatment and derivation of sampling distributions (incl.&nbsp;discussion of all the approximations and sample corrections), see Rice sampling chapter and my ipad notes.</li>
+</ul>
+</section>
+<section id="understanding-p-values" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="understanding-p-values"><span class="header-section-number">3.4</span> Understanding P-values</h2>
+<section id="history-of-the-p-value" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="history-of-the-p-value"><span class="header-section-number">3.4.1</span> History of the P-value</h3>
+<ul>
+<li><p>There are two schools of thought in statistical significance testing.</p></li>
+<li><p>R.A. Fisher thought of the p-value as a useful metric to determine how surprising a given set of data was.</p></li>
+<li><p>Jerzy Neyman and Egon Pearson realised that while it is not possible to eliminate false positives and negatives, it is possible to set up a process that guarantees that false positives occur only at a pre-defined rate, which they called <span class="math inline">\(\alpha\)</span>.</p></li>
+<li><p>Unlike in Fisher’s approach, the p-value in the Neyman-Pearson approach doesn’t tell us anything about the strength of the evidence in any particular experiment besides whether or not to reject the null hypothesis, but guarantees that in the long run (over the course of many experiments), our false positive rate is not larger than <span class="math inline">\(\alpha\)</span>. :::</p></li>
+</ul>
+</section>
+<section id="the-base-rate-fallacy" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="the-base-rate-fallacy"><span class="header-section-number">3.4.2</span> The base-rate fallacy</h3>
+<p>Suppose you test 100 features out of which 10 have a true effect. If you have 80 percent power and use a 5 percent significance level. You can expect to get a significant result for 8 of the 10 working features, but you also have a false positive rate of 5%, so you’ll also get a significant result for about 5 non-working features. You thus end up with 13 treatments that appear to work. But we know that only 8 of these 13, or 62% of them work, while the remaining 5 are false discoveries. Thus, you have a false discovery rate of 38%.</p>
+<p>You commit the base-rate fallacy when you confuse your p-value with your false discovery rate. This would lead you to make statements such as “My p-value is 0.002, so there is only a 2 in a 1000 chance that I found my result by chance!”</p>
+<p>This confuses</p>
+<p><span class="math display">\[
+P(significant result | H_0),
+\]</span></p>
+<p>the p-value, with</p>
+<p><span class="math display">\[
+P(H_A | significant result)
+\]</span></p>
+</section>
+</section>
+<section id="limitations-of-hypothesis-testing" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="limitations-of-hypothesis-testing"><span class="header-section-number">3.5</span> Limitations of hypothesis testing</h2>
+<ul>
+<li><p>p-values do not tell you anything about whether the result has any practical significance.</p></li>
+<li><p>Any intervention usually has <em>some</em> effect, you will always find a significant result with enough data. The question is whether the range of plausible effect sizes (captured by the confidence interval) is relevant.</p></li>
+<li><p>Arbitrary cutoff</p></li>
+<li><p>No appreciation for variation of coefficient – focus on ci instead (see <span class="citation" data-cites="romer2020praise">Romer (<a href="#ref-romer2020praise" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="imbens2021statistical">Imbens (<a href="#ref-imbens2021statistical" role="doc-biblioref">2021</a>)</span>)</p></li>
+<li><p>Multiple hypothesis testing (actual) – report and apply MHT-correction</p></li>
+<li><p>Multiple hypothesis testing (potential <a href="https://statmodeling.stat.columbia.edu/2016/03/07/29212/">Gelman post</a>)</p></li>
+<li><p>MHT: family-wise error rate vs false discovery rate</p></li>
+</ul>
+</section>
+<section id="confidence-intervals" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">3.6</span> Confidence intervals</h2>
+<ul>
+<li>Rely on confidence intervals: they provide the same information as a p-value (if they include the value of the null hypothesis then we cannot reject it) but the width of the interval also provides additional information on the uncertainty of the effect and its practical significance. (See <a href="https://www.aeaweb.org/articles?id=10.1257/pandp.20201059">In Praise of Confidence Intervals</a> by David Romer and <a href="https://www.aeaweb.org/articles?id=10.1257/jep.35.3.157">Statistical Significance, p-Values, and the Reporting of Uncertainty</a> by Guido Imbens for more).</li>
+</ul>
+</section>
+<section id="testing-and-ci-duality" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="testing-and-ci-duality"><span class="header-section-number">3.7</span> Testing and CI duality</h2>
+</section>
+<section id="one-sides-vs-two-sided-tests" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="one-sides-vs-two-sided-tests"><span class="header-section-number">3.8</span> One-sides vs two-sided tests</h2>
+<ul>
+<li>Instacard uses one-sided because they focus on improvements (hesterberg2024power section 2)</li>
+</ul>
+</section>
+<section id="multivariant-tests" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="multivariant-tests"><span class="header-section-number">3.9</span> Multivariant tests</h2>
+</section>
+<section id="multiple-hypothesis-correction" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="multiple-hypothesis-correction"><span class="header-section-number">3.10</span> Multiple hypothesis correction</h2>
+<ul>
+<li>See BIT blue book 4.3 for nice explanation of BH MHT correction</li>
+</ul>
+<!--
+## Approaches
+
+### Bonferroni Correction
+
+Key Idea: The Bonferroni method controls the family-wise error rate (FWER) by dividing the significance level (α) by the number of hypotheses (m). This ensures that the chance of making one or more Type I errors is minimized across all tests.
+
+- Formula: Adjusted p-value = original p-value * m
+- Advantages: Simple, robust, and widely applicable.
+- Disadvantages: Highly conservative, especially with large numbers of hypotheses, leading to a loss of statistical power (more false negatives).
+
+**Key Paper**: Dunn, O. J. (1961). Multiple Comparisons Among Means. _Journal of the American Statistical Association_.
+
+
+
+
+
+---
+### Holm-Bonferroni Method
+
+Key Idea: A sequentially rejective version of the Bonferroni method, which adjusts p-values stepwise, starting with the smallest.
+
+- Advantages: Less conservative than Bonferroni while still controlling FWER.
+- Disadvantages: Still conservative with a large number of hypotheses, though less so than Bonferroni.
+
+Key Paper: Holm, S. (1979). A Simple Sequentially Rejective Multiple Test Procedure. _Scandinavian Journal of Statistics_.
+
+---
+
+
+
+
+
+### Benjamini-Hochberg (BH) Procedure
+
+Key Idea: Controls the expected proportion of false discoveries (false positives) among rejected hypotheses. It’s more relaxed than controlling the FWER, making it less conservative and better suited for large-scale testing.
+
+- Advantages: Increased statistical power compared to Bonferroni, suitable for large datasets.
+- Disadvantages: Less strict control of Type I errors, may allow for more false positives.
+
+Key Paper: Benjamini, Y., & Hochberg, Y. (1995). Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing. _Journal of the Royal Statistical Society_.
+
+---
+
+#### Benjamini-Yekutieli (BY) Procedure
+
+Key Idea: An extension of the BH procedure that controls the FDR in scenarios with correlated tests, offering a more conservative approach than BH.
+
+- Advantages: Suitable for dependent tests, as it accounts for correlations.
+- Disadvantages: More conservative than the BH method, leading to reduced power in highly correlated tests.
+
+Key Paper: Benjamini, Y., & Yekutieli, D. (2001). The Control of the False Discovery Rate in Multiple Testing under Dependency. _The Annals of Statistics_.
+
+---
+
+### More advanced methods
+
+- Westfall-Young Permutation Method:
+    - Key Idea: Uses resampling techniques to empirically calculate adjusted p-values. This non-parametric approach is ideal for complex datasets where traditional assumptions may not hold.
+    - Advantages: Provides exact control over error rates, especially effective with small sample sizes.
+    - Disadvantages: Computationally expensive, especially with large datasets or numerous hypotheses.
+    - Key Paper: Westfall, P. H., & Young, S. S. (1993). Resampling-Based Multiple Testing: Examples and Methods for p-Value Adjustment. _Wiley_.
+- Hierarchical Hypothesis Testing
+    - Key Idea: Focuses on groups of hypotheses, adjusting for MHT within hierarchically structured families of tests. It starts with a global null hypothesis and proceeds to test smaller clusters of hypotheses based on the outcome.
+    - Advantages: Balances FWER control with increased power in some specific areas of interest.
+    - Disadvantages: Complex to design and interpret, depends heavily on correct hypothesis clustering.
+    - Key Paper: Goeman, J. J., & Solari, A. (2011). Multiple testing for exploratory research. _Statistical Science_.
+
+
+### Industry approaches
+
+- Statsig provides optional MHT correction. For each experiment, users can apply either [Bonferroni](https://docs.statsig.com/stats-engine/methodologies/bonferroni-correction) or [Benjamini-Hochberg](https://docs.statsig.com/stats-engine/methodologies/benjamini%E2%80%93hochberg-procedure) corrections either per group or metric or both
+
+![[Screenshot 2024-09-16 at 11.08.21.png|400]]
+-->
+</section>
+<section id="qa" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="qa"><span class="header-section-number">3.11</span> Q&amp;A</h2>
+<p>Questions</p>
+<ol type="1">
+<li></li>
+</ol>
+<ol type="a">
+<li><p>A student is asked 12 true-or-false questions and gets 3 of them wrong. What is the probability that the student guessed randomly?</p></li>
+<li><p>The student above would actually have been asked questions until they got 3 wrong. What is the probability that they guessed randomly?</p></li>
+</ol>
+<p>c)What do you conclude from a) and b)?</p>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<p>Consider the outcome of a large sample size (e.g.&nbsp;10K subjects) A/B test that yielded tiny (e.g.&nbsp;odds ratio of 1.0008) but statistically significant (e.g.&nbsp;p &lt; 0.001) results. Would you deploy the change to production. Why or why not?</p>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<p>A researcher runs an experiment, gets a p-value of 0.033, and concludes that his false positive rate is 3.3 percent. Is that correct? Why or why not?</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<p>Why don’t we include MDE in our hypothesis statement (i.e.&nbsp;“a will increase b by at least MDE for target population”)? Wouldn’t that be a good idea in a business context where we strongly care about an MDE? Don’t we just not do that because academics, who developed the methods, don’t usually care about an effect being of a certain size but only about learning what the effect is?</p>
+<ol start="5" type="1">
+<li></li>
+</ol>
+<p>The 95% CI for control and treatment overlap. Does this imply treatment is not significant?</p>
+<p>Answers</p>
+<p>1</p>
+<ol type="a">
+<li>Calculate p-value for getting no more than observed number of errors</li>
+</ol>
+<pre><code>p = stats.binom.cdf(k=3, n=12, p=0.5)
+print(f"p-value is: {p:.3f}")</code></pre>
+<p>2</p>
+<p>3</p>
+<p>No.&nbsp;An individual experiment doesn’t have a false positive rate. The false positive rate is determined by the proceedure used for experiments over the long run. For example, if you consistently use a p-value of 0.05, then you are guaranteed to have a false positive rate of 5 percent in the long run. This is the main insight underlying the Neyman-Pearson hypothesis testing framework.</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<p>Including the MDE’s in the hypothesis would be incorrect. Why? Because what we formulate is the alternative hypothesis. Without altering the null hypothesis, which traditionally states the effect is zero, our two hypotheses would not be complete (H0 testing effect different from 0, HA asserting that effect is at least MDE means rejecting H0 would not imply support of HA). So why not adapt H0, too? Because the hypothesis is the thing we test when we calculate our test statistic (duh!), and so if included the MDE in the hypothesis formulation, then we’d have to include it in the calculation of the test statistic (subtract it from the observed difference), which would be incorrect. Why? The question confused the MDE with the effect size under the Null hypothesis, which are conceptually different things: the MDE is the smallest effect size we want to detect – we are interested in effects that are as large or larger than the MDES, we’re not testing whether the observed difference is significantly different from it, which is what the null hypothesis value is.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-imbens2021statistical" class="csl-entry" role="listitem">
+Imbens, Guido W. 2021. <span>“Statistical Significance, p-Values, and the Reporting of Uncertainty.”</span> <em>Journal of Economic Perspectives</em> 35 (3): 157–74.
+</div>
+<div id="ref-rice2006mathematical" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. Cengage Learning.
+</div>
+<div id="ref-romer2020praise" class="csl-entry" role="listitem">
+Romer, David. 2020. <span>“In Praise of Confidence Intervals.”</span> In <em>AEA Papers and Proceedings</em>, 110:55–60.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/stats_of_online_experiments.html" class="pagination-link" aria-label="The stats of online experiments">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/power.html" class="pagination-link" aria-label="Power">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
