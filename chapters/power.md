@@ -298,6 +298,26 @@ n &= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\Delta^2},
 $$
 where the left-hand side, $n$ now refers to the total sample size in the experiment rather than the sample size per variant.
 
+Finally, if we do not assume equal variance then we have:
+$$
+\begin{align}
+
+\Delta
+&= \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
+
+\Delta
+&= = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
+
+\Delta^2
+&= \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}\left(z_{\alpha/2} + z_{1-\beta}\right)^2 \\[5pt]
+
+n_v
+&= 2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}
+\end{align}
+$$
+
+
+
 ### Starting from Type I and Type II error conditions
 
 Use @list2011so
