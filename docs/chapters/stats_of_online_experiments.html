@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; The stats of online experiments – Online experiments</title>
+<title>1&nbsp; The stats of online experiments – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Online experiments</a> 
+      <a href="../">The statistics of online experiments</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -158,7 +158,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -297,7 +297,7 @@ n_t &amp;\sim \text{Binomial}(n, 1/2) \\
 <p>There are different approaches we could take to formally analyse our experiment.</p>
 <p>Decisions:</p>
 <ul>
-<li><p>We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our <span class="math inline">\(n\)</span> units, rather than using the estimate for our <span class="math inline">\(n\)</span> units to infer the average treatment effect on a larger population from which the <span class="math inline">\(n\)</span> units are drawn. I thus use a fully design-based approach (see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 4</span></a> for details)</p></li>
+<li><p>We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our <span class="math inline">\(n\)</span> units, rather than using the estimate for our <span class="math inline">\(n\)</span> units to infer the average treatment effect on a larger population from which the <span class="math inline">\(n\)</span> units are drawn. I thus use a fully design-based approach (see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 5</span></a> for details)</p></li>
 <li><p>We can analyse the Bernoulli Randomised Experiment treating <span class="math inline">\(n_t\)</span> as a Binomial random variable or taking it as given. Because by the time of the analysis it is, in fact, given, I follow the latter approach. This approach also has the advantage of considerably simplifying the math.</p></li>
 </ul>
 <p>Implications:</p>
@@ -385,7 +385,7 @@ Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
 <p>Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that <span class="math inline">\(Y_i(W_i)\)</span> is a clearly defined function for all <span class="math inline">\(i\)</span> and all possible treatment levels <span class="math inline">\(W_i \in \{0, 1\}\)</span>. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.</p>
 <p>In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends and the no-hidden-variation part means that there their precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that creates different background colours and the it is either clear whether a customer uses an Android or iOS app (or the experience is identical). But, again, SUTVA does not require that the active treatment looks exactly the same on iOS and Android apps just that for each unit in our experiment, their experience if they are part of the active treatment is pinned down.</p>
 <p>Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn’t roll it out to anyone. To have any hope of estimating this we can’t have treatment level’s vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)</p>
-<p>SUTVA is a strong assumption and can be violated in a number of ways. I’ll discuss these, together with solutions, in <a href="threats_to_validity.html" class="quarto-xref"><span>Chapter 3</span></a>.</p>
+<p>SUTVA is a strong assumption and can be violated in a number of ways. I’ll discuss these, together with solutions, in <a href="threats_to_validity.html" class="quarto-xref"><span>Chapter 4</span></a>.</p>
 <p>If SUTVA holds we have:</p>
 <p><span class="math display">\[
 Y_i = Y_i(W_i) = \begin{cases}
@@ -945,7 +945,7 @@ Rubin, Donald B. 1980. <span>“Randomization Analysis of Experimental Data: The
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Our <span class="math inline">\(n\)</span> units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 4</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Our <span class="math inline">\(n\)</span> units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 5</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>In principle, the unit-level level causal effect can be any comparison between the potential outcomes, such as the difference <span class="math inline">\(Y_i(1) - Y_i(0)\)</span> or the ratio <span class="math inline">\(Y_i(1)/Y_i(0)\)</span>. In online experiments, we usually focus on the difference.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p><span class="citation" data-cites="holland1986statistics">Holland (<a href="#ref-holland1986statistics" role="doc-biblioref">1986</a>)</span> discusses two solutions to the Fundamental Problem: one is the <em>statistical solution</em>, which relies on estimating average treatment effects across a large population of units while the other is the <em>scientific solution</em>, which uses homogeneity or invariance assumptions. The scientific solution works as follows: say we have one measurement of a units outcome under treatment from today and another measurement of their outcome under control from yesterday. If we are prepared to assume that control measurements are homogenous and invariant to time – that yesterday’s control measurement equals the control measurement we would have taken today – then we can calculate the individual level causal effect by comparing the two measurements taken at different points in time. Our assumption is untestable, of course, but in lab experiments it is sometimes possible to make a strong case that it is plausible. It is also the approach we informally use in daily life, whenever we conclude that taking Paracetamol helps against headaches or that going to sleep early makes us feel better the next morning.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>I have taken a slight shortcut here by treating experiments as being synonymous with the statistical solution (see previous footnote) even though observational studies can serve the same purpose (albeit with additional assumptions). I do this because my focus here is on experiments. See, for instance, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> for an extensive discussion of experimental and observational approaches.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1376,8 +1376,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Welcome">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="../index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

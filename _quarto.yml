@@ -3,13 +3,13 @@ project:
   output-dir: docs
 
 website:
-  title: "Online Experiments"
+  title: "The statistics of online experiments"
   site-url: https://fabiangunzinger.github.io/online-experiments/
   repo-url: https://github.com/fabiangunzinger/online-experiments
   repo-branch: main
 
 book:
-  title: "Online experiments"
+  title: "The statistics of online experiments"
   author: Fabian Gunzinger
   # date: "2/12/2024"
   chapters:
