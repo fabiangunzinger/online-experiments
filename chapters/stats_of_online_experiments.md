@@ -44,7 +44,7 @@ This is our estimator, the algorithm we use to produce estimates of the estimand
 
 ## Assignment mechanism
 
-The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.qmd#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
+The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.md#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
 
 $$
 P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
@@ -673,7 +673,7 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \end{align}
 $${#eq-var}
 
-This is the [sampling variance](stats_foundations.qmd#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. However, we can observe treatment group means:
+This is the [sampling variance](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. However, we can observe treatment group means:
 
 $$
 \begin{align}
@@ -710,7 +710,7 @@ In our context, the main advantages of this estimator are:
 
 ## Standard error
 
-The [standard error](stats_foundations.qmd#sampling-distribution) of an estimator is simply the square root of its sampling variance. From 
+The [standard error](stats_foundations.md#sampling-distribution) of an estimator is simply the square root of its sampling variance. From 
 
 <!-- @eq-var  -->
 
@@ -721,7 +721,7 @@ $$
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 $${#eq-se}
 
-Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that the sample size for each variant is $n_t = n_c = n_v$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.qmd#degrees-of-freedom) estimator of the form:
+Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that the sample size for each variant is $n_t = n_c = n_v$, and equal variances, so that $s_t^2 = s_c^2 = s^2$. The common variance $s^2$ is estimated by "pooling" the treatment group variances to create a [degrees-of-freedom-weighted](stats_foundations.md#degrees-of-freedom) estimator of the form:
 $$
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 $$

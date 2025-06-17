@@ -13,22 +13,27 @@ book:
   author: Fabian Gunzinger
   # date: "2/12/2024"
   chapters:
-    - index.qmd
+    - index.md
+    - chapters/stats_of_online_experiments.md
+    - chapters/power.md
+    - chapters/threats_to_validity.md
+    - chapters/experiment_setup.md
+    - chapters/lemmas.md
+    - chapters/stats_foundations.md
+
+
     # - part: Introduction
       # chapters:
       # - chapters/introduction.md # For now, I discuss here larger questions such as why stats in business, and causal inference vs prediction.
     # - part: chapters/statistics.md
       # chapters:
-    - chapters/stats_of_online_experiments.qmd
       # - chapters/hypothesis_testing.md
-    - chapters/power.qmd
       # - chapters/power_in_abtesting.md
 
     # - part: chapters/practice.md
     #   chapters:
 
       # - chapters/analysis.md
-    - chapters/threats_to_validity.qmd
       # - chapters/culture.qmd
       # - chapters/experiment_configuration.md
       # - chapters/principles.qmd
@@ -40,7 +45,7 @@ book:
       # - chapters/good_experiments.md
 
       # - chapters/decision_making.qmd
-      # - chapters/threats_to_validity.qmd
+      # - chapters/threats_to_validity.md
       # - chapters/practical_issues.qmd
       # - chapters/variance_reduction.qmd
       # - chapters/network_experiments.qmd
@@ -69,13 +74,10 @@ book:
 
     # - part: "Appendices"
     #   chapters:
-    - chapters/experiment_setup.qmd
     #   - chapters/common_assumptions.md
-    - chapters/lemmas.md
 
 
     #   - chapters/outcomes_and_estimands.md
-    - chapters/stats_foundations.qmd
       # - chapters/link_to_identification_approach.md
 
       # - chapters/fisher.qmd

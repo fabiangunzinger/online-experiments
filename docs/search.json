@@ -1,45 +1,5 @@
 [
   {
-    "objectID": "chapters/lemmas.html",
-    "href": "chapters/lemmas.html",
-    "title": "5  Lemmas",
-    "section": "",
-    "text": "5.1 Lemma 1\nGiven that \\(W_i \\in \\{0, 1\\} \\sim \\text{Bernoulli}(q)\\), and given that we take potential outcomes \\(\\mathbf{Y(w)} = (\\mathbf{Y(1)}, \\mathbf{Y(0)})\\) and sample sizes \\(\\mathbf{n} = (n, n_t, n_c)\\) as given, we have: \\[\n\\mathbb{E}[W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n=\n\\frac{n_t}{n}\n\\]\nand\n\\[\n\\mathbb{E}[1-W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n=\n\\frac{n_c}{n}.\n\\] Proof:\nGiven that \\(W_i \\in \\{0, 1\\} \\sim \\text{Bernoulli}(q)\\) we have: \\[\nP(W_i = 1 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n=\n\\frac{n_t}{n}.\n\\]Hence: $$ \\[\\begin{align}\n\\mathbb{E}&[W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n\\\\[5pt]\n\n&=\n1 \\times P(W_i = 1 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n+ 0 \\times P(W_i = 0 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n\\\\[5pt]\n\n&=\nP(W_i = 1 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n\\\\[5pt]\n\n&= \\frac{n_t}{n}\n\\end{align}\\] \\[\nand\n\\] \\[\\begin{align}\n\\mathbb{E}&[(1-W_i)\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n\\\\[5pt]\n\n&=\n1 - \\mathbb{E}[W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n\\\\[5pt]\n\n&=\n1 - \\frac{n_t}{n}\n\\\\[5pt]\n\n&=\n\\frac{n - n_t}{n}\n\\\\[5pt]\n\n&=\n\\frac{n_c}{n}\n\\qquad\\square\n\\end{align}\\] $$",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/lemmas.html#sec-lemma2",
-    "href": "chapters/lemmas.html#sec-lemma2",
-    "title": "5  Lemmas",
-    "section": "5.2 Lemma 2",
-    "text": "5.2 Lemma 2\nGiven that \\(W_i \\sim \\text{Bernoulli} \\left( \\frac{n_t}{n} \\right)\\), we have:\n\\(\\mathbb{V}(W_i^2) = \\mathbb{V}(W_i)\\).\nProof:\nBernoulli distributed random variables take on either values 0 or 1, so \\(W_i \\in \\{0, 1\\}\\), which implies that: \\[\nW_i^2 =\n\\begin{cases}\n1 &\n\\text{if } W_i = 1\\\\[5pt]\n0 &\n\\text{if } W_i = 0\\\\[5pt]\n\\end{cases}\n\\qquad \\implies\nW_i^2 = W_i.\n\\]\nHence:\n\\(\\mathbb{V}(W_i^2) = \\mathbb{V}(W_i)\\qquad\\square\\)",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/lemmas.html#sec-lemma3",
-    "href": "chapters/lemmas.html#sec-lemma3",
-    "title": "5  Lemmas",
-    "section": "5.3 Lemma 3",
-    "text": "5.3 Lemma 3\n\\[\n\\mathbb{V}(W_i) = \\frac{n_t n_c}{n^2}, \\qquad\n\\text{Cov}(W_i, W_j) = -\\frac{n_t n_c}{n^2(n-1)}\n\\] Proof:\nGiven that \\[\nW_i \\sim \\text{Bern} \\left( \\frac{n_t}{n} \\right),\n\\]\n\\[\n\\begin{align}\n\\mathbb{V}(W_i) &= \\left(\\frac{n_t}{n}\\right) \\left(1-\\frac{n_t}{n}\\right) \\\\[5pt]\n\\mathbb{V}(W_i) &= \\left(\\frac{n_t}{n}\\right) \\left(\\frac{n-n_t}{n}\\right) \\\\[5pt]\n\\mathbb{V}(W_i) &= \\left(\\frac{n_t}{n}\\right) \\left(\\frac{n_c}{n}\\right) \\\\[5pt]\n\\mathbb{V}(W_i) &= \\frac{n_tn_c}{n^2} \\\\[5pt]\n\\end{align}\n\\]\nFrom the basic result that \\(\\mathbb{V}(X + Y) = \\mathbb{V}(X) + \\mathbb{V}(Y) + 2\\text{Cov}(X, Y)\\), and the fact that symmetry implies that the variances and covariances of all \\(W_i\\)s are the same, we get:\n$$ \\[\\begin{align}\n\\mathbb{V}\\left(\\sum_{i=1}^{n}W_i\\right)\n&= \\sum_{i=1}^{n}\\mathbb{V}(W_i) + 2\\sum_{i&lt;j}^{n}\\text{Cov}(W_i, W_j)\n& \\\\[5pt]\n\n\\mathbb{V}\\left(\\sum_{i=1}^{n}W_i\\right)\n&= n\\mathbb{V}(W_i) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& \\text{symmetry} \\\\[5pt]\n\n\\mathbb{V}\\left(n_t\\right)\n&= n\\mathbb{V}(W_i) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& \\text{Def of }n_t \\\\[5pt]\n\n0 &= n\\mathbb{V}(W_i) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& n_t\\text{ is constant} \\\\[5pt]\n\n0 &= n\\left(\\frac{n_tn_c}{n^2}\\right) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& \\text{Result for } \\mathbb{V}(W_i) \\\\[5pt]\n\n0 &= \\left(\\frac{n_tn_c}{n}\\right) + n(n-1)\\text{Cov}(W_i, W_j)\n& \\text{} \\\\[5pt]\n\n\\text{Cov}(W_i, W_j) &= -\\frac{n_tn_c}{n^2(n-1)}& \\text{}\n\\qquad\\square\n\\end{align}\\] $$",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/lemmas.html#sec-lemma4",
-    "href": "chapters/lemmas.html#sec-lemma4",
-    "title": "5  Lemmas",
-    "section": "5.4 Lemma 4",
-    "text": "5.4 Lemma 4\n\\[\n-\\sum_{i=1}^{n}\\sum_{j \\neq i}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)^2\n\\] Proof:\nThe sum of demeaned variables is zero. Hence, \\(\\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+) = 0\\), which implies that:\n$$ \\[\\begin{align}\n0\n&= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)\n\\sum_{j=1}^{n}(Y_j^+ - \\overline{Y}^+)\n\\\\[5pt]\n\n&= \\sum_{i=1}^{n}\\sum_{j=1}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n\\\\[5pt]\n\n&= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)^2\n+\\sum_{i=1}^{n}\\sum_{j \\neq i}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n\\\\[5pt]\n\n-\\sum_{i=1}^{n}\\sum_{j \\neq i}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n&= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)^2\n\\end{align}\\] $$ ## Lemma 5 {#sec-lemma5}\n\\[\n2S_{0,1} = S^2_1 + S^2_0 - S^2_{\\tau_i}\n\\] Proof:\n$$ \\[\\begin{align}\nS_{\\tau_i}^2\n\n&= \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(\nY_i(1) - Y_i(0)\n- \\left(\\overline{Y}(1) - \\overline{Y}(0)\\right)\n\\right)^2\n\\\\[5pt]\n\n&= \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(\n\\left(Y_i(1) - \\overline{Y}(1)\\right)\n- \\left(Y_i(0) - \\overline{Y}(0)\\right)\n\\right)^2\n\\\\[5pt]\n\n&= \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(\n\\left(Y_i(1) - \\overline{Y}(1)\\right)^2\n+ \\left(Y_i(0) - \\overline{Y}(0)\\right)^2\n- 2\\left(Y_i(1) - \\overline{Y}(1)\\right)\\left(Y_i(0) - \\overline{Y}(0)\\right)\n\\right)\n\\\\[5pt]\n\n&=\n\\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(Y_i(1) - \\overline{Y}(1)\\right)^2\n+ \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(Y_i(0) - \\overline{Y}(0)\\right)^2\n- 2\\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(Y_i(1) - \\overline{Y}(1)\\right)\\left(Y_i(0) - \\overline{Y}(0)\\right)\n\\\\[5pt]\n\n&=\nS^2_1 + S^2_0 - 2S_{0, 1}\n\\\\[5pt]\n\n2S_{0, 1} &= S^2_1 + S^2_0 - S^2_{\\tau_i}\n\\end{align}\\] $$",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Online experiments",
@@ -397,6 +357,46 @@
     "text": "If we were to explicitly condition on potential outcomes, we’d get: \\[\n  \\begin{align}\n  \\mathbb{E}[\\hat{\\tau}]\n  &=\\Esp{\\EW{\\hat{\\tau}|R, Y_{sp}(0), Y_{sp}(1)} | Y_{sp}(0), Y_{sp}(1)}\n  \\end{align}\n  \\]↩︎\nIn general, the Law of total variance states that: \\[\n  \\begin{align}\n  \\V{Y} = \\mathbb{E}[\\V{Y|X}] + \\V{\\mathbb{E}[Y|X}]\n  \\end{align}\n  \\] In our case here, conditioning on \\(R\\) means that we take the expectation or variance over the randomisation distribution, which I make explicit with the subscript \\(W\\). The unconditional expectation or variance is taken over the randomisation distribution, which I make explicit using the subscript \\(sp\\). As in the unbiasedness proof above, we are also implicitly conditioning on potential outcomes and I omit making this explicit to keep the notation lighter. Making the conditioning explicit would mean we apply the law to a conditional variance, for which the logic would still hold, and we’d write: \\[\n  \\begin{align}\n  \\V{\\hat{\\tau} | Y_{sp}(0), Y_{sp}(1)}\n  &= \\Esp{\\VW{\\hat{\\tau} | R, Y_{sp}(0), Y_{sp}(1)} | Y_{sp}(0), Y_{sp}(1)} \\\\\n  &+ \\Vsp{\\EW{\\hat{\\tau} | R, Y_{sp}(0), Y_{sp}(1)} | Y_{sp}(0), Y_{sp}(1)}\n  \\end{align}\n  \\]↩︎",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Experiment setup</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/lemmas.html",
+    "href": "chapters/lemmas.html",
+    "title": "5  Lemmas",
+    "section": "",
+    "text": "5.1 Lemma 1\nGiven that \\(W_i \\in \\{0, 1\\} \\sim \\text{Bernoulli}(q)\\), and given that we take potential outcomes \\(\\mathbf{Y(w)} = (\\mathbf{Y(1)}, \\mathbf{Y(0)})\\) and sample sizes \\(\\mathbf{n} = (n, n_t, n_c)\\) as given, we have: \\[\n\\mathbb{E}[W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n=\n\\frac{n_t}{n}\n\\]\nand\n\\[\n\\mathbb{E}[1-W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n=\n\\frac{n_c}{n}.\n\\] Proof:\nGiven that \\(W_i \\in \\{0, 1\\} \\sim \\text{Bernoulli}(q)\\) we have: \\[\nP(W_i = 1 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n=\n\\frac{n_t}{n}.\n\\]Hence: $$ \\[\\begin{align}\n\\mathbb{E}&[W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n\\\\[5pt]\n\n&=\n1 \\times P(W_i = 1 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n+ 0 \\times P(W_i = 0 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n\\\\[5pt]\n\n&=\nP(W_i = 1 \\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)})\n\\\\[5pt]\n\n&= \\frac{n_t}{n}\n\\end{align}\\] \\[\nand\n\\] \\[\\begin{align}\n\\mathbb{E}&[(1-W_i)\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n\\\\[5pt]\n\n&=\n1 - \\mathbb{E}[W_i\\&gt;|\\&gt;\\mathbf{n}, \\mathbf{Y(w)}]\n\\\\[5pt]\n\n&=\n1 - \\frac{n_t}{n}\n\\\\[5pt]\n\n&=\n\\frac{n - n_t}{n}\n\\\\[5pt]\n\n&=\n\\frac{n_c}{n}\n\\qquad\\square\n\\end{align}\\] $$",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/lemmas.html#sec-lemma2",
+    "href": "chapters/lemmas.html#sec-lemma2",
+    "title": "5  Lemmas",
+    "section": "5.2 Lemma 2",
+    "text": "5.2 Lemma 2\nGiven that \\(W_i \\sim \\text{Bernoulli} \\left( \\frac{n_t}{n} \\right)\\), we have:\n\\(\\mathbb{V}(W_i^2) = \\mathbb{V}(W_i)\\).\nProof:\nBernoulli distributed random variables take on either values 0 or 1, so \\(W_i \\in \\{0, 1\\}\\), which implies that: \\[\nW_i^2 =\n\\begin{cases}\n1 &\n\\text{if } W_i = 1\\\\[5pt]\n0 &\n\\text{if } W_i = 0\\\\[5pt]\n\\end{cases}\n\\qquad \\implies\nW_i^2 = W_i.\n\\]\nHence:\n\\(\\mathbb{V}(W_i^2) = \\mathbb{V}(W_i)\\qquad\\square\\)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/lemmas.html#sec-lemma3",
+    "href": "chapters/lemmas.html#sec-lemma3",
+    "title": "5  Lemmas",
+    "section": "5.3 Lemma 3",
+    "text": "5.3 Lemma 3\n\\[\n\\mathbb{V}(W_i) = \\frac{n_t n_c}{n^2}, \\qquad\n\\text{Cov}(W_i, W_j) = -\\frac{n_t n_c}{n^2(n-1)}\n\\] Proof:\nGiven that \\[\nW_i \\sim \\text{Bern} \\left( \\frac{n_t}{n} \\right),\n\\]\n\\[\n\\begin{align}\n\\mathbb{V}(W_i) &= \\left(\\frac{n_t}{n}\\right) \\left(1-\\frac{n_t}{n}\\right) \\\\[5pt]\n\\mathbb{V}(W_i) &= \\left(\\frac{n_t}{n}\\right) \\left(\\frac{n-n_t}{n}\\right) \\\\[5pt]\n\\mathbb{V}(W_i) &= \\left(\\frac{n_t}{n}\\right) \\left(\\frac{n_c}{n}\\right) \\\\[5pt]\n\\mathbb{V}(W_i) &= \\frac{n_tn_c}{n^2} \\\\[5pt]\n\\end{align}\n\\]\nFrom the basic result that \\(\\mathbb{V}(X + Y) = \\mathbb{V}(X) + \\mathbb{V}(Y) + 2\\text{Cov}(X, Y)\\), and the fact that symmetry implies that the variances and covariances of all \\(W_i\\)s are the same, we get:\n$$ \\[\\begin{align}\n\\mathbb{V}\\left(\\sum_{i=1}^{n}W_i\\right)\n&= \\sum_{i=1}^{n}\\mathbb{V}(W_i) + 2\\sum_{i&lt;j}^{n}\\text{Cov}(W_i, W_j)\n& \\\\[5pt]\n\n\\mathbb{V}\\left(\\sum_{i=1}^{n}W_i\\right)\n&= n\\mathbb{V}(W_i) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& \\text{symmetry} \\\\[5pt]\n\n\\mathbb{V}\\left(n_t\\right)\n&= n\\mathbb{V}(W_i) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& \\text{Def of }n_t \\\\[5pt]\n\n0 &= n\\mathbb{V}(W_i) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& n_t\\text{ is constant} \\\\[5pt]\n\n0 &= n\\left(\\frac{n_tn_c}{n^2}\\right) + 2\\frac{n(n-1)}{2}\\text{Cov}(W_i, W_j)\n& \\text{Result for } \\mathbb{V}(W_i) \\\\[5pt]\n\n0 &= \\left(\\frac{n_tn_c}{n}\\right) + n(n-1)\\text{Cov}(W_i, W_j)\n& \\text{} \\\\[5pt]\n\n\\text{Cov}(W_i, W_j) &= -\\frac{n_tn_c}{n^2(n-1)}& \\text{}\n\\qquad\\square\n\\end{align}\\] $$",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/lemmas.html#sec-lemma4",
+    "href": "chapters/lemmas.html#sec-lemma4",
+    "title": "5  Lemmas",
+    "section": "5.4 Lemma 4",
+    "text": "5.4 Lemma 4\n\\[\n-\\sum_{i=1}^{n}\\sum_{j \\neq i}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)^2\n\\] Proof:\nThe sum of demeaned variables is zero. Hence, \\(\\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+) = 0\\), which implies that:\n$$ \\[\\begin{align}\n0\n&= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)\n\\sum_{j=1}^{n}(Y_j^+ - \\overline{Y}^+)\n\\\\[5pt]\n\n&= \\sum_{i=1}^{n}\\sum_{j=1}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n\\\\[5pt]\n\n&= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)^2\n+\\sum_{i=1}^{n}\\sum_{j \\neq i}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n\\\\[5pt]\n\n-\\sum_{i=1}^{n}\\sum_{j \\neq i}^{n}\n(Y_i^+ - \\overline{Y}^+)(Y_j^+ - \\overline{Y}^+)\n&= \\sum_{i=1}^{n}(Y_i^+ - \\overline{Y}^+)^2\n\\end{align}\\] $$ ## Lemma 5 {#sec-lemma5}\n\\[\n2S_{0,1} = S^2_1 + S^2_0 - S^2_{\\tau_i}\n\\] Proof:\n$$ \\[\\begin{align}\nS_{\\tau_i}^2\n\n&= \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(\nY_i(1) - Y_i(0)\n- \\left(\\overline{Y}(1) - \\overline{Y}(0)\\right)\n\\right)^2\n\\\\[5pt]\n\n&= \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(\n\\left(Y_i(1) - \\overline{Y}(1)\\right)\n- \\left(Y_i(0) - \\overline{Y}(0)\\right)\n\\right)^2\n\\\\[5pt]\n\n&= \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(\n\\left(Y_i(1) - \\overline{Y}(1)\\right)^2\n+ \\left(Y_i(0) - \\overline{Y}(0)\\right)^2\n- 2\\left(Y_i(1) - \\overline{Y}(1)\\right)\\left(Y_i(0) - \\overline{Y}(0)\\right)\n\\right)\n\\\\[5pt]\n\n&=\n\\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(Y_i(1) - \\overline{Y}(1)\\right)^2\n+ \\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(Y_i(0) - \\overline{Y}(0)\\right)^2\n- 2\\frac{1}{n-1}\\sum_{i=1}^{n}\n\\left(Y_i(1) - \\overline{Y}(1)\\right)\\left(Y_i(0) - \\overline{Y}(0)\\right)\n\\\\[5pt]\n\n&=\nS^2_1 + S^2_0 - 2S_{0, 1}\n\\\\[5pt]\n\n2S_{0, 1} &= S^2_1 + S^2_0 - S^2_{\\tau_i}\n\\end{align}\\] $$",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Lemmas</span>"
     ]
   },
   {
