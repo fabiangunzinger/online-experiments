@@ -205,7 +205,6 @@ $$
 - Use derivation in wager2024causal page 6, which is very transparent!
 
 - First, note that using 
- 
  <!-- @eq-yi  -->
  
 we can write:
