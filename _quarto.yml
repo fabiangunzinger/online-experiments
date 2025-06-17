@@ -13,15 +13,15 @@ book:
   author: Fabian Gunzinger
   # date: "2/12/2024"
   chapters:
-    - index.md
+    - index.qmd
     # - part: Introduction
       # chapters:
       # - chapters/introduction.md # For now, I discuss here larger questions such as why stats in business, and causal inference vs prediction.
     # - part: chapters/statistics.md
       # chapters:
-    - chapters/stats_of_online_experiments.md
+    - chapters/stats_of_online_experiments.qmd
       # - chapters/hypothesis_testing.md
-    - chapters/power.md
+    - chapters/power.qmd
       # - chapters/power_in_abtesting.md
 
     # - part: chapters/practice.md
