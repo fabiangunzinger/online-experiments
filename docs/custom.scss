@@ -26,4 +26,7 @@ summary:hover {
     text-decoration: underline;
 }
 
+/* Reduce MathJax math size globally */
+mjx-container {
+    font-size: 90% !important; }
 
