@@ -28,7 +28,7 @@ book:
     #   chapters:
 
       # - chapters/analysis.md
-      # - chapters/threats_to_validity.md
+    - chapters/threats_to_validity.qmd
       # - chapters/culture.qmd
       # - chapters/experiment_configuration.md
       # - chapters/principles.qmd
@@ -69,13 +69,13 @@ book:
 
     # - part: "Appendices"
     #   chapters:
-    #   - chapters/experiment_setup.md
+    - chapters/experiment_setup.qmd
     #   - chapters/common_assumptions.md
-    #   - chapters/lemmas.md
+    - chapters/lemmas.md
 
 
     #   - chapters/outcomes_and_estimands.md
-      # - chapters/stats_foundations.md
+    - chapters/stats_foundations.qmd
       # - chapters/link_to_identification_approach.md
 
       # - chapters/fisher.qmd

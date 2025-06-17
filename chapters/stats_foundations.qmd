@@ -350,7 +350,7 @@ Examples:
 
 3) The trim points are the end point of the CI.
 
-```{python}
+<!-- ```{python}
 
 from sklearn.utils import resample
 
@@ -376,7 +376,7 @@ print(f"{'Bootstrap mean:':20} {np.mean(resample_means.mean()):.3f}")
 
 print(f"{'Bootstrap se:':20} {np.mean(resample_means.std()):.3f}")
 
-```
+``` -->
 
 ## Combination vs Permutation
 
