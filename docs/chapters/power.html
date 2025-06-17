@@ -50,6 +50,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../chapters/threats_to_validity.html" rel="next">
 <link href="../chapters/stats_of_online_experiments.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -172,6 +173,30 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -279,7 +304,8 @@ Figure&nbsp;2.1: Source: <span class="citation" data-cites="duflo2007using">Dufl
 </figcaption>
 </figure>
 </div>
-<p>Let’s start by understanding <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>, which visualises the setup of a one-sided hypothesis test where the true effect equals 0 under the null hypothesis and some positive constant <span class="math inline">\(\te\)</span> under the alternative hypothesis. Note that the curves are <em>not</em> the standard normal distribution, but the sampling distribution of our estimator <span class="math inline">\(\tee\)</span>. This means that the standard deviation of the curves is given by the standard error of <span class="math inline">\(\tee\)</span>, which is <span class="math inline">\(\se\)</span>. Under the assumption of a homogenous treatment effect, the standard error is identical under <span class="math inline">\(\hn\)</span> and <span class="math inline">\(\ha\)</span>, which is why the two curves have the same shape (see <span class="quarto-unresolved-ref">?sec-experiment-stats</span> for details).</p>
+<p>Let’s start by understanding <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>, which visualises the setup of a one-sided hypothesis test where the true effect equals 0 under the null hypothesis and some positive constant <span class="math inline">\(\te\)</span> under the alternative hypothesis. Note that the curves are <em>not</em> the standard normal distribution, but the sampling distribution of our estimator <span class="math inline">\(\tee\)</span>. This means that the standard deviation of the curves is given by the standard error of <span class="math inline">\(\tee\)</span>, which is <span class="math inline">\(\se\)</span>. Under the assumption of a homogenous treatment effect, the standard error is identical under <span class="math inline">\(\hn\)</span> and <span class="math inline">\(\ha\)</span>, which is why the two curves have the same shape</p>
+<!-- (see @sec-experiment-stats for details). -->
 <p>the distribution will be the same under both the null and the alternative hypothesis, with the center of each distribution given by our hypothesised value of <span class="math inline">\(\te\)</span> – zero under <span class="math inline">\(\hn\)</span> and a positive constant under <span class="math inline">\(\ha\)</span>.</p>
 <p>We reject <span class="math inline">\(\hn\)</span> if <span class="math inline">\(\tee\)</span> is to the right of the critical value <span class="math inline">\(\za\)</span>. Also, for a given level of power <span class="math inline">\(\beta\)</span>,</p>
 <p>Largely based on <span class="citation" data-cites="duflo2007randomization">(<a href="#ref-duflo2007randomization" role="doc-biblioref"><strong>duflo2007randomization?</strong></a>)</span></p>
@@ -517,7 +543,7 @@ N_{\text{eff}} = \frac{1}{\frac{1}{N_T} + \frac{1}{N_C}}
 <p><span class="math display">\[
 \N \approx \frac{32\vpe}{\tee^2}.
 \]</span></p>
-<p>Using formula <span class="quarto-unresolved-ref">?eq-sample-size</span> we can see that the rule of thumb straightforwardly results from using the default parameters.</p>
+<p>Using formula XXX we can see that the rule of thumb straightforwardly results from using the default parameters.</p>
 <p>Assuming equal sample size, so that <span class="math inline">\(P=0.5\)</span> gives us</p>
 <p><span class="math display">\[
 N = 4 (z_{1 - \beta} + z_{\alpha/2})^2\left(\frac{\sev}{\te}\right)^2.
@@ -1203,6 +1229,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../chapters/threats_to_validity.html" class="pagination-link" aria-label="Threats to validity">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Threats to validity</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

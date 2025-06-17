@@ -62,7 +62,9 @@ but the sampling distribution of our estimator $\tee$. This means that the stand
 deviation of the curves is given by the standard error of $\tee$, which is
 $\se$. Under the assumption of a homogenous treatment effect, the standard
 error is identical under $\hn$ and $\ha$, which is why the two curves have the
-same shape (see @sec-experiment-stats for details).
+same shape 
+
+<!-- (see @sec-experiment-stats for details). -->
 
 the distribution will be the same under both the null and the alternative
 hypothesis, with the center of each distribution given by our hypothesised value
@@ -383,7 +385,7 @@ $$
 \N \approx \frac{32\vpe}{\tee^2}.
 $$
 
-Using formula @eq-sample-size we can see that the rule of thumb straightforwardly results from using the default parameters.
+Using formula XXX we can see that the rule of thumb straightforwardly results from using the default parameters.
 
 Assuming equal sample size, so that $P=0.5$ gives us
 
