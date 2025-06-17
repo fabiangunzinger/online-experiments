@@ -105,9 +105,9 @@ book:
 bibliography: /Users/fgunzinger/.dotfiles/latex/fabib.bib
 
 
-format:
-  html:
-    theme: cosmo
-    css: custom.scss
+# format:
+#   html:
+#     theme: cosmo
+#     css: custom.scss
 
 
