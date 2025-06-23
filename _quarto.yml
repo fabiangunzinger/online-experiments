@@ -14,12 +14,17 @@ book:
   # date: "2/12/2024"
   chapters:
     - index.md
+    - chapters/setup.md
+    
     - chapters/stats_of_online_experiments.md
+    - chapters/hypothesis_testing.md
     - chapters/power.md
     - chapters/threats_to_validity.md
     - chapters/experiment_setup.md
     - chapters/lemmas.md
     - chapters/stats_foundations.md
+    - chapters/faqs.md
+    - chapters/references.md
 
 
     # - part: Introduction
@@ -106,10 +111,9 @@ book:
 
 bibliography: /Users/fgunzinger/.dotfiles/latex/fabib.bib
 
-
-# format:
-#   html:
-#     theme: cosmo
-#     css: custom.scss
+format:
+  html:
+    theme: cosmo
+    css: custom.scss
 
 

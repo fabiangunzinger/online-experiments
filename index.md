@@ -1,4 +1,4 @@
-# Introduction
+# Introduction {.unnumbered}
 
 Online experiments are widely used for product development in the tech industry.
 

@@ -4,19 +4,21 @@
 
 We study a sample of $n$ units, indexed by $i = 1, \dots, n$, to learn about the effect of a binary treatment on these units.[^2] The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
-Each unit has two potential outcomes: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment and $Y_i(0)$ is the outcome if they are in control. To simplify notation, we collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could be exposed to either treatment condition so that they can potentially experience either outcome. Once the experiment has started and units are assigned to treatment, only one of the two outcomes will be observed.
+Each unit has two **potential outcomes**: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment and $Y_i(0)$ is the outcome if they are in control. To simplify notation, we collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could be exposed to either treatment condition so that they can potentially experience either outcome. Once the experiment has started and units are assigned to treatment, only one of the two outcomes will be observed.
 
 The causal effect of the treatment for unit $i$ is the difference between the two potential outcomes:[^unit_level_treatment_effects]
+
 $$
 \tau_i = Y_i(1) - Y_i(0).
 $$
-Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly *observing unit-level treatment effects* is impossible. This is the fundamental problem of causal inference [@holland1986statistics]. 
+
+Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly *observing unit-level treatment effects* is impossible. This is **the fundamental problem of causal inference** [@holland1986statistics]. 
 
 An experiment is one solution to the fundamental problem:[^scientific_solution] randomly assigning units from a population to either treatment or control allows us to *estimate average (unit-level) treatment effects*. In the words of @holland1986statistics [p. 947]:[^shortcut] 
 
 > "The important point is that [an experiment] replaces the impossible-to-observe causal effect of [a treatment] on a specific unit with the possible-to-estimate *average* causal effect of [the treatment] over a population of units."
 
-Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the *estimand* – in an experiment is an average across a sample of units. In particular, we are usually interested in the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire sample:
+Hence, instead of trying to observe unit-level causal effects, the quantity of interest – the **estimand** – in an experiment is an average across a sample of units. We are usually interested in the effect of a universal policy, a comparison between a state of the world where everyone is exposed to the treatment and one where nobody is. While we can capture the difference between these two states of the world in many different ways, we typically focus on the difference in the averages of all these unit-level causal effects over the entire sample:
 
 $$
 \begin{align}
@@ -27,6 +29,8 @@ $$
 $${#eq-estimand}
 
 This is the estimand, the statistical quantity we are trying to estimate in our experiment.
+
+## Experiment
 
 Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
 
@@ -40,36 +44,15 @@ $$
 \end{align}
 $$
 
-This is our estimator, the algorithm we use to produce estimates of the estimand. 
+This is our **estimator**, the method we use to produce estimates of the estimand. 
 
-## Assignment mechanism
-
-The procedure we use the allocate units to treatment conditions is the [assignment mechanism](experiment_setup.md#assignment-mechanism). In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
+The procedure we use the allocate units to treatment conditions is the **[assignment mechanism](experiment_setup.md#assignment-mechanism)**. In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case where $q=\frac{1}{2}$, so that we have:  
 
 $$
 P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
 $$
-Because of their coin-toss-like nature assignments follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution) and the type of experiment is called a Bernoulli Randomised Experiment. Formally, we have:
-$$
-\begin{align}
-W_i &\sim \text{Bernoulli}(1/2) \\
-\mathbb{E}[{W_i}] &= 1/2 \\
-\end{align}
-$$
-and
-$$
-\begin{align}
-n_t &\sim \text{Binomial}(n, 1/2) \\
-\mathbb{E}[{n_t}] &= n(1/2).
-\end{align}
-$$
 
-
-## Analysis
-
-There are different approaches we could take to formally analyse our experiment.
-
-Decisions:
+Because of their coin-toss-like nature assignments follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution) and the type of experiment is called a Bernoulli Randomised Experiment. There are different approaches we could take to formally analyse our experiment. We have to make the following decisions:
 
 - We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our $n$ units, rather than using the estimate for our $n$ units to infer the average treatment effect on a larger population from which the $n$ units are drawn. I thus use a fully design-based approach (see @sec-experiment-setup for details)
 
@@ -83,7 +66,7 @@ Implications:
 
 - The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units. 
 
-In the next two sections we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance. (My approach is based on @ding2023first. For an alternative, see Appendix 6.B. in @imbens2015causal.)
+In the next two sections we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ and calculate its variance. My approach is based on @ding2023first. For an alternative, see Appendix 6.B. in @imbens2015causal.
 
 ## Unbiasedness
 
@@ -95,11 +78,10 @@ $$
 \hat{\tau}^{\text{dm}}
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-
-&=
-\tau.
+=\tau.
 \end{align}
 $$
+
 Given our definitions above this is means showing that
 
 $$
@@ -108,14 +90,12 @@ $$
 \hat{\tau}^{\text{dm}}
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i
@@ -126,14 +106,12 @@ $$
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &
 \enspace
 \overset{!}{=}
 \enspace
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 \\[5pt]
-
 &=
 \tau
 \end{align}
@@ -197,7 +175,9 @@ Y_i = Y_i(W_i) = \begin{cases}
    Y_i(0)       & \text{if } W_i = 0,
   \end{cases}
 $$
+
 or, more compactly:
+
 $$
 Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 $$
@@ -211,14 +191,12 @@ $$
 \hat{\tau}^{\text{dm}}
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i
@@ -229,29 +207,24 @@ $$
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &\text{SUTVA}
 \\[5pt]
-
 &=
 \mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
 \>|\>\mathbf{n}, \mathbf{Y(w)}\right]
 - \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
 \>|\>\mathbf{n}, \mathbf{Y(w)}\right]
 \\[5pt]
-
 &
 \enspace
 \overset{!}{=}
 \enspace
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 \\[5pt]
-
 &=
 \tau
 \end{align}
 $$
-
 
 What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
@@ -271,14 +244,12 @@ $$
 \hat{\tau}^{\text{dm}}
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i
@@ -289,17 +260,14 @@ $$
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &\text{SUTVA}
 \\[5pt]
-
 &=
 \mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
 \>|\>\mathbf{n}, \mathbf{Y(w)}\right]
 - \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
 \>|\>\mathbf{n}, \mathbf{Y(w)}\right]
 \\[5pt]
-
 &=
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{i=1}^{n}W_iY_i(1)
@@ -311,7 +279,6 @@ $$
 \>|\>\mathbf{n}, \mathbf{Y(w)}
 \right]
 \\[5pt]
-
 &=
 \frac{1}{n_t}\sum_{i=1}^{n}
 \mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]
@@ -321,10 +288,8 @@ Y_i(1)
 \mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]
 Y_i(0)
 \\[5pt]
-
 &\text{Randomisation (Lemma 1)}
 \\[5pt]
-
 &=
 \frac{1}{n_t}\sum_{i=1}^{n}
 \left(\frac{n_t}{n}\right)
@@ -334,11 +299,9 @@ Y_i(1)
 \left(\frac{n_c}{n}\right)
 Y_i(0)
 \\[5pt]
-
 &=
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 \\[5pt]
-
 &=
 \tau
 \end{align}
@@ -400,32 +363,26 @@ We can then calculate the variance as (I do not explicitly condition on $\mathbf
 
 $$
 \begin{align}
-
 \mathbb{V}\left(
 \hat{\tau}^{\text{dm}}
 \right)
-
 &=
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \right)
 \\[5pt]
-
 &=
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
 \right)
 \\[5pt]
-
 &\text{SUTVA}
 \\[5pt]
-
 &=
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
 \right)
 \\[5pt]
-
 &=
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) 
@@ -433,7 +390,6 @@ $$
 + \frac{1}{n_c}\sum_{i=1}^n W_iY_i(0)
 \right)
 \\[5pt]
-
 &=
 \mathbb{V}\left(
 \sum_{i=1}^n W_i\frac{Y_i(1)}{n_t} 
@@ -441,44 +397,35 @@ $$
 + \sum_{i=1}^n W_i\frac{Y_i(0)}{n_c}
 \right)
 \\[5pt]
-
 &=
 \mathbb{V}\left(
 \sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
 - \sum_{i=1}^n \frac{Y_i(0)}{n_c}
 \right)
 \\[5pt]
-
 &\text{Dropping constant term}
 \\[5pt]
-
 &=
 \mathbb{V}\left(
 \sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c}\right)
 \right)
 \\[5pt]
-
 &\text{Demeaning (leaves variance unchanged)}
 \\[5pt]
-
 &= 
 \mathbb{V}\left(\sum_{i=1}^n W_i \left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} - \left(\frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)
 \right)\right)
 &\text{}
 \\[5pt]
-
 &\text{Using shorthands } Y_i^+ = Y_i(1)/n_t + Y_i(0)/n_c \text{ and } \overline{Y}^+ = \overline{Y}(1)/n_t - \overline{Y}(0)/n_c
 \\[5pt]
-
 &= 
 \mathbb{V}\left(\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+
 \right)\right)
 &\text{}
 \\[5pt]
-
 &\text{Rewriting variance in terms of covariance}
 \\[5pt]
-
 &= 
 \text{Cov}\left(
 \sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+\right),
@@ -486,7 +433,6 @@ $$
 \right)
 &\text{}
 \\[5pt]
-
 &= 
 \sum_{i=1}^n \sum_{j=1}^n
 \text{Cov}\left(
@@ -495,7 +441,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \right)
 &\text{}
 \\[5pt]
-
 &= 
 \sum_{i=1}^n \sum_{j=1}^n
 \text{Cov}\left(W_i, W_j \right)
@@ -503,7 +448,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
 \\[5pt]
-
 &= 
 \sum_{i=1}^n
 \mathbb{V}\left(W_i^2\right)
@@ -515,10 +459,8 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
 \\[5pt]
-
 &\text{Lemma 2}
 \\[5pt]
-
 &= 
 \sum_{i=1}^n
 \mathbb{V}\left(W_i\right)
@@ -530,64 +472,52 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \left(Y_j^+ - \overline{Y}^+\right)
 &\text{}
 \\[5pt]
-
 &\text{Lemma 3}
 \\[5pt]
-
 &=
 \sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)
 \left(Y_i^+ - \overline{Y}^+\right)^2
 - \sum_{i=1}^{n}\sum_{j \neq i}\left(\frac{n_tn_c}{n^2(n-1)}\right)
 \left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
-
 &=
 \left(\frac{n_tn_c}{n^2}\right)
 \sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
 - \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}\sum_{j \neq i}
 \left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
-
 &\text{Lemma 4}
 \\[5pt]
-
 &=
 \left(\frac{n_tn_c}{n^2}\right)
 \sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
 + \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}
 \left(Y_i^+ - \overline{Y}^+\right)^2
 \\[5pt]
-
 &=
 \left(\frac{n_tn_c}{n^2} + \frac{n_tn_c}{n^2(n-1)}\right)
 \sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
 &\\[5pt]
-
 &=
 \frac{n_tn_c(n-1) + n_tn_c}{n^2(n-1)}
 \sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
 &\\[5pt]
-
 &=
 \frac{nn_tn_c - n_tn_c + n_tn_c}{n^2(n-1)}
 \sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
 &\\[5pt]
-
 &=
 \frac{n_tn_c}{n(n-1)}
 \sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
 &\\[5pt]
-
 &\text{Reverting to full notation and expanding square term}
 \\[5pt]
-
 &=
 \frac{n_tn_c}{n(n-1)}
 \sum_{i=1}^{n}\left(\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} 
 - \frac{\overline{Y}(1)}{n_t} - \frac{\overline{Y}(0)}{n_c}\right)^2
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_tn_c}{n(n-1)}
 \sum_{i=1}^{n}\left(
@@ -596,7 +526,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \right)^2
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_tn_c}{n(n-1)}
 \sum_{i=1}^{n}\left(
@@ -605,7 +534,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \right)^2
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_tn_c}{n(n-1)}\left[
 \sum_{i=1}^{n}\left(
@@ -616,7 +544,6 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \right]
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_tn_c}{n(n-1)}\left[
 \frac{1}{n_t^2}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
@@ -625,45 +552,38 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \right]
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_c}{n n_t}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
 + \frac{n_t}{n n_c}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
 + \frac{2}{n}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_c}{n n_t}S_1^2
 + \frac{n_t}{n n_c}S_0^2
 + \frac{1}{n}2S_{0,1}
 &\text{}
 \\[5pt]
-
 &\text{Lemma 5}
 \\[5pt]
-
 &=
 \frac{n_c}{n n_t}S_1^2
 + \frac{n_t}{n n_c}S_0^2
 + \frac{1}{n}\left(S_1^2 + S_0^2 - S_{\tau_i}^2\right)
 &\text{}
 \\[5pt]
-
 &=
 \left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
 + \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
 - \frac{S_{\tau_i}^2}{n}
 &\text{}
 \\[5pt]
-
 &=
 \frac{n_c + n_t}{n n_t} S_1^2
 + \frac{n_t + n_c}{n n_c} S_0^2
 - \frac{S_{\tau_i}^2}{n}
 &\text{}
 \\[5pt]
-
 &=
 \frac{S_1^2}{n_t}
 + \frac{S_0^2}{n_c} 
@@ -744,51 +664,6 @@ For $p=0.5$, this formulation is equivalent to @eq-se-equal as expected.
 
 
 
-## Q&A
-
-##### Question 1
-
-Why do we need potential outcomes at all? Can't we interpret the difference from a simple comparison of averages as the causal effect?
-
-##### Question 2
-
-Why do randomised trials not require the excludability assumption in order to lead to unbiased results?
-
-
-
-##### Answer 1
-
-
-Why potential outcomes?
-- Clarifies what precisely we are trying to estimate: average individual treatment effect
-- Makes explicit the assumptions we need to make to do so:
-	 - SUTVA: What we need is to be able to write Y-i = WY1 + (1-W)Y0. For this we need i) independence from other's assignment, and ii) clearly defined meaning of Wi =1 and Wi = 0, because if they are not clearly defined then Y1/Y0 might not be stable. SUTVA handles both of these.
-	- Randomisation: to make sure that EY0 for W=1 equals EY0 W=0
-Material
-- ding2023first footnote 2 in chapter 4 and 
-
-- What is definition of causal effect in suggested comparison?
-- What is source of randomisation?
-- Discuss textbook iid approach and why it's not a good model for our purpose.
-- Show that in practice, variance is the same
-
-In the classic two-sample problem, observations in the treatment group {y1s} and control group {y0s} are assumed to be IID draws from **two separate** distributions. Treatment observations are assumed to be **IID draws** from a distribution with mean $\mu_t$ and variance $\sigma_t^2$ and similar for control, and the variance of the  difference in means estimator is given by:
-
-$$
-\mathbb{V}(\hat{\tau}) = \frac{\sigma_t^2}{n_t} + \frac{\sigma_c^2}{n_c}.
-$$
-That is, there is no third term for the variance of the individual-level potential outcomes.
-
-In contrast, Rubin points out that for proper causal inference, {y1, y0} pairs are from the same distribution but we observe only one item of the pair.
-
-Differences:
-- Sampling based vs randomisation based variation: makes sense given that in IID case we are assumed to sample from population, whereas in FS case we are assumed to have all units, but randomise which item of the PO pair is observed.
-- Hence: the variance in IID is taken over the randomness of the outcomes because uncertainty is sampling based, whereas in the potential outcomes framework, where potential outcomes are fixed, the variance is taken over the randomisation distribution. 
-- As a result: there is no correlation between two groups in IID case (covar = 0) and hence no third term, whereas in FS case there is – why precisely? Because there is correlation between y1s and y2s – if there isn't, then the third term vanishes. See ding derivation. However, ultimately it's because there is heterogeneity in individual-level treatment effects. Why is that? Is that the same as PO correlation at individual level?
-- Weird, though, that Ding lemmas seem to be based on IID case!
-
-##### Answer 2
-...
 
 
 [^unit_level_treatment_effects]: In principle, the unit-level level causal effect can be any comparison between the potential outcomes, such as the difference $Y_i(1) - Y_i(0)$ or the ratio $Y_i(1)/Y_i(0)$. In online experiments, we usually focus on the difference.

@@ -1,6 +1,23 @@
 
 # Power {#sec-power}
 
+## What is power and how do we measure it?
+
+- Power is defined as
+
+$$
+
+$$
+
+
+
+- Cohen (1977) proposes estimated effect size / standard deviation of outcome. This is useful to compare effects across studies and domains.
+
+- Bloom (1985) proposes MDE, useful for within study/domain comparisons. More directly interpretable.
+
+
+
+
 ## Required sample size
 
 The required sample size is determined by four factors:
@@ -470,11 +487,7 @@ Give also per variant, as this is more useful to calculate sample size for exper
 
 
 
-## Measuring power
 
-- Cohen (1977) proposes estimated effect size / standard deviation of outcome. This is useful to compare effects across studies and domains.
-
-- Bloom (1985) proposes MDE, useful for within study/domain comparisons. More directly interpretable.
 
 ## What determines power
 
@@ -650,19 +663,7 @@ Solution:
 
 - [Statsig sample size calculation formula](https://www.statsig.com/blog/calculating-sample-sizes-for-ab-tests?utm_id=ZmFiaWFuLmd1bnppbmdlckBqdXN0ZWF0dGFrZWF3YXkuY29t&k_is=opl)
 
-## Q&A
 
-Questions:
-
-1. Longer experiment duration generally increases power. Can you think of a scenario where this is not the case?
-
-2. An online shopping site ranks products according to their average rating. Why might this be suboptimal? What could the site do instead?
-
-Answers:
-
-1. When using a cumulative metric such as number of likes, the variance of which will increase the longer the experiment runs, which will increase the standard error of our treatment effect estimate and lower our power. Remember that $SE(\hat{\tau}) = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$. So, whether this happens depends on what happens to $\frac{\sigma^2}{N}$, as experiment duration increases. A decrease in power is plausible -- likely, even! -- because $N$ will increase in a concave fashion over the course of the experiment duration (some users keep coming back), while $\sigma^2$ is likely to grow faster than linearly, which causes the ratio to increase and power to decrease. 
-
-2. The approach is suboptimal because products with few ratings will have much more variance than products with many ratings, and their average rating is thus less reliable. The problem is akin to small US states having the highest *and* lowest rates of kidney cancer, or small schools having highest *and* lowest average pupil performance. Fundamentally, it's a problem of low power -- the sample size is too low to reliably detect a true effect. The solution is to use a shrinkage method: use a weighted average of the product average rating and some global product rating, with the weight of the product average rating being proportional to the number of ratings. This way, products with few ratings will be average, while products with many ratings will reflect their own rating.
 
 [^mutuallyexcl]: We can simply dd up the probability of the test statistic falling into the
 upper and lower tail because the two events are independent.

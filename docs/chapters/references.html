@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Lemmas – The statistics of online experiments</title>
+<title>References – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,7 +24,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -50,8 +49,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/stats_foundations.html" rel="next">
-<link href="../chapters/experiment_setup.html" rel="prev">
+<link href="../chapters/faqs.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -89,35 +87,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../custom.scss">
 </head>
@@ -131,7 +100,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/lemmas.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lemmas</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/references.html">References</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -164,50 +133,62 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapters/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapters/stats_of_online_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
+  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
@@ -215,25 +196,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#sec-lemma1" id="toc-sec-lemma1" class="nav-link active" data-scroll-target="#sec-lemma1"><span class="header-section-number">7.1</span> Lemma 1</a></li>
-  <li><a href="#sec-lemma2" id="toc-sec-lemma2" class="nav-link" data-scroll-target="#sec-lemma2"><span class="header-section-number">7.2</span> Lemma 2</a></li>
-  <li><a href="#sec-lemma3" id="toc-sec-lemma3" class="nav-link" data-scroll-target="#sec-lemma3"><span class="header-section-number">7.3</span> Lemma 3</a></li>
-  <li><a href="#sec-lemma4" id="toc-sec-lemma4" class="nav-link" data-scroll-target="#sec-lemma4"><span class="header-section-number">7.4</span> Lemma 4</a></li>
-  <li><a href="#old-lemmas" id="toc-old-lemmas" class="nav-link" data-scroll-target="#old-lemmas"><span class="header-section-number">8</span> Old lemmas</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-lemmas" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lemmas</span></span></h1>
+<h1 class="title">References</h1>
 </div>
 
 
@@ -250,268 +221,101 @@ window.Quarto = {
 </header>
 
 
-<p>In math, lemmas are proofs of intermediary results. Below the ones I use in the text. Most of them are based on <span class="citation" data-cites="ding2023first">Ding (<a href="#ref-ding2023first" role="doc-biblioref">2023</a>)</span>.</p>
-<section id="sec-lemma1" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="sec-lemma1"><span class="header-section-number">7.1</span> Lemma 1</h2>
-<p>Given that <span class="math inline">\(W_i \in \{0, 1\} \sim \text{Bernoulli}(q)\)</span>, and given that we take potential outcomes <span class="math inline">\(\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})\)</span> and sample sizes <span class="math inline">\(\mathbf{n} = (n, n_t, n_c)\)</span> as given, we have: <span class="math display">\[
-\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
-=
-\frac{n_t}{n}
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
-=
-\frac{n_c}{n}.
-\]</span> <strong>Proof:</strong></p>
-<p>Given that <span class="math inline">\(W_i \in \{0, 1\} \sim \text{Bernoulli}(q)\)</span> we have: <span class="math display">\[
-P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
-=
-\frac{n_t}{n}.
-\]</span>Hence: $$ <span class="math display">\[\begin{align}
-\mathbb{E}&amp;[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
-\\[5pt]
-
-&amp;=
-1 \times P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
-+ 0 \times P(W_i = 0 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
-\\[5pt]
-
-&amp;=
-P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
-\\[5pt]
-
-&amp;= \frac{n_t}{n}
-\end{align}\]</span> <span class="math display">\[
-and
-\]</span> <span class="math display">\[\begin{align}
-\mathbb{E}&amp;[(1-W_i)\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
-\\[5pt]
-
-&amp;=
-1 - \mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
-\\[5pt]
-
-&amp;=
-1 - \frac{n_t}{n}
-\\[5pt]
-
-&amp;=
-\frac{n - n_t}{n}
-\\[5pt]
-
-&amp;=
-\frac{n_c}{n}
-\qquad\square
-\end{align}\]</span> $$</p>
-</section>
-<section id="sec-lemma2" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="sec-lemma2"><span class="header-section-number">7.2</span> Lemma 2</h2>
-<p>Given that <span class="math inline">\(W_i \sim \text{Bernoulli} \left( \frac{n_t}{n} \right)\)</span>, we have:</p>
-<p><span class="math inline">\(\mathbb{V}(W_i^2) = \mathbb{V}(W_i)\)</span>.</p>
-<p><strong>Proof:</strong></p>
-<p>Bernoulli distributed random variables take on either values 0 or 1, so <span class="math inline">\(W_i \in \{0, 1\}\)</span>, which implies that: <span class="math display">\[
-W_i^2 =
-\begin{cases}
-1 &amp;
-\text{if } W_i = 1\\[5pt]
-0 &amp;
-\text{if } W_i = 0\\[5pt]
-\end{cases}
-\qquad \implies
-W_i^2 = W_i.
-\]</span></p>
-<p>Hence:</p>
-<p><span class="math inline">\(\mathbb{V}(W_i^2) = \mathbb{V}(W_i)\qquad\square\)</span></p>
-</section>
-<section id="sec-lemma3" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="sec-lemma3"><span class="header-section-number">7.3</span> Lemma 3</h2>
-<p><span class="math display">\[
-\mathbb{V}(W_i) = \frac{n_t n_c}{n^2}, \qquad
-\text{Cov}(W_i, W_j) = -\frac{n_t n_c}{n^2(n-1)}
-\]</span> <strong>Proof:</strong></p>
-<p>Given that <span class="math display">\[
-W_i \sim \text{Bern} \left( \frac{n_t}{n} \right),
-\]</span></p>
-<p><span class="math display">\[
-\begin{align}
-\mathbb{V}(W_i) &amp;= \left(\frac{n_t}{n}\right) \left(1-\frac{n_t}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &amp;= \left(\frac{n_t}{n}\right) \left(\frac{n-n_t}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &amp;= \left(\frac{n_t}{n}\right) \left(\frac{n_c}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &amp;= \frac{n_tn_c}{n^2} \\[5pt]
-\end{align}
-\]</span></p>
-<p>From the basic result that <span class="math inline">\(\mathbb{V}(X + Y) = \mathbb{V}(X) + \mathbb{V}(Y) + 2\text{Cov}(X, Y)\)</span>, and the fact that symmetry implies that the variances and covariances of all <span class="math inline">\(W_i\)</span>s are the same, we get:</p>
-<p>$$ <span class="math display">\[\begin{align}
-\mathbb{V}\left(\sum_{i=1}^{n}W_i\right)
-&amp;= \sum_{i=1}^{n}\mathbb{V}(W_i) + 2\sum_{i&lt;j}^{n}\text{Cov}(W_i, W_j)
-&amp; \\[5pt]
-
-\mathbb{V}\left(\sum_{i=1}^{n}W_i\right)
-&amp;= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-&amp; \text{symmetry} \\[5pt]
-
-\mathbb{V}\left(n_t\right)
-&amp;= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-&amp; \text{Def of }n_t \\[5pt]
-
-0 &amp;= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-&amp; n_t\text{ is constant} \\[5pt]
-
-0 &amp;= n\left(\frac{n_tn_c}{n^2}\right) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-&amp; \text{Result for } \mathbb{V}(W_i) \\[5pt]
-
-0 &amp;= \left(\frac{n_tn_c}{n}\right) + n(n-1)\text{Cov}(W_i, W_j)
-&amp; \text{} \\[5pt]
-
-\text{Cov}(W_i, W_j) &amp;= -\frac{n_tn_c}{n^2(n-1)}&amp; \text{}
-\qquad\square
-\end{align}\]</span> $$</p>
-</section>
-<section id="sec-lemma4" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="sec-lemma4"><span class="header-section-number">7.4</span> Lemma 4</h2>
-<p><span class="math display">\[
--\sum_{i=1}^{n}\sum_{j \neq i}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-\]</span> <strong>Proof:</strong></p>
-<p>The sum of demeaned variables is zero. Hence, <span class="math inline">\(\sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+) = 0\)</span>, which implies that:</p>
-<p>$$ <span class="math display">\[\begin{align}
-0
-&amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)
-\sum_{j=1}^{n}(Y_j^+ - \overline{Y}^+)
-\\[5pt]
-
-&amp;= \sum_{i=1}^{n}\sum_{j=1}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-\\[5pt]
-
-&amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-+\sum_{i=1}^{n}\sum_{j \neq i}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-\\[5pt]
-
--\sum_{i=1}^{n}\sum_{j \neq i}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-&amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-\end{align}\]</span> $$ ## Lemma 5 {#sec-lemma5}</p>
-<p><span class="math display">\[
-2S_{0,1} = S^2_1 + S^2_0 - S^2_{\tau_i}
-\]</span> <strong>Proof:</strong></p>
-<p>$$ <span class="math display">\[\begin{align}
-S_{\tau_i}^2
-
-&amp;= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(
-Y_i(1) - Y_i(0)
-- \left(\overline{Y}(1) - \overline{Y}(0)\right)
-\right)^2
-\\[5pt]
-
-&amp;= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(
-\left(Y_i(1) - \overline{Y}(1)\right)
-- \left(Y_i(0) - \overline{Y}(0)\right)
-\right)^2
-\\[5pt]
-
-&amp;= \frac{1}{n-1}\sum_{i=1}^{n}
-\left(
-\left(Y_i(1) - \overline{Y}(1)\right)^2
-+ \left(Y_i(0) - \overline{Y}(0)\right)^2
-- 2\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
-\right)
-\\[5pt]
-
-&amp;=
-\frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)^2
-+ \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(0) - \overline{Y}(0)\right)^2
-- 2\frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
-\\[5pt]
-
-&amp;=
-S^2_1 + S^2_0 - 2S_{0, 1}
-\\[5pt]
-
-2S_{0, 1} &amp;= S^2_1 + S^2_0 - S^2_{\tau_i}
-\end{align}\]</span> $$</p>
-</section>
-<section id="old-lemmas" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Old lemmas</h1>
-<section id="sec-lemma2" class="level4" data-number="8.0.0.1">
-<h4 data-number="8.0.0.1" class="anchored" data-anchor-id="sec-lemma2"><span class="header-section-number">8.0.0.1</span> Lemma 2</h4>
-<p><span class="math inline">\(\mathbb{E}[W_i W_j] = \frac{n_t}{n}\frac{n_t-1}{n-1}.\)</span></p>
-<p><strong>Proof:</strong></p>
-<p>Because <span class="math inline">\(W_i\)</span> is an indicator variable for which <span class="math inline">\(E[W_i] = P(W_i = 1)\)</span> and similar for <span class="math inline">\(W_j\)</span>, we also have <span class="math inline">\(E[W_i W_j] = P(W_i = 1, W_j = 1)\)</span>.</p>
-<p>Hence, what we are looking for is the joint probability of selecting both units <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> as part of a sample of size <span class="math inline">\(n_t\)</span> from a finite population of size <span class="math inline">\(n\)</span>. In general, this is given by:</p>
-<p><span class="math display">\[
-P(W_i = 1, W_j = 1)
-= \frac{\text{Number of ways to choose a sample of size } n_t \text{ containing }i, j}{\text{Number of ways to choose any sample of size }n_t}
-\]</span></p>
-<p>Number of ways to choose a sample of size <span class="math inline">\(n_t\)</span> from a finite population of size <span class="math inline">\(n\)</span>:</p>
-<p><span class="math display">\[
-\left(
-    \begin{array}{c}
-      n \\
-      n_t
-    \end{array}
-  \right) = \frac{n!}{n_t!(n-n_t)!}.
-\]</span></p>
-<p>Number of ways to choose a sample of size <span class="math inline">\(n_t\)</span> that contains both <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>:</p>
-<p><span class="math display">\[
-\left(
-    \begin{array}{c}
-      n-2 \\
-      n_t-2
-    \end{array}
-  \right)
-  = \frac{(n-2)!}{(n_t-2)!((n-2)-(n_t-2))!}
-  = \frac{(n-2)!}{(n_t-2)!(n-n_t)!}.
-\]</span></p>
-<p>Hence:</p>
-<p><span class="math display">\[
-\begin{align}
-P(W_i = 1, W_j = 1)
-&amp;= \frac{
-\left(
-    \begin{array}{c}
-      n-2 \\
-      n_t-2
-    \end{array}
-\right)}
-{\left(
-    \begin{array}{c}
-      n \\
-      n_t
-    \end{array}
-\right)} \\[5pt]
-&amp;= \frac{\frac{(n-2)!}{(n_t-2)!(n-n_t)!}}{\frac{n!}{n_t!(n-n_t)!}} \\[5pt]
-&amp; = \frac{(n-2)!}{(n_t-2)!}\frac{n_t!}{n!} \\[5pt]
-&amp; = \frac{(n-2)!}{(n_t-2)!}\frac{n_t(n_t-1)(n_t-2)!}{n(n-1)(n-2)!} \\[5pt]
-&amp; = \frac{n_t(n_t-1)}{n(n-1)}.
-\end{align}
-\]</span></p>
-<p>A more heuristic way to get the same result:</p>
-<ol type="1">
-<li>The probability of selecting <span class="math inline">\(i\)</span> is <span class="math inline">\(P(W_i = 1) = \frac{n_t}{n}\)</span></li>
-<li>The probability of selecting <span class="math inline">\(j\)</span> given that <span class="math inline">\(i\)</span> is selected is <span class="math inline">\(P(W_j = 1 | W_i = 1) = \frac{n_t - 1}{n-1}\)</span></li>
-<li>Using the multiplication rule for joint probabilities we have</li>
-</ol>
-<p><span class="math display">\[
-P(W_i = 1, W_j = 1) = P(W_i=1)P(W_j=1|W_j=1)=\frac{n_t}{n}\frac{n_t-1}{n-1}.
-\]</span></p>
-
-
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bloom1995minimum" class="csl-entry" role="listitem">
+Bloom, Howard S. 1995. <span>“Minimum Detectable Effects: A Simple Way
+to Report the Statistical Power of Experimental Designs.”</span>
+<em>Evaluation Review</em> 19 (5): 547–56.
+</div>
+<div id="ref-bojinov2023design" class="csl-entry" role="listitem">
+Bojinov, Iavor, David Simchi-Levi, and Jinglong Zhao. 2023.
+<span>“Design and Analysis of Switchback Experiments.”</span>
+<em>Management Science</em> 69 (7): 3759–77.
+</div>
 <div id="ref-ding2023first" class="csl-entry" role="listitem">
 Ding, Peng. 2023. <span>“A First Course in Causal Inference.”</span> <a href="https://arxiv.org/abs/2305.18793">https://arxiv.org/abs/2305.18793</a>.
 </div>
+<div id="ref-duflo2007using" class="csl-entry" role="listitem">
+Duflo, Esther, Rachel Glennerster, and Michael Kremer. 2007.
+<span>“Using Randomization in Development Economics Research: A
+Toolkit.”</span> <em>Handbook of Development Economics</em> 4:
+3895–3962.
 </div>
-</section>
-</section>
+<div id="ref-hohnhold2015focusing" class="csl-entry" role="listitem">
+Hohnhold, Henning, Deirdre O’Brien, and Diane Tang. 2015.
+<span>“Focusing on the Long-Term: It’s Good for Users and
+Business.”</span> In <em>Proceedings of the 21th ACM SIGKDD
+International Conference on Knowledge Discovery and Data Mining</em>,
+1849–58.
+</div>
+<div id="ref-holland1986statistics" class="csl-entry" role="listitem">
+Holland, Paul W. 1986. <span>“Statistics and Causal Inference.”</span>
+<em>Journal of the American Statistical Association</em> 81 (396):
+945–60.
+</div>
+<div id="ref-imbens2021statistical" class="csl-entry" role="listitem">
+Imbens, Guido W. 2021. <span>“Statistical Significance, p-Values, and
+the Reporting of Uncertainty.”</span> <em>Journal of Economic
+Perspectives</em> 35 (3): 157–74.
+</div>
+<div id="ref-imbens2015causal" class="csl-entry" role="listitem">
+Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in
+Statistics, Social, and Biomedical Sciences</em>. Cambridge University
+Press.
+</div>
+<div id="ref-king2006dangers" class="csl-entry" role="listitem">
+King, Gary, and Langche Zeng. 2006. <span>“The Dangers of Extreme
+Counterfactuals.”</span> <em>Political Analysis</em> 14 (2): 131–59.
+</div>
+<div id="ref-kohavi2014seven" class="csl-entry" role="listitem">
+Kohavi, Ron, Alex Deng, Roger Longbotham, and Ya Xu. 2014. <span>“Seven
+Rules of Thumb for Web Site Experimenters.”</span> In <em>Proceedings of
+the 20th ACM SIGKDD International Conference on Knowledge Discovery and
+Data Mining</em>, 1857–66.
+</div>
+<div id="ref-larsen2023statistical" class="csl-entry" role="listitem">
+Larsen, Nicholas, Jonathan Stallrich, Srijan Sengupta, Alex Deng, Ron
+Kohavi, and Nathaniel T Stevens. 2023. <span>“Statistical Challenges in
+Online Controlled Experiments: A Review of a/b Testing
+Methodology.”</span> <em>The American Statistician</em>, 1–15.
+</div>
+<div id="ref-list2011so" class="csl-entry" role="listitem">
+List, John A, Sally Sadoff, and Mathis Wagner. 2011. <span>“So You Want
+to Run an Experiment, Now What? Some Simple Rules of Thumb for Optimal
+Experimental Design.”</span> <em>Experimental Economics</em> 14: 439–57.
+</div>
+<div id="ref-nordin2024precision" class="csl-entry" role="listitem">
+Nordin, Mattias, and Mårten Schultzberg. 2024. <span>“Precision-Based
+Designs for Sequential Randomized Experiments.”</span> <em>arXiv
+Preprint arXiv:2405.03487</em>.
+</div>
+<div id="ref-reich2012empirical" class="csl-entry" role="listitem">
+Reich, Nicholas G, Jessica A Myers, Daniel Obeng, Aaron M Milstone, and
+Trish M Perl. 2012. <span>“Empirical Power and Sample Size Calculations
+for Cluster-Randomized and Cluster-Randomized Crossover Studies.”</span>
+<em>PloS One</em> 7 (4): e35564.
+</div>
+<div id="ref-rice2006mathematical" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>.
+Cengage Learning.
+</div>
+<div id="ref-romer2020praise" class="csl-entry" role="listitem">
+Romer, David. 2020. <span>“In Praise of Confidence Intervals.”</span> In
+<em>AEA Papers and Proceedings</em>, 110:55–60.
+</div>
+<div id="ref-rubin1980randomization" class="csl-entry" role="listitem">
+Rubin, Donald B. 1980. <span>“Randomization Analysis of Experimental
+Data: The Fisher Randomization Test Comment.”</span> <em>Journal of the
+American Statistical Association</em> 75 (371): 591–93.
+</div>
+<div id="ref-zhou2023all" class="csl-entry" role="listitem">
+Zhou, Jing, Jiannan Lu, and Anas Shallah. 2023. <span>“All about
+Sample-Size Calculations for a/b Testing: Novel Extensions and Practical
+Guide.”</span> <em>arXiv Preprint arXiv:2305.16459</em>.
+</div>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -936,14 +740,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/experiment_setup.html" class="pagination-link" aria-label="Experiment setup">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Experiment setup</span></span>
+      <a href="../chapters/faqs.html" class="pagination-link" aria-label="FAQs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQs</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/stats_foundations.html" class="pagination-link" aria-label="Statistics foundations">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

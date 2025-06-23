@@ -1,8 +1,16 @@
-Minimum
-- Clean version of potential outcomes, unbiasedness and variance, hypothesis testing, and power
+
+- Break sections out of stats of online experiment one by one. Finish and move on.
+	- [x] Setup
+	- [ ] Experiments
+	- [ ] Unbiasedness
+	- [ ] Variance and standard error
+	- [ ] Hypothesis testing
+	- [ ] Power
 
 Bonus
-- Why not comparison of means?
+- Consider adding introduction.md stuff to index.md
+
+
 
 
 
