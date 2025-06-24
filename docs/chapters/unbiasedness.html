@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Experiments – The statistics of online experiments</title>
+<title>3&nbsp; Unbiasedness – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,8 +50,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/unbiasedness.html" rel="next">
-<link href="../chapters/setup.html" rel="prev">
+<link href="../chapters/hypothesis_testing.html" rel="next">
+<link href="../chapters/experiments.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -131,7 +131,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/experiments.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/unbiasedness.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -170,13 +170,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/experiments.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/experiments.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/unbiasedness.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/unbiasedness.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span></a>
   </div>
 </li>
@@ -233,15 +233,22 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sutva-links-observed-outcomes-to-potential-outcomes" id="toc-sutva-links-observed-outcomes-to-potential-outcomes" class="nav-link active" data-scroll-target="#sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.0.1</span> SUTVA links observed outcomes to potential outcomes</a></li>
+  <li><a href="#randomisation-links-treatment-groups-to-the-population" id="toc-randomisation-links-treatment-groups-to-the-population" class="nav-link" data-scroll-target="#randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.0.2</span> Randomisation links treatment groups to the population</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></h1>
 </div>
 
 
@@ -258,38 +265,276 @@ window.Quarto = {
 </header>
 
 
-<p>Running an experiment with our <span class="math inline">\(n\)</span> units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator <span class="math inline">\(W_i \in \{0, 1\}\)</span> to indicate treatment exposure for unit <span class="math inline">\(i\)</span> and write <span class="math inline">\(W_i = 1\)</span> if they are in treatment and <span class="math inline">\(W_i = 0\)</span> if they are in control. We collect all unit-level treatment indicators in the <span class="math inline">\(n \times 1\)</span> vector <span class="math inline">\(\mathbf{W} = (W_1, W_2, \dots, W_n)'\)</span>. At the end of the experiment, we have <span class="math inline">\(n_t = \sum_{i=1}^n W_i\)</span> units in treatment and the remaining <span class="math inline">\(n_c = \sum_{i=1}^n (1-W_i)\)</span> units in control. For each unit, we observe outcome <span class="math inline">\(Y_i\)</span>.</p>
-<p>To estimate <span class="math inline">\(\tau\)</span>, we use the observed difference in means between the treatment and control units:[^1]</p>
-<p><span id="eq-estimator"><span class="math display">\[
+<p>An estimator is unbiased if its expected value equals the true value of the estimand. In <a href="experiments.html#eq-estimator" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> we defined our estimator as:</p>
+<p><span class="math display">\[
 \begin{align}
 \hat{\tau}^{\text{dm}}
 =
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i,
 \end{align}
-\tag{2.1}\]</span></span></p>
-<p>This is our <strong>estimator</strong>, the method we use to produce estimates of the estimand.</p>
-<p>The procedure we use the allocate units to treatment conditions is the <strong>assignment mechanism</strong>. In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that <span class="math inline">\(P(W_i=1) = q\)</span>, where <span class="math inline">\(q \in [0, 1]\)</span>. Because of their coin-toss-like nature assignments follow a <a href="https://en.wikipedia.org/wiki/Bernoulli_distribution">Bernoulli distribution</a> and the type of experiment is called a Bernoulli Randomised Experiment. There are different approaches we could take to formally analyse our experiment.</p>
-<p>First, we have to decide how to think of our sample of <span class="math inline">\(n\)</span> units. We could either view these units as the population of interest or treat them as a sample from a larger population and use results from the sample to make inferences about the population. Because in all but the largest companies experiments usually run on all traffic, the first perspective is more natural for online experiments and in what follows we treat our <span class="math inline">\(n\)</span> units as the population of interest. In this approach, where the sample of <span class="math inline">\(n\)</span> units is taken as fixed (rather than being treated as a random sample from a larger population), the only source of randomness comes from treatment assignments – from the design of our experiment – and the approach is thus naturally called “design-based”.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Given that our sample is fixed, the two vectors of potential outcomes, <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span> are also fixed.</p>
-<p>Second, we have to decide how to treat the treatment condition sample sizes. We can analyse the Bernoulli Randomised Experiment treating <span class="math inline">\(n_t\)</span> and <span class="math inline">\(n_c\)</span> as Binomial random variables or taking them as given. I follow the latter approach for two reasons: it considerably simplifies the math, and it more naturally aligns with the situation we face in online experiments given that, by the time of the analysis, sample sizes are, indeed, given.</p>
-<p>In the next two sections we show that <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is an unbiased estimator of <span class="math inline">\(\tau\)</span> – that is that, on average, our estimator helps us find the true value of the estimand.</p>
+\]</span></p>
+<p>and in <a href="setup.html#eq-estimand" class="quarto-xref">Equation&nbsp;<span>1.1</span></a> we defined the estimand as:</p>
+<p><span class="math display">\[
+\begin{align}
+\tau
+= \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
+\end{align}
+\]</span></p>
+<p>Given that <a href="../chapters/experiments.html">we take sample sizes and potential outcomes as fixed</a>, showing that our estimator is unbiased amounts to showing that:</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=\tau
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0),
+\end{align}
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})\)</span> and <span class="math inline">\(\mathbf{n} = (n_t, n_c)\)</span>.</p>
+<p>There are two pieces we need for this:</p>
+<ol type="1">
+<li><p>Link observed to potential outcomes so that <span class="math inline">\(Y_i = Y_i(W_i)\)</span>. This requires the Stable Unit Treatment Value Assumption (SUTVA).</p></li>
+<li><p>Link treatment group averages to sample averages so that <span class="math inline">\(\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)\)</span>. This requires randomisation.</p></li>
+</ol>
+<section id="sutva-links-observed-outcomes-to-potential-outcomes" class="level3" data-number="3.0.1">
+<h3 data-number="3.0.1" class="anchored" data-anchor-id="sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.0.1</span> SUTVA links observed outcomes to potential outcomes</h3>
+<p>We want to learn something about unit-level differences in potential outcomes <span class="math display">\[
+\tau_i = Y_i(1) - Y_i(0),
+\]</span> where a potential outcome is a unit-indexed function of the treatment level, with the treatment levels in our case simply being “treatment” and “control”, captured by the assignment indicator <span class="math inline">\(W_i \in {0, 1}\)</span>.</p>
+<p>Now say we run an experiment and unit <span class="math inline">\(i\)</span> is allocated to treatment. The <span class="math inline">\(i\)</span>-th element of the assignment vector <span class="math inline">\(\mathbf{W}\)</span> of that experiment is thus <span class="math inline">\(W_i = 1\)</span>, and we refer to this assignment vector as <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>.</p>
+<p>We know we can’t observe both <span class="math inline">\(Y_i(0)\)</span> and <span class="math inline">\(Y_i(1)\)</span>, but given that <span class="math inline">\(i\)</span> is in treatment we can observe the potential outcome under treatment, <span class="math inline">\(Y_i(1)\)</span>, which will help us estimate <span class="math inline">\(\hat{\tau}\)</span>. So we need</p>
+<p><span class="math display">\[
+Y_i = Y_i(1).
+\]</span></p>
+<p>What we directly observe, however, is <span class="math display">\[
+Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right).
+\]</span> In words: the outcome we observe for unit <span class="math inline">\(i\)</span> in our experiment is not the potential outcome for <span class="math inline">\(i\)</span> under treatment, but the potential outcome for <span class="math inline">\(i\)</span> under the specific assignment vector of our experiment, <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>. What does this mean concretely? It means that the observed outcome is a function not only of <span class="math inline">\(i\)</span>’s treatment assignment but of:</p>
+<ol type="1">
+<li>The assignment of all units in the experiment</li>
+<li>The precise form of the assigned treatment level received by <span class="math inline">\(i\)</span></li>
+<li>The way in which said assigned treatment level is administered to <span class="math inline">\(i\)</span></li>
+</ol>
+<p>We need: <span class="math display">\[
+Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
+\]</span> The only way to make progress is to assume what we need: that potential outcomes for unit <span class="math inline">\(i\)</span> are a function only of the treatment level unit <span class="math inline">\(i\)</span> itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment level. (i) above is referred to as “no interference” in the literature, (ii) as “no hidden variations of treatment”.</p>
+<p>That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, “stable” <span class="citation" data-cites="rubin1980randomization">(<a href="references.html#ref-rubin1980randomization" role="doc-biblioref">Rubin 1980</a>)</span>.</p>
+<p>Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that <span class="math inline">\(Y_i(W_i)\)</span> is a clearly defined function for all <span class="math inline">\(i\)</span> and all possible treatment levels <span class="math inline">\(W_i \in \{0, 1\}\)</span>. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.</p>
+<p>In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends and the no-hidden-variation part means that there their precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that creates different background colours and the it is either clear whether a customer uses an Android or iOS app (or the experience is identical). But, again, SUTVA does not require that the active treatment looks exactly the same on iOS and Android apps just that for each unit in our experiment, their experience if they are part of the active treatment is pinned down.</p>
+<p>Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn’t roll it out to anyone. To have any hope of estimating this we can’t have treatment level’s vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)</p>
+<p>SUTVA is a strong assumption and can be violated in a number of ways. I’ll discuss these, together with solutions, in <a href="threats_to_validity.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
+<p>If SUTVA holds we have:</p>
+<p><span class="math display">\[
+Y_i = Y_i(W_i) = \begin{cases}
+   Y_i(1) &amp; \text{if } W_i = 1 \\
+   Y_i(0)       &amp; \text{if } W_i = 0,
+  \end{cases}
+\]</span></p>
+<p>or, more compactly:</p>
+<p><span class="math display">\[
+Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
+\]</span></p>
+<p>This is the link between observed and potential outcomes we need, and makes clear that we observe <span class="math inline">\(Y_i(1)\)</span> for units in treatment and <span class="math inline">\(Y_i(0)\)</span> for units in control.</p>
+<p>In our unbiasedness proof, we now have</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=\tau
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+&amp;\text{SUTVA}
+\\[5pt]
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\end{align}
+\]</span></p>
+<p>What remains is to show that <span class="math inline">\(\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)\)</span>. This requires randomisation.</p>
+</section>
+<section id="randomisation-links-treatment-groups-to-the-population" class="level3" data-number="3.0.2">
+<h3 data-number="3.0.2" class="anchored" data-anchor-id="randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.0.2</span> Randomisation links treatment groups to the population</h3>
+<p>Before making use of randomisation we perform a couple manipulation. First, we use the <a href="../chapters/experiments.html">definition of <span class="math inline">\(W_i\)</span></a> to write <span class="math inline">\(\sum_{W_i=1}Y_i(1)\)</span> as <span class="math inline">\(\sum_{i=1}^{n} W_iY_i(1)\)</span> and similarly for control units. Second, we use the linearity of <span class="math inline">\(\mathbb{E}\)</span> to move <span class="math inline">\(\mathbb{E}\)</span> inside the summation. Third, given that <span class="math inline">\(\mathbf{Y(w)}\)</span> is fixed, we can move it out of the expectation so that the only random element is <span class="math inline">\(W_i\)</span>. We now have:</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=\tau
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+&amp;\text{SUTVA}
+\\[5pt]
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\frac{1}{n_t}\sum_{i=1}^{n}\mathbb{E}\left[W_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]Y_i(1)
+- \frac{1}{n_c}\sum_{i=1}^{n}\mathbb{E}\left[1-W_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]Y_i(0)
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
+\end{align}
+\]</span></p>
+<p>Now we are ready to make use of randomisation. <span class="math inline">\(\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> and <span class="math inline">\(\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> are determined by the assignment mechanism. Given that we have <a href="../chapters/experiments.html">defined</a> <span class="math inline">\(W_i\)</span> as a Bernoulli random variable and given that we take potential outcomes <span class="math inline">\(\mathbf{Y(w)}\)</span> and sample sizes <span class="math inline">\(\mathbf{n}\)</span> as given we have <span class="math display">\[
+P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
+=
+\frac{n_t}{n}.
+\]</span>Hence: <span class="math display">\[
+\begin{align}
+\mathbb{E}&amp;[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
+\\[5pt]
+&amp;=
+1 \times P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
++ 0 \times P(W_i = 0 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
+\\[5pt]
+&amp;=
+P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
+\\[5pt]
+&amp;= \frac{n_t}{n}.
+\end{align}
+\]</span> Similarly: <span class="math display">\[
+\begin{align}
+\mathbb{E}&amp;[(1-W_i)\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
+\\[5pt]
+&amp;=
+1 - \mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]
+\\[5pt]
+&amp;=
+1 - \frac{n_t}{n}
+\\[5pt]
+&amp;=
+\frac{n - n_t}{n}
+\\[5pt]
+&amp;=
+\frac{n_c}{n}.
+\end{align}
+\]</span></p>
+<p>Plugging these two expressions gives us the final result:</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}\left[
+\hat{\tau}^{\text{dm}}
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=\tau
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\mathbb{E}\left[
+\frac{1}{n_t}\sum_{W_i=1}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+- \mathbb{E}\left[
+\frac{1}{n_c}\sum_{W_i=0}Y_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+&amp;\text{SUTVA}
+\\[5pt]
+\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=1}Y_i(1)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+- \mathbb{E}\left[\frac{1}{n_c}\sum_{W_i=0}Y_i(0)
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\frac{1}{n_t}\sum_{i=1}^{n}\mathbb{E}\left[W_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]Y_i(1)
+- \frac{1}{n_c}\sum_{i=1}^{n}\mathbb{E}\left[1-W_i
+\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}\right]Y_i(0)
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+&amp;\text{Randomisation}
+\\[5pt]
+\frac{1}{n_t}\sum_{i=1}^{n}\left(\frac{n_t}{n}\right)Y_i(1)
+- \frac{1}{n_c}\sum_{i=1}^{n}\left(\frac{n_c}{n}\right)Y_i(0)
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\\[5pt]
+\frac{1}{n}\sum_{i=1}^{n}Y_i(1)
+- \frac{1}{n}\sum_{i=1}^{n}Y_i(0)
+&amp;=
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
+\end{align}
+\]</span></p>
+<p>This completes our proof of unbiasedness of our difference in means estimator. In the next section, we’ll calculate the estimator’s variance and standard error.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-abadie2020sampling" class="csl-entry" role="listitem">
-Abadie, Alberto, Susan Athey, Guido W Imbens, and Jeffrey M Wooldridge. 2020. <span>“Sampling-Based Versus Design-Based Uncertainty in Regression Analysis.”</span> <em>Econometrica</em> 88 (1): 265–96.
-</div>
-<div id="ref-athey2017econometrics" class="csl-entry" role="listitem">
-Athey, Susan, and Guido W Imbens. 2017. <span>“The Econometrics of Randomized Experiments.”</span> In <em>Handbook of Economic Field Experiments</em>, 1:73–140. Elsevier.
-</div>
-<div id="ref-imbens2015causal" class="csl-entry" role="listitem">
-Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
+<div id="ref-rubin1980randomization" class="csl-entry" role="listitem">
+Rubin, Donald B. 1980. <span>“Randomization Analysis of Experimental Data: The Fisher Randomization Test Comment.”</span> <em>Journal of the American Statistical Association</em> 75 (371): 591–93.
 </div>
 </div>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>For more on the difference between sampling vs design-based inference, see <span class="citation" data-cites="abadie2020sampling">Abadie et al. (<a href="references.html#ref-abadie2020sampling" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="athey2017econometrics">Athey and Imbens (<a href="references.html#ref-athey2017econometrics" role="doc-biblioref">2017</a>)</span>, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> for discussions on sampling vs design-based inference.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -715,13 +960,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/setup.html" class="pagination-link" aria-label="Setup">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span>
+      <a href="../chapters/experiments.html" class="pagination-link" aria-label="Experiments">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/unbiasedness.html" class="pagination-link" aria-label="Unbiasedness">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/hypothesis_testing.html" class="pagination-link" aria-label="Hypothesis testing">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

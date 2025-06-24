@@ -10,17 +10,11 @@ $$
 =
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \end{align}
-$$
+$${#eq-estimator}
 
 This is our **estimator**, the method we use to produce estimates of the estimand. 
 
-The procedure we use the allocate units to treatment conditions is the **assignment mechanism**. In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i=1) = q$, where $q \in [0, 1]$. Throughout, I'll focus on the most common case of equal sample sizes, where $q=\frac{1}{2}$, so that we have:  
-
-$$
-P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
-$$
-
-Because of their coin-toss-like nature assignments follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution) and the type of experiment is called a Bernoulli Randomised Experiment. There are different approaches we could take to formally analyse our experiment.
+The procedure we use the allocate units to treatment conditions is the **assignment mechanism**. In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that $P(W_i=1) = q$, where $q \in [0, 1]$. Because of their coin-toss-like nature assignments follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution) and the type of experiment is called a Bernoulli Randomised Experiment. There are different approaches we could take to formally analyse our experiment.
 
 First, we have to decide how to think of our sample of $n$ units. We could either view these units as the population of interest or treat them as a sample from a larger population and use results from the sample to make inferences about the population. Because in all but the largest companies experiments usually run on all traffic, the first perspective is more natural for online experiments and in what follows we treat our $n$ units as the population of interest. In this approach, where the sample of $n$ units is taken as fixed (rather than being treated as a random sample from a larger population), the only source of randomness comes from treatment assignments – from the design of our experiment – and the approach is thus naturally called "design-based".[^design] Given that our sample is fixed, the two vectors of potential outcomes, $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$ are also fixed.
 
