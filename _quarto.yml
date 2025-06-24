@@ -15,7 +15,8 @@ book:
   chapters:
     - index.md
     - chapters/setup.md
-    
+    - chapters/experiments.md
+
     - chapters/stats_of_online_experiments.md
     - chapters/hypothesis_testing.md
     - chapters/power.md

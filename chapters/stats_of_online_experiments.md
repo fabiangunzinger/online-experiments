@@ -70,6 +70,15 @@ In the next two sections we show that $\hat{\tau}^{\text{dm}}$ is an unbiased es
 
 ## Unbiasedness
 
+
+and calculate its variance. My approach is based on @ding2023first. For an alternative, see Appendix 6.B. in @imbens2015causal.
+
+
+- Given that our sample is fixed, the two vectors of potential outcomes, $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$ are also fixed. potential outcomes collectively as $\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})$
+- Once randomisation is complete the number of units in treatment and control, $n_t$ and $n_c$ are given. I refer to them collectively as $\mathbf{n} = (n_t, n_c)$.
+
+
+
 An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:
 
 $$

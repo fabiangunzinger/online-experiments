@@ -51,7 +51,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/hypothesis_testing.html" rel="next">
-<link href="../chapters/setup.html" rel="prev">
+<link href="../chapters/experiments.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -159,13 +159,19 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -214,6 +220,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
@@ -269,8 +281,8 @@ window.Quarto = {
 <p><span class="math display">\[
 \tau_i = Y_i(1) - Y_i(0).
 \]</span></p>
-<p>Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly <em>observing unit-level treatment effects</em> is impossible. This is <strong>the fundamental problem of causal inference</strong> <span class="citation" data-cites="holland1986statistics">(<a href="#ref-holland1986statistics" role="doc-biblioref">Holland 1986</a>)</span>.</p>
-<p>An experiment is one solution to the fundamental problem:<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> randomly assigning units from a population to either treatment or control allows us to <em>estimate average (unit-level) treatment effects</em>. In the words of <span class="citation" data-cites="holland1986statistics">Holland (<a href="#ref-holland1986statistics" role="doc-biblioref">1986, 947</a>)</span>:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>Because a unit can only ever be in either treatment or control, we can only ever observe one of the two potential outcomes, which means that directly <em>observing unit-level treatment effects</em> is impossible. This is <strong>the fundamental problem of causal inference</strong> <span class="citation" data-cites="holland1986statistics">(<a href="references.html#ref-holland1986statistics" role="doc-biblioref">Holland 1986</a>)</span>.</p>
+<p>An experiment is one solution to the fundamental problem:<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> randomly assigning units from a population to either treatment or control allows us to <em>estimate average (unit-level) treatment effects</em>. In the words of <span class="citation" data-cites="holland1986statistics">Holland (<a href="references.html#ref-holland1986statistics" role="doc-biblioref">1986, 947</a>)</span>:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <blockquote class="blockquote">
 <p>“The important point is that [an experiment] replaces the impossible-to-observe causal effect of [a treatment] on a specific unit with the possible-to-estimate <em>average</em> causal effect of [the treatment] over a population of units.”</p>
 </blockquote>
@@ -302,7 +314,7 @@ P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
 \]</span></p>
 <p>Because of their coin-toss-like nature assignments follow a <a href="https://en.wikipedia.org/wiki/Bernoulli_distribution">Bernoulli distribution</a> and the type of experiment is called a Bernoulli Randomised Experiment. There are different approaches we could take to formally analyse our experiment. We have to make the following decisions:</p>
 <ul>
-<li><p>We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our <span class="math inline">\(n\)</span> units, rather than using the estimate for our <span class="math inline">\(n\)</span> units to infer the average treatment effect on a larger population from which the <span class="math inline">\(n\)</span> units are drawn. I thus use a fully design-based approach (see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 6</span></a> for details)</p></li>
+<li><p>We could either take a superpopulation or fixed sample perspective. Because for all but the largest companies, most online experiments are eventually run on the entire population of interest, I focus on the latter. This means that the goal of our experiment is to estimate the average treatment effect of the treatment on our <span class="math inline">\(n\)</span> units, rather than using the estimate for our <span class="math inline">\(n\)</span> units to infer the average treatment effect on a larger population from which the <span class="math inline">\(n\)</span> units are drawn. I thus use a fully design-based approach (see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 7</span></a> for details)</p></li>
 <li><p>We can analyse the Bernoulli Randomised Experiment treating <span class="math inline">\(n_t\)</span> as a Binomial random variable or taking it as given. Because by the time of the analysis it is, in fact, given, I follow the latter approach. This approach also has the advantage of considerably simplifying the math.</p></li>
 </ul>
 <p>Implications:</p>
@@ -311,10 +323,15 @@ P(W_i = 1) = P(W_i = 0) = \frac{1}{2}.
 <li><p>Once randomisation is complete the number of units in treatment and control, <span class="math inline">\(n_t\)</span> and <span class="math inline">\(n_c\)</span> are given. I refer to them collectively as <span class="math inline">\(\mathbf{n} = (n_t, n_c)\)</span>.</p></li>
 <li><p>The assignment mechanism is also such that units treatment assignment is independent of the treatment assignment of all other units.</p></li>
 </ul>
-<p>In the next two sections we show that <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is an unbiased estimator of <span class="math inline">\(\tau\)</span> and calculate its variance. My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="#ref-ding2023first" role="doc-biblioref">2023</a>)</span>. For an alternative, see Appendix 6.B. in <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>.</p>
+<p>In the next two sections we show that <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is an unbiased estimator of <span class="math inline">\(\tau\)</span> and calculate its variance. My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span>. For an alternative, see Appendix 6.B. in <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>.</p>
 </section>
 <section id="unbiasedness" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="unbiasedness"><span class="header-section-number">3.3</span> Unbiasedness</h2>
+<p>and calculate its variance. My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span>. For an alternative, see Appendix 6.B. in <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>.</p>
+<ul>
+<li>Given that our sample is fixed, the two vectors of potential outcomes, <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span> are also fixed. potential outcomes collectively as <span class="math inline">\(\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})\)</span></li>
+<li>Once randomisation is complete the number of units in treatment and control, <span class="math inline">\(n_t\)</span> and <span class="math inline">\(n_c\)</span> are given. I refer to them collectively as <span class="math inline">\(\mathbf{n} = (n_t, n_c)\)</span>.</li>
+</ul>
 <p>An estimator is unbiased if its expected value equals the estimand. To show that the difference in means estimator is unbiased we thus have to show that:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -385,7 +402,7 @@ Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right).
 <p>We need: <span class="math display">\[
 Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
 \]</span> The only way to make progress is to assume what we need: that potential outcomes for unit <span class="math inline">\(i\)</span> are a function only of the treatment level unit <span class="math inline">\(i\)</span> itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment level. (i) above is referred to as “no interference” in the literature, (ii) as “no hidden variations of treatment”.</p>
-<p>That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, “stable” <span class="citation" data-cites="rubin1980randomization">(<a href="#ref-rubin1980randomization" role="doc-biblioref">Rubin 1980</a>)</span>.</p>
+<p>That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, “stable” <span class="citation" data-cites="rubin1980randomization">(<a href="references.html#ref-rubin1980randomization" role="doc-biblioref">Rubin 1980</a>)</span>.</p>
 <p>Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that <span class="math inline">\(Y_i(W_i)\)</span> is a clearly defined function for all <span class="math inline">\(i\)</span> and all possible treatment levels <span class="math inline">\(W_i \in \{0, 1\}\)</span>. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.</p>
 <p>In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends and the no-hidden-variation part means that there their precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that creates different background colours and the it is either clear whether a customer uses an Android or iOS app (or the experience is identical). But, again, SUTVA does not require that the active treatment looks exactly the same on iOS and Android apps just that for each unit in our experiment, their experience if they are part of the active treatment is pinned down.</p>
 <p>Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn’t roll it out to anyone. To have any hope of estimating this we can’t have treatment level’s vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)</p>
@@ -810,7 +827,7 @@ s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
 \qquad
 s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
 \end{align}
-\]</span> It can be shown that the observed treatment group variances <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the sample variances <span class="math inline">\(S_1^2\)</span> and <span class="math inline">\(S_0^2\)</span> (see, for instance, Appendix A in Chapter 6 of <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>). The last term in</p>
+\]</span> It can be shown that the observed treatment group variances <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the sample variances <span class="math inline">\(S_1^2\)</span> and <span class="math inline">\(S_0^2\)</span> (see, for instance, Appendix A in Chapter 6 of <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>). The last term in</p>
 <!-- @eq-var,  -->
 <p><span class="math inline">\(S_{\tau_i}^2\)</span>, is the variance of unit-level treatment effects, which is impossible to observe.</p>
 <p>As a result, the most widely used estimator in practice is: <span class="math display">\[
@@ -849,7 +866,7 @@ s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 <h2 data-number="3.6" class="anchored" data-anchor-id="references"><span class="header-section-number">3.6</span> References</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-ding2023first" class="csl-entry" role="listitem">
 Ding, Peng. 2023. <span>“A First Course in Causal Inference.”</span> <a href="https://arxiv.org/abs/2305.18793">https://arxiv.org/abs/2305.18793</a>.
 </div>
@@ -867,10 +884,10 @@ Rubin, Donald B. 1980. <span>“Randomization Analysis of Experimental Data: The
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Our <span class="math inline">\(n\)</span> units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 6</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Our <span class="math inline">\(n\)</span> units are not a sample of a larger population that we hope to learn about but the entire population of units of interest. We thus use a finite sample rather than a super-population approach. For a discussion on the difference between these approaches see <a href="experiment_setup.html" class="quarto-xref"><span>Chapter 7</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>In principle, the unit-level level causal effect can be any comparison between the potential outcomes, such as the difference <span class="math inline">\(Y_i(1) - Y_i(0)\)</span> or the ratio <span class="math inline">\(Y_i(1)/Y_i(0)\)</span>. In online experiments, we usually focus on the difference.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p><span class="citation" data-cites="holland1986statistics">Holland (<a href="#ref-holland1986statistics" role="doc-biblioref">1986</a>)</span> discusses two solutions to the Fundamental Problem: one is the <em>statistical solution</em>, which relies on estimating average treatment effects across a large population of units while the other is the <em>scientific solution</em>, which uses homogeneity or invariance assumptions. The scientific solution works as follows: say we have one measurement of a units outcome under treatment from today and another measurement of their outcome under control from yesterday. If we are prepared to assume that control measurements are homogenous and invariant to time – that yesterday’s control measurement equals the control measurement we would have taken today – then we can calculate the individual level causal effect by comparing the two measurements taken at different points in time. Our assumption is untestable, of course, but in lab experiments it is sometimes possible to make a strong case that it is plausible. It is also the approach we informally use in daily life, whenever we conclude that taking Paracetamol helps against headaches or that going to sleep early makes us feel better the next morning.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>I have taken a slight shortcut here by treating experiments as being synonymous with the statistical solution (see previous footnote) even though observational studies can serve the same purpose (albeit with additional assumptions). I do this because my focus here is on experiments. See, for instance, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> for an extensive discussion of experimental and observational approaches.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><span class="citation" data-cites="holland1986statistics">Holland (<a href="references.html#ref-holland1986statistics" role="doc-biblioref">1986</a>)</span> discusses two solutions to the Fundamental Problem: one is the <em>statistical solution</em>, which relies on estimating average treatment effects across a large population of units while the other is the <em>scientific solution</em>, which uses homogeneity or invariance assumptions. The scientific solution works as follows: say we have one measurement of a units outcome under treatment from today and another measurement of their outcome under control from yesterday. If we are prepared to assume that control measurements are homogenous and invariant to time – that yesterday’s control measurement equals the control measurement we would have taken today – then we can calculate the individual level causal effect by comparing the two measurements taken at different points in time. Our assumption is untestable, of course, but in lab experiments it is sometimes possible to make a strong case that it is plausible. It is also the approach we informally use in daily life, whenever we conclude that taking Paracetamol helps against headaches or that going to sleep early makes us feel better the next morning.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I have taken a slight shortcut here by treating experiments as being synonymous with the statistical solution (see previous footnote) even though observational studies can serve the same purpose (albeit with additional assumptions). I do this because my focus here is on experiments. See, for instance, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> for an extensive discussion of experimental and observational approaches.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>To denote the sum over all units in a given treatment group <span class="math inline">\(w\)</span> I use <span class="math inline">\(\sum_{W_i=w}\)</span> as a shorthand for <span class="math inline">\(\sum_{i:W_i=w}\)</span> to keep the notation compact.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
@@ -1298,8 +1315,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/setup.html" class="pagination-link" aria-label="Setup">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Setup</span></span>
+      <a href="../chapters/experiments.html" class="pagination-link" aria-label="Experiments">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
