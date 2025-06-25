@@ -1,6 +1,6 @@
 # Unbiasedness
 
-An estimator is unbiased if its expected value equals the true value of the estimand. In @eq-estimator we defined our estimator as:
+An estimator is unbiased if its expected value equals the true value of the estimand. In @eq-estimator we defined our difference-in-means estimator as:
 
 $$
 \begin{align}
@@ -159,7 +159,7 @@ What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\ri
 
 ### Randomisation links treatment groups to the population
 
-Before making use of randomisation we perform a couple manipulation. First, we use the [definition of $W_i$](experiments.md) to write  $\sum_{W_i=1}Y_i(1)$ as $\sum_{i=1}^{n} W_iY_i(1)$ and similarly for control units. Second, we use the linearity of $\mathbb{E}$ to move $\mathbb{E}$ inside the summation. Third, given that $\mathbf{Y(w)}$ is fixed, we can move it out of the expectation so that the only random element is $W_i$. We now have:
+We start by rewriting the last equation slightly: we use the [definition of $W_i$](experiments.md) to write $\sum_{W_i=1}Y_i(1)$ as $\sum_{i=1}^{n} W_iY_i(1)$ for treatment units and use the corresponding expression for control units; we use the linearity of the expectation operator to move it inside the summation; and we move $\mathbf{Y(w)}$, [which is fixed](experiments.md), out of the expectation. We now have:
 
 
 $$
@@ -206,7 +206,7 @@ $$
 \end{align}
 $$
 
-Now we are ready to make use of randomisation. $\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ and $\mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ are determined by the assignment mechanism. Given that we have [defined](experiments.md) $W_i$ as a Bernoulli random variable and given that we take potential outcomes $\mathbf{Y(w)}$ and sample sizes $\mathbf{n}$ as given we have
+This expression makes transparent that $W_i$ is the only random element. $\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ and $\mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ are determined by the assignment mechanism. Given that we have [defined](experiments.md) $W_i$ as a Bernoulli random variable and given that we take potential outcomes $\mathbf{Y(w)}$ and sample sizes $\mathbf{n}$ as given we have
 $$
 P(W_i = 1 \>|\>\mathbf{n}, \mathbf{Y(w)}) 
 =
@@ -303,4 +303,6 @@ $$
 \end{align}
 $$
 
-This completes our proof of unbiasedness of our difference in means estimator. In the next section, we'll calculate the estimator's variance and standard error.
+This completes our proof of unbiasedness of our difference in means estimator.
+
+In the next section, we'll calculate the estimator's variance.

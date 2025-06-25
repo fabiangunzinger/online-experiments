@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Experiments – The statistics of online experiments</title>
+<title>5&nbsp; Standard error – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +30,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/unbiasedness.html" rel="next">
-<link href="../chapters/setup.html" rel="prev">
+<link href="../chapters/hypothesis_testing.html" rel="next">
+<link href="../chapters/variance.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -131,7 +111,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/experiments.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/standard_error.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard error</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -170,7 +150,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/experiments.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/experiments.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></span></a>
   </div>
 </li>
@@ -188,7 +168,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/standard_error.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/standard_error.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard error</span></span></a>
   </div>
 </li>
@@ -253,7 +233,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard error</span></h1>
 </div>
 
 
@@ -270,39 +250,28 @@ window.Quarto = {
 </header>
 
 
-<p>Running an experiment with our <span class="math inline">\(n\)</span> units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator <span class="math inline">\(W_i \in \{0, 1\}\)</span> to indicate treatment exposure for unit <span class="math inline">\(i\)</span> and write <span class="math inline">\(W_i = 1\)</span> if they are in treatment and <span class="math inline">\(W_i = 0\)</span> if they are in control. We collect all unit-level treatment indicators in the <span class="math inline">\(n \times 1\)</span> vector <span class="math inline">\(\mathbf{W} = (W_1, W_2, \dots, W_n)'\)</span>. At the end of the experiment, we have <span class="math inline">\(n_t = \sum_{i=1}^n W_i\)</span> units in treatment and the remaining <span class="math inline">\(n_c = \sum_{i=1}^n (1-W_i)\)</span> units in control. For each unit, we observe outcome <span class="math inline">\(Y_i\)</span>.</p>
-<p>To estimate <span class="math inline">\(\tau\)</span>, we use the observed difference in means between the treatment and control units:</p>
-<p><span id="eq-estimator"><span class="math display">\[
-\begin{align}
-\hat{\tau}^{\text{dm}}
-=
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i,
-\end{align}
-\tag{2.1}\]</span></span> where I use <span class="math inline">\(\sum_{W_i=w}\)</span> as a shorthand for <span class="math inline">\(\sum_{i:W_i=w}\)</span> denote the sum over all units in a given treatment group <span class="math inline">\(w\)</span>.</p>
-<p>This is our <strong>estimator</strong>, the method we use to produce estimates of the estimand.</p>
-<p>The procedure we use the allocate units to treatment conditions is the <strong>assignment mechanism</strong>. In online experiments, we typically assign units to treatment conditions dynamically as they visit our site and use an assignment mechanism where the assignment of each unit is determined by a process that is equivalent to a coin-toss, such that <span class="math inline">\(P(W_i=1) = q\)</span>, where <span class="math inline">\(q \in [0, 1]\)</span>. Because of their coin-toss-like nature assignments follow a <a href="https://en.wikipedia.org/wiki/Bernoulli_distribution">Bernoulli distribution</a> and the type of experiment is called a Bernoulli Randomised Experiment. There are different approaches we could take to formally analyse our experiment.</p>
-<p>First, we have to decide how to think of our sample of <span class="math inline">\(n\)</span> units. We could either view these units as the population of interest or treat them as a sample from a larger population and use results from the sample to make inferences about the population. Because in all but the largest companies experiments usually run on all traffic, the first perspective is more natural for online experiments and in what follows we treat our <span class="math inline">\(n\)</span> units as the population of interest. In this approach, where the sample of <span class="math inline">\(n\)</span> units is taken as fixed (rather than being treated as a random sample from a larger population), the only source of randomness comes from treatment assignments – from the design of our experiment – and the approach is thus naturally called “design-based”.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Given that our sample is fixed, the two vectors of potential outcomes, <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span> are also fixed.</p>
-<p>Second, we have to decide how to treat the treatment condition sample sizes. We can analyse the Bernoulli Randomised Experiment treating <span class="math inline">\(n_t\)</span> and <span class="math inline">\(n_c\)</span> as Binomial random variables or taking them as given. I follow the latter approach for two reasons: it considerably simplifies the math, and it more naturally aligns with the situation we face in online experiments given that, by the time of the analysis, sample sizes are, indeed, given.</p>
-<p>In the next two sections we show that <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is an unbiased estimator of <span class="math inline">\(\tau\)</span> – that is that, on average, our estimator helps us find the true value of the estimand.</p>
+<p>The <a href="../chapters/stats_foundations.html#sampling-distribution">standard error</a> of an estimator is simply the square root of its sampling variance. From</p>
+<!-- @eq-var  -->
+<p>we thus have:</p>
+<p><span id="eq-se"><span class="math display">\[
+\widehat{SE}
+= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
+\tag{5.1}\]</span></span></p>
+<p>Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that the sample size for each variant is <span class="math inline">\(n_t = n_c = n_v\)</span>, and equal variances, so that <span class="math inline">\(s_t^2 = s_c^2 = s^2\)</span>. The common variance <span class="math inline">\(s^2\)</span> is estimated by “pooling” the treatment group variances to create a <a href="../chapters/stats_foundations.html#degrees-of-freedom">degrees-of-freedom-weighted</a> estimator of the form: <span class="math display">\[
+s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
+\]</span> Substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we then have: <span id="eq-se-equal"><span class="math display">\[
+\widehat{SE}^{\text{equal}}
+= \sqrt{\frac{s^2}{n_v} + \frac{s^2}{n_v}}
+= \sqrt{\frac{2s^2}{n_v}}.
+\tag{5.2}\]</span></span></p>
+<p>Finally, for the purpose of experiment design it is sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use <span class="math inline">\(p\)</span> to denote that proportion and <span class="math inline">\(n\)</span> to denote total sample size, while maintaining the assumption of equal variance. Again substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we can then write: <span id="eq-se-prop"><span class="math display">\[
+\widehat{SE}^{\text{prop}}
+= \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
+= \sqrt{\frac{s^2}{np(1-p)}}.
+\tag{5.3}\]</span></span></p>
+<p>For <span class="math inline">\(p=0.5\)</span>, this formulation is equivalent to <a href="#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>5.2</span></a> as expected.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-abadie2020sampling" class="csl-entry" role="listitem">
-Abadie, Alberto, Susan Athey, Guido W Imbens, and Jeffrey M Wooldridge. 2020. <span>“Sampling-Based Versus Design-Based Uncertainty in Regression Analysis.”</span> <em>Econometrica</em> 88 (1): 265–96.
-</div>
-<div id="ref-athey2017econometrics" class="csl-entry" role="listitem">
-Athey, Susan, and Guido W Imbens. 2017. <span>“The Econometrics of Randomized Experiments.”</span> In <em>Handbook of Economic Field Experiments</em>, 1:73–140. Elsevier.
-</div>
-<div id="ref-imbens2015causal" class="csl-entry" role="listitem">
-Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
-</div>
-</div>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>For more on the difference between sampling vs design-based inference, see <span class="citation" data-cites="abadie2020sampling">Abadie et al. (<a href="references.html#ref-abadie2020sampling" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="athey2017econometrics">Athey and Imbens (<a href="references.html#ref-athey2017econometrics" role="doc-biblioref">2017</a>)</span>, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> for discussions on sampling vs design-based inference.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -727,13 +696,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/setup.html" class="pagination-link" aria-label="Setup">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span>
+      <a href="../chapters/variance.html" class="pagination-link" aria-label="Variance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Variance</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/unbiasedness.html" class="pagination-link" aria-label="Unbiasedness">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/hypothesis_testing.html" class="pagination-link" aria-label="Hypothesis testing">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

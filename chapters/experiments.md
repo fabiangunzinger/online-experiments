@@ -2,15 +2,16 @@
 
 Running an experiment with our $n$ units means that we randomly assign some units to treatment and some to control. We use the binary treatment indicator $W_i \in \{0, 1\}$ to indicate treatment exposure for unit $i$ and write $W_i = 1$ if they are in treatment and $W_i = 0$ if they are in control. We collect all unit-level treatment indicators in the $n \times 1$ vector $\mathbf{W} = (W_1, W_2, \dots, W_n)'$. At the end of the experiment, we have $n_t = \sum_{i=1}^n W_i$ units in treatment and the remaining $n_c = \sum_{i=1}^n (1-W_i)$ units in control. For each unit, we observe outcome $Y_i$.
 
-To estimate $\tau$, we use the observed difference in means between the treatment and control units:[^1]
+To estimate $\tau$, we use the observed difference in means between the treatment and control units:
 
 $$
 \begin{align}
 \hat{\tau}^{\text{dm}}
 =
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i,
 \end{align}
 $${#eq-estimator}
+where I use $\sum_{W_i=w}$ as a shorthand for $\sum_{i:W_i=w}$ denote the sum over all units in a given treatment group $w$.
 
 This is our **estimator**, the method we use to produce estimates of the estimand. 
 

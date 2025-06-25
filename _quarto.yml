@@ -17,9 +17,9 @@ book:
     - chapters/setup.md
     - chapters/experiments.md
     - chapters/unbiasedness.md
+    - chapters/variance.md
+    - chapters/standard_error.md
 
-
-    # - chapters/stats_of_online_experiments.md
     - chapters/hypothesis_testing.md
     - chapters/power.md
     - chapters/threats_to_validity.md
@@ -118,5 +118,6 @@ format:
   html:
     theme: cosmo
     css: custom.scss
-
+    callout-appearance: default
+    callout-icon: false
 

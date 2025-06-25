@@ -1,8 +1,8 @@
 
 - Break sections out of stats of online experiment one by one. Finish and move on.
 	- [x] Setup
-	- [ ] Experiments
-	- [ ] Unbiasedness
+	- [x] Experiments
+	- [x] Unbiasedness
 	- [ ] Variance and standard error
 	- [ ] Hypothesis testing
 	- [ ] Power
