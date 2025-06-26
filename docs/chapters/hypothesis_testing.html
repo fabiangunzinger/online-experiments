@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Hypothesis testing – The statistics of online experiments</title>
+<title>6&nbsp; Hypothesis testing – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,7 +51,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../chapters/power.html" rel="next">
-<link href="../chapters/stats_of_online_experiments.html" rel="prev">
+<link href="../chapters/standard_error.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -119,6 +119,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../custom.scss">
 </head>
 
 <body class="nav-sidebar floating">
@@ -130,7 +131,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/hypothesis_testing.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/hypothesis_testing.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,55 +159,85 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/stats_of_online_experiments.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span></a>
+  <a href="../chapters/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Setup</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/unbiasedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Variance</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/standard_error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard error</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/hypothesis_testing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
@@ -219,20 +250,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#types-of-errors" id="toc-types-of-errors" class="nav-link active" data-scroll-target="#types-of-errors"><span class="header-section-number">3.1</span> Types of errors</a></li>
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">3.2</span> Hypothesis testing</a></li>
-  <li><a href="#justification-for-use-of-testing-distribution" id="toc-justification-for-use-of-testing-distribution" class="nav-link" data-scroll-target="#justification-for-use-of-testing-distribution"><span class="header-section-number">3.3</span> Justification for use of testing distribution</a></li>
-  <li><a href="#understanding-p-values" id="toc-understanding-p-values" class="nav-link" data-scroll-target="#understanding-p-values"><span class="header-section-number">3.4</span> Understanding P-values</a>
+  <li><a href="#types-of-errors" id="toc-types-of-errors" class="nav-link active" data-scroll-target="#types-of-errors"><span class="header-section-number">6.1</span> Types of errors</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">6.2</span> Hypothesis testing</a></li>
+  <li><a href="#justification-for-use-of-testing-distribution" id="toc-justification-for-use-of-testing-distribution" class="nav-link" data-scroll-target="#justification-for-use-of-testing-distribution"><span class="header-section-number">6.3</span> Justification for use of testing distribution</a></li>
+  <li><a href="#understanding-p-values" id="toc-understanding-p-values" class="nav-link" data-scroll-target="#understanding-p-values"><span class="header-section-number">6.4</span> Understanding P-values</a>
   <ul class="collapse">
-  <li><a href="#history-of-the-p-value" id="toc-history-of-the-p-value" class="nav-link" data-scroll-target="#history-of-the-p-value"><span class="header-section-number">3.4.1</span> History of the P-value</a></li>
-  <li><a href="#the-base-rate-fallacy" id="toc-the-base-rate-fallacy" class="nav-link" data-scroll-target="#the-base-rate-fallacy"><span class="header-section-number">3.4.2</span> The base-rate fallacy</a></li>
+  <li><a href="#history-of-the-p-value" id="toc-history-of-the-p-value" class="nav-link" data-scroll-target="#history-of-the-p-value"><span class="header-section-number">6.4.1</span> History of the P-value</a></li>
+  <li><a href="#the-base-rate-fallacy" id="toc-the-base-rate-fallacy" class="nav-link" data-scroll-target="#the-base-rate-fallacy"><span class="header-section-number">6.4.2</span> The base-rate fallacy</a></li>
   </ul></li>
-  <li><a href="#limitations-of-hypothesis-testing" id="toc-limitations-of-hypothesis-testing" class="nav-link" data-scroll-target="#limitations-of-hypothesis-testing"><span class="header-section-number">3.5</span> Limitations of hypothesis testing</a></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">3.6</span> Confidence intervals</a></li>
-  <li><a href="#testing-and-ci-duality" id="toc-testing-and-ci-duality" class="nav-link" data-scroll-target="#testing-and-ci-duality"><span class="header-section-number">3.7</span> Testing and CI duality</a></li>
-  <li><a href="#one-sides-vs-two-sided-tests" id="toc-one-sides-vs-two-sided-tests" class="nav-link" data-scroll-target="#one-sides-vs-two-sided-tests"><span class="header-section-number">3.8</span> One-sides vs two-sided tests</a></li>
-  <li><a href="#multivariant-tests" id="toc-multivariant-tests" class="nav-link" data-scroll-target="#multivariant-tests"><span class="header-section-number">3.9</span> Multivariant tests</a></li>
-  <li><a href="#multiple-hypothesis-correction" id="toc-multiple-hypothesis-correction" class="nav-link" data-scroll-target="#multiple-hypothesis-correction"><span class="header-section-number">3.10</span> Multiple hypothesis correction</a></li>
+  <li><a href="#limitations-of-hypothesis-testing" id="toc-limitations-of-hypothesis-testing" class="nav-link" data-scroll-target="#limitations-of-hypothesis-testing"><span class="header-section-number">6.5</span> Limitations of hypothesis testing</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">6.6</span> Confidence intervals</a></li>
+  <li><a href="#testing-and-ci-duality" id="toc-testing-and-ci-duality" class="nav-link" data-scroll-target="#testing-and-ci-duality"><span class="header-section-number">6.7</span> Testing and CI duality</a></li>
+  <li><a href="#one-sides-vs-two-sided-tests" id="toc-one-sides-vs-two-sided-tests" class="nav-link" data-scroll-target="#one-sides-vs-two-sided-tests"><span class="header-section-number">6.8</span> One-sides vs two-sided tests</a></li>
+  <li><a href="#multivariant-tests" id="toc-multivariant-tests" class="nav-link" data-scroll-target="#multivariant-tests"><span class="header-section-number">6.9</span> Multivariant tests</a></li>
+  <li><a href="#multiple-hypothesis-correction" id="toc-multiple-hypothesis-correction" class="nav-link" data-scroll-target="#multiple-hypothesis-correction"><span class="header-section-number">6.10</span> Multiple hypothesis correction</a></li>
   </ul>
 </nav>
     </div>
@@ -241,7 +272,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></h1>
 </div>
 
 
@@ -259,8 +290,8 @@ window.Quarto = {
 
 
 <p>todo - Integrate kohavi2024false, berman2021false, colquhoun2019false.pdf</p>
-<section id="types-of-errors" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">3.1</span> Types of errors</h2>
+<section id="types-of-errors" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">6.1</span> Types of errors</h2>
 <p>With the above proceedure, there are two types of mistakes we can make:</p>
 <ul>
 <li><p>We can reject <span class="math inline">\(H_O\)</span> when it is true. This is called a Type I error and leads to a false positive. The probability of this type of error is denoted <span class="math inline">\(\alpha\)</span>.</p></li>
@@ -278,8 +309,8 @@ window.Quarto = {
 <li><p>The false discovery rate is <span class="math inline">\(P(H0 true | significant result)\)</span></p></li>
 </ul>
 </section>
-<section id="hypothesis-testing" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">3.2</span> Hypothesis testing</h2>
+<section id="hypothesis-testing" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">6.2</span> Hypothesis testing</h2>
 <p>To test whether the observed treatment effect is significantly different from zero, we test:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -295,10 +326,10 @@ T =
 \]</span></p>
 <p>where <span class="math inline">\(N_t + N_c - 2\)</span> is number of <a href="../chapters/stats_foundations.html#degrees-of-freedom">degrees of freedom</a>.</p>
 </section>
-<section id="justification-for-use-of-testing-distribution" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="justification-for-use-of-testing-distribution"><span class="header-section-number">3.3</span> Justification for use of testing distribution</h2>
+<section id="justification-for-use-of-testing-distribution" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="justification-for-use-of-testing-distribution"><span class="header-section-number">6.3</span> Justification for use of testing distribution</h2>
 <p>Why can we use t/z distribution?</p>
-<p>To integrate: Note that the test statistic follows a t-distribution because we have to estimate the variance (that is, if we replace the true variance with its estimate when standardising a normal variable, the result follows a Student’s t-distribution). So, this has nothing to do with the CLT. However, for the test statistic to follow a student distribution, the numerator has to follow a normal distribution. Often, though, the underlying data is not normal, so that its approximately normal only for large enough samples, due to the CLT. At the same time, the t-distribution also converges to normal as the sample size increases. Hence, one we have a sample size large enough to justify using the t-distribution, we might as well use a z-test. As pointed out in Chapter 9 in <span class="citation" data-cites="rice2006mathematical">Rice (<a href="#ref-rice2006mathematical" role="doc-biblioref">2006</a>)</span>, the test statistic above only follows a t-distribution if we use the pooled variance, but for large sample sizes, the distribution is still approximately t or normal.</p>
+<p>To integrate: Note that the test statistic follows a t-distribution because we have to estimate the variance (that is, if we replace the true variance with its estimate when standardising a normal variable, the result follows a Student’s t-distribution). So, this has nothing to do with the CLT. However, for the test statistic to follow a student distribution, the numerator has to follow a normal distribution. Often, though, the underlying data is not normal, so that its approximately normal only for large enough samples, due to the CLT. At the same time, the t-distribution also converges to normal as the sample size increases. Hence, one we have a sample size large enough to justify using the t-distribution, we might as well use a z-test. As pointed out in Chapter 9 in <span class="citation" data-cites="rice2006mathematical">Rice (<a href="references.html#ref-rice2006mathematical" role="doc-biblioref">2006</a>)</span>, the test statistic above only follows a t-distribution if we use the pooled variance, but for large sample sizes, the distribution is still approximately t or normal.</p>
 <ul>
 <li>See ding2023first section 4.2 and imbens2015causal section 6.6.1 and 6.6.2 for justification for testing approach</li>
 <li>See ding2023first pdf page 72 for proof and derivation</li>
@@ -307,10 +338,10 @@ T =
 <li>For complete treatment and derivation of sampling distributions (incl.&nbsp;discussion of all the approximations and sample corrections), see Rice sampling chapter and my ipad notes.</li>
 </ul>
 </section>
-<section id="understanding-p-values" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="understanding-p-values"><span class="header-section-number">3.4</span> Understanding P-values</h2>
-<section id="history-of-the-p-value" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="history-of-the-p-value"><span class="header-section-number">3.4.1</span> History of the P-value</h3>
+<section id="understanding-p-values" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="understanding-p-values"><span class="header-section-number">6.4</span> Understanding P-values</h2>
+<section id="history-of-the-p-value" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="history-of-the-p-value"><span class="header-section-number">6.4.1</span> History of the P-value</h3>
 <ul>
 <li><p>There are two schools of thought in statistical significance testing.</p></li>
 <li><p>R.A. Fisher thought of the p-value as a useful metric to determine how surprising a given set of data was.</p></li>
@@ -318,8 +349,8 @@ T =
 <li><p>Unlike in Fisher’s approach, the p-value in the Neyman-Pearson approach doesn’t tell us anything about the strength of the evidence in any particular experiment besides whether or not to reject the null hypothesis, but guarantees that in the long run (over the course of many experiments), our false positive rate is not larger than <span class="math inline">\(\alpha\)</span>. :::</p></li>
 </ul>
 </section>
-<section id="the-base-rate-fallacy" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="the-base-rate-fallacy"><span class="header-section-number">3.4.2</span> The base-rate fallacy</h3>
+<section id="the-base-rate-fallacy" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="the-base-rate-fallacy"><span class="header-section-number">6.4.2</span> The base-rate fallacy</h3>
 <p>Suppose you test 100 features out of which 10 have a true effect. If you have 80 percent power and use a 5 percent significance level. You can expect to get a significant result for 8 of the 10 working features, but you also have a false positive rate of 5%, so you’ll also get a significant result for about 5 non-working features. You thus end up with 13 treatments that appear to work. But we know that only 8 of these 13, or 62% of them work, while the remaining 5 are false discoveries. Thus, you have a false discovery rate of 38%.</p>
 <p>You commit the base-rate fallacy when you confuse your p-value with your false discovery rate. This would lead you to make statements such as “My p-value is 0.002, so there is only a 2 in a 1000 chance that I found my result by chance!”</p>
 <p>This confuses</p>
@@ -332,38 +363,38 @@ P(H_A | significant result)
 \]</span></p>
 </section>
 </section>
-<section id="limitations-of-hypothesis-testing" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="limitations-of-hypothesis-testing"><span class="header-section-number">3.5</span> Limitations of hypothesis testing</h2>
+<section id="limitations-of-hypothesis-testing" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="limitations-of-hypothesis-testing"><span class="header-section-number">6.5</span> Limitations of hypothesis testing</h2>
 <ul>
 <li><p>p-values do not tell you anything about whether the result has any practical significance.</p></li>
 <li><p>Any intervention usually has <em>some</em> effect, you will always find a significant result with enough data. The question is whether the range of plausible effect sizes (captured by the confidence interval) is relevant.</p></li>
 <li><p>Arbitrary cutoff</p></li>
-<li><p>No appreciation for variation of coefficient – focus on ci instead (see <span class="citation" data-cites="romer2020praise">Romer (<a href="#ref-romer2020praise" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="imbens2021statistical">Imbens (<a href="#ref-imbens2021statistical" role="doc-biblioref">2021</a>)</span>)</p></li>
+<li><p>No appreciation for variation of coefficient – focus on ci instead (see <span class="citation" data-cites="romer2020praise">Romer (<a href="references.html#ref-romer2020praise" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="imbens2021statistical">Imbens (<a href="references.html#ref-imbens2021statistical" role="doc-biblioref">2021</a>)</span>)</p></li>
 <li><p>Multiple hypothesis testing (actual) – report and apply MHT-correction</p></li>
 <li><p>Multiple hypothesis testing (potential <a href="https://statmodeling.stat.columbia.edu/2016/03/07/29212/">Gelman post</a>)</p></li>
 <li><p>MHT: family-wise error rate vs false discovery rate</p></li>
 </ul>
 </section>
-<section id="confidence-intervals" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">3.6</span> Confidence intervals</h2>
+<section id="confidence-intervals" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">6.6</span> Confidence intervals</h2>
 <ul>
 <li>Rely on confidence intervals: they provide the same information as a p-value (if they include the value of the null hypothesis then we cannot reject it) but the width of the interval also provides additional information on the uncertainty of the effect and its practical significance. (See <a href="https://www.aeaweb.org/articles?id=10.1257/pandp.20201059">In Praise of Confidence Intervals</a> by David Romer and <a href="https://www.aeaweb.org/articles?id=10.1257/jep.35.3.157">Statistical Significance, p-Values, and the Reporting of Uncertainty</a> by Guido Imbens for more).</li>
 </ul>
 </section>
-<section id="testing-and-ci-duality" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="testing-and-ci-duality"><span class="header-section-number">3.7</span> Testing and CI duality</h2>
+<section id="testing-and-ci-duality" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="testing-and-ci-duality"><span class="header-section-number">6.7</span> Testing and CI duality</h2>
 </section>
-<section id="one-sides-vs-two-sided-tests" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="one-sides-vs-two-sided-tests"><span class="header-section-number">3.8</span> One-sides vs two-sided tests</h2>
+<section id="one-sides-vs-two-sided-tests" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="one-sides-vs-two-sided-tests"><span class="header-section-number">6.8</span> One-sides vs two-sided tests</h2>
 <ul>
 <li>Instacard uses one-sided because they focus on improvements (hesterberg2024power section 2)</li>
 </ul>
 </section>
-<section id="multivariant-tests" class="level2" data-number="3.9">
-<h2 data-number="3.9" class="anchored" data-anchor-id="multivariant-tests"><span class="header-section-number">3.9</span> Multivariant tests</h2>
+<section id="multivariant-tests" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="multivariant-tests"><span class="header-section-number">6.9</span> Multivariant tests</h2>
 </section>
-<section id="multiple-hypothesis-correction" class="level2" data-number="3.10">
-<h2 data-number="3.10" class="anchored" data-anchor-id="multiple-hypothesis-correction"><span class="header-section-number">3.10</span> Multiple hypothesis correction</h2>
+<section id="multiple-hypothesis-correction" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="multiple-hypothesis-correction"><span class="header-section-number">6.10</span> Multiple hypothesis correction</h2>
 <ul>
 <li>See BIT blue book 4.3 for nice explanation of BH MHT correction</li>
 </ul>
@@ -383,8 +414,6 @@ Key Idea: The Bonferroni method controls the family-wise error rate (FWER) by di
 
 
 
-
-
 ---
 ### Holm-Bonferroni Method
 
@@ -396,8 +425,6 @@ Key Idea: A sequentially rejective version of the Bonferroni method, which adjus
 Key Paper: Holm, S. (1979). A Simple Sequentially Rejective Multiple Test Procedure. _Scandinavian Journal of Statistics_.
 
 ---
-
-
 
 
 
@@ -446,7 +473,7 @@ Key Paper: Benjamini, Y., & Yekutieli, D. (2001). The Control of the False Disco
 -->
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-imbens2021statistical" class="csl-entry" role="listitem">
 Imbens, Guido W. 2021. <span>“Statistical Significance, p-Values, and the Reporting of Uncertainty.”</span> <em>Journal of Economic Perspectives</em> 35 (3): 157–74.
 </div>
@@ -882,13 +909,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/stats_of_online_experiments.html" class="pagination-link" aria-label="The stats of online experiments">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The stats of online experiments</span></span>
+      <a href="../chapters/standard_error.html" class="pagination-link" aria-label="Standard error">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard error</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapters/power.html" class="pagination-link" aria-label="Power">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

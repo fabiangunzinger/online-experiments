@@ -11,7 +11,7 @@ $$
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i,
 \end{align}
 $${#eq-estimator}
-where I use $\sum_{W_i=w}$ as a shorthand for $\sum_{i:W_i=w}$ denote the sum over all units in a given treatment group $w$.
+where I use $\sum_{W_i=w}$ as a shorthand for $\sum_{i:W_i=w}$ denote the sum over all units in a given treatment group $w$. 
 
 This is our **estimator**, the method we use to produce estimates of the estimand. 
 

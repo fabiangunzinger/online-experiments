@@ -245,8 +245,16 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">4.1</span> Definitions</a></li>
+  <li><a href="#variance-derivation" id="toc-variance-derivation" class="nav-link" data-scroll-target="#variance-derivation"><span class="header-section-number">4.2</span> Variance derivation</a></li>
+  <li><a href="#variance-estimation" id="toc-variance-estimation" class="nav-link" data-scroll-target="#variance-estimation"><span class="header-section-number">4.3</span> Variance estimation</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -270,7 +278,10 @@ window.Quarto = {
 </header>
 
 
-<p>In this section we derive the variance of our <a href="../chapters/experiments.html">difference-in-means estimator</a>. Because we use a <a href="experiment.md">design-based approach</a> to analyse our experiment, the standard results from the sampling-based approach do not apply and the derivation is considerably more involved. It’s really extremely boring to follow. But, as with all derivations, following it at least once helps tremendously with understanding what’s going on, and my not able to find a step-by-step version of that derivation was one of my main motivations to start these notes.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> but fills in a lot of steps that are skipped there in the hope that this step-by-step approach makes the logic more accessible.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>This section derives the of our <a href="../chapters/experiments.html">difference-in-means estimator</a>. Because we use a <a href="experiment.md">design-based approach</a> to analyse our experiment, the simple sampling-based results do not apply and the derivation is considerably more involved. It’s really extremely boring to follow! But, as with all derivations, following it at least once helps with understanding what’s going on.</p>
+<p>My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> but fills in a lot of steps that are skipped there in the hope that this step-by-step approach makes the logic more accessible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="definitions" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">4.1</span> Definitions</h2>
 <p>We start with some definitions.</p>
 <p>The sample means and variances of the <a href="../chapters/setup.html">potential outcomes</a> are:</p>
 <p><span class="math display">\[
@@ -311,9 +322,11 @@ S_{0, 1} &amp;= \frac{1}{n-1}\sum_{i=1}^{n}
 \left(Y_i(0) - \overline{Y}(0)\right)
 \end{align}
 \]</span></p>
-<p>We can now start with our derivation.</p>
-<p>The variance of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is defined as:</p>
-<p><span class="math display">\[
+</section>
+<section id="variance-derivation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="variance-derivation"><span class="header-section-number">4.2</span> Variance derivation</h2>
+<p>We can now start with our derivation. The derivation is long and makes use of intermediary results. I provide more information on these intermediary results in collapsible boxes at the bottom of the derivation and refer to them as “Note #”.</p>
+<p>To not make the notation even more complex I do not explicitly condition the variance on <span class="math inline">\(\mathbf{n}\)</span> and <span class="math inline">\(\mathbf{Y(w)}\)</span> here as I did in the proof for <a href="../chapters/unbiasedness.html">unbiasedness</a>, but doing so would look the same and I use the fact that these terms are fixed throughout. <span id="eq-var"><span class="math display">\[
 \begin{align}
 \mathbb{V}\left(
 \hat{\tau}^{\text{dm}}
@@ -322,74 +335,15 @@ S_{0, 1} &amp;= \frac{1}{n-1}\sum_{i=1}^{n}
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \right)
-\end{align}
-\]</span></p>
-<p>Using <a href="../chapters/unbiasedness.html#sutva-links-observed-outcomes-to-potential-outcomes">SUTVA</a> and the <a href="../chapters/experiments.html">definition of <span class="math inline">\(W_i\)</span></a> to write <span class="math inline">\(\sum_{W_i=1}Y_i(1)\)</span> as <span class="math inline">\(\sum_{i=1}^{n} W_iY_i(1)\)</span> for treatment units and use the corresponding expression for control units we get:</p>
-<p>$$ <span class="math display">\[\begin{align}
-\mathbb{V}\left(
-\hat{\tau}^{\text{dm}}
-\right)
-&amp;=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\right)
+\\[5pt]
+&amp;\text{Note 1}
 \\[5pt]
 &amp;=
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
 \right)
 \\[5pt]
-&amp;\text{SUTVA}
-\\[5pt]
-&amp;=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
-\right)
-\\[5pt]
-
-\end{align}\]</span> $$</p>
-<p>…<strong>I’m here</strong></p>
-<p>All lemmas referred to below are <a href="../chapters/lemmas.html">here</a>.</p>
-<p>We can then calculate the variance as (I do not explicitly condition on <span class="math inline">\(\mathbf{n}\)</span> and <span class="math inline">\(\mathbf{Y(w)}\)</span> here to keep the notation lighter):</p>
-<div id="nte-derivation" class="callout callout-style-default callout-note no-icon callout-titled" title="Derivation">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note&nbsp;4.1: Derivation
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Derivation</p>
-<p><span class="math display">\[
-\begin{align}
-\frac{1}{n_t}\sum_{i=1}^{N} R_i W_i Y_i
-&amp;= \frac{1}{n_t}\sum_{i=1}^{N} R_i W_i \Bigl(W_i Y_i(1) + (1 - W_i) Y_i(0)\Bigr) \\
-\end{align}
-\]</span></p>
-</div>
-</div>
-</div>
-<p>See <a href="#nte-derivation" class="quarto-xref">Note&nbsp;<span>4.1</span></a></p>
-<p><span id="eq-var"><span class="math display">\[
-\begin{align}
-\mathbb{V}\left(
-\hat{\tau}^{\text{dm}}
-\right)
-&amp;=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\right)
-\\[5pt]
-&amp;=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
-\right)
-\\[5pt]
-&amp;\text{SUTVA}
+&amp;\text{Note 2}
 \\[5pt]
 &amp;=
 \mathbb{V}\left(
@@ -605,7 +559,58 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \\[5pt]
 \end{align}
 \tag{4.1}\]</span></span></p>
-<p>This is the <a href="../chapters/stats_foundations.html#sampling-distribution">sampling variance</a> of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span>. It’s a theoretical quantity we cannot directly observe. However, we can observe treatment group means:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Note 1">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Given that <span class="math inline">\(W_i=1\)</span> for treatment units and <span class="math inline">\(W_i=0\)</span> for control units, we can calculate treatment group means by summing over all units and using <span class="math inline">\(W_i\)</span> to “pick out” the relevant units for each treatment group so that we have: <span class="math display">\[
+\begin{align}
+\hat{\tau}^{\text{dm}}
+&amp;=
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\\[5pt]
+&amp;=
+\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i - \frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i
+\end{align}
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Note 2">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This step uses SUTVA which – if it holds – implies that: <span class="math display">\[
+Y_i = Y_i(W_i) = \begin{cases}
+   Y_i(1) &amp; \text{if } W_i = 1 \\
+   Y_i(0)       &amp; \text{if } W_i = 0,
+  \end{cases}
+\]</span></p>
+<p>See <a href="../chapters/unbiasedness.html#sutva-links-observed-outcomes-to-potential-outcomes">here</a> for a detailed discussion.</p>
+</div>
+</div>
+</div>
+<p>This is the <a href="../chapters/stats_foundations.html#sampling-distribution">sampling variance</a> of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span>. It’s a theoretical quantity we cannot directly observe.</p>
+</section>
+<section id="variance-estimation" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="variance-estimation"><span class="header-section-number">4.3</span> Variance estimation</h2>
+<p>However, we can observe treatment group means:</p>
 <p><span class="math display">\[
 \begin{align}
 \overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
@@ -640,11 +645,11 @@ Ding, Peng. 2023. <span>“A First Course in Causal Inference.”</span> <a href
 Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
 </div>
 </div>
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>The other main motivation was that I couldn’t find a <a href="../chapters/power.html">step-by-step derivations of the sample size formula</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> provide an alternative derivation in Appendix B of Chapter 6 that is fairly detailed but still skips a lot of steps that weren’t immediately obvious to me, and they define a helper variable I don’t find to help that much. I find the approach in <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> more transparent. But the original source skips a lot of steps and is thus not very accessible.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p><span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> provide an alternative derivation in Appendix B of Chapter 6 that is fairly detailed but still skips a lot of steps that weren’t immediately obvious to me, and they define a helper variable I don’t find to help that much. I find the approach in <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> more transparent. But the original source skips a lot of steps and is thus not very accessible.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

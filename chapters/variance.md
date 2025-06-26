@@ -1,7 +1,11 @@
 
 ## Variance
 
-In this section we derive the variance of our [difference-in-means estimator](experiments.md). Because we use a [design-based approach](experiment.md) to analyse our experiment, the standard results from the sampling-based approach do not apply and the derivation is considerably more involved. It's really extremely boring to follow. But, as with all derivations, following it at least once helps tremendously with understanding what's going on, and my not able to find a step-by-step version of that derivation was one of my main motivations to start these notes.[^other] My approach is based on @ding2023first but fills in a lot of steps that are skipped there in the hope that this step-by-step approach makes the logic more accessible.[^approach]
+This section derives the of our [difference-in-means estimator](experiments.md). Because we use a [design-based approach](experiment.md) to analyse our experiment, the simple sampling-based results do not apply and the derivation is considerably more involved. It's really extremely boring to follow! But, as with all derivations, following it at least once helps with understanding what's going on. 
+
+My approach is based on @ding2023first but fills in a lot of steps that are skipped there in the hope that this step-by-step approach makes the logic more accessible.[^approach]
+
+## Definitions
 
 We start with some definitions.
 
@@ -52,10 +56,11 @@ S_{0, 1} &= \frac{1}{n-1}\sum_{i=1}^{n}
 \end{align}
 $$
 
-We can now start with our derivation.
+## Variance derivation
 
-The variance of $\hat{\tau}^{\text{dm}}$ is defined as:
+We can now start with our derivation. The derivation is long and makes use of intermediary results. I provide more information on these intermediary results in collapsible boxes at the bottom of the derivation and refer to them as "Note #".
 
+To not make the notation even more complex I do not explicitly condition the variance on $\mathbf{n}$ and $\mathbf{Y(w)}$ here as I did in the proof for [unbiasedness](unbiasedness.md), but doing so would look the same and I use the fact that these terms are fixed throughout.
 $$
 \begin{align}
 \mathbb{V}\left(
@@ -65,75 +70,15 @@ $$
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
 \right)
-\end{align}
-$$
-
-Using [SUTVA](unbiasedness.md#sutva-links-observed-outcomes-to-potential-outcomes) and the [definition of $W_i$](experiments.md) to write $\sum_{W_i=1}Y_i(1)$ as $\sum_{i=1}^{n} W_iY_i(1)$ for treatment units and use the corresponding expression for control units we get:
-
-$$
-\begin{align}
-\mathbb{V}\left(
-\hat{\tau}^{\text{dm}}
-\right)
-&=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\right)
+\\[5pt]
+&\text{Note 1}
 \\[5pt]
 &=
 \mathbb{V}\left(
 \frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
 \right)
 \\[5pt]
-&\text{SUTVA}
-\\[5pt]
-&=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i(0)
-\right)
-\\[5pt]
-
-\end{align}
-$$
-
-
-...**I'm here**
-
-All lemmas referred to below are [here](lemmas.md).
-
-We can then calculate the variance as (I do not explicitly condition on $\mathbf{n}$ and $\mathbf{Y(w)}$ here to keep the notation lighter):
-
-
-::: {.callout-note collapse=true title="Derivation" #nte-derivation}
-
-Derivation
-
-$$
-\begin{align}
-\frac{1}{n_t}\sum_{i=1}^{N} R_i W_i Y_i
-&= \frac{1}{n_t}\sum_{i=1}^{N} R_i W_i \Bigl(W_i Y_i(1) + (1 - W_i) Y_i(0)\Bigr) \\
-\end{align}
-$$
-:::
-
-See @nte-derivation
-
-$$
-\begin{align}
-\mathbb{V}\left(
-\hat{\tau}^{\text{dm}}
-\right)
-&=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\right)
-\\[5pt]
-&=
-\mathbb{V}\left(
-\frac{1}{n_t}\sum_{i=1}^n W_iY_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
-\right)
-\\[5pt]
-&\text{SUTVA}
+&\text{Note 2}
 \\[5pt]
 &=
 \mathbb{V}\left(
@@ -350,7 +295,43 @@ W_j \left(Y_j^+ - \overline{Y}^+\right)
 \end{align}
 $${#eq-var}
 
-This is the [sampling variance](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. However, we can observe treatment group means:
+
+
+::: {.callout-note collapse=true title="Note 1"}
+Given that $W_i=1$ for treatment units and $W_i=0$ for control units, we can calculate treatment group means by summing over all units and using $W_i$ to "pick out" the relevant units for each treatment group so that we have:
+$$
+\begin{align}
+\hat{\tau}^{\text{dm}}
+&=
+\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+\\[5pt]
+&= 
+\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i - \frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i
+\end{align}
+$$
+:::
+
+::: {.callout-note collapse=true title="Note 2"}
+This step uses SUTVA which – if it holds – implies that:
+$$
+Y_i = Y_i(W_i) = \begin{cases} 
+   Y_i(1) & \text{if } W_i = 1 \\
+   Y_i(0)       & \text{if } W_i = 0,
+  \end{cases}
+$$
+
+See [here](unbiasedness.md#sutva-links-observed-outcomes-to-potential-outcomes) for a detailed discussion.
+:::
+
+
+
+
+
+This is the [sampling variance](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$. It's a theoretical quantity we cannot directly observe. 
+
+## Variance estimation
+
+However, we can observe treatment group means:
 
 $$
 \begin{align}
