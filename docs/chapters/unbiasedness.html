@@ -250,8 +250,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sutva-links-observed-outcomes-to-potential-outcomes" id="toc-sutva-links-observed-outcomes-to-potential-outcomes" class="nav-link active" data-scroll-target="#sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.0.1</span> SUTVA links observed outcomes to potential outcomes</a></li>
-  <li><a href="#randomisation-links-treatment-groups-to-the-population" id="toc-randomisation-links-treatment-groups-to-the-population" class="nav-link" data-scroll-target="#randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.0.2</span> Randomisation links treatment groups to the population</a></li>
+  <li><a href="#sutva-links-observed-outcomes-to-potential-outcomes" id="toc-sutva-links-observed-outcomes-to-potential-outcomes" class="nav-link active" data-scroll-target="#sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.1</span> SUTVA links observed outcomes to potential outcomes</a></li>
+  <li><a href="#randomisation-links-treatment-groups-to-the-population" id="toc-randomisation-links-treatment-groups-to-the-population" class="nav-link" data-scroll-target="#randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.2</span> Randomisation links treatment groups to the population</a></li>
   </ul>
 </nav>
     </div>
@@ -260,7 +260,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></h1>
+<h1 class="title"><span id="sec-unbiasedness" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span></h1>
 </div>
 
 
@@ -326,8 +326,8 @@ window.Quarto = {
 <li><p>Link observed to potential outcomes so that <span class="math inline">\(Y_i = Y_i(W_i)\)</span>. This requires the Stable Unit Treatment Value Assumption (SUTVA).</p></li>
 <li><p>Link treatment group averages to sample averages so that <span class="math inline">\(\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)\)</span>. This requires randomisation.</p></li>
 </ol>
-<section id="sutva-links-observed-outcomes-to-potential-outcomes" class="level3" data-number="3.0.1">
-<h3 data-number="3.0.1" class="anchored" data-anchor-id="sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.0.1</span> SUTVA links observed outcomes to potential outcomes</h3>
+<section id="sutva-links-observed-outcomes-to-potential-outcomes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.1</span> SUTVA links observed outcomes to potential outcomes</h2>
 <p>We want to learn something about unit-level differences in potential outcomes <span class="math display">\[
 \tau_i = Y_i(1) - Y_i(0),
 \]</span> where a potential outcome is a unit-indexed function of the treatment level, with the treatment levels in our case simply being “treatment” and “control”, captured by the assignment indicator <span class="math inline">\(W_i \in {0, 1}\)</span>.</p>
@@ -403,8 +403,8 @@ Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 \]</span></p>
 <p>What remains is to show that <span class="math inline">\(\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)\)</span>. This requires randomisation.</p>
 </section>
-<section id="randomisation-links-treatment-groups-to-the-population" class="level3" data-number="3.0.2">
-<h3 data-number="3.0.2" class="anchored" data-anchor-id="randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.0.2</span> Randomisation links treatment groups to the population</h3>
+<section id="randomisation-links-treatment-groups-to-the-population" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.2</span> Randomisation links treatment groups to the population</h2>
 <p>We start by rewriting the last equation slightly: we use the <a href="../chapters/experiments.html">definition of <span class="math inline">\(W_i\)</span></a> to write <span class="math inline">\(\sum_{W_i=1}Y_i(1)\)</span> as <span class="math inline">\(\sum_{i=1}^{n} W_iY_i(1)\)</span> for treatment units and use the corresponding expression for control units; we use the linearity of the expectation operator to move it inside the summation; and we move <span class="math inline">\(\mathbf{Y(w)}\)</span>, <a href="../chapters/experiments.html">which is fixed</a>, out of the expectation. We now have:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -449,7 +449,7 @@ Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 \]</span></p>
-<p>This expression makes transparent that <span class="math inline">\(W_i\)</span> is the only random element. <span class="math inline">\(\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> and <span class="math inline">\(\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> are determined by the assignment mechanism. Given that we have <a href="../chapters/experiments.html">defined</a> <span class="math inline">\(W_i\)</span> as a Bernoulli random variable and given that we take potential outcomes <span class="math inline">\(\mathbf{Y(w)}\)</span> and sample sizes <span class="math inline">\(\mathbf{n}\)</span> as given we have <span class="math display">\[
+<p>This expression makes transparent that <span class="math inline">\(W_i\)</span> is the only random element. <span class="math inline">\(\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> and <span class="math inline">\(\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> are determined by the assignment mechanism. Given that we have <a href="../chapters/experiments.html">defined</a> <span class="math inline">\(W_i\)</span> as a Bernoulli random variable and given that we take potential outcomes <span class="math inline">\(\mathbf{Y(w)}\)</span> and sample sizes <span class="math inline">\(\mathbf{n}\)</span> as given we have established in <a href="experiments.html#eq-prob" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> that: <span class="math display">\[
 P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
 =
 \frac{n_t}{n}.

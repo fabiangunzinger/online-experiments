@@ -1,4 +1,4 @@
-# Unbiasedness
+# Unbiasedness {#sec-unbiasedness}
 
 An estimator is unbiased if its expected value equals the true value of the estimand. In @eq-estimator we defined our difference-in-means estimator as:
 
@@ -57,7 +57,7 @@ There are two pieces we need for this:
 
 2) Link treatment group averages to sample averages so that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
-### SUTVA links observed outcomes to potential outcomes
+## SUTVA links observed outcomes to potential outcomes
 
 We want to learn something about unit-level differences in potential outcomes
 $$
@@ -157,7 +157,7 @@ $$
 
 What remains is to show that $\mathbb{E}\left[\frac{1}{n_t}\sum_{W_i=w}Y_i(w)\right] = \frac{1}{n}\sum_{i=1}^{n}Y_i(w)$. This requires randomisation.
 
-### Randomisation links treatment groups to the population
+## Randomisation links treatment groups to the population
 
 We start by rewriting the last equation slightly: we use the [definition of $W_i$](experiments.md) to write $\sum_{W_i=1}Y_i(1)$ as $\sum_{i=1}^{n} W_iY_i(1)$ for treatment units and use the corresponding expression for control units; we use the linearity of the expectation operator to move it inside the summation; and we move $\mathbf{Y(w)}$, [which is fixed](experiments.md), out of the expectation. We now have:
 
@@ -206,7 +206,7 @@ $$
 \end{align}
 $$
 
-This expression makes transparent that $W_i$ is the only random element. $\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ and $\mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ are determined by the assignment mechanism. Given that we have [defined](experiments.md) $W_i$ as a Bernoulli random variable and given that we take potential outcomes $\mathbf{Y(w)}$ and sample sizes $\mathbf{n}$ as given we have
+This expression makes transparent that $W_i$ is the only random element. $\mathbb{E}[W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ and $\mathbb{E}[1-W_i\>|\>\mathbf{n}, \mathbf{Y(w)}]$ are determined by the assignment mechanism. Given that we have [defined](experiments.md) $W_i$ as a Bernoulli random variable and given that we take potential outcomes $\mathbf{Y(w)}$ and sample sizes $\mathbf{n}$ as given we have established in @eq-prob that:
 $$
 P(W_i = 1 \>|\>\mathbf{n}, \mathbf{Y(w)}) 
 =

@@ -1,4 +1,4 @@
-# Setup
+# Setup {#sec-setup}
 
 We study a sample of $n$ units to learn about the effect of a binary treatment on these units. We index units as $i = 1, \dots, n$.
 
