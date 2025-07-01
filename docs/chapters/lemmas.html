@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Lemmas – The statistics of online experiments</title>
+<title>lemmas – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -89,40 +69,11 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../custom.scss">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -131,7 +82,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/lemmas.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/lemmas.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">lemmas.html</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -219,7 +170,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">lemmas.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,127 +196,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#sec-lemma2" id="toc-sec-lemma2" class="nav-link active" data-scroll-target="#sec-lemma2"><span class="header-section-number">10.1</span> Lemma 2</a></li>
-  <li><a href="#sec-lemma3" id="toc-sec-lemma3" class="nav-link" data-scroll-target="#sec-lemma3"><span class="header-section-number">10.2</span> Lemma 3</a></li>
-  <li><a href="#sec-lemma4" id="toc-sec-lemma4" class="nav-link" data-scroll-target="#sec-lemma4"><span class="header-section-number">10.3</span> Lemma 4</a></li>
-  <li><a href="#sec-lemma5" id="toc-sec-lemma5" class="nav-link" data-scroll-target="#sec-lemma5"><span class="header-section-number">10.4</span> Lemma 5</a></li>
-  <li><a href="#old-lemmas" id="toc-old-lemmas" class="nav-link" data-scroll-target="#old-lemmas"><span class="header-section-number">11</span> Old lemmas</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"><span id="sec-lemmas" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></span></h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<p>In math, lemmas are proofs of intermediary results. Below the ones I use in the text. Most of them are based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span>.</p>
-<section id="sec-lemma2" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="sec-lemma2"><span class="header-section-number">10.1</span> Lemma 2</h2>
-</section>
-<section id="sec-lemma3" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="sec-lemma3"><span class="header-section-number">10.2</span> Lemma 3</h2>
-</section>
-<section id="sec-lemma4" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="sec-lemma4"><span class="header-section-number">10.3</span> Lemma 4</h2>
-</section>
-<section id="sec-lemma5" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="sec-lemma5"><span class="header-section-number">10.4</span> Lemma 5</h2>
-</section>
-<section id="old-lemmas" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Old lemmas</h1>
-<section id="sec-lemma2" class="level4" data-number="11.0.0.1">
-<h4 data-number="11.0.0.1" class="anchored" data-anchor-id="sec-lemma2"><span class="header-section-number">11.0.0.1</span> Lemma 2</h4>
-<p><span class="math inline">\(\mathbb{E}[W_i W_j] = \frac{n_t}{n}\frac{n_t-1}{n-1}.\)</span></p>
-<p><strong>Proof:</strong></p>
-<p>Because <span class="math inline">\(W_i\)</span> is an indicator variable for which <span class="math inline">\(E[W_i] = P(W_i = 1)\)</span> and similar for <span class="math inline">\(W_j\)</span>, we also have <span class="math inline">\(E[W_i W_j] = P(W_i = 1, W_j = 1)\)</span>.</p>
-<p>Hence, what we are looking for is the joint probability of selecting both units <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> as part of a sample of size <span class="math inline">\(n_t\)</span> from a finite population of size <span class="math inline">\(n\)</span>. In general, this is given by:</p>
-<p><span class="math display">\[
-P(W_i = 1, W_j = 1)
-= \frac{\text{Number of ways to choose a sample of size } n_t \text{ containing }i, j}{\text{Number of ways to choose any sample of size }n_t}
-\]</span></p>
-<p>Number of ways to choose a sample of size <span class="math inline">\(n_t\)</span> from a finite population of size <span class="math inline">\(n\)</span>:</p>
-<p><span class="math display">\[
-\left(
-    \begin{array}{c}
-      n \\
-      n_t
-    \end{array}
-  \right) = \frac{n!}{n_t!(n-n_t)!}.
-\]</span></p>
-<p>Number of ways to choose a sample of size <span class="math inline">\(n_t\)</span> that contains both <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>:</p>
-<p><span class="math display">\[
-\left(
-    \begin{array}{c}
-      n-2 \\
-      n_t-2
-    \end{array}
-  \right)
-  = \frac{(n-2)!}{(n_t-2)!((n-2)-(n_t-2))!}
-  = \frac{(n-2)!}{(n_t-2)!(n-n_t)!}.
-\]</span></p>
-<p>Hence:</p>
-<p><span class="math display">\[
-\begin{align}
-P(W_i = 1, W_j = 1)
-&amp;= \frac{
-\left(
-    \begin{array}{c}
-      n-2 \\
-      n_t-2
-    \end{array}
-\right)}
-{\left(
-    \begin{array}{c}
-      n \\
-      n_t
-    \end{array}
-\right)} \\[5pt]
-&amp;= \frac{\frac{(n-2)!}{(n_t-2)!(n-n_t)!}}{\frac{n!}{n_t!(n-n_t)!}} \\[5pt]
-&amp; = \frac{(n-2)!}{(n_t-2)!}\frac{n_t!}{n!} \\[5pt]
-&amp; = \frac{(n-2)!}{(n_t-2)!}\frac{n_t(n_t-1)(n_t-2)!}{n(n-1)(n-2)!} \\[5pt]
-&amp; = \frac{n_t(n_t-1)}{n(n-1)}.
-\end{align}
-\]</span></p>
-<p>A more heuristic way to get the same result:</p>
-<ol type="1">
-<li>The probability of selecting <span class="math inline">\(i\)</span> is <span class="math inline">\(P(W_i = 1) = \frac{n_t}{n}\)</span></li>
-<li>The probability of selecting <span class="math inline">\(j\)</span> given that <span class="math inline">\(i\)</span> is selected is <span class="math inline">\(P(W_j = 1 | W_i = 1) = \frac{n_t - 1}{n-1}\)</span></li>
-<li>Using the multiplication rule for joint probabilities we have</li>
-</ol>
-<p><span class="math display">\[
-P(W_i = 1, W_j = 1) = P(W_i=1)P(W_j=1|W_j=1)=\frac{n_t}{n}\frac{n_t-1}{n-1}.
-\]</span></p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-ding2023first" class="csl-entry" role="listitem">
-Ding, Peng. 2023. <span>“A First Course in Causal Inference.”</span> <a href="https://arxiv.org/abs/2305.18793">https://arxiv.org/abs/2305.18793</a>.
-</div>
-</div>
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
