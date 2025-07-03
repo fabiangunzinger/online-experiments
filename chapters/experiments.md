@@ -22,7 +22,7 @@ There are different approaches we could take to formally analyse our experiment.
 Second, we have to decide how to treat the treatment condition sample sizes. We can analyse the Bernoulli Randomised Experiment treating $n_t$ and $n_c$ as Binomial random variables or taking them as given. I follow the latter approach for two reasons: it considerably simplifies the math, and it more naturally aligns with the situation we face in online experiments given that, by the time of the analysis, sample sizes are, indeed, given. Taking sample sizes and potential outcomes as fixed implies that:
 
 $$
-W_i \sim \text{Bernoulli}\left(\frac{n_t}{c}\right),
+W_i \sim \text{Bernoulli}\left(\frac{n_t}{n}\right),
 $$
 or, equivalently,
 

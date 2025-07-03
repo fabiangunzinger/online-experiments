@@ -218,20 +218,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -483,7 +477,7 @@ s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
 <li><p>If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance since in this case, <span class="math inline">\(S^2_{\tau_i} = 0\)</span>.</p></li>
 <li><p>If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since <span class="math inline">\(S_{\tau_i}^2\)</span> is non-negative).</p></li>
 </ol>
-<p>This is the variance estimator based on which we’ll derive the standard derivation in the next chapter.</p>
+<p>This is the estimator of the sampling variance of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> based on which we’ll derive the standard derivation in the next chapter.</p>
 </section>
 <section id="lemmas" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="lemmas"><span class="header-section-number">4.3</span> Lemmas</h2>
@@ -541,16 +535,16 @@ W_i^2 = W_i
 &amp; \\[6pt]
 \mathbb{V}\left(\sum_{i=1}^{n}W_i\right)
 &amp;= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-&amp; \text{symmetry} \\65pt]
+&amp; \text{symmetry} \\[6pt]
 \mathbb{V}\left(n_t\right)
 &amp;= n\mathbb{V}(W_i) + n(n-1)\text{Cov}(W_i, W_j)
 &amp; \text{Def of }n_t \\[6pt]
 0 &amp;= n\mathbb{V}(W_i) + n(n-1)\text{Cov}(W_i, W_j)
 &amp; n_t\text{ is constant} \\[6pt]
 0 &amp;= n\left(\frac{n_tn_c}{n^2}\right) + n(n-1)\text{Cov}(W_i, W_j)
-&amp; \text{Result for } \mathbb{V}(W_i) \\[5pt]
+&amp; \text{Result for } \mathbb{V}(W_i) \\[6pt]
 0 &amp;= \frac{n_tn_c}{n} + n(n-1)\text{Cov}(W_i, W_j)
-&amp; \text{} \\[5pt]
+&amp; \text{} \\[6pt]
 \text{Cov}(W_i, W_j) &amp;= -\frac{n_tn_c}{n^2(n-1)}&amp; \text{}
 \end{align}
 \]</span> <a href="#anchor-2">↩︎️</a></p>
@@ -558,7 +552,7 @@ W_i^2 = W_i
 <section id="lemma-5" class="level3" data-number="4.3.5">
 <h3 data-number="4.3.5" class="anchored" data-anchor-id="lemma-5"><span class="header-section-number">4.3.5</span> Lemma 5</h3>
 <p>We use the fact that: <span class="math display">\[
--\sum_{i=1}^{n}\sum_{j \neq i}^{n}
+-\sum_{i \neq j}^{n}
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 = \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
 \]</span> To see why this is true, remember that that sum of demeaned variables is zero. Hence, <span class="math inline">\(\sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+) = 0\)</span>. This implies that: <span class="math display">\[
@@ -571,10 +565,10 @@ W_i^2 = W_i
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 \\[6pt]
 &amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-+\sum_{i=1}^{n}\sum_{j \neq i}^{n}
++\sum_{i \neq j}^{n}
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 \\[6pt]
--\sum_{i=1}^{n}\sum_{j \neq i}^{n}
+-\sum_{i \neq j}^{n}
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 &amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2.
 \end{align}

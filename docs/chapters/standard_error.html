@@ -198,20 +198,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -250,26 +244,28 @@ window.Quarto = {
 </header>
 
 
-<p>The <a href="../chapters/stats_foundations.html#sampling-distribution">standard error</a> of an estimator is simply the square root of its sampling variance. From</p>
-<!-- @eq-var  -->
-<p>we thus have:</p>
-<p><span id="eq-se"><span class="math display">\[
+<p>The <a href="../chapters/stats_foundations.html#sampling-distribution">standard error</a> of an estimator is simply the square root of its sampling variance. Using our estimator of the sampling variance from <a href="variance.html#eq-var-est" class="quarto-xref">Equation&nbsp;<span>4.2</span></a>, the standard error is thus given by: <span id="eq-se"><span class="math display">\[
 \widehat{SE}
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 \tag{5.1}\]</span></span></p>
-<p>Because in online experiments sample sizes are large and treatment effects are usually small, it is sometimes convenient to assume equal sample sizes, so that the sample size for each variant is <span class="math inline">\(n_t = n_c = n_v\)</span>, and equal variances, so that <span class="math inline">\(s_t^2 = s_c^2 = s^2\)</span>. The common variance <span class="math inline">\(s^2\)</span> is estimated by “pooling” the treatment group variances to create a <a href="../chapters/stats_foundations.html#degrees-of-freedom">degrees-of-freedom-weighted</a> estimator of the form: <span class="math display">\[
+<p>In online experiments it is sometimes convenient to assume that <strong>sample sizes and sample variances are equal</strong>. This is justified in contexts where sample sizes are large and treatment effects are small. In such a case we denote the sample size per variant as <span class="math inline">\(n_v\)</span>, with <span class="math inline">\(n_t = n_c = n_v\)</span>, and we refer to the common sample variance of the outcome variable as <span class="math inline">\(s^2\)</span>, with <span class="math inline">\(s_t^2 = s_c^2 = s^2\)</span>. The common variance <span class="math inline">\(s^2\)</span> is estimated by “pooling” the treatment group variances to create a <a href="../chapters/stats_foundations.html#degrees-of-freedom">degrees-of-freedom-weighted</a> estimator of the form: <span class="math display">\[
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 \]</span> Substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we then have: <span id="eq-se-equal"><span class="math display">\[
 \widehat{SE}^{\text{equal}}
-= \sqrt{\frac{s^2}{n_v} + \frac{s^2}{n_v}}
 = \sqrt{\frac{2s^2}{n_v}}.
 \tag{5.2}\]</span></span></p>
-<p>Finally, for the purpose of experiment design it is sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use <span class="math inline">\(p\)</span> to denote that proportion and <span class="math inline">\(n\)</span> to denote total sample size, while maintaining the assumption of equal variance. Again substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we can then write: <span id="eq-se-prop"><span class="math display">\[
+<p>Finally, for the purpose of experiment design it is sometimes useful to express the standard error <strong>in terms of the proportion of units allocated to the treatment group</strong>. Hence, instead of assuming equal sample sizes, we use <span class="math inline">\(p\)</span> to denote that proportion and <span class="math inline">\(n\)</span> to denote total sample size, while maintaining the assumption of equal variance. Again substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we can then write: <span id="eq-se-prop"><span class="math display">\[
 \widehat{SE}^{\text{prop}}
 = \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
 = \sqrt{\frac{s^2}{np(1-p)}}.
 \tag{5.3}\]</span></span></p>
-<p>For <span class="math inline">\(p=0.5\)</span>, this formulation is equivalent to <a href="#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>5.2</span></a> as expected.</p>
+<p>Note that for <span class="math inline">\(p=0.5\)</span> and when expressing sample size in terms of <span class="math inline">\(n_v\)</span>, we get: <span class="math display">\[
+\widehat{SE}^{\text{prop}}_{p=1/2}
+= \sqrt{\frac{s^2}{\frac{2n_v}{4}}}
+= \sqrt{\frac{2s^2}{n_v}}
+= \widehat{SE}^{\text{equal}}
+\]</span> as expected.</p>
+<p>Next, we’ll use the standard deviation for sample size calculation.</p>
 
 
 

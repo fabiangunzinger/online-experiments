@@ -3,17 +3,13 @@
 	- [x] Setup
 	- [x] Experiments
 	- [x] Unbiasedness
-	- [ ] Variance and standard error
+	- [x] Variance and standard error
 	- [ ] Hypothesis testing
 	- [ ] Power
 
 Bonus
 - Consider adding introduction.md stuff to index.md
-
-
-
-
-
+- testing_additional_material
 
 - [ ] Add section on power calculations
     - [ ] Incorporate all metrics types to power calculation (see hesterberg2024power)

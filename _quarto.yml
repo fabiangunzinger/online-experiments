@@ -24,7 +24,6 @@ book:
     - chapters/power.md
     - chapters/threats_to_validity.md
     - chapters/experiment_setup.md
-    - chapters/lemmas.md
     - chapters/stats_foundations.md
     - chapters/faqs.md
     - chapters/references.md

@@ -218,20 +218,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/lemmas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lemmas</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -284,7 +278,7 @@ window.Quarto = {
 <p>There are different approaches we could take to formally analyse our experiment. First, we have to decide how to think of our sample of <span class="math inline">\(n\)</span> units. We could either view these units as the population of interest or treat them as a sample from a larger population and use results from the sample to make inferences about the population. Because in all but the largest companies experiments usually run on all traffic, the first perspective is more natural for online experiments and in what follows we treat our <span class="math inline">\(n\)</span> units as the population of interest. In this approach, where the sample of <span class="math inline">\(n\)</span> units is taken as fixed (rather than being treated as a random sample from a larger population), the only source of randomness comes from treatment assignments – from the design of our experiment – and the approach is thus naturally called “design-based”.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Given that our sample is fixed, the two vectors of potential outcomes, <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span> are also fixed.</p>
 <p>Second, we have to decide how to treat the treatment condition sample sizes. We can analyse the Bernoulli Randomised Experiment treating <span class="math inline">\(n_t\)</span> and <span class="math inline">\(n_c\)</span> as Binomial random variables or taking them as given. I follow the latter approach for two reasons: it considerably simplifies the math, and it more naturally aligns with the situation we face in online experiments given that, by the time of the analysis, sample sizes are, indeed, given. Taking sample sizes and potential outcomes as fixed implies that:</p>
 <p><span class="math display">\[
-W_i \sim \text{Bernoulli}\left(\frac{n_t}{c}\right),
+W_i \sim \text{Bernoulli}\left(\frac{n_t}{n}\right),
 \]</span> or, equivalently,</p>
 <p><span id="eq-prob"><span class="math display">\[
 P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}) = \frac{n_t}{n}.

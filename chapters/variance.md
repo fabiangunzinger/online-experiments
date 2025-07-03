@@ -232,7 +232,7 @@ In our context, the main advantages of this estimator are:
 
 2. If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since $S_{\tau_i}^2$ is non-negative).
 
-This is the variance estimator based on which we'll derive the standard derivation in the next chapter.
+This is the estimator of the sampling variance of $\hat{\tau}^{\text{dm}}$ based on which we'll derive the standard derivation in the next chapter.
 
 ## Lemmas
 ### Lemma 1 {#lemma-1}
@@ -293,16 +293,16 @@ $$
 & \\[6pt]
 \mathbb{V}\left(\sum_{i=1}^{n}W_i\right) 
 &= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-& \text{symmetry} \\65pt]
+& \text{symmetry} \\[6pt]
 \mathbb{V}\left(n_t\right) 
 &= n\mathbb{V}(W_i) + n(n-1)\text{Cov}(W_i, W_j)
 & \text{Def of }n_t \\[6pt]
 0 &= n\mathbb{V}(W_i) + n(n-1)\text{Cov}(W_i, W_j)
 & n_t\text{ is constant} \\[6pt]
 0 &= n\left(\frac{n_tn_c}{n^2}\right) + n(n-1)\text{Cov}(W_i, W_j)
-& \text{Result for } \mathbb{V}(W_i) \\[5pt]
+& \text{Result for } \mathbb{V}(W_i) \\[6pt]
 0 &= \frac{n_tn_c}{n} + n(n-1)\text{Cov}(W_i, W_j)
-& \text{} \\[5pt]
+& \text{} \\[6pt]
 \text{Cov}(W_i, W_j) &= -\frac{n_tn_c}{n^2(n-1)}& \text{}
 \end{align}
 $$
@@ -311,7 +311,7 @@ $$
 ### Lemma 5 {#lemma-5}
 We use the fact that:
 $$
--\sum_{i=1}^{n}\sum_{j \neq i}^{n}
+-\sum_{i \neq j}^{n}
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 = \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
 $$
@@ -326,10 +326,10 @@ $$
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 \\[6pt]
 &= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-+\sum_{i=1}^{n}\sum_{j \neq i}^{n}
++\sum_{i \neq j}^{n}
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 \\[6pt]
--\sum_{i=1}^{n}\sum_{j \neq i}^{n}
+-\sum_{i \neq j}^{n}
 (Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
 &= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2.
 \end{align}
