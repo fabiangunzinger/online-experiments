@@ -3,19 +3,29 @@
 
 ## What is power and how do we measure it?
 
+Power is the probability of finding a significant results (and thus rejecting the null hypothesis) when it is false. 
+
+$$
+P(\text{significant result} | H_0\text{ false}).
+$$
+
+In online experiments we usually measure power in terms of the *minimum detectable effect* (MDE) as proposed in @bloom1995minimal. The MDE is the smallest effect that, if true, has a chance of 
+
+
+
+
+
+
+
 - Power is defined as
-
-$$
-
-$$
-
-
 
 - Cohen (1977) proposes estimated effect size / standard deviation of outcome. This is useful to compare effects across studies and domains.
 
 - Bloom (1985) proposes MDE, useful for within study/domain comparisons. More directly interpretable.
 
 
+
+[Statsig](https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details)
 
 
 ## Required sample size
@@ -345,7 +355,10 @@ Use @list2011so
 
 ## Relative effects
 
-See zhou2023all
+See zhou2023all, also Statsig docs
+
+
+
 ## Correlated data
 
 See zhou2023all, hesterberg2024power

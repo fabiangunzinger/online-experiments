@@ -22,9 +22,9 @@ which, for large samples, is approximately normally distributed[^1].
 
 With the above proceedure, there are two types of mistakes we can make:
 
-- We can reject $H_0$ when it is true. This is called a **Type I error** and leads to a false positive. The probability of this type of error is denoted $\alpha$. The false positive rate is thus given by $P(\text{significant result} | H_0\text{ true})$.
+- We can reject $H_0$ when it is true. This is called a **Type I error** and constitutes a false positive. The probability of this type of error is denoted $\alpha$. The false positive rate is thus given by $P(\text{significant result} | H_0\text{ true})$.
 
-- We can fail to reject $H_0$ when it is false. This is called a **Type II error** and leads to a false negative. The probability of this type of error is denoted $\beta$.
+- We can fail to reject $H_0$ when it is false. This is called a **Type II error** and constitutes a false negative. The probability of this type of error is denoted $\beta$.
 
 The complements of these two errors are:
 
@@ -34,9 +34,7 @@ The complements of these two errors are:
 
 One of Neyman's key insights was that while we cannot control error rates for a single experiment, we can control them over the long-run over many experiments. In practice, this means that if we follow the approach consistently and run many experiments we know that in $\alpha$ percent of cases where a feature has no true effect we will erroneously find a significant result.
 
-An interesting question then arises: out of all significant results we do find, how many are false positives? The answer is given by the **false discovery rate**, which is given by $P(H_0\text{ true} | \text{significant result})$. Note that the fewer true effects are generated, the more significant results are due to false positives.
-
-
+An interesting question then arises: out of all significant results we find, how many are false positives? The answer is given by the **false discovery rate**, which is $P(H_0\text{ true} | \text{significant result})$. Note that the fewer true effects are generated, the more significant results are due to false positives.
 
 
 [^1]: See @imbens2015causal Section 6.6.2 and @ding2023first Section 4.2 for details.

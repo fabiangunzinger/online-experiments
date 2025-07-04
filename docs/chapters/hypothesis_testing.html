@@ -287,8 +287,8 @@ t = \frac{\hat{\tau}^{\text{dm}}}
 <h2 data-number="6.2" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">6.2</span> Types of errors</h2>
 <p>With the above proceedure, there are two types of mistakes we can make:</p>
 <ul>
-<li><p>We can reject <span class="math inline">\(H_0\)</span> when it is true. This is called a <strong>Type I error</strong> and leads to a false positive. The probability of this type of error is denoted <span class="math inline">\(\alpha\)</span>. The false positive rate is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ true})\)</span>.</p></li>
-<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a <strong>Type II error</strong> and leads to a false negative. The probability of this type of error is denoted <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p>We can reject <span class="math inline">\(H_0\)</span> when it is true. This is called a <strong>Type I error</strong> and constitutes a false positive. The probability of this type of error is denoted <span class="math inline">\(\alpha\)</span>. The false positive rate is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ true})\)</span>.</p></li>
+<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a <strong>Type II error</strong> and constitutes a false negative. The probability of this type of error is denoted <span class="math inline">\(\beta\)</span>.</p></li>
 </ul>
 <p>The complements of these two errors are:</p>
 <ul>
@@ -296,7 +296,7 @@ t = \frac{\hat{\tau}^{\text{dm}}}
 <li><p><strong>Power</strong>, the probability that we do reject <span class="math inline">\(H_0\)</span> if it is false – the probability of a true positive – given by <span class="math inline">\(1 - \beta\)</span>. Formally, power is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ false})\)</span>.</p></li>
 </ul>
 <p>One of Neyman’s key insights was that while we cannot control error rates for a single experiment, we can control them over the long-run over many experiments. In practice, this means that if we follow the approach consistently and run many experiments we know that in <span class="math inline">\(\alpha\)</span> percent of cases where a feature has no true effect we will erroneously find a significant result.</p>
-<p>An interesting question then arises: out of all significant results we do find, how many are false positives? The answer is given by the <strong>false discovery rate</strong>, which is given by <span class="math inline">\(P(H_0\text{ true} | \text{significant result})\)</span>. Note that the fewer true effects are generated, the more significant results are due to false positives.</p>
+<p>An interesting question then arises: out of all significant results we find, how many are false positives? The answer is given by the <strong>false discovery rate</strong>, which is <span class="math inline">\(P(H_0\text{ true} | \text{significant result})\)</span>. Note that the fewer true effects are generated, the more significant results are due to false positives.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
