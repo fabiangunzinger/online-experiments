@@ -30,7 +30,7 @@ $$
 P(W_i = 1 \>|\>\mathbf{n}, \mathbf{Y(w)}) = \frac{n_t}{n}.
 $${#eq-prob}
 
-That is: given sample sizes and potential outcomes, each uh unit's probability of being assigned to the treatment group simply equals the proportion of units assigned to the treatment group. Importantly, assignments are independent, meaning that user's probabilities do not depend on how many other users are already part of the treatment group. 
+That is: given sample sizes and potential outcomes, each unit's probability of being assigned to the treatment group simply equals the proportion of units assigned to the treatment group. Importantly, assignments are independent, meaning that user's probabilities do not depend on how many other users are already part of the treatment group. 
 
 This setup will play an important role in the next section, where we show that $\hat{\tau}^{\text{dm}}$ is an unbiased estimator of $\tau$ – that is that, on average, our estimator helps us find the true value of the estimand.
 

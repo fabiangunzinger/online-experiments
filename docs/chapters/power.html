@@ -245,34 +245,33 @@ window.Quarto = {
    
   <ul>
   <li><a href="#what-is-power-and-how-do-we-measure-it" id="toc-what-is-power-and-how-do-we-measure-it" class="nav-link active" data-scroll-target="#what-is-power-and-how-do-we-measure-it"><span class="header-section-number">7.1</span> What is power and how do we measure it?</a></li>
-  <li><a href="#required-sample-size" id="toc-required-sample-size" class="nav-link" data-scroll-target="#required-sample-size"><span class="header-section-number">7.2</span> Required sample size</a>
+  <li><a href="#deriving-the-power-formula" id="toc-deriving-the-power-formula" class="nav-link" data-scroll-target="#deriving-the-power-formula"><span class="header-section-number">7.2</span> Deriving the power formula</a>
   <ul class="collapse">
   <li><a href="#bloom-approach" id="toc-bloom-approach" class="nav-link" data-scroll-target="#bloom-approach"><span class="header-section-number">7.2.1</span> Bloom approach</a></li>
   <li><a href="#two-equations-approach" id="toc-two-equations-approach" class="nav-link" data-scroll-target="#two-equations-approach"><span class="header-section-number">7.2.2</span> Two-equations approach</a></li>
-  <li><a href="#first-principles-approach" id="toc-first-principles-approach" class="nav-link" data-scroll-target="#first-principles-approach"><span class="header-section-number">7.2.3</span> First-principles approach</a></li>
-  <li><a href="#starting-from-type-i-and-type-ii-error-conditions" id="toc-starting-from-type-i-and-type-ii-error-conditions" class="nav-link" data-scroll-target="#starting-from-type-i-and-type-ii-error-conditions"><span class="header-section-number">7.2.4</span> Starting from Type I and Type II error conditions</a></li>
   </ul></li>
-  <li><a href="#relative-effects" id="toc-relative-effects" class="nav-link" data-scroll-target="#relative-effects"><span class="header-section-number">7.3</span> Relative effects</a></li>
-  <li><a href="#correlated-data" id="toc-correlated-data" class="nav-link" data-scroll-target="#correlated-data"><span class="header-section-number">7.4</span> Correlated data</a></li>
-  <li><a href="#effective-sample-size-of-test" id="toc-effective-sample-size-of-test" class="nav-link" data-scroll-target="#effective-sample-size-of-test"><span class="header-section-number">7.5</span> Effective sample size of test</a>
+  <li><a href="#required-sample-size" id="toc-required-sample-size" class="nav-link" data-scroll-target="#required-sample-size"><span class="header-section-number">7.3</span> Required sample size</a></li>
+  <li><a href="#relative-effects" id="toc-relative-effects" class="nav-link" data-scroll-target="#relative-effects"><span class="header-section-number">7.4</span> Relative effects</a></li>
+  <li><a href="#correlated-data" id="toc-correlated-data" class="nav-link" data-scroll-target="#correlated-data"><span class="header-section-number">7.5</span> Correlated data</a></li>
+  <li><a href="#effective-sample-size-of-test" id="toc-effective-sample-size-of-test" class="nav-link" data-scroll-target="#effective-sample-size-of-test"><span class="header-section-number">7.6</span> Effective sample size of test</a>
   <ul class="collapse">
-  <li><a href="#effective-sample-size-in-a-two-sample-test-equal-variances-assumed" id="toc-effective-sample-size-in-a-two-sample-test-equal-variances-assumed" class="nav-link" data-scroll-target="#effective-sample-size-in-a-two-sample-test-equal-variances-assumed"><span class="header-section-number">7.5.1</span> Effective Sample Size in a Two-Sample Test (Equal Variances Assumed)</a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">7.5.2</span> Interpretation</a></li>
+  <li><a href="#effective-sample-size-in-a-two-sample-test-equal-variances-assumed" id="toc-effective-sample-size-in-a-two-sample-test-equal-variances-assumed" class="nav-link" data-scroll-target="#effective-sample-size-in-a-two-sample-test-equal-variances-assumed"><span class="header-section-number">7.6.1</span> Effective Sample Size in a Two-Sample Test (Equal Variances Assumed)</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">7.6.2</span> Interpretation</a></li>
   </ul></li>
-  <li><a href="#rule-of-thumb" id="toc-rule-of-thumb" class="nav-link" data-scroll-target="#rule-of-thumb"><span class="header-section-number">7.6</span> Rule of thumb</a></li>
-  <li><a href="#how-to-choose-key-parameters" id="toc-how-to-choose-key-parameters" class="nav-link" data-scroll-target="#how-to-choose-key-parameters"><span class="header-section-number">7.7</span> How to choose key parameters</a>
+  <li><a href="#rule-of-thumb" id="toc-rule-of-thumb" class="nav-link" data-scroll-target="#rule-of-thumb"><span class="header-section-number">7.7</span> Rule of thumb</a></li>
+  <li><a href="#how-to-choose-key-parameters" id="toc-how-to-choose-key-parameters" class="nav-link" data-scroll-target="#how-to-choose-key-parameters"><span class="header-section-number">7.8</span> How to choose key parameters</a>
   <ul class="collapse">
-  <li><a href="#mde" id="toc-mde" class="nav-link" data-scroll-target="#mde"><span class="header-section-number">7.7.1</span> MDE</a></li>
-  <li><a href="#significance-level" id="toc-significance-level" class="nav-link" data-scroll-target="#significance-level"><span class="header-section-number">7.7.2</span> Significance level</a></li>
-  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power"><span class="header-section-number">7.7.3</span> Power</a></li>
+  <li><a href="#mde" id="toc-mde" class="nav-link" data-scroll-target="#mde"><span class="header-section-number">7.8.1</span> MDE</a></li>
+  <li><a href="#significance-level" id="toc-significance-level" class="nav-link" data-scroll-target="#significance-level"><span class="header-section-number">7.8.2</span> Significance level</a></li>
+  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power"><span class="header-section-number">7.8.3</span> Power</a></li>
   </ul></li>
-  <li><a href="#what-determines-power" id="toc-what-determines-power" class="nav-link" data-scroll-target="#what-determines-power"><span class="header-section-number">7.8</span> What determines power</a></li>
-  <li><a href="#how-to-increase-power" id="toc-how-to-increase-power" class="nav-link" data-scroll-target="#how-to-increase-power"><span class="header-section-number">7.9</span> How to increase power</a></li>
-  <li><a href="#problems-with-low-power" id="toc-problems-with-low-power" class="nav-link" data-scroll-target="#problems-with-low-power"><span class="header-section-number">7.10</span> Problems with low power</a></li>
-  <li><a href="#power-in-online-experiments" id="toc-power-in-online-experiments" class="nav-link" data-scroll-target="#power-in-online-experiments"><span class="header-section-number">7.11</span> Power in online experiments</a></li>
-  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices"><span class="header-section-number">7.12</span> Best practices</a></li>
-  <li><a href="#experiment-duration" id="toc-experiment-duration" class="nav-link" data-scroll-target="#experiment-duration"><span class="header-section-number">7.13</span> Experiment duration</a></li>
-  <li><a href="#useful-resources" id="toc-useful-resources" class="nav-link" data-scroll-target="#useful-resources"><span class="header-section-number">7.14</span> Useful resources</a></li>
+  <li><a href="#what-determines-power" id="toc-what-determines-power" class="nav-link" data-scroll-target="#what-determines-power"><span class="header-section-number">7.9</span> What determines power</a></li>
+  <li><a href="#how-to-increase-power" id="toc-how-to-increase-power" class="nav-link" data-scroll-target="#how-to-increase-power"><span class="header-section-number">7.10</span> How to increase power</a></li>
+  <li><a href="#problems-with-low-power" id="toc-problems-with-low-power" class="nav-link" data-scroll-target="#problems-with-low-power"><span class="header-section-number">7.11</span> Problems with low power</a></li>
+  <li><a href="#power-in-online-experiments" id="toc-power-in-online-experiments" class="nav-link" data-scroll-target="#power-in-online-experiments"><span class="header-section-number">7.12</span> Power in online experiments</a></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices"><span class="header-section-number">7.13</span> Best practices</a></li>
+  <li><a href="#experiment-duration" id="toc-experiment-duration" class="nav-link" data-scroll-target="#experiment-duration"><span class="header-section-number">7.14</span> Experiment duration</a></li>
+  <li><a href="#useful-resources" id="toc-useful-resources" class="nav-link" data-scroll-target="#useful-resources"><span class="header-section-number">7.15</span> Useful resources</a></li>
   </ul>
 </nav>
     </div>
@@ -300,45 +299,39 @@ window.Quarto = {
 
 <section id="what-is-power-and-how-do-we-measure-it" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="what-is-power-and-how-do-we-measure-it"><span class="header-section-number">7.1</span> What is power and how do we measure it?</h2>
-<p>Power is the probability of finding a significant results (and thus rejecting the null hypothesis) when it is false.</p>
-<p><span class="math display">\[
+<p>Power is the probability of finding a significant results (and thus rejecting the null hypothesis) when it is false. <span class="math display">\[
 P(\text{significant result} | H_0\text{ false}).
-\]</span></p>
-<p>In online experiments we usually measure power in terms of the <em>minimum detectable effect</em> (MDE) as proposed in <span class="citation" data-cites="bloom1995minimal">(<a href="references.html#ref-bloom1995minimal" role="doc-biblioref"><strong>bloom1995minimal?</strong></a>)</span>. The MDE is the smallest effect that, if true, has a chance of</p>
-<ul>
-<li><p>Power is defined as</p></li>
-<li><p>Cohen (1977) proposes estimated effect size / standard deviation of outcome. This is useful to compare effects across studies and domains.</p></li>
-<li><p>Bloom (1985) proposes MDE, useful for within study/domain comparisons. More directly interpretable.</p></li>
-</ul>
-<p><a href="https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details">Statsig</a></p>
-</section>
-<section id="required-sample-size" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="required-sample-size"><span class="header-section-number">7.2</span> Required sample size</h2>
-<p>The required sample size is determined by four factors:</p>
-<ol type="1">
-<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type I error</a>, denoted by <span class="math inline">\(\alpha\)</span>, corresponds to the significance level of the test and has an associated with the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> in a two-sided test.</p></li>
-<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type II error</a>, denoted by <span class="math inline">\(\beta\)</span>, determines the power of the test, <span class="math inline">\(1-\beta\)</span>, and has associated critical value given by <span class="math inline">\(z_{1 - \beta}\)</span>.</p></li>
-<li><p>The standard deviation of the outcome variable, <span class="math inline">\(s\)</span>.</p></li>
-<li><p>The minimal detectable effect size, <span class="math inline">\(\Delta\)</span>.</p></li>
-</ol>
-<p>In the context of online experiments, we usually fix the significance level and desired power, calculate the estimate the outcome variable’s standard deviation from historical data, fix the minimal detectable effect, and then calculate required sample size. Given these inputs, and <a href="stats_of_online_experiments#standard_error">assuming equal sample sizes and variances</a> for treatment and control variants, that required sample size per variant is given by: <span id="eq-sampsi"><span class="math display">\[
-\begin{align}
+\]</span> In the context of online experiments, we usually measure power in terms of the <strong>minimum detectable effect</strong> (MDE) as proposed in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>. The author defines the MDE as:</p>
+<blockquote class="blockquote">
+<p>The minimum detectable effect of an experiment is the smallest effect that, if true, has an X% chance of producing an impact estimate that is statistically significant at the Y level.</p>
+<p>X is the statistical power of the experiment for an alternative hypothesis equal to the minimum detectable effect. Y is the level of statistical significance used to decide whether or not a true effect exists.</p>
+</blockquote>
+<p>In our context, X is <span class="math inline">\(1-\beta\)</span> and Y is <span class="math inline">\(\alpha\)</span> (see definitions <a href="../chapters/hypothesis_testing.html#types-of-errors">here</a>).</p>
+<p>When we say that we perform “power calculations” or “sample size calculations”, we do two things: we calculate the number of units we need in our experiments and then estimate how long it will take us to collect this many units. The first step makes use of a version of the following formula (e.g.&nbsp;<a href="https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details">here</a>):</p>
+<p><span class="math display">\[
 n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
-\end{align}
-\tag{7.1}\]</span></span></p>
-<p>The power formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. Here, I want to derive the formula to demystify it.</p>
+\]</span> {#eq-sampsi}</p>
+<p>This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. In this section, I want to derive and explain the formula to demystify it.</p>
+</section>
+<section id="deriving-the-power-formula" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="deriving-the-power-formula"><span class="header-section-number">7.2</span> Deriving the power formula</h2>
+<p>There are three ways to derive the formula. Two heuristic approaches and one approach that starts from first principles. All three can help us understand what we are doing more deeply.</p>
 <section id="bloom-approach" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="bloom-approach"><span class="header-section-number">7.2.1</span> Bloom approach</h3>
-<ul>
-<li><span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span> introduces the concept of MDE to measure and compare power and provides a useful heuristic approach to perform sample size calculations.</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../inputs/power.png" class="img-fluid figure-img"></p>
-<figcaption>title</figcaption>
+<p>This section summarises the approach presented in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.</p>
+<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> below shows the sampling distribution</p>
+<div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../inputs/bloom-power.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impact estimate. Source: <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.
+</figcaption>
 </figure>
 </div>
 <ul>
+<li><p><span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span> introduces the concept of MDE to measure and compare power and provides a useful heuristic approach to perform sample size calculations.</p></li>
 <li><p>In above figure, which is taken from <span class="citation" data-cites="duflo2007using">Duflo, Glennerster, and Kremer (<a href="references.html#ref-duflo2007using" role="doc-biblioref">2007</a>)</span>, the left hand curve is the sampling distribution of the estimator under <span class="math inline">\(H_0\)</span>, where the true effect size is 0, and the right hand curve its sampling distribution under <span class="math inline">\(H_A\)</span>, where the true effect size is <span class="math inline">\(\Delta\)</span>. Because in online experiments sample sizes are usually large, these sampling distributions are well approximated by a standard normal distribution.</p></li>
 <li><p>For a given significance level <span class="math inline">\(\alpha\)</span>, the critical value <span class="math inline">\(z_{a/2}\)</span> in a two-sided test is the point in the <span class="math inline">\(H_0\)</span> distribution that has <span class="math inline">\(\alpha/2\)</span> of the probability mass to its right. We can also think of that critical critical value as a distance between the center of the distribution and the critical value.</p></li>
 <li><p>For a given level of power, <span class="math inline">\(1-\beta\)</span>, the critical value <span class="math inline">\(z_{1-\beta}\)</span> is the point in the <span class="math inline">\(H_A\)</span> distribution that has <span class="math inline">\(1-\beta\)</span> of the probability mass to its right. It, too, can be thought of as a distance.</p></li>
@@ -351,11 +344,11 @@ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
 <img src="../inputs/power.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.1: Source: <span class="citation" data-cites="duflo2007using">Duflo, Glennerster, and Kremer (<a href="references.html#ref-duflo2007using" role="doc-biblioref">2007</a>)</span>, based on <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.
+Figure&nbsp;7.2: Source: <span class="citation" data-cites="duflo2007using">Duflo, Glennerster, and Kremer (<a href="references.html#ref-duflo2007using" role="doc-biblioref">2007</a>)</span>, based on <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.
 </figcaption>
 </figure>
 </div>
-<p>Let’s start by understanding <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>, which visualises the setup of a one-sided hypothesis test where the true effect equals 0 under the null hypothesis and some positive constant <span class="math inline">\(\te\)</span> under the alternative hypothesis. Note that the curves are <em>not</em> the standard normal distribution, but the sampling distribution of our estimator <span class="math inline">\(\tee\)</span>. This means that the standard deviation of the curves is given by the standard error of <span class="math inline">\(\tee\)</span>, which is <span class="math inline">\(\se\)</span>. Under the assumption of a homogenous treatment effect, the standard error is identical under <span class="math inline">\(\hn\)</span> and <span class="math inline">\(\ha\)</span>, which is why the two curves have the same shape</p>
+<p>Let’s start by understanding <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.2</span></a>, which visualises the setup of a one-sided hypothesis test where the true effect equals 0 under the null hypothesis and some positive constant <span class="math inline">\(\te\)</span> under the alternative hypothesis. Note that the curves are <em>not</em> the standard normal distribution, but the sampling distribution of our estimator <span class="math inline">\(\tee\)</span>. This means that the standard deviation of the curves is given by the standard error of <span class="math inline">\(\tee\)</span>, which is <span class="math inline">\(\se\)</span>. Under the assumption of a homogenous treatment effect, the standard error is identical under <span class="math inline">\(\hn\)</span> and <span class="math inline">\(\ha\)</span>, which is why the two curves have the same shape</p>
 <!-- (see @sec-experiment-stats for details). -->
 <p>the distribution will be the same under both the null and the alternative hypothesis, with the center of each distribution given by our hypothesised value of <span class="math inline">\(\te\)</span> – zero under <span class="math inline">\(\hn\)</span> and a positive constant under <span class="math inline">\(\ha\)</span>.</p>
 <p>We reject <span class="math inline">\(\hn\)</span> if <span class="math inline">\(\tee\)</span> is to the right of the critical value <span class="math inline">\(\za\)</span>. Also, for a given level of power <span class="math inline">\(\beta\)</span>,</p>
@@ -395,9 +388,7 @@ std = \sqrt{\frac{\sigma^2}{N_t} + \frac{\sigma^2}{N_c}} = \sqrt{\frac{\sigma^2}
 </section>
 <section id="two-equations-approach" class="level3" data-number="7.2.2">
 <h3 data-number="7.2.2" class="anchored" data-anchor-id="two-equations-approach"><span class="header-section-number">7.2.2</span> Two-equations approach</h3>
-</section>
-<section id="first-principles-approach" class="level3" data-number="7.2.3">
-<h3 data-number="7.2.3" class="anchored" data-anchor-id="first-principles-approach"><span class="header-section-number">7.2.3</span> First-principles approach</h3>
+<p>Use <span class="citation" data-cites="list2011so">List, Sadoff, and Wagner (<a href="references.html#ref-list2011so" role="doc-biblioref">2011</a>)</span> ### First-principles approach</p>
 <p>Power is the probability that we reject the null hypothesis if there exists a true effect of size <span class="math inline">\(\Delta\)</span>.</p>
 <p>We thus have: <span class="math display">\[
 \begin{align}
@@ -493,7 +484,7 @@ P\left[Z &gt; z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 =
 \Phi\left(\frac{\Delta}{\widehat{SE}} - z_{\alpha/2}\right).
 \end{align}
-\tag{7.2}\]</span></span></p>
+\tag{7.1}\]</span></span></p>
 <p>Next, remember that <span class="math inline">\(\Phi(z)\)</span> takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value), so its inverse, <span class="math inline">\(\Phi^{-1}(p)\)</span>, takes probabilities and returns z-values (the <span class="math inline">\(z\)</span> value with <span class="math inline">\(p\)</span> probability mass to its left). Hence, <span class="math inline">\(\Phi^{-1}(1-\beta)\)</span> refers to the upper-tail critical value of the standard normal distribution that has <span class="math inline">\(1-\beta\)</span> probability mass to its right, and which we defined above as <span class="math inline">\(z_{1-\beta}\)</span>. Using this, we get:</p>
 <p>$$ <span class="math display">\[\begin{align}
 
@@ -546,23 +537,34 @@ n_v
 &amp;= 2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}
 \end{align}\]</span> $$</p>
 </section>
-<section id="starting-from-type-i-and-type-ii-error-conditions" class="level3" data-number="7.2.4">
-<h3 data-number="7.2.4" class="anchored" data-anchor-id="starting-from-type-i-and-type-ii-error-conditions"><span class="header-section-number">7.2.4</span> Starting from Type I and Type II error conditions</h3>
-<p>Use <span class="citation" data-cites="list2011so">List, Sadoff, and Wagner (<a href="references.html#ref-list2011so" role="doc-biblioref">2011</a>)</span></p>
 </section>
+<section id="required-sample-size" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="required-sample-size"><span class="header-section-number">7.3</span> Required sample size</h2>
+<p>The required sample size is determined by four factors:</p>
+<ol type="1">
+<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type I error</a>, denoted by <span class="math inline">\(\alpha\)</span>, corresponds to the significance level of the test and has an associated with the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> in a two-sided test.</p></li>
+<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type II error</a>, denoted by <span class="math inline">\(\beta\)</span>, determines the power of the test, <span class="math inline">\(1-\beta\)</span>, and has associated critical value given by <span class="math inline">\(z_{1 - \beta}\)</span>.</p></li>
+<li><p>The standard deviation of the outcome variable, <span class="math inline">\(s\)</span>.</p></li>
+<li><p>The minimal detectable effect size, <span class="math inline">\(\Delta\)</span>.</p></li>
+</ol>
+<p>In the context of online experiments, we usually fix the significance level and desired power, calculate the estimate the outcome variable’s standard deviation from historical data, fix the minimal detectable effect, and then calculate required sample size. Given these inputs, and <a href="stats_of_online_experiments#standard_error">assuming equal sample sizes and variances</a> for treatment and control variants, that required sample size per variant is given by: <span id="eq-sampsi"><span class="math display">\[
+\begin{align}
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
+\end{align}
+\tag{7.2}\]</span></span></p>
 </section>
-<section id="relative-effects" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="relative-effects"><span class="header-section-number">7.3</span> Relative effects</h2>
+<section id="relative-effects" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="relative-effects"><span class="header-section-number">7.4</span> Relative effects</h2>
 <p>See zhou2023all, also Statsig docs</p>
 </section>
-<section id="correlated-data" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="correlated-data"><span class="header-section-number">7.4</span> Correlated data</h2>
+<section id="correlated-data" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="correlated-data"><span class="header-section-number">7.5</span> Correlated data</h2>
 <p>See zhou2023all, hesterberg2024power</p>
 </section>
-<section id="effective-sample-size-of-test" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="effective-sample-size-of-test"><span class="header-section-number">7.5</span> Effective sample size of test</h2>
-<section id="effective-sample-size-in-a-two-sample-test-equal-variances-assumed" class="level3" data-number="7.5.1">
-<h3 data-number="7.5.1" class="anchored" data-anchor-id="effective-sample-size-in-a-two-sample-test-equal-variances-assumed"><span class="header-section-number">7.5.1</span> Effective Sample Size in a Two-Sample Test (Equal Variances Assumed)</h3>
+<section id="effective-sample-size-of-test" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="effective-sample-size-of-test"><span class="header-section-number">7.6</span> Effective sample size of test</h2>
+<section id="effective-sample-size-in-a-two-sample-test-equal-variances-assumed" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="effective-sample-size-in-a-two-sample-test-equal-variances-assumed"><span class="header-section-number">7.6.1</span> Effective Sample Size in a Two-Sample Test (Equal Variances Assumed)</h3>
 <p>When comparing two groups — treatment (size <span class="math inline">\(N_T\)</span>) and control (size <span class="math inline">\(N_C\)</span>) — and assuming equal variances, the effective sample size for estimating the variance of the difference in means is given by the harmonic mean:</p>
 <p><span class="math display">\[
 N_{\text{eff}} = \frac{1}{\frac{1}{N_T} + \frac{1}{N_C}}
@@ -577,16 +579,16 @@ N_{\text{eff}} = \frac{1}{\frac{1}{N_T} + \frac{1}{N_C}}
 \]</span></p>
 <p>Matching both sides gives the harmonic mean as the effective sample size.</p>
 </section>
-<section id="interpretation" class="level3" data-number="7.5.2">
-<h3 data-number="7.5.2" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">7.5.2</span> Interpretation</h3>
+<section id="interpretation" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">7.6.2</span> Interpretation</h3>
 <ul>
 <li>The harmonic mean weights smaller group sizes more heavily.</li>
 <li>It reflects the information content for estimating differences — imbalanced samples reduce power.</li>
 </ul>
 </section>
 </section>
-<section id="rule-of-thumb" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="rule-of-thumb"><span class="header-section-number">7.6</span> Rule of thumb</h2>
+<section id="rule-of-thumb" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="rule-of-thumb"><span class="header-section-number">7.7</span> Rule of thumb</h2>
 <p>Blog post on 16 or 32 power confusion: - Reliably looking posts who get it wrong: (https://towardsdatascience.com/probing-into-minimum-sample-size-formula-derivation-and-usage-8db9a556280b — starts with the wrong std error with N for total instead of variant sample size), there is also Kohavi book or paper that gets it wrong</p>
 <ul>
 <li><p>There is another way to express the variance, which has led to massive confusion.</p></li>
@@ -611,10 +613,10 @@ N &amp;= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 \]</span></p>
 <p>Give also per variant, as this is more useful to calculate sample size for experiments with n arms.</p>
 </section>
-<section id="how-to-choose-key-parameters" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="how-to-choose-key-parameters"><span class="header-section-number">7.7</span> How to choose key parameters</h2>
-<section id="mde" class="level3" data-number="7.7.1">
-<h3 data-number="7.7.1" class="anchored" data-anchor-id="mde"><span class="header-section-number">7.7.1</span> MDE</h3>
+<section id="how-to-choose-key-parameters" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="how-to-choose-key-parameters"><span class="header-section-number">7.8</span> How to choose key parameters</h2>
+<section id="mde" class="level3" data-number="7.8.1">
+<h3 data-number="7.8.1" class="anchored" data-anchor-id="mde"><span class="header-section-number">7.8.1</span> MDE</h3>
 <ul>
 <li><p>What are you balancing here? The size of the effect you are able to identify and the time it takes to do it.</p></li>
 <li><p>All else equal, the smaller a change you want to be able to detect, the longer it will take for the experiment to run because you need more sample size.</p></li>
@@ -632,8 +634,8 @@ N &amp;= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 </ul></li>
 </ul>
 </section>
-<section id="significance-level" class="level3" data-number="7.7.2">
-<h3 data-number="7.7.2" class="anchored" data-anchor-id="significance-level"><span class="header-section-number">7.7.2</span> Significance level</h3>
+<section id="significance-level" class="level3" data-number="7.8.2">
+<h3 data-number="7.8.2" class="anchored" data-anchor-id="significance-level"><span class="header-section-number">7.8.2</span> Significance level</h3>
 <ul>
 <li><p>What are you balancing here? The probabilities of making a type I and type II error.</p></li>
 <li><p>The higher significance level, the less likely we are to implement useless features (to make a Type I error) but the more likely we are to no implement useful features (to make a Type II error).</p></li>
@@ -651,8 +653,8 @@ N &amp;= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 </ul></li>
 </ul>
 </section>
-<section id="power" class="level3" data-number="7.7.3">
-<h3 data-number="7.7.3" class="anchored" data-anchor-id="power"><span class="header-section-number">7.7.3</span> Power</h3>
+<section id="power" class="level3" data-number="7.8.3">
+<h3 data-number="7.8.3" class="anchored" data-anchor-id="power"><span class="header-section-number">7.8.3</span> Power</h3>
 <ul>
 <li><p>What are you balancing here? The risk of making a Type II error and the time you have to wait for your results.</p></li>
 <li><p>All else equal, the higher a level or power you want, the longer you’ll have to run the experiment to accumulate the requried sample size.</p></li>
@@ -663,8 +665,8 @@ N &amp;= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 </ul>
 </section>
 </section>
-<section id="what-determines-power" class="level2" data-number="7.8">
-<h2 data-number="7.8" class="anchored" data-anchor-id="what-determines-power"><span class="header-section-number">7.8</span> What determines power</h2>
+<section id="what-determines-power" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="what-determines-power"><span class="header-section-number">7.9</span> What determines power</h2>
 <ul>
 <li><p>Significance level</p></li>
 <li><p>Effect size</p></li>
@@ -676,8 +678,8 @@ N &amp;= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 </ul></li>
 </ul>
 </section>
-<section id="how-to-increase-power" class="level2" data-number="7.9">
-<h2 data-number="7.9" class="anchored" data-anchor-id="how-to-increase-power"><span class="header-section-number">7.9</span> How to increase power</h2>
+<section id="how-to-increase-power" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="how-to-increase-power"><span class="header-section-number">7.10</span> How to increase power</h2>
 <ul>
 <li><p>for framing on how to increase power, Integrate larsen2023statistical section 2</p></li>
 <li><p>Power can be increased trivially by lowering the significance level, which we often don’t want to do, or by increasing sample size, which we’re often trying to avoid.</p></li>
@@ -712,14 +714,14 @@ N &amp;= 4 (0.84 + 1.96)^2\left(\frac{\sev}{\te}\right)^2 \\
 <p>Hence, for given levels of power and significance, a one-sided test requires about 21 percent fewer observations.</p></li>
 </ul>
 </section>
-<section id="problems-with-low-power" class="level2" data-number="7.10">
-<h2 data-number="7.10" class="anchored" data-anchor-id="problems-with-low-power"><span class="header-section-number">7.10</span> Problems with low power</h2>
+<section id="problems-with-low-power" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="problems-with-low-power"><span class="header-section-number">7.11</span> Problems with low power</h2>
 <ul>
 <li>Truth inflation: underpowered studies only find a significant effect it the effect size is larger than the true effect size, leading to inflated claims of effect sizes.</li>
 </ul>
 </section>
-<section id="power-in-online-experiments" class="level2" data-number="7.11">
-<h2 data-number="7.11" class="anchored" data-anchor-id="power-in-online-experiments"><span class="header-section-number">7.11</span> Power in online experiments</h2>
+<section id="power-in-online-experiments" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="power-in-online-experiments"><span class="header-section-number">7.12</span> Power in online experiments</h2>
 <ul>
 <li><span class="citation" data-cites="kohavi2014seven">Kohavi et al. (<a href="references.html#ref-kohavi2014seven" role="doc-biblioref">2014</a>)</span> point out (in rule 7) that while general advice suggets that the CLT provides a good approximation for n larger than 30, the large skew in online metrics often requires many moer users. They recomment 355 * (skewness coefficient)^2.</li>
 </ul>
@@ -781,22 +783,22 @@ N = \frac{z_\alpha + z_{1-\beta}}{P(1-P)}\frac{\sigma^2}{\delta^2}
 <li><p>Third best, if we want to perform power calculation before the experiment starts (i.e.&nbsp;because we want to provide duration estimate during experiment config), we could use data from recent history (e.g.&nbsp;calculated monthly), and calculated separately for each metric, market, and based on other relevant dimensions such as different time period. Though, here, taking into account bucketing points might be challenging and hard to scale. So think about good approximations.</p></li>
 </ul>
 </section>
-<section id="best-practices" class="level2" data-number="7.12">
-<h2 data-number="7.12" class="anchored" data-anchor-id="best-practices"><span class="header-section-number">7.12</span> Best practices</h2>
+<section id="best-practices" class="level2" data-number="7.13">
+<h2 data-number="7.13" class="anchored" data-anchor-id="best-practices"><span class="header-section-number">7.13</span> Best practices</h2>
 <ul>
 <li>When aiming to estimate a precise effect size rather than just being interested in statistical significance, use assurance instead of power: instead of choosing a sample size to attain a given level of power, choose sample size so that confidence interval will be suitably narrow 99 percent of the time (<a href="https://www3.nd.edu/~kkelley/publications/articles/Anderson_Kelley_Maxwell_Psychological_Science_2017.pdf">Sample-Size Planning for More Accurate Statistical Power: A Method Adjusting Sample Effect Sizes for Publication Bias and Uncertainty</a> and <a href="https://tandfbis.s3.amazonaws.com/rt-media/pp/common/sample-chapters/9780415879682.pdf">Understanding the new statistics</a>.)</li>
 </ul>
 </section>
-<section id="experiment-duration" class="level2" data-number="7.13">
-<h2 data-number="7.13" class="anchored" data-anchor-id="experiment-duration"><span class="header-section-number">7.13</span> Experiment duration</h2>
+<section id="experiment-duration" class="level2" data-number="7.14">
+<h2 data-number="7.14" class="anchored" data-anchor-id="experiment-duration"><span class="header-section-number">7.14</span> Experiment duration</h2>
 <ul>
 <li><p>We usually care about power because it determines experiment runtime.</p></li>
 <li><p>There we walk about how to translate required N into runtime.</p></li>
 <li><p><a href="https://www.geteppo.com/blog/four-customer-characteristics-that-should-change-your-experiment-runtime">Simon Johnson – Four Customer Characteristics That Should Change Your Experiment Runtime</a></p></li>
 </ul>
 </section>
-<section id="useful-resources" class="level2" data-number="7.14">
-<h2 data-number="7.14" class="anchored" data-anchor-id="useful-resources"><span class="header-section-number">7.14</span> Useful resources</h2>
+<section id="useful-resources" class="level2" data-number="7.15">
+<h2 data-number="7.15" class="anchored" data-anchor-id="useful-resources"><span class="header-section-number">7.15</span> Useful resources</h2>
 <ul>
 <li><p><span class="citation" data-cites="larsen2023statistical">Larsen et al. (<a href="references.html#ref-larsen2023statistical" role="doc-biblioref">2023</a>)</span> for general overview</p></li>
 <li><p><span class="citation" data-cites="zhou2023all">Zhou, Lu, and Shallah (<a href="references.html#ref-zhou2023all" role="doc-biblioref">2023</a>)</span> for comprehensive overview of how to calculate power</p></li>

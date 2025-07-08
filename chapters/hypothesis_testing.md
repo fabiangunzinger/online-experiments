@@ -1,6 +1,15 @@
 # Hypothesis testing
 
 
+## Sampling distribution
+
+In the previous sections, we have shown that in our setup, the estimated [sampling distribution](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$ is:
+$$
+\hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)} \sim N\left(\tau, \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}\right).
+$$
+**I'm here**: justify approximate Normality.
+
+
 ## Basic approach
 
 To test whether the observed treatment effect is significantly different from zero, we test:
@@ -17,14 +26,13 @@ t = \frac{\hat{\tau}^{\text{dm}}}
 $$
 which, for large samples, is approximately normally distributed[^1].
 
-
 ## Types of errors
 
-With the above proceedure, there are two types of mistakes we can make:
+With the above procedure, there are two types of mistakes we can make:
 
-- We can reject $H_0$ when it is true. This is called a **Type I error** and constitutes a false positive. The probability of this type of error is denoted $\alpha$. The false positive rate is thus given by $P(\text{significant result} | H_0\text{ true})$.
+- We can reject $H_0$ when it is true. This is called a **Type I error** and constitutes a false positive. The probability of this type of error is denoted by $\alpha$, which is also called the **significance level**. The false positive rate is thus given by $P(\text{significant result} | H_0\text{ true})$.
 
-- We can fail to reject $H_0$ when it is false. This is called a **Type II error** and constitutes a false negative. The probability of this type of error is denoted $\beta$.
+- We can fail to reject $H_0$ when it is false. This is called a **Type II error** and constitutes a false negative. The probability of this type of error is denoted by $\beta$.
 
 The complements of these two errors are:
 

@@ -244,8 +244,9 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#basic-approach" id="toc-basic-approach" class="nav-link active" data-scroll-target="#basic-approach"><span class="header-section-number">6.1</span> Basic approach</a></li>
-  <li><a href="#types-of-errors" id="toc-types-of-errors" class="nav-link" data-scroll-target="#types-of-errors"><span class="header-section-number">6.2</span> Types of errors</a></li>
+  <li><a href="#sampling-distribution" id="toc-sampling-distribution" class="nav-link active" data-scroll-target="#sampling-distribution"><span class="header-section-number">6.1</span> Sampling distribution</a></li>
+  <li><a href="#basic-approach" id="toc-basic-approach" class="nav-link" data-scroll-target="#basic-approach"><span class="header-section-number">6.2</span> Basic approach</a></li>
+  <li><a href="#types-of-errors" id="toc-types-of-errors" class="nav-link" data-scroll-target="#types-of-errors"><span class="header-section-number">6.3</span> Types of errors</a></li>
   </ul>
 </nav>
     </div>
@@ -271,8 +272,14 @@ window.Quarto = {
 </header>
 
 
-<section id="basic-approach" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="basic-approach"><span class="header-section-number">6.1</span> Basic approach</h2>
+<section id="sampling-distribution" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sampling-distribution"><span class="header-section-number">6.1</span> Sampling distribution</h2>
+<p>In the previous sections, we have shown that in our setup, the estimated <a href="../chapters/stats_foundations.html#sampling-distribution">sampling distribution</a> of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is: <span class="math display">\[
+\hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)} \sim N\left(\tau, \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}\right).
+\]</span> <strong>I’m here</strong>: justify approximate Normality.</p>
+</section>
+<section id="basic-approach" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="basic-approach"><span class="header-section-number">6.2</span> Basic approach</h2>
 <p>To test whether the observed treatment effect is significantly different from zero, we test: <span class="math display">\[
 \begin{align}
 &amp;H_0: \tau = 0 \\[5 pt]
@@ -283,12 +290,12 @@ t = \frac{\hat{\tau}^{\text{dm}}}
 {SE\left(\hat{\tau}^{\text{dm}}\right)}
 \]</span> which, for large samples, is approximately normally distributed<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 </section>
-<section id="types-of-errors" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">6.2</span> Types of errors</h2>
-<p>With the above proceedure, there are two types of mistakes we can make:</p>
+<section id="types-of-errors" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">6.3</span> Types of errors</h2>
+<p>With the above procedure, there are two types of mistakes we can make:</p>
 <ul>
-<li><p>We can reject <span class="math inline">\(H_0\)</span> when it is true. This is called a <strong>Type I error</strong> and constitutes a false positive. The probability of this type of error is denoted <span class="math inline">\(\alpha\)</span>. The false positive rate is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ true})\)</span>.</p></li>
-<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a <strong>Type II error</strong> and constitutes a false negative. The probability of this type of error is denoted <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p>We can reject <span class="math inline">\(H_0\)</span> when it is true. This is called a <strong>Type I error</strong> and constitutes a false positive. The probability of this type of error is denoted by <span class="math inline">\(\alpha\)</span>, which is also called the <strong>significance level</strong>. The false positive rate is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ true})\)</span>.</p></li>
+<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a <strong>Type II error</strong> and constitutes a false negative. The probability of this type of error is denoted by <span class="math inline">\(\beta\)</span>.</p></li>
 </ul>
 <p>The complements of these two errors are:</p>
 <ul>

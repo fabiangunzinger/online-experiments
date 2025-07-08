@@ -4,56 +4,49 @@
 ## What is power and how do we measure it?
 
 Power is the probability of finding a significant results (and thus rejecting the null hypothesis) when it is false. 
-
 $$
 P(\text{significant result} | H_0\text{ false}).
 $$
+In the context of online experiments, we usually measure power in terms of the **minimum detectable effect** (MDE) as proposed in @bloom1995minimum. The author defines the MDE as:
 
-In online experiments we usually measure power in terms of the *minimum detectable effect* (MDE) as proposed in @bloom1995minimal. The MDE is the smallest effect that, if true, has a chance of 
+> The minimum detectable effect of an experiment is the smallest effect that, if true, has an X% chance of producing an impact estimate that is statistically significant at the Y level.
+> 
+X is the statistical power of the experiment for an alternative hypothesis equal to the minimum detectable effect. Y is the level of statistical significance used to decide whether or not a true effect exists.
 
+In our context, X  is $1-\beta$ and Y is $\alpha$ (see definitions [here](hypothesis_testing.md#types-of-errors)).
 
+When we say that we perform "power calculations" or "sample size calculations", we do two things: we calculate the number of units we need in our experiments and then estimate how long it will take us to collect this many units. The first step makes use of a version of the following formula (e.g. [here](https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details)):
 
-
-
-
-
-- Power is defined as
-
-- Cohen (1977) proposes estimated effect size / standard deviation of outcome. This is useful to compare effects across studies and domains.
-
-- Bloom (1985) proposes MDE, useful for within study/domain comparisons. More directly interpretable.
-
-
-
-[Statsig](https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details)
-
-
-## Required sample size
-
-The required sample size is determined by four factors:
-
-1. The probability of making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$, corresponds to the significance level of the test and has an associated with the upper-tail critical value $z_{\alpha/2}$ in a two-sided test.
-
-2. The probability of making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$, determines the power of the test, $1-\beta$, and has associated critical value given by $z_{1 - \beta}$.
-
-3. The standard deviation of the outcome variable, $s$.
-
-4. The minimal detectable effect size, $\Delta$.
-
-In the context of online experiments, we usually fix the significance level and desired power, calculate the estimate the outcome variable's standard deviation from historical data, fix the minimal detectable effect, and then calculate required sample size. Given these inputs, and  [assuming equal sample sizes and variances](stats_of_online_experiments#standard_error) for treatment and control variants, that required sample size per variant is given by:
 $$
-\begin{align}
 n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
-\end{align}
-$$ {#eq-sampsi}
+$$
+{#eq-sampsi}
 
-The power formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. Here, I want to derive the formula to demystify it.
+This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. In this section, I want to derive and explain the formula to demystify it.
+
+## Deriving the power formula
+
+There are three ways to derive the formula. Two heuristic approaches and one approach that starts from first principles. All three can help us understand what we are doing more deeply.
 
 ### Bloom approach
 
+This section summarises the approach presented in @bloom1995minimum.
+
+Figure @fig-power below shows the sampling distribution 
+
+
+
+![Relationship between the MDE and the standard error of an impact estimate. Source: @bloom1995minimum.](../inputs/bloom-power.png){#fig-power}
+
+
+
+
+
+
+
 - @bloom1995minimum introduces the concept of MDE to measure and compare power and provides a useful heuristic approach to perform sample size calculations.
 
-![title](../inputs/power.png)
+
 
 - In above figure, which is taken from @duflo2007using, the left hand curve is the sampling distribution of the estimator under $H_0$, where the true effect size is 0, and the right hand curve its sampling distribution under $H_A$, where the true effect size is $\Delta$. Because in online experiments sample sizes are usually large, these sampling distributions are well approximated by a standard normal distribution.
 
@@ -81,6 +74,9 @@ based on an illustration of a typical hypothesis-testing scenario.
 
 ![Source: @duflo2007using, based on
 @bloom1995minimum.](../inputs/power.png){#fig-power}
+
+
+
 
 Let's start by understanding @fig-power, which visualises the setup of a
 one-sided hypothesis test where the true effect equals 0 under the null
@@ -154,7 +150,7 @@ $$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^
 
 
 ### Two-equations approach
-
+Use @list2011so
 ### First-principles approach
 
 Power is the probability that we reject the null hypothesis if there exists a true effect of size $\Delta$. 
@@ -347,9 +343,36 @@ $$
 
 
 
-### Starting from Type I and Type II error conditions
 
-Use @list2011so
+
+
+
+
+
+
+
+
+
+## Required sample size
+
+The required sample size is determined by four factors:
+
+1. The probability of making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$, corresponds to the significance level of the test and has an associated with the upper-tail critical value $z_{\alpha/2}$ in a two-sided test.
+
+2. The probability of making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$, determines the power of the test, $1-\beta$, and has associated critical value given by $z_{1 - \beta}$.
+
+3. The standard deviation of the outcome variable, $s$.
+
+4. The minimal detectable effect size, $\Delta$.
+
+In the context of online experiments, we usually fix the significance level and desired power, calculate the estimate the outcome variable's standard deviation from historical data, fix the minimal detectable effect, and then calculate required sample size. Given these inputs, and  [assuming equal sample sizes and variances](stats_of_online_experiments#standard_error) for treatment and control variants, that required sample size per variant is given by:
+$$
+\begin{align}
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
+\end{align}
+$$ {#eq-sampsi}
+
+
 
 
 
