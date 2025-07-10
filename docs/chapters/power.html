@@ -308,9 +308,9 @@ P(\text{significant result} | H_0\text{ false}).
 </blockquote>
 <p>In our context, X is <span class="math inline">\(1-\beta\)</span> and Y is <span class="math inline">\(\alpha\)</span> (see definitions <a href="../chapters/hypothesis_testing.html#types-of-errors">here</a>).</p>
 <p>When we say that we perform “power calculations” or “sample size calculations”, we do two things: we calculate the number of units we need in our experiments and then estimate how long it will take us to collect this many units. The first step makes use of a version of the following formula (e.g.&nbsp;<a href="https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details">here</a>):</p>
-<p><span class="math display">\[
+<p><span id="eq-sampsi"><span class="math display">\[
 n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
-\]</span> {#eq-sampsi}</p>
+\tag{7.1}\]</span></span></p>
 <p>This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. In this section, I want to derive and explain the formula to demystify it.</p>
 </section>
 <section id="deriving-the-power-formula" class="level2" data-number="7.2">
@@ -319,17 +319,26 @@ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
 <section id="bloom-approach" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="bloom-approach"><span class="header-section-number">7.2.1</span> Bloom approach</h3>
 <p>This section summarises the approach presented in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.</p>
-<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> below shows the sampling distribution</p>
+<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> below shows the sampling distribution of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> under the null hypothesis centered around zero and the alternative hypothesis centered around the MDE.</p>
+<p>If we perform a two-sided hypothesis test with significance level <span class="math inline">\(\alpha = 0.05\)</span> we will reject the null hypothesis on the upper tail if the test statistic is larger than 1.96<span class="math inline">\(\widehat{SE}\)</span> (vertical line B). If the true effect equals the MDE, and we define the MDE as the the true positive impact given 80% power (the conventional choice) and our significance level, then 80% of the mass of its sampling distribution must lie to the right of line B. This implies that the MDE is 0.84<span class="math inline">\(\widehat{SE}\)</span> above line B.</p>
+<p>Together, this implies that for any two-sided hypothesis test of zero impact with 80% power and a 5% significance level, the MDE will always equal 2.8<span class="math inline">\(\widehat{SE}\)</span>.</p>
 <div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../inputs/bloom-power.png" class="img-fluid figure-img">
+<img src="../inputs/bloom-curve.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impact estimate. Source: <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.
+Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impact estimate. Created with the help of ChatGPT based on similar figure in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.
 </figcaption>
 </figure>
 </div>
+<p><strong>I’m here – adapt test for more general discussion with z values in figure, then add numerical example for most common case</strong></p>
+<ol type="1">
+<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type I error</a>, denoted by <span class="math inline">\(\alpha\)</span>, corresponds to the significance level of the test and has an associated with the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> in a two-sided test.</p></li>
+<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type II error</a>, denoted by <span class="math inline">\(\beta\)</span>, determines the power of the test, <span class="math inline">\(1-\beta\)</span>, and has associated critical value given by <span class="math inline">\(z_{1 - \beta}\)</span>.</p></li>
+<li><p>The standard deviation of the outcome variable, <span class="math inline">\(s\)</span>.</p></li>
+<li><p>The minimal detectable effect size, <span class="math inline">\(\Delta\)</span>.</p></li>
+</ol>
 <ul>
 <li><p><span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span> introduces the concept of MDE to measure and compare power and provides a useful heuristic approach to perform sample size calculations.</p></li>
 <li><p>In above figure, which is taken from <span class="citation" data-cites="duflo2007using">Duflo, Glennerster, and Kremer (<a href="references.html#ref-duflo2007using" role="doc-biblioref">2007</a>)</span>, the left hand curve is the sampling distribution of the estimator under <span class="math inline">\(H_0\)</span>, where the true effect size is 0, and the right hand curve its sampling distribution under <span class="math inline">\(H_A\)</span>, where the true effect size is <span class="math inline">\(\Delta\)</span>. Because in online experiments sample sizes are usually large, these sampling distributions are well approximated by a standard normal distribution.</p></li>
@@ -484,7 +493,7 @@ P\left[Z &gt; z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 =
 \Phi\left(\frac{\Delta}{\widehat{SE}} - z_{\alpha/2}\right).
 \end{align}
-\tag{7.1}\]</span></span></p>
+\tag{7.2}\]</span></span></p>
 <p>Next, remember that <span class="math inline">\(\Phi(z)\)</span> takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value), so its inverse, <span class="math inline">\(\Phi^{-1}(p)\)</span>, takes probabilities and returns z-values (the <span class="math inline">\(z\)</span> value with <span class="math inline">\(p\)</span> probability mass to its left). Hence, <span class="math inline">\(\Phi^{-1}(1-\beta)\)</span> refers to the upper-tail critical value of the standard normal distribution that has <span class="math inline">\(1-\beta\)</span> probability mass to its right, and which we defined above as <span class="math inline">\(z_{1-\beta}\)</span>. Using this, we get:</p>
 <p>$$ <span class="math display">\[\begin{align}
 
@@ -551,7 +560,7 @@ n_v
 \begin{align}
 n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
 \end{align}
-\tag{7.2}\]</span></span></p>
+\tag{7.3}\]</span></span></p>
 </section>
 <section id="relative-effects" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="relative-effects"><span class="header-section-number">7.4</span> Relative effects</h2>

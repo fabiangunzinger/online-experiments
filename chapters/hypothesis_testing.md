@@ -3,12 +3,10 @@
 
 ## Sampling distribution
 
-In the previous sections, we have shown that in our setup, the estimated [sampling distribution](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$ is:
+We have shown in @sec-unbiasedness that $\mathbb{E}\left[\hat{\tau}^{\text{dm}}\mid \mathbf{n}, \mathbf{Y(w)}\right]=\tau$ and in @sec-stderror that $\widehat{SE}= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}$. Furthermore, @imbens2015causal and @ding2023first explain why a normal approximation to the  [sampling distribution](stats_foundations.md#sampling-distribution) of $\hat{\tau}^{\text{dm}}$ is justified. Hence, the sampling distribution of $\hat{\tau}^{\text{dm}}$ is given by:
 $$
 \hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)} \sim N\left(\tau, \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}\right).
-$$
-**I'm here**: justify approximate Normality.
-
+$${#eq-sampdist}
 
 ## Basic approach
 

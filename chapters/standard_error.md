@@ -1,5 +1,5 @@
 
-## Standard error
+## Standard error {#sec-stderror}
 
 The [standard error](stats_foundations.md#sampling-distribution) of an estimator is simply the square root of its sampling variance. Using our estimator of the sampling variance from @eq-var-est, the standard error is thus given by:
 $$

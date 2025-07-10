@@ -19,8 +19,7 @@ When we say that we perform "power calculations" or "sample size calculations", 
 
 $$
 n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
-$$
-{#eq-sampsi}
+$${#eq-sampsi}
 
 This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. In this section, I want to derive and explain the formula to demystify it.
 
@@ -32,12 +31,25 @@ There are three ways to derive the formula. Two heuristic approaches and one app
 
 This section summarises the approach presented in @bloom1995minimum.
 
-Figure @fig-power below shows the sampling distribution 
+Figure @fig-power below shows the sampling distribution of $\hat{\tau}^{\text{dm}}$ under the null hypothesis centered around zero and the alternative hypothesis centered around the MDE.
+
+If we perform a two-sided hypothesis test with significance level $\alpha = 0.05$ we will reject the null hypothesis on the upper tail if the test statistic is larger than 1.96$\widehat{SE}$ (vertical line B). If the true effect equals the MDE, and we define the MDE as the the true positive impact given 80% power (the conventional choice) and our significance level, then 80% of the mass of its sampling distribution must lie to the right of line B. This implies that the MDE is 0.84$\widehat{SE}$ above line B.
+
+Together, this implies that for any two-sided hypothesis test of zero impact with 80% power and a 5% significance level, the MDE will always equal 2.8$\widehat{SE}$.
+
+![Relationship between the MDE and the standard error of an impact estimate. Created with the help of ChatGPT based on similar figure in @bloom1995minimum.](../inputs/bloom-curve.png){#fig-power}
+
+**I'm here – adapt test for more general discussion with z values in figure, then add numerical example for most common case**
 
 
 
-![Relationship between the MDE and the standard error of an impact estimate. Source: @bloom1995minimum.](../inputs/bloom-power.png){#fig-power}
+1. The probability of making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$, corresponds to the significance level of the test and has an associated with the upper-tail critical value $z_{\alpha/2}$ in a two-sided test.
 
+2. The probability of making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$, determines the power of the test, $1-\beta$, and has associated critical value given by $z_{1 - \beta}$.
+
+3. The standard deviation of the outcome variable, $s$.
+
+4. The minimal detectable effect size, $\Delta$.
 
 
 

@@ -274,9 +274,9 @@ window.Quarto = {
 
 <section id="sampling-distribution" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="sampling-distribution"><span class="header-section-number">6.1</span> Sampling distribution</h2>
-<p>In the previous sections, we have shown that in our setup, the estimated <a href="../chapters/stats_foundations.html#sampling-distribution">sampling distribution</a> of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is: <span class="math display">\[
+<p>We have shown in <a href="unbiasedness.html" class="quarto-xref"><span>Chapter 3</span></a> that <span class="math inline">\(\mathbb{E}\left[\hat{\tau}^{\text{dm}}\mid \mathbf{n}, \mathbf{Y(w)}\right]=\tau\)</span> and in <a href="standard_error.html" class="quarto-xref"><span>Chapter 5</span></a> that <span class="math inline">\(\widehat{SE}= \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}\)</span>. Furthermore, <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> and <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> explain why a normal approximation to the <a href="../chapters/stats_foundations.html#sampling-distribution">sampling distribution</a> of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is justified. Hence, the sampling distribution of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> is given by: <span id="eq-sampdist"><span class="math display">\[
 \hat{\tau}^{\text{dm}} \mid \mathbf{n}, \mathbf{Y(w)} \sim N\left(\tau, \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}\right).
-\]</span> <strong>I’m here</strong>: justify approximate Normality.</p>
+\tag{6.1}\]</span></span></p>
 </section>
 <section id="basic-approach" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="basic-approach"><span class="header-section-number">6.2</span> Basic approach</h2>
