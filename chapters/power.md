@@ -13,12 +13,12 @@ In the context of online experiments, we usually measure power in terms of the *
 > 
 X is the statistical power of the experiment for an alternative hypothesis equal to the minimum detectable effect. Y is the level of statistical significance used to decide whether or not a true effect exists.
 
-In our context, X  is $1-\beta$ and Y is $\alpha$ (see definitions [here](hypothesis_testing.md#types-of-errors)).
+In [our context](hypothesis_testing.md#types-of-errors) we have $X=1-\beta$ and $Y=\alpha$.
 
 When we say that we perform "power calculations" or "sample size calculations", we do two things: we calculate the number of units we need in our experiments and then estimate how long it will take us to collect this many units. The first step makes use of a version of the following formula (e.g. [here](https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details)):
 
 $$
-n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2}.
 $${#eq-sampsi}
 
 This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. In this section, I want to derive and explain the formula to demystify it.
@@ -27,65 +27,39 @@ This formula can be intimidating and confusing, all the more so since there are 
 
 There are three ways to derive the formula. Two heuristic approaches and one approach that starts from first principles. All three can help us understand what we are doing more deeply.
 
-### Bloom approach
+### Bloom approach[^2]
 
-This section summarises the approach presented in @bloom1995minimum.
+From the definition above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:
 
-Figure @fig-power below shows the sampling distribution of $\hat{\tau}^{\text{dm}}$ under the null hypothesis centered around zero and the alternative hypothesis centered around the MDE.
+$$
+\begin{align}
+&H_0: \tau = 0 \\[5 pt]
+&H_A: \tau = |\Delta|,
+\end{align}
+$$
 
-If we perform a two-sided hypothesis test with significance level $\alpha = 0.05$ we will reject the null hypothesis on the upper tail if the test statistic is larger than 1.96$\widehat{SE}$ (vertical line B). If the true effect equals the MDE, and we define the MDE as the the true positive impact given 80% power (the conventional choice) and our significance level, then 80% of the mass of its sampling distribution must lie to the right of line B. This implies that the MDE is 0.84$\widehat{SE}$ above line B.
+where $\Delta$ is the MDE and where we use the absolute value to allow for negative or positive effects, given that we perform a two-sided test. 
 
-Together, this implies that for any two-sided hypothesis test of zero impact with 80% power and a 5% significance level, the MDE will always equal 2.8$\widehat{SE}$.
+From our hypothesis testing procedure we know that we'll reject $H_0$ in a two-sided test on the upper tail if the test statistic $t=\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}$ falls to the right of the upper-tail critical value $z_{\alpha/2}$, that is if $|t| \geq z_{\alpha/2}$.
 
-![Relationship between the MDE and the standard error of an impact estimate. Created with the help of ChatGPT based on similar figure in @bloom1995minimum.](../inputs/bloom-curve.png){#fig-power}
-
-**I'm here – adapt test for more general discussion with z values in figure, then add numerical example for most common case**
-
-
-
-1. The probability of making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$, corresponds to the significance level of the test and has an associated with the upper-tail critical value $z_{\alpha/2}$ in a two-sided test.
-
-2. The probability of making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$, determines the power of the test, $1-\beta$, and has associated critical value given by $z_{1 - \beta}$.
-
-3. The standard deviation of the outcome variable, $s$.
-
-4. The minimal detectable effect size, $\Delta$.
+In the figure below, this means we reject H_0 if t falls to the right of vertical line B.
 
 
+Remember that above, we defined power as the probability that we will reject H_0 if the true effect equals the MDE. This means that we need 1-beta of the mass of the HA distribution to the right of z_alpha/2. in figure below, this means to the right of line B. This is what we can see.
 
 
+We know that under the h0 distribution, the distance from A to B is z_alpha/2 SE. In the Ha distribution, the distance from B to C is z_1-beta SE.
+
+Hence, together we get 
+$$
+\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}
+$$
 
 
-- @bloom1995minimum introduces the concept of MDE to measure and compare power and provides a useful heuristic approach to perform sample size calculations.
-
-
-
-- In above figure, which is taken from @duflo2007using, the left hand curve is the sampling distribution of the estimator under $H_0$, where the true effect size is 0, and the right hand curve its sampling distribution under $H_A$, where the true effect size is $\Delta$. Because in online experiments sample sizes are usually large, these sampling distributions are well approximated by a standard normal distribution.
+Given our hypothesis testing procedure we know that in a two-sided test, we reject $H_0$ if the test statistic
 
 
 
-
-- For a given significance level $\alpha$, the critical value $z_{a/2}$ in a two-sided test is the point in the $H_0$ distribution that has $\alpha/2$ of the probability mass to its right. We can also think of that critical critical value as a distance between the center of the distribution and the critical value.
-- For a given level of power, $1-\beta$, the critical value $z_{1-\beta}$ is the point in the $H_A$ distribution that has $1-\beta$ of the probability mass to its right. It, too, can be thought of as a distance.
-
-
-
-
-
-
-
-lh curve ...this is sampling dist of tee, know shape from sampling theory
-reject h0 if value larger than za
-rhs is sampling distr under ha
-what is zk? 
-now derive bloom formula...
-
-@bloom1995minimum introduces the notion of the MDE as a useful way to quantify
-power. In the process, he also uses an intuitive way to derive the power formula
-based on an illustration of a typical hypothesis-testing scenario.
-
-![Source: @duflo2007using, based on
-@bloom1995minimum.](../inputs/power.png){#fig-power}
 
 
 
@@ -95,12 +69,7 @@ one-sided hypothesis test where the true effect equals 0 under the null
 hypothesis and some positive constant $\te$ under the alternative hypothesis. Note that the curves are *not* the standard normal distribution,
 but the sampling distribution of our estimator $\tee$. This means that the standard
 deviation of the curves is given by the standard error of $\tee$, which is
-$\se$. Under the assumption of a homogenous treatment effect, the standard
-error is identical under $\hn$ and $\ha$, which is why the two curves have the
-same shape 
-
-<!-- (see @sec-experiment-stats for details). -->
-
+$\se$. 
 the distribution will be the same under both the null and the alternative
 hypothesis, with the center of each distribution given by our hypothesised value
 of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
@@ -108,84 +77,95 @@ of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
 We reject $\hn$ if $\tee$ is to the right of the critical value $\za$. Also,
 for a given level of power $\beta$, 
 
-Largely based on @duflo2007randomization
 
 
-Power basics
+For significance level $\alpha$, the critical value $z_{a/2}$ in a two-sided test is the point of the standard normal distribution under $H_0$ that has $\alpha/2$ of the probability mass to its right. 
+
+We reject the null hypothesis if the test statistic falls to the right of that value. 
+
+Similarly, for a given level of power, $1-\beta$, the critical value $z_{1-\beta}$ is the point of the standard normal distribution under $H_A$ that has $1-\beta$ of the probability mass to its right. 
+
+**this is a mess still **
 
 
+Figure @fig-power shows the sampling distribution of $\hat{\tau}^{\text{dm}}$ under the null hypothesis centered around zero (vertical line A) and the alternative hypothesis centered around the MDE (vertical line C). 
 
+
+If we perform a two-sided hypothesis test with significance level $\alpha$ we will reject the null hypothesis on the upper tail if the test statistic is larger than $z_{\alpha/2}\widehat{SE}$ (vertical line B). If the true effect equals the MDE, and we define the MDE as the true positive impact given $1-\beta$ power and given our significance level $\alpha$, then $1-\beta$ of the mass of its sampling distribution must lie to the right of line B. Why? Because this ensures that we reject $H_0$ $1-\beta$ percent of the time. 
+
+If we define MDE = $\Delta$ we then have, in general:
 $$
-n = \frac{(f(\alpha) + f(\beta))}{\text{Sample allocation}}\frac{\sigma}{\delta}
-$$
-
-
-- In the simplest possible, we randomly draw a sample of size $N$ from an identical population, so that our observations can be assumed to be i.i.d, and we allocate a fraction $P$ of our sample to treatment. We can then estiamte the treatment effect using the OLS regression
-
-$$ y = \alpha + \beta T + \epsilon$$
-
-- where the standard error of $\beta$ is given by $\sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}$.
-
-- std error derivation (from standard variance result of two independent samples, using population fractions):
-
-$$
-std = \sqrt{\frac{\sigma^2}{N_t} + \frac{\sigma^2}{N_c}} = \sqrt{\frac{\sigma^2}{PN} + \frac{\sigma^2}{(1-P)N}} = ... = \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}}
+\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}
 $$
 
-- The distribution on the left hand side below shows the distribution of our effect size estimator $\hat{\beta}$ if the null hypothesis is true.
+![Relationship between the MDE and the standard error of an impact estimate. Created with the help of ChatGPT based on similar figure in @bloom1995minimum.](../inputs/bloom-curve.png){#fig-power}
 
-- We reject the null hypothesis if the estimated effect size is larger than the critical value $t_{\alpha}$, determined by the significance level $\alpha$. Hence, for this to happen we need $\hat{\beta} > t_{\alpha} * SE(\hat{\beta})$ (follows from rearranging the t-test formula).
+Numeric example
+$\alpha = 0.05$ 
+than 1.96$\widehat{SE}$ (vertical line B). If the true effect equals the MDE, and we define the MDE as the the true positive impact given 80% power (the conventional choice) and our significance level, then 80% of the mass of its sampling distribution must lie to the right of line B. This implies that the MDE is 0.84$\widehat{SE}$ above line B.
 
-- On the right is the distribution of $\hat{\beta}$ if the true effect size is $\beta$.
+Together, this implies that for any two-sided hypothesis test of zero impact with 80% power and a 5% significance level, the MDE will always equal 2.8$\widehat{SE}$.
 
-- The power of the test for a true effect size of $\beta$ is the area under this curve that falls to the right of $t_{\alpha}$. This is the probability that we reject the null hypothesis given that it is false.
+### Two-equations approach[^4]
 
-- Hence, to attain a power of $\kappa$ it must be that $\beta > (t_a + t_{1-\kappa}) * SE(\hat{\beta})$, where $t_{1-\kappa}$ is the value from a t-distribution that has $1-\kappa$ of its probability mass to the left (for $\kappa = 0.8$, $t_{1-\kappa} = 0.84$).
+Collecting the "required" sample size ensures that (over the course of many experiments), our [Type I error rate](hypothesis_testing.md#types-of-errors) equals $\alpha$ and our [Type II error rate](hypothesis_testing.md#types-of-errors) equals $\beta$. Instead of directly thinking about the type II error rate, we usually think about it's [complement](hypothesis_testing.md#types-of-errors), power, given by $1-\beta$.
 
-- This means that the minimum detectable effect ($\delta$) is given by:
+Using the definition of the MDE above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:
 
-$$ \delta = (t_a + tq_{1-\kappa}) * \sqrt{\frac{1}{P(1-P)}\frac{\sigma^2}{N}} $$
+$$
+\begin{align}
+&H_0: \tau = 0 \\[5 pt]
+&H_A: \tau = |\Delta|.
+\end{align}
+$$
 
-- Rearranding for the minimum required sample size we get:
+Given our [hypothesis testing procedure](hypothesis_testing.md#basic-approach), ensuring a Type I error that equals $\alpha$ in a two-sided test requires that:
 
-$$ N =  \frac{(t_a + t_{1-\kappa})^2}{P(1-P)}\left(\frac{\sigma}{\delta}\right)^2 $$
+$$
+\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}
+= z_{\alpha/2}.
+$${#eq-type1}
 
-- So that the required sample size is inversely proportional to the minimal effect size we wish to detect. This makes sense, it means that the smaller an effect we want to detect, the larger the samle size we need. In particular, given that $N \propto \delta^{-2}$, to detect an effect of half the size we need a sample four times the size.
+Similarly, ensuring a level of power of $1-\beta$ in a one-sided test requires that:
 
-- SE($\beta$) also includes measurement error, so this is also a determinant of power.
+$$
+\frac{\hat{\tau}^{\text{dm}}- \Delta}{\widehat{SE}}
+= z_{1-\beta}.
+$${#eq-type2}
 
+Combining both conditions by rearranging @eq-type1 for $\hat{\tau}^\text{dm}$ and substituting that term in @eq-type2 we get the desired condition:
+$$
+\begin{align}
+\frac{\widehat{SE}z_{\alpha/2} - \Delta}{\widehat{SE}} &= z_{1-\beta} \\[6pt]
+\widehat{SE}z_{\alpha/2} - \Delta &= \widehat{SE}z_{1-\beta} \\[6pt]
+\widehat{SE}z_{\alpha/2} + \widehat{SE}z_{1-\beta}  &= \Delta \\[6pt]
+\widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right)  &= \Delta.
+\end{align}
+$$
 
-
-
-
-
-
-
-### Two-equations approach
-Use @list2011so
 ### First-principles approach
 
 Power is the probability that we reject the null hypothesis if there exists a true effect of size $\Delta$. 
 
-We thus have:
+We thus have, for a two-sided hypothesis test:
 $$
 \begin{align}
 &H_0: \tau = 0 \\[5 pt]
-&H_A: \tau = \Delta.
+&H_A: \tau = |\Delta|.
 \end{align}
 $$
 
 We test the null hypothesis by constructing the test statistic
 $$
-Z = 
+t = 
 \frac{\hat{\tau}^{\text{dm}}}
 {\widehat{SE}},
 $$
 
-and reject $H_0$ if if falls into the rejection region beyond the critical value $z_{\alpha/2}$. Because the standard normal distribution is symmetric, for a two-sided test we thus reject $Z$ if
+and reject $H_0$ if if falls into the rejection region beyond the critical value $z_{\alpha/2}$. Because the standard normal distribution is symmetric, for a two-sided test we thus reject $t$ if
 $$
 \begin{align}
-|Z| &> z_{\alpha/2} \\[5pt]
+|t| &> z_{\alpha/2} \\[5pt]
 
 \left|\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}\right| 
 &> z_{\alpha/2} \\[5pt]
@@ -195,7 +175,7 @@ $$
 \end{align}
 $$
 
-The power $1-\beta$ of the test given that $\tau = \Delta$ is the probability that the test statistic $Z$ falls into the rejection region, which is:
+The power $1-\beta$ of the test under $H_A$ is the probability that the test statistic $t$ falls into the rejection region, which is:
 $$
 1 - \beta = P\left[
 \left|\hat{\tau}^{\text{dm}}\right| 
@@ -219,8 +199,6 @@ $$
 
 We can calculate these probabilities by standardising, which gives us: 
 
-\widehat{SE}
-
 $$
 \begin{align}
 1 - \beta 
@@ -239,19 +217,19 @@ $$
 \\[5pt]
 
 &=
-P\left[Z > \frac{z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
+P\left[t > \frac{z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
 \right]
 
-+ P\left[Z < \frac{-z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
++ P\left[t < \frac{-z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
 \right]
 
 \\[5pt]
 
 &=
-P\left[Z > z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
+P\left[t > z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 \right]
 
-+ P\left[Z < - z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
++ P\left[t < - z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 \right].
 \end{align}
 $$
@@ -266,14 +244,11 @@ $$
 \end{align}
 $$
 
-The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect – sometimes called a [Type III error](https://en.wikipedia.org/wiki/Type_III_error) –, is very small. Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:
+The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect, is very small.[^3] Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:
 
 $$
-\begin{align}
-1 - \beta 
-= 
-1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right)
-\end{align}
+1 - \beta = 
+1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
 $$
 
 Using the symmetry of the standard normal distribution, which implies that $1 - \Phi(k) = \Phi(-k)$, we can simplify this to
@@ -286,7 +261,7 @@ $$
 \end{align}
 $${#eq-power}
 
-Next, remember that $\Phi(z)$ takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value), so its inverse, $\Phi^{-1}(p)$, takes probabilities and returns z-values (the $z$ value with $p$ probability mass to its left). Hence, $\Phi^{-1}(1-\beta)$ refers to the upper-tail critical value of the standard normal distribution that has $1-\beta$ probability mass to its right, and which we defined above as $z_{1-\beta}$. Using this, we get:
+Next, remember that $\Phi(z)$ takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value). The inverse, $\Phi^{-1}(p)$, thus takes probabilities and returns z-values (the $z$ value with $p$ probability mass to its left). Hence, $\Phi^{-1}(1-\beta)$ refers to the upper-tail critical value of the standard normal distribution that has $1-\beta$ probability mass to its right, and which we defined above as $z_{1-\beta}$. Using this, we get:
 
 $$
 \begin{align}
@@ -300,13 +275,17 @@ $$
 z_{1-\beta}
 &= 
 \frac{\Delta}{\widehat{SE}} - z_{\alpha/2} \\[5pt]
-
-\Delta
-&= \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
 \end{align}
 $${#eq-mde}
 
-This last line is in itself useful because it shows how the MDE is determined by the standard error and our choice of Type I and Type II probabilities.
+Rearranging, we get:
+
+$$
+\Delta = \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
+$$
+
+
+**this bit below is gonna be useful for all three approaches – they all end up with the above expression**
 
 Depending on the context, we can plug in any of the standard error versions [we defined earlier](stats_of_online_experiments#standard_error). To arrive at the above version, we use @eq-se-equal, which gives us:
 
@@ -334,31 +313,6 @@ n &= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\Delta^2},
 \end{align}
 $$
 where the left-hand side, $n$ now refers to the total sample size in the experiment rather than the sample size per variant.
-
-Finally, if we do not assume equal variance then we have:
-$$
-\begin{align}
-
-\Delta
-&= \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
-
-\Delta
-&= = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
-
-\Delta^2
-&= \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}\left(z_{\alpha/2} + z_{1-\beta}\right)^2 \\[5pt]
-
-n_v
-&= 2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}
-\end{align}
-$$
-
-
-
-
-
-
-
 
 
 
@@ -717,3 +671,11 @@ Solution:
 upper and lower tail because the two events are independent.
 
 
+
+[^1]: I say "often" [sequential testing approaches](https://docs.geteppo.com/statistics/confidence-intervals/analysis-methods/) do not require ex-ante power calculations. 
+
+[^2]: This section summarises the approach presented in @bloom1995minimum. 
+
+[^3]: This type of error is sometimes called a [Type III error](https://en.wikipedia.org/wiki/Type_III_error).
+
+[^4]: This section is based on @list2011so.

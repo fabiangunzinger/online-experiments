@@ -255,7 +255,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></h1>
+<h1 class="title"><span id="sec-testing" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></h1>
 </div>
 
 
@@ -287,20 +287,21 @@ window.Quarto = {
 \end{align}
 \]</span> and calculate the test-statistic <span class="math display">\[
 t = \frac{\hat{\tau}^{\text{dm}}}
-{SE\left(\hat{\tau}^{\text{dm}}\right)}
-\]</span> which, for large samples, is approximately normally distributed<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+{\widehat{SE}}
+\]</span> which, for large samples, follows approximately a standard normally distribution.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>For a given significance level <span class="math inline">\(\alpha\)</span>, the critical value <span class="math inline">\(z_\alpha\)</span> is the point on the standard normal distribution that has <span class="math inline">\(\alpha\)</span> of the probability mass to its right. In our two-sided test we thus reject reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|t| \geq z_{\alpha/2}\)</span>.</p>
 </section>
 <section id="types-of-errors" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="types-of-errors"><span class="header-section-number">6.3</span> Types of errors</h2>
 <p>With the above procedure, there are two types of mistakes we can make:</p>
 <ul>
-<li><p>We can reject <span class="math inline">\(H_0\)</span> when it is true. This is called a <strong>Type I error</strong> and constitutes a false positive. The probability of this type of error is denoted by <span class="math inline">\(\alpha\)</span>, which is also called the <strong>significance level</strong>. The false positive rate is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ true})\)</span>.</p></li>
-<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a <strong>Type II error</strong> and constitutes a false negative. The probability of this type of error is denoted by <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p>We can reject <span class="math inline">\(H_0\)</span> when it is true. This is called a <strong>Type I error</strong> and constitutes a false positive. The probability of this error is denoted by <span class="math inline">\(\alpha\)</span>, the <strong>significance level</strong>. It represents the false positive rate <span class="math inline">\(\alpha = P(\text{significant result} | H_0\text{ true})\)</span>.</p></li>
+<li><p>We can fail to reject <span class="math inline">\(H_0\)</span> when it is false. This is called a <strong>Type II error</strong> and constitutes a false negative. The probability of this type of error is denoted by <span class="math inline">\(\beta\)</span>, and it represents the false negative rate <span class="math inline">\(\beta = P(\text{insignificant result} | H_A\text{ true})\)</span>.</p></li>
 </ul>
 <p>The complements of these two errors are:</p>
 <ul>
-<li><p>The <strong>confidence level</strong>, the probability that we do not reject <span class="math inline">\(H_0\)</span> if it is false – the probability of a true negative – given by <span class="math inline">\(1 - \alpha\)</span>.</p></li>
-<li><p><strong>Power</strong>, the probability that we do reject <span class="math inline">\(H_0\)</span> if it is false – the probability of a true positive – given by <span class="math inline">\(1 - \beta\)</span>. Formally, power is thus given by <span class="math inline">\(P(\text{significant result} | H_0\text{ false})\)</span>.</p></li>
+<li><p>The <strong>confidence level</strong>, the probability that we do not reject <span class="math inline">\(H_0\)</span> if it is true (the probability of a true negative) is given by <span class="math inline">\(1 - \alpha = P(\text{insignificant result} | H_0\text{ true})\)</span>.</p></li>
+<li><p><strong>Power</strong>, the probability that we do reject <span class="math inline">\(H_0\)</span> if it is false (the probability of a true positive) is given by <span class="math inline">\(1 - \beta = P(\text{significant result} | H_A\text{ true})\)</span>.</p></li>
 </ul>
 <p>One of Neyman’s key insights was that while we cannot control error rates for a single experiment, we can control them over the long-run over many experiments. In practice, this means that if we follow the approach consistently and run many experiments we know that in <span class="math inline">\(\alpha\)</span> percent of cases where a feature has no true effect we will erroneously find a significant result.</p>
 <p>An interesting question then arises: out of all significant results we find, how many are false positives? The answer is given by the <strong>false discovery rate</strong>, which is <span class="math inline">\(P(H_0\text{ true} | \text{significant result})\)</span>. Note that the fewer true effects are generated, the more significant results are due to false positives.</p>

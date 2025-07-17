@@ -1,4 +1,4 @@
-# Hypothesis testing
+# Hypothesis testing {#sec-testing}
 
 
 ## Sampling distribution
@@ -20,23 +20,25 @@ $$
 and calculate the test-statistic
 $$
 t = \frac{\hat{\tau}^{\text{dm}}}
-{SE\left(\hat{\tau}^{\text{dm}}\right)}
+{\widehat{SE}}
 $$
-which, for large samples, is approximately normally distributed[^1].
+which, for large samples, follows approximately a standard normally distribution.[^1]
+
+For a given significance level $\alpha$, the critical value $z_\alpha$ is the point on the standard normal distribution that has $\alpha$ of the probability mass to its right. In our two-sided test we thus reject reject $H_0$ if $|t| \geq z_{\alpha/2}$.
 
 ## Types of errors
 
 With the above procedure, there are two types of mistakes we can make:
 
-- We can reject $H_0$ when it is true. This is called a **Type I error** and constitutes a false positive. The probability of this type of error is denoted by $\alpha$, which is also called the **significance level**. The false positive rate is thus given by $P(\text{significant result} | H_0\text{ true})$.
+- We can reject $H_0$ when it is true. This is called a **Type I error** and constitutes a false positive. The probability of this error is denoted by $\alpha$, the **significance level**. It represents the false positive rate $\alpha = P(\text{significant result} | H_0\text{ true})$.
 
-- We can fail to reject $H_0$ when it is false. This is called a **Type II error** and constitutes a false negative. The probability of this type of error is denoted by $\beta$.
+- We can fail to reject $H_0$ when it is false. This is called a **Type II error** and constitutes a false negative. The probability of this type of error is denoted by $\beta$, and it represents the false negative rate $\beta = P(\text{insignificant result} | H_A\text{ true})$.
 
 The complements of these two errors are:
 
-- The **confidence level**, the probability that we do not reject $H_0$ if it is false -- the probability of a true negative -- given by $1 - \alpha$.
+- The **confidence level**, the probability that we do not reject $H_0$ if it is true (the probability of a true negative) is given by $1 - \alpha = P(\text{insignificant result} | H_0\text{ true})$. 
 
-- **Power**, the probability that we do reject $H_0$ if it is false -- the probability of a true positive -- given by $1 - \beta$. Formally, power is thus given by $P(\text{significant result} | H_0\text{ false})$.
+- **Power**, the probability that we do reject $H_0$ if it is false (the probability of a true positive) is given by $1 - \beta = P(\text{significant result} | H_A\text{ true})$.
 
 One of Neyman's key insights was that while we cannot control error rates for a single experiment, we can control them over the long-run over many experiments. In practice, this means that if we follow the approach consistently and run many experiments we know that in $\alpha$ percent of cases where a feature has no true effect we will erroneously find a significant result.
 
