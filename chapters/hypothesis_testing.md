@@ -1,4 +1,4 @@
-# Hypothesis testing {#sec-testing}
+# Hypothesis testing {#sec-hypothesis-testing}
 
 
 ## Sampling distribution

@@ -29,6 +29,8 @@ There are three ways to derive the formula. Two heuristic approaches and one app
 
 ### Bloom approach[^2]
 
+The objective of our sample size calculation is to ensure that – over the long-run[^5] – our experiments have the desired Type I error rates (controlled by the significance level, $\alpha$) and Type II error rates (controlled by power, $1-\beta$).
+
 From the definition above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:
 
 $$
@@ -40,72 +42,24 @@ $$
 
 where $\Delta$ is the MDE and where we use the absolute value to allow for negative or positive effects, given that we perform a two-sided test. 
 
-From our hypothesis testing procedure we know that we'll reject $H_0$ in a two-sided test on the upper tail if the test statistic $t=\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}$ falls to the right of the upper-tail critical value $z_{\alpha/2}$, that is if $|t| \geq z_{\alpha/2}$.
-
-In the figure below, this means we reject H_0 if t falls to the right of vertical line B.
-
-
-Remember that above, we defined power as the probability that we will reject H_0 if the true effect equals the MDE. This means that we need 1-beta of the mass of the HA distribution to the right of z_alpha/2. in figure below, this means to the right of line B. This is what we can see.
-
-
-We know that under the h0 distribution, the distance from A to B is z_alpha/2 SE. In the Ha distribution, the distance from B to C is z_1-beta SE.
-
-Hence, together we get 
-$$
-\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}
-$$
-
-
-Given our hypothesis testing procedure we know that in a two-sided test, we reject $H_0$ if the test statistic
-
-
-
-
-
-
-
-Let's start by understanding @fig-power, which visualises the setup of a
-one-sided hypothesis test where the true effect equals 0 under the null
-hypothesis and some positive constant $\te$ under the alternative hypothesis. Note that the curves are *not* the standard normal distribution,
-but the sampling distribution of our estimator $\tee$. This means that the standard
-deviation of the curves is given by the standard error of $\tee$, which is
-$\se$. 
-the distribution will be the same under both the null and the alternative
-hypothesis, with the center of each distribution given by our hypothesised value
-of $\te$ -- zero under $\hn$ and a positive constant under $\ha$.
-
-We reject $\hn$ if $\tee$ is to the right of the critical value $\za$. Also,
-for a given level of power $\beta$, 
-
-
-
-For significance level $\alpha$, the critical value $z_{a/2}$ in a two-sided test is the point of the standard normal distribution under $H_0$ that has $\alpha/2$ of the probability mass to its right. 
-
-We reject the null hypothesis if the test statistic falls to the right of that value. 
-
-Similarly, for a given level of power, $1-\beta$, the critical value $z_{1-\beta}$ is the point of the standard normal distribution under $H_A$ that has $1-\beta$ of the probability mass to its right. 
-
-**this is a mess still **
-
-
-Figure @fig-power shows the sampling distribution of $\hat{\tau}^{\text{dm}}$ under the null hypothesis centered around zero (vertical line A) and the alternative hypothesis centered around the MDE (vertical line C). 
-
-
-If we perform a two-sided hypothesis test with significance level $\alpha$ we will reject the null hypothesis on the upper tail if the test statistic is larger than $z_{\alpha/2}\widehat{SE}$ (vertical line B). If the true effect equals the MDE, and we define the MDE as the true positive impact given $1-\beta$ power and given our significance level $\alpha$, then $1-\beta$ of the mass of its sampling distribution must lie to the right of line B. Why? Because this ensures that we reject $H_0$ $1-\beta$ percent of the time. 
-
-If we define MDE = $\Delta$ we then have, in general:
-$$
-\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}
-$$
 
 ![Relationship between the MDE and the standard error of an impact estimate. Created with the help of ChatGPT based on similar figure in @bloom1995minimum.](../inputs/bloom-curve.png){#fig-power}
 
-Numeric example
-$\alpha = 0.05$ 
-than 1.96$\widehat{SE}$ (vertical line B). If the true effect equals the MDE, and we define the MDE as the the true positive impact given 80% power (the conventional choice) and our significance level, then 80% of the mass of its sampling distribution must lie to the right of line B. This implies that the MDE is 0.84$\widehat{SE}$ above line B.
 
-Together, this implies that for any two-sided hypothesis test of zero impact with 80% power and a 5% significance level, the MDE will always equal 2.8$\widehat{SE}$.
+Figure @fig-power shows the sampling distribution of $\hat{\tau}^{\text{dm}}$ under the null hypothesis (centered around 0, vertical line A) and under the alternative hypothesis (centered around the MDE, vertical line C). 
 
+From our [hypothesis testing procedure](hypothesis_testing.md#basic-approach) we know that if we want to achieve a Type I error rate of no more than $\alpha$ we should reject $H_0$ in a two-sided test on the upper tail if the test statistic, $t=\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}$, falls to the right of the upper-tail critical value $z_{\alpha/2}$ of the standard normal distribution. That is, we should reject if $\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}} > z_{\alpha/2}$. This implies that we should reject the hull hypothesis if, in the sampling distribution, $\hat{\tau}^{\text{dm}} > \widehat{SE} z_{\alpha/2}$. This threshold for rejection is indicated by vertical line B in the figure. This rejection rule takes care of our Type I error rate.
+
+To ensure adequate power, which will give us our desired Type II error rate, remember that the MDE is defined as the effect size that, if it is true, we have a $1-\beta$ percent of detecting. In the context of @fig-power this means that if the $H_A$ distribution on the right hand side is the true distribution, then we have to reject $H_0$ $1-\beta$ percent of the time. For this to be true, 80 percent of the mass of the $H_A$ distribution has to be to the right of the rejection threshold indicated by vertical line B. The distance between that threshold and the center of the $H_A$ distribution is given by $z_{1-\beta}$, the critical value in that distribution that has $1-\beta$ to its right. Having our $H_A$ distribution positioned in this way takes care of our Type II error rate.
+
+Putting them both together, we can see that, in general:
+$$
+\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}.
+$$
+For the standard values of $\alpha = 0.05$ and $1-\beta = 0.8$ we get:
+$$
+\Delta = (1.96 + 0.84)\widehat{SE} = 2.8\widehat{SE}.
+$$
 ### Two-equations approach[^4]
 
 Collecting the "required" sample size ensures that (over the course of many experiments), our [Type I error rate](hypothesis_testing.md#types-of-errors) equals $\alpha$ and our [Type II error rate](hypothesis_testing.md#types-of-errors) equals $\beta$. Instead of directly thinking about the type II error rate, we usually think about it's [complement](hypothesis_testing.md#types-of-errors), power, given by $1-\beta$.
@@ -671,7 +625,6 @@ Solution:
 upper and lower tail because the two events are independent.
 
 
-
 [^1]: I say "often" [sequential testing approaches](https://docs.geteppo.com/statistics/confidence-intervals/analysis-methods/) do not require ex-ante power calculations. 
 
 [^2]: This section summarises the approach presented in @bloom1995minimum. 
@@ -679,3 +632,5 @@ upper and lower tail because the two events are independent.
 [^3]: This type of error is sometimes called a [Type III error](https://en.wikipedia.org/wiki/Type_III_error).
 
 [^4]: This section is based on @list2011so.
+
+[^5]: We cannot know significance and power for a single experiment. The best we can do is follow this approach consistently to ensure that over the course of many experiments, they correspond to our desired values. See @sec-hypothesis-testing.

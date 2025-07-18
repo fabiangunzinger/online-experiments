@@ -248,8 +248,7 @@ window.Quarto = {
   <li><a href="#deriving-the-power-formula" id="toc-deriving-the-power-formula" class="nav-link" data-scroll-target="#deriving-the-power-formula"><span class="header-section-number">7.2</span> Deriving the power formula</a>
   <ul class="collapse">
   <li><a href="#bloom-approach2" id="toc-bloom-approach2" class="nav-link" data-scroll-target="#bloom-approach2"><span class="header-section-number">7.2.1</span> Bloom approach</a></li>
-  <li><a href="#two-equations-approach4" id="toc-two-equations-approach4" class="nav-link" data-scroll-target="#two-equations-approach4"><span class="header-section-number">7.2.2</span> Two-equations approach</a></li>
-  <li><a href="#first-principles-approach" id="toc-first-principles-approach" class="nav-link" data-scroll-target="#first-principles-approach"><span class="header-section-number">7.2.3</span> First-principles approach</a></li>
+  <li><a href="#first-principles-approach" id="toc-first-principles-approach" class="nav-link" data-scroll-target="#first-principles-approach"><span class="header-section-number">7.2.2</span> First-principles approach</a></li>
   </ul></li>
   <li><a href="#required-sample-size" id="toc-required-sample-size" class="nav-link" data-scroll-target="#required-sample-size"><span class="header-section-number">7.3</span> Required sample size</a></li>
   <li><a href="#relative-effects" id="toc-relative-effects" class="nav-link" data-scroll-target="#relative-effects"><span class="header-section-number">7.4</span> Relative effects</a></li>
@@ -319,6 +318,7 @@ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2}.
 <p>There are three ways to derive the formula. Two heuristic approaches and one approach that starts from first principles. All three can help us understand what we are doing more deeply.</p>
 <section id="bloom-approach2" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="bloom-approach2"><span class="header-section-number">7.2.1</span> Bloom approach<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
+<p>The objective of our sample size calculation is to ensure that – over the long-run<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> – our experiments have the desired Type I error rates (controlled by the significance level, <span class="math inline">\(\alpha\)</span>) and Type II error rates (controlled by power, <span class="math inline">\(1-\beta\)</span>).</p>
 <p>From the definition above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -327,25 +327,6 @@ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2}.
 \end{align}
 \]</span></p>
 <p>where <span class="math inline">\(\Delta\)</span> is the MDE and where we use the absolute value to allow for negative or positive effects, given that we perform a two-sided test.</p>
-<p>From our hypothesis testing procedure we know that we’ll reject <span class="math inline">\(H_0\)</span> in a two-sided test on the upper tail if the test statistic <span class="math inline">\(t=\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}\)</span> falls to the right of the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span>, that is if <span class="math inline">\(|t| \geq z_{\alpha/2}\)</span>.</p>
-<p>In the figure below, this means we reject H_0 if t falls to the right of vertical line B.</p>
-<p>Remember that above, we defined power as the probability that we will reject H_0 if the true effect equals the MDE. This means that we need 1-beta of the mass of the HA distribution to the right of z_alpha/2. in figure below, this means to the right of line B. This is what we can see.</p>
-<p>We know that under the h0 distribution, the distance from A to B is z_alpha/2 SE. In the Ha distribution, the distance from B to C is z_1-beta SE.</p>
-<p>Hence, together we get <span class="math display">\[
-\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}
-\]</span></p>
-<p>Given our hypothesis testing procedure we know that in a two-sided test, we reject <span class="math inline">\(H_0\)</span> if the test statistic</p>
-<p>Let’s start by understanding <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>, which visualises the setup of a one-sided hypothesis test where the true effect equals 0 under the null hypothesis and some positive constant <span class="math inline">\(\te\)</span> under the alternative hypothesis. Note that the curves are <em>not</em> the standard normal distribution, but the sampling distribution of our estimator <span class="math inline">\(\tee\)</span>. This means that the standard deviation of the curves is given by the standard error of <span class="math inline">\(\tee\)</span>, which is <span class="math inline">\(\se\)</span>. the distribution will be the same under both the null and the alternative hypothesis, with the center of each distribution given by our hypothesised value of <span class="math inline">\(\te\)</span> – zero under <span class="math inline">\(\hn\)</span> and a positive constant under <span class="math inline">\(\ha\)</span>.</p>
-<p>We reject <span class="math inline">\(\hn\)</span> if <span class="math inline">\(\tee\)</span> is to the right of the critical value <span class="math inline">\(\za\)</span>. Also, for a given level of power <span class="math inline">\(\beta\)</span>,</p>
-<p>For significance level <span class="math inline">\(\alpha\)</span>, the critical value <span class="math inline">\(z_{a/2}\)</span> in a two-sided test is the point of the standard normal distribution under <span class="math inline">\(H_0\)</span> that has <span class="math inline">\(\alpha/2\)</span> of the probability mass to its right.</p>
-<p>We reject the null hypothesis if the test statistic falls to the right of that value.</p>
-<p>Similarly, for a given level of power, <span class="math inline">\(1-\beta\)</span>, the critical value <span class="math inline">\(z_{1-\beta}\)</span> is the point of the standard normal distribution under <span class="math inline">\(H_A\)</span> that has <span class="math inline">\(1-\beta\)</span> of the probability mass to its right.</p>
-<p><strong>this is a mess still </strong></p>
-<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> shows the sampling distribution of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> under the null hypothesis centered around zero (vertical line A) and the alternative hypothesis centered around the MDE (vertical line C).</p>
-<p>If we perform a two-sided hypothesis test with significance level <span class="math inline">\(\alpha\)</span> we will reject the null hypothesis on the upper tail if the test statistic is larger than <span class="math inline">\(z_{\alpha/2}\widehat{SE}\)</span> (vertical line B). If the true effect equals the MDE, and we define the MDE as the true positive impact given <span class="math inline">\(1-\beta\)</span> power and given our significance level <span class="math inline">\(\alpha\)</span>, then <span class="math inline">\(1-\beta\)</span> of the mass of its sampling distribution must lie to the right of line B. Why? Because this ensures that we reject <span class="math inline">\(H_0\)</span> <span class="math inline">\(1-\beta\)</span> percent of the time.</p>
-<p>If we define MDE = <span class="math inline">\(\Delta\)</span> we then have, in general: <span class="math display">\[
-\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}
-\]</span></p>
 <div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -356,11 +337,14 @@ Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impac
 </figcaption>
 </figure>
 </div>
-<p>Numeric example <span class="math inline">\(\alpha = 0.05\)</span> than 1.96<span class="math inline">\(\widehat{SE}\)</span> (vertical line B). If the true effect equals the MDE, and we define the MDE as the the true positive impact given 80% power (the conventional choice) and our significance level, then 80% of the mass of its sampling distribution must lie to the right of line B. This implies that the MDE is 0.84<span class="math inline">\(\widehat{SE}\)</span> above line B.</p>
-<p>Together, this implies that for any two-sided hypothesis test of zero impact with 80% power and a 5% significance level, the MDE will always equal 2.8<span class="math inline">\(\widehat{SE}\)</span>.</p>
-</section>
-<section id="two-equations-approach4" class="level3" data-number="7.2.2">
-<h3 data-number="7.2.2" class="anchored" data-anchor-id="two-equations-approach4"><span class="header-section-number">7.2.2</span> Two-equations approach<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></h3>
+<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> shows the sampling distribution of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> under the null hypothesis (centered around 0, vertical line A) and under the alternative hypothesis (centered around the MDE, vertical line C).</p>
+<p>From our <a href="../chapters/hypothesis_testing.html#basic-approach">hypothesis testing procedure</a> we know that if we want to achieve a Type I error rate of no more than <span class="math inline">\(\alpha\)</span> we should reject <span class="math inline">\(H_0\)</span> in a two-sided test on the upper tail if the test statistic, <span class="math inline">\(t=\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}\)</span>, falls to the right of the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> of the standard normal distribution. That is, we should reject if <span class="math inline">\(\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}} &gt; z_{\alpha/2}\)</span>. This implies that we should reject the hull hypothesis if, in the sampling distribution, <span class="math inline">\(\hat{\tau}^{\text{dm}} &gt; \widehat{SE} z_{\alpha/2}\)</span>. This threshold for rejection is indicated by vertical line B in the figure. This rejection rule takes care of our Type I error rate.</p>
+<p>To ensure adequate power, which will give us our desired Type II error rate, remember that the MDE is defined as the effect size that, if it is true, we have a <span class="math inline">\(1-\beta\)</span> percent of detecting. In the context of <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> this means that if the <span class="math inline">\(H_A\)</span> distribution on the right hand side is the true distribution, then we have to reject <span class="math inline">\(H_0\)</span> <span class="math inline">\(1-\beta\)</span> percent of the time. For this to be true, 80 percent of the mass of the <span class="math inline">\(H_A\)</span> distribution has to be to the right of the rejection threshold indicated by vertical line B. The distance between that threshold and the center of the <span class="math inline">\(H_A\)</span> distribution is given by <span class="math inline">\(z_{1-\beta}\)</span>, the critical value in that distribution that has <span class="math inline">\(1-\beta\)</span> to its right. Having our <span class="math inline">\(H_A\)</span> distribution positioned in this way takes care of our Type II error rate.</p>
+<p>Putting them both together, we can see that, in general: <span class="math display">\[
+\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}.
+\]</span> For the standard values of <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(1-\beta = 0.8\)</span> we get: <span class="math display">\[
+\Delta = (1.96 + 0.84)\widehat{SE} = 2.8\widehat{SE}.
+\]</span> ### Two-equations approach<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <p>Collecting the “required” sample size ensures that (over the course of many experiments), our <a href="../chapters/hypothesis_testing.html#types-of-errors">Type I error rate</a> equals <span class="math inline">\(\alpha\)</span> and our <a href="../chapters/hypothesis_testing.html#types-of-errors">Type II error rate</a> equals <span class="math inline">\(\beta\)</span>. Instead of directly thinking about the type II error rate, we usually think about it’s <a href="../chapters/hypothesis_testing.html#types-of-errors">complement</a>, power, given by <span class="math inline">\(1-\beta\)</span>.</p>
 <p>Using the definition of the MDE above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:</p>
 <p><span class="math display">\[
@@ -388,8 +372,8 @@ Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impac
 \end{align}
 \]</span></p>
 </section>
-<section id="first-principles-approach" class="level3" data-number="7.2.3">
-<h3 data-number="7.2.3" class="anchored" data-anchor-id="first-principles-approach"><span class="header-section-number">7.2.3</span> First-principles approach</h3>
+<section id="first-principles-approach" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="first-principles-approach"><span class="header-section-number">7.2.2</span> First-principles approach</h3>
 <p>Power is the probability that we reject the null hypothesis if there exists a true effect of size <span class="math inline">\(\Delta\)</span>.</p>
 <p>We thus have, for a two-sided hypothesis test: <span class="math display">\[
 \begin{align}
@@ -470,7 +454,7 @@ P\left[t &gt; z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 + \Phi\left(- z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
 \end{align}
 \]</span></p>
-<p>The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect, is very small.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:</p>
+<p>The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect, is very small.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:</p>
 <p><span class="math display">\[
 1 - \beta =
 1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
@@ -822,8 +806,9 @@ Zhou, Jing, Jiannan Lu, and Anas Shallah. 2023. <span>“All about Sample-Size C
 <hr>
 <ol>
 <li id="fn1"><p>This section summarises the approach presented in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>This section is based on <span class="citation" data-cites="list2011so">List, Sadoff, and Wagner (<a href="references.html#ref-list2011so" role="doc-biblioref">2011</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This type of error is sometimes called a <a href="https://en.wikipedia.org/wiki/Type_III_error">Type III error</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We cannot know significance and power for a single experiment. The best we can do is follow this approach consistently to ensure that over the course of many experiments, they correspond to our desired values. See <a href="hypothesis_testing.html" class="quarto-xref"><span>Chapter 6</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This section is based on <span class="citation" data-cites="list2011so">List, Sadoff, and Wagner (<a href="references.html#ref-list2011so" role="doc-biblioref">2011</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This type of error is sometimes called a <a href="https://en.wikipedia.org/wiki/Type_III_error">Type III error</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
