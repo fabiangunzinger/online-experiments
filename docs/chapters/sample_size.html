@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Variance – The statistics of online experiments</title>
+<title>7&nbsp; Sample size – The statistics of online experiments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,8 +50,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/standard_error.html" rel="next">
-<link href="../chapters/unbiasedness.html" rel="prev">
+<link href="../chapters/experiment_setup.html" rel="next">
+<link href="../chapters/hypothesis_testing.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -131,7 +131,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/variance.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Variance</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/sample_size.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sample size</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -182,7 +182,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/variance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/variance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Variance</span></span></a>
   </div>
 </li>
@@ -200,7 +200,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/sample_size.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/sample_size.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sample size</span></span></a>
   </div>
 </li>
@@ -238,17 +238,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sampling-variance" id="toc-sampling-variance" class="nav-link active" data-scroll-target="#sampling-variance"><span class="header-section-number">4.1</span> Sampling variance</a></li>
-  <li><a href="#variance-estimation" id="toc-variance-estimation" class="nav-link" data-scroll-target="#variance-estimation"><span class="header-section-number">4.2</span> Variance estimation</a></li>
-  <li><a href="#lemmas" id="toc-lemmas" class="nav-link" data-scroll-target="#lemmas"><span class="header-section-number">4.3</span> Lemmas</a>
+  <li><a href="#deriving-the-sample-size-formula" id="toc-deriving-the-sample-size-formula" class="nav-link active" data-scroll-target="#deriving-the-sample-size-formula"><span class="header-section-number">7.1</span> Deriving the sample size formula</a>
   <ul class="collapse">
-  <li><a href="#lemma-1" id="toc-lemma-1" class="nav-link" data-scroll-target="#lemma-1"><span class="header-section-number">4.3.1</span> Lemma 1</a></li>
-  <li><a href="#lemma-2" id="toc-lemma-2" class="nav-link" data-scroll-target="#lemma-2"><span class="header-section-number">4.3.2</span> Lemma 2</a></li>
-  <li><a href="#lemma-3" id="toc-lemma-3" class="nav-link" data-scroll-target="#lemma-3"><span class="header-section-number">4.3.3</span> Lemma 3</a></li>
-  <li><a href="#lemma-4" id="toc-lemma-4" class="nav-link" data-scroll-target="#lemma-4"><span class="header-section-number">4.3.4</span> Lemma 4</a></li>
-  <li><a href="#lemma-5" id="toc-lemma-5" class="nav-link" data-scroll-target="#lemma-5"><span class="header-section-number">4.3.5</span> Lemma 5</a></li>
-  <li><a href="#lemma-6" id="toc-lemma-6" class="nav-link" data-scroll-target="#lemma-6"><span class="header-section-number">4.3.6</span> Lemma 6</a></li>
+  <li><a href="#bloom-approach2" id="toc-bloom-approach2" class="nav-link" data-scroll-target="#bloom-approach2"><span class="header-section-number">7.1.1</span> Bloom approach</a></li>
+  <li><a href="#two-equations-approach4" id="toc-two-equations-approach4" class="nav-link" data-scroll-target="#two-equations-approach4"><span class="header-section-number">7.1.2</span> Two-equations approach</a></li>
+  <li><a href="#first-principles-approach" id="toc-first-principles-approach" class="nav-link" data-scroll-target="#first-principles-approach"><span class="header-section-number">7.1.3</span> First-principles approach</a></li>
+  <li><a href="#final-step" id="toc-final-step" class="nav-link" data-scroll-target="#final-step"><span class="header-section-number">7.1.4</span> Final step</a></li>
   </ul></li>
+  <li><a href="#rule-of-thumb" id="toc-rule-of-thumb" class="nav-link" data-scroll-target="#rule-of-thumb"><span class="header-section-number">7.2</span> Rule of thumb</a></li>
   </ul>
 </nav>
     </div>
@@ -257,7 +254,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-variance" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Variance</span></span></h1>
+<h1 class="title"><span id="sec-sample-size" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sample size</span></span></h1>
 </div>
 
 
@@ -274,359 +271,247 @@ window.Quarto = {
 </header>
 
 
-<p>This section derives the <a href="../chapters/stats_foundations.html#sampling-distribution">sampling variance</a> of our <a href="../chapters/experiments.html">difference-in-means estimator</a>. Because we use a <a href="experiment.md">design-based approach</a> to analyse our experiment, the simple sampling-based results do not apply and the derivation is considerably more involved. It’s really extremely boring to follow! But, as with all derivations, following it at least once helps with understanding what’s going on.</p>
-<section id="sampling-variance" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="sampling-variance"><span class="header-section-number">4.1</span> Sampling variance</h2>
-<p>My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> but fills in a lot of steps that are skipped there in the hope that this step-by-step approach makes the logic more accessible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The derivation uses intermediary results labeled <em>lemmas</em>; their derivations appear at the bottom of the page and are linked from inside the main derivation.</p>
-<p>To keep the notation simpler, I omit explicit conditioning on <span class="math inline">\(\mathbf{n}\)</span> and <span class="math inline">\(\mathbf{Y(w)}\)</span>, though the conditioning is implicit throughout. Throughout, I define the sample means of the <a href="../chapters/setup.html">potential outcomes</a> as <span class="math display">\[
-\overline{Y}(1) = \frac{1}{n}\sum_{i=1}^n Y_i(1),
-\qquad
-\overline{Y}(0) = \frac{1}{n}\sum_{i=1}^n Y_i(0),
-\]</span> and use the shorthands: <span class="math display">\[
-Y_i^+ \coloneqq \frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c},
-\qquad \overline{Y}^+ \coloneqq \frac{\overline{Y}(1)}{n_t} + \frac{\overline{Y}(0)}{n_c}.
-\]</span></p>
-<p>Starting from the definition of our difference-in-means estimator, we get:</p>
-<!-- Jump back up anchor below -->
-<p><a id="anchor-1"></a> <span class="math display">\[
-\begin{align}
-\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
-&amp;= \mathbb{V}\left(\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i\right) \\[6pt]
-&amp;\href{#lemma-1}{=} \mathbb{V}\left(\frac{1}{n_t}\sum_{i=1}^n W_i Y_i - \frac{1}{n_c}\sum_{i=1}^n (1-W_i) Y_i\right) \\[6pt]
-&amp;\href{#lemma-2}{=} \mathbb{V}\left(\frac{1}{n_t}\sum_{i=1}^n W_i Y_i(1) - \frac{1}{n_c}\sum_{i=1}^n (1-W_i) Y_i(0)\right) \\[6pt]
-&amp;= \mathbb{V}\left(\sum_{i=1}^n W_i \frac{Y_i(1)}{n_t} + W_i \frac{Y_i(0)}{n_c} - \frac{Y_i(0)}{n_c}\right) \\[6pt]
-&amp;= \mathbb{V}\left(\sum_{i=1}^n W_i Y_i^+ - \sum_{i=1}^n \frac{Y_i(0)}{n_c}\right) \\[6pt]
-&amp;= \mathbb{V}\left(\sum_{i=1}^n W_i Y_i^+\right) \quad \text{(drop constant)} \\[6pt]
-&amp;= \mathbb{V}\left(\sum_{i=1}^n W_i (Y_i^+ - \overline{Y}^+)\right) \quad \text{(demean)} \\[6pt]
-\end{align}
-\]</span></p>
-<p>Expressing the right-hand side in terms of the covariance: <span class="math display">\[
-\begin{align}
-\mathbb{V}\left(\sum_{i=1}^n W_i (Y_i^+ - \overline{Y}^+)\right)
-&amp;= \text{Cov}\left(
-\sum_{i=1}^n W_i \left(Y_i^+ - \overline{Y}^+\right),
-\sum_{j=1}^n W_j \left(Y_j^+ - \overline{Y}^+\right)
-\right)
-\\[6pt]
-&amp;=
-\sum_{i=1}^n \sum_{j=1}^n
-\text{Cov}\left(
-W_i \left(Y_i^+ - \overline{Y}^+\right),
-W_j \left(Y_j^+ - \overline{Y}^+\right)
-\right) \\[6pt]
-&amp;=
-\sum_{i=1}^n \sum_{j=1}^n
-\text{Cov}\left(W_i, W_j \right)
-\left(Y_i^+ - \overline{Y}^+\right)
-\left(Y_j^+ - \overline{Y}^+\right)
-\end{align}
-\]</span> Splitting the double sum into cases where <span class="math inline">\(i=j\)</span> and <span class="math inline">\(j \neq j\)</span>: <!-- Jump back up anchor below --> <a id="anchor-2"></a> <span class="math display">\[
-\begin{align}
-\sum_{i=1}^n \sum_{j=1}^n
-&amp;
-\text{Cov}\left(W_i, W_j \right)
-\left(Y_i^+ - \overline{Y}^+\right)
-\left(Y_j^+ - \overline{Y}^+\right)
-\\[6pt]
-&amp;=
-\sum_{i=1}^n
-\mathbb{V}\left(W_i^2\right)
-\left(Y_i^+ - \overline{Y}^+\right)^2
-+
-\sum_{i \neq j}
-\text{Cov}\left(W_i, W_j \right)
-\left(Y_i^+ - \overline{Y}^+\right)
-\left(Y_j^+ - \overline{Y}^+\right)
-&amp;\text{}
-\\[6pt]
-&amp;\href{#lemma-3}{=}
-\sum_{i=1}^n
-\mathbb{V}\left(W_i\right)
-\left(Y_i^+ - \overline{Y}^+\right)^2
-+
-\sum_{i \neq j}
-\text{Cov}\left(W_i, W_j \right)
-\left(Y_i^+ - \overline{Y}^+\right)
-\left(Y_j^+ - \overline{Y}^+\right)
-\\[6pt]
-&amp;\href{#lemma-4}{=}
-\sum_{i=1}^{n}\left(\frac{n_tn_c}{n^2}\right)
-\left(Y_i^+ - \overline{Y}^+\right)^2
-- \sum_{i \neq j}\left(\frac{n_tn_c}{n^2(n-1)}\right)
-\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
-\\[6pt]
-&amp;=
-\left(\frac{n_tn_c}{n^2}\right)
-\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
-- \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i \neq j}
-\left(Y_i^+ - \overline{Y}^+\right)\left(Y_j^+ - \overline{Y}^+\right)
-\\[6pt]
-&amp;\href{#lemma-5}{=}
-\left(\frac{n_tn_c}{n^2}\right)
-\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
-+ \left(\frac{n_tn_c}{n^2(n-1)}\right)\sum_{i=1}^{n}
-\left(Y_i^+ - \overline{Y}^+\right)^2
-\\[6pt]
-&amp;=
-\frac{n_tn_c}{n(n-1)}
-\sum_{i=1}^{n}\left(Y_i^+ - \overline{Y}^+\right)^2
-\end{align}
-\]</span></p>
-<p>Reverting to full notation and expanding square term <span class="math display">\[
-\begin{align}
-\frac{n_tn_c}{n(n-1)}&amp;
-\sum_{i=1}^{n}\left[\frac{Y_i(1)}{n_t} + \frac{Y_i(0)}{n_c} - \left(\frac{\overline{Y}(1)}{n_t} + \frac{\overline{Y}(0)}{n_c}\right)\right]^2
-\\[6pt]
-&amp;=
-\frac{n_tn_c}{n(n-1)}
-\sum_{i=1}^{n}\left[
-\frac{1}{n_t}\left(Y_i(1) - \overline{Y}(1)\right)
-+ \frac{1}{n_c}\left(Y_i(0) - \overline{Y}(0)\right)
-\right]^2
-\\[6pt]
-&amp;=
-\frac{n_tn_c}{n(n-1)}
-\sum_{i=1}^{n}\Biggl[
-\frac{1}{n_t^2}\left(Y_i(1) - \overline{Y}(1)\right)^2
-+ \frac{1}{n_c^2}\left(Y_i(0) - \overline{Y}(0)\right)^2
-\\[6pt]
-&amp;\qquad
-+ \frac{2}{n_t n_c}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)\Biggr]
-\\[6pt]
-&amp;=
-\frac{n_c}{n n_t}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2
-+ \frac{n_t}{n n_c}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2
-\\[6pt]
-&amp;\qquad
-+ \frac{2}{n}\frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
-\end{align}
-\]</span></p>
-<p>Defining the sample variances of the potential outcomes as: <span class="math display">\[
-S_1^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - \overline{Y}(1)\right)^2,
-\qquad
-S_0^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(0) - \overline{Y}(0)\right)^2,
-\]</span> the variance of the individual-level causal effects as: <span class="math display">\[
-S_{\tau_i}^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(Y_i(1) - Y_i(0)
-- \left(\overline{Y}(1) - \overline{Y}(0)\right)\right)^2,
-\]</span> and the covariance of potential outcomes as: <span class="math display">\[
-S_{0, 1} = \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)
-\left(Y_i(0) - \overline{Y}(0)\right),
-\]</span> we thus have: <!-- Jump back up anchor below --> <a id="anchor-3"></a> <span id="eq-var"><span class="math display">\[
-\begin{align}
-\mathbb{V}\left(\hat{\tau}^{\text{dm}}\right)
-&amp;=
-\frac{n_c}{n n_t}S_1^2
-+ \frac{n_t}{n n_c}S_0^2
-+ \frac{2}{n}S_{0,1}
-\\[6pt]
-&amp;\href{#lemma-6}{=}
-\frac{n_c}{n n_t}S_1^2
-+ \frac{n_t}{n n_c}S_0^2
-+ \frac{1}{n}\left(S_1^2 + S_0^2 - S_{\tau_i}^2\right)
-&amp;\text{}
-\\[5pt]
-&amp;=
-\left(\frac{n_c}{n n_t} + \frac{1}{n}\right)S_1^2
-+ \left(\frac{n_t}{n n_c} + \frac{1}{n}\right) S_0^2
-- \frac{S_{\tau_i}^2}{n}
-&amp;\text{}
-\\[6pt]
-&amp;=
-\frac{n_c + n_t}{n n_t} S_1^2
-+ \frac{n_t + n_c}{n n_c} S_0^2
-- \frac{S_{\tau_i}^2}{n}
-&amp;\text{}
-\\[6pt]
-&amp;=
-\frac{S_1^2}{n_t}
-+ \frac{S_0^2}{n_c}
-- \frac{S_{\tau_i}^2}{n}
-\end{align}
-\tag{4.1}\]</span></span></p>
-<p>This is the sampling variance of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span>. It’s a theoretical quantity we cannot directly observe.</p>
-</section>
-<section id="variance-estimation" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="variance-estimation"><span class="header-section-number">4.2</span> Variance estimation</h2>
-<p>However, we can observe treatment group means:</p>
+<p>Sample size calculation is a critical component of most experiment designs.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The objective of our sample size calculation is to ensure that – over the long-run<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> – our experiments have the desired Type I error rates (controlled by the significance level, <span class="math inline">\(\alpha\)</span>) and Type II error rates (controlled by power, <span class="math inline">\(1-\beta\)</span>).</p>
+<p>To perform sample size calculations we use the concept of a minimum detectable effect (MDE) introduced by <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>, who defines the MDE as follows:</p>
+<blockquote class="blockquote">
+<p>The minimum detectable effect of an experiment is the smallest effect that, if true, has an X% chance of producing an impact estimate that is statistically significant at the Y level.</p>
+<p>X is the statistical power of the experiment for an alternative hypothesis equal to the minimum detectable effect. Y is the level of statistical significance used to decide whether or not a true effect exists.</p>
+</blockquote>
+<p>If we perform a two-sided test, we thus have the following two hypotheses:</p>
 <p><span class="math display">\[
 \begin{align}
-\overline{Y}_t = \frac{1}{n_t}\sum_{i=1}^n W_iY_i
-\qquad
-\overline{Y}_c = \frac{1}{n_c}\sum_{i=1}^n (1-W_i)Y_i
+&amp;H_0: \tau = 0 \\[5 pt]
+&amp;H_A: \tau = |\Delta|,
 \end{align}
-\]</span> and treatment group variances:</p>
-<p><span class="math display">\[
-\begin{align}
-s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
-\qquad
-s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
-\end{align}
-\]</span> It can be shown that the observed treatment group variances <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the sample variances <span class="math inline">\(S_1^2\)</span> and <span class="math inline">\(S_0^2\)</span> (see, for instance, Appendix A in Chapter 6 of <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>). The last term in <a href="#eq-var" class="quarto-xref">Equation&nbsp;<span>4.1</span></a> is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is: <span id="eq-var-est"><span class="math display">\[
-\hat{\mathbb{V}}
-= \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
-\tag{4.2}\]</span></span></p>
-<p>In our context, the main advantages of this estimator are:</p>
+\]</span></p>
+<p>where <span class="math inline">\(\Delta\)</span> is the MDE and where we use the absolute value to allow for negative or positive effects, given that we perform a two-sided test.</p>
+<p>When following this approach, required sample size of an experiment is given by a version of the following formula (e.g.&nbsp;<a href="https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details">here</a>): <span id="eq-sampsi"><span class="math display">\[ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},  \tag{7.1}\]</span></span></p>
+<p>which shows that required sample size is determined by four factors:</p>
 <ol type="1">
-<li><p>If treatment effects are constant across units, then this is an unbiased estimator of the true sampling variance since in this case, <span class="math inline">\(S^2_{\tau_i} = 0\)</span>.</p></li>
-<li><p>If treatment effects are not constant, then this is a conservative estimator of the sampling variance (since <span class="math inline">\(S_{\tau_i}^2\)</span> is non-negative).</p></li>
+<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type I error</a>, denoted by <span class="math inline">\(\alpha\)</span>, corresponds to the significance level of the test and has an associated with the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> in a two-sided test.</p></li>
+<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type II error</a>, denoted by <span class="math inline">\(\beta\)</span>, determines the power of the test, <span class="math inline">\(1-\beta\)</span>, and has associated critical value given by <span class="math inline">\(z_{1 - \beta}\)</span>.</p></li>
+<li><p>The standard deviation of the outcome variable, <span class="math inline">\(s\)</span>.</p></li>
+<li><p>The minimal detectable effect size, <span class="math inline">\(\Delta\)</span>.</p></li>
 </ol>
-<p>This is the estimator of the sampling variance of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> based on which we’ll derive the standard derivation in the next chapter.</p>
+<p>This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. Worse, rules of thumbs based on the formula are often misunderstood and misapplied because the underlying logic isn’t understood. The aim of this chapter is to demystify the formula by deriving it from scratch.</p>
+<section id="deriving-the-sample-size-formula" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="deriving-the-sample-size-formula"><span class="header-section-number">7.1</span> Deriving the sample size formula</h2>
+<p>There are three ways to derive the formula. Two heuristic approaches and one approach that starts from first principles. All three can help us understand what we are doing more deeply.</p>
+<section id="bloom-approach2" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="bloom-approach2"><span class="header-section-number">7.1.1</span> Bloom approach<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></h3>
+<p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> shows the sampling distribution of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> under the null hypothesis (centered around 0, vertical line A) and under the alternative hypothesis (centered around the MDE, vertical line C).</p>
+<div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../inputs/bloom-curve.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impact estimate. Created with the help of ChatGPT based on similar figure in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>From our <a href="../chapters/hypothesis_testing.html#basic-approach">hypothesis testing procedure</a> we know that if we want to achieve a Type I error rate of no more than <span class="math inline">\(\alpha\)</span> we should reject <span class="math inline">\(H_0\)</span> in a two-sided test on the upper tail if the test statistic, <span class="math inline">\(t=\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}\)</span>, falls to the right of the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> of the standard normal distribution. That is, we should reject if <span class="math inline">\(\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}} &gt; z_{\alpha/2}\)</span>. This implies that we should reject the hull hypothesis if, in the sampling distribution, <span class="math inline">\(\hat{\tau}^{\text{dm}} &gt; \widehat{SE} z_{\alpha/2}\)</span>. This threshold for rejection is indicated by vertical line B in the figure. This rejection rule takes care of our Type I error rate.</p>
+<p>To ensure adequate power, which will give us our desired Type II error rate, remember that the MDE is defined as the effect size that, if it is true, we have a <span class="math inline">\(1-\beta\)</span> percent of detecting. In the context of <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> this means that if the <span class="math inline">\(H_A\)</span> distribution on the right hand side is the true distribution, then we have to reject <span class="math inline">\(H_0\)</span> <span class="math inline">\(1-\beta\)</span> percent of the time. For this to be true, 80 percent of the mass of the <span class="math inline">\(H_A\)</span> distribution has to be to the right of the rejection threshold indicated by vertical line B. The distance between that threshold and the center of the <span class="math inline">\(H_A\)</span> distribution is given by <span class="math inline">\(z_{1-\beta}\)</span>, the critical value in that distribution that has <span class="math inline">\(1-\beta\)</span> to its right. Having our <span class="math inline">\(H_A\)</span> distribution positioned in this way takes care of our Type II error rate.</p>
+<p>Putting them both together we get: <span class="math display">\[
+\Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}.
+\]</span></p>
 </section>
-<section id="lemmas" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="lemmas"><span class="header-section-number">4.3</span> Lemmas</h2>
-<section id="lemma-1" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="lemma-1"><span class="header-section-number">4.3.1</span> Lemma 1</h3>
-<p>Given that <span class="math inline">\(W_i=1\)</span> for treatment units and <span class="math inline">\(W_i=0\)</span> for control units, we can calculate treatment group means by summing over all units and using <span class="math inline">\(W_i\)</span> to “pick out” the relevant units for each treatment group so that we have: <span class="math display">\[
+<section id="two-equations-approach4" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="two-equations-approach4"><span class="header-section-number">7.1.2</span> Two-equations approach<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></h3>
+<p>Collecting the required sample size ensures that (over the course of many experiments), our <a href="../chapters/hypothesis_testing.html#types-of-errors">Type I error rate</a> equals <span class="math inline">\(\alpha\)</span> and our <a href="../chapters/hypothesis_testing.html#types-of-errors">Type II error rate</a> equals <span class="math inline">\(\beta\)</span>. Instead of directly thinking about the type II error rate, we usually think about it’s <a href="../chapters/hypothesis_testing.html#types-of-errors">complement</a>, power, given by <span class="math inline">\(1-\beta\)</span>.</p>
+<p>Using the definition of the MDE above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:</p>
+<p><span class="math display">\[
 \begin{align}
+&amp;H_0: \tau = 0 \\[5 pt]
+&amp;H_A: \tau = |\Delta|.
+\end{align}
+\]</span></p>
+<p>Given our <a href="../chapters/hypothesis_testing.html#basic-approach">hypothesis testing procedure</a>, ensuring a Type I error that equals <span class="math inline">\(\alpha\)</span> in a two-sided test requires that:</p>
+<p><span id="eq-type1"><span class="math display">\[
+\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}
+= z_{\alpha/2}.
+\tag{7.2}\]</span></span></p>
+<p>Similarly, ensuring a level of power of <span class="math inline">\(1-\beta\)</span> in a one-sided test requires that:</p>
+<p><span id="eq-type2"><span class="math display">\[
+\frac{\hat{\tau}^{\text{dm}}- \Delta}{\widehat{SE}}
+= z_{1-\beta}.
+\tag{7.3}\]</span></span></p>
+<p>Combining both conditions by rearranging <a href="#eq-type1" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> for <span class="math inline">\(\hat{\tau}^\text{dm}\)</span> and substituting that term in <a href="#eq-type2" class="quarto-xref">Equation&nbsp;<span>7.3</span></a> we get the desired condition: <span class="math display">\[
+\begin{align}
+\frac{\widehat{SE}z_{\alpha/2} - \Delta}{\widehat{SE}} &amp;= z_{1-\beta} \\[6pt]
+\widehat{SE}z_{\alpha/2} - \Delta &amp;= \widehat{SE}z_{1-\beta} \\[6pt]
+\widehat{SE}z_{\alpha/2} + \widehat{SE}z_{1-\beta}  &amp;= \Delta \\[6pt]
+\widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right)  &amp;= \Delta.
+\end{align}
+\]</span></p>
+</section>
+<section id="first-principles-approach" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="first-principles-approach"><span class="header-section-number">7.1.3</span> First-principles approach</h3>
+<p>Power is the probability that we reject the null hypothesis if there exists a true effect of size <span class="math inline">\(\Delta\)</span>.</p>
+<p>We thus have, for a two-sided hypothesis test: <span class="math display">\[
+\begin{align}
+&amp;H_0: \tau = 0 \\[5 pt]
+&amp;H_A: \tau = |\Delta|.
+\end{align}
+\]</span></p>
+<p>We test the null hypothesis by constructing the test statistic <span class="math display">\[
+t =
+\frac{\hat{\tau}^{\text{dm}}}
+{\widehat{SE}},
+\]</span></p>
+<p>and reject <span class="math inline">\(H_0\)</span> if if falls into the rejection region beyond the critical value <span class="math inline">\(z_{\alpha/2}\)</span>. Because the standard normal distribution is symmetric, for a two-sided test we thus reject <span class="math inline">\(t\)</span> if <span class="math display">\[
+\begin{align}
+|t| &amp;&gt; z_{\alpha/2} \\[5pt]
+\left|\frac{\hat{\tau}^{\text{dm}}}{\widehat{SE}}\right|
+&amp;&gt; z_{\alpha/2} \\[5pt]
+\left|\hat{\tau}^{\text{dm}}\right|
+&amp;&gt; z_{\alpha/2}\widehat{SE}.
+\end{align}
+\]</span></p>
+<p>The power <span class="math inline">\(1-\beta\)</span> of the test under <span class="math inline">\(H_A\)</span> is the probability that the test statistic <span class="math inline">\(t\)</span> falls into the rejection region, which is: <span class="math display">\[
+1 - \beta = P\left[
+\left|\hat{\tau}^{\text{dm}}\right|
+&gt; z_{\alpha/2}\widehat{SE}
+\&gt;\middle|\&gt; H_A
+\right].
+\]</span></p>
+<p>The test statistic falling into the lower or upper rejection region are mutually exclusive events, so the above is equal to <span class="math display">\[
+1 - \beta
+= P\left[
 \hat{\tau}^{\text{dm}}
-&amp;=
-\frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
+&gt; z_{\alpha/2}\widehat{SE}\&gt;\middle|\&gt; H_A
+\right]
++ P\left[
+\hat{\tau}^{\text{dm}}
+&lt; -z_{\alpha/2}\widehat{SE}\&gt;\middle|\&gt; H_A
+\right]
+\]</span></p>
+<p>We can calculate these probabilities by standardising, which gives us:</p>
+<p><span class="math display">\[
+\begin{align}
+1 - \beta
+&amp;= P\left[
+\frac{\hat{\tau}^{\text{dm}} - \Delta}{\widehat{SE}}
+&gt;
+\frac{z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
+\right]
++ P\left[
+\frac{\hat{\tau}^{\text{dm}} - \Delta}{\widehat{SE}}
+&lt;
+\frac{-z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
+\right]
 \\[5pt]
 &amp;=
-\frac{1}{n_t}\sum_{i=1}^{n}W_iY_i - \frac{1}{n_c}\sum_{i=1}^{n}(1-W_i)Y_i
-\end{align}
-\]</span> <a href="#anchor-1">↩︎️</a></p>
-</section>
-<section id="lemma-2" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="lemma-2"><span class="header-section-number">4.3.2</span> Lemma 2</h3>
-<p>This step uses <a href="../chapters/unbiasedness.html#sutva-links-observed-outcomes-to-potential-outcomes">SUTVA</a> which – if it holds – implies that: <span class="math display">\[
-Y_i = Y_i(W_i) = \begin{cases}
-   Y_i(1) &amp; \text{if } W_i = 1 \\
-   Y_i(0)       &amp; \text{if } W_i = 0
-  \end{cases}
-\]</span><a href="#anchor-1">↩︎️</a></p>
-</section>
-<section id="lemma-3" class="level3" data-number="4.3.3">
-<h3 data-number="4.3.3" class="anchored" data-anchor-id="lemma-3"><span class="header-section-number">4.3.3</span> Lemma 3</h3>
-<p>In <a href="experiments.html" class="quarto-xref"><span>Chapter 2</span></a> we define <span class="math inline">\(W_i \sim \text{Bernoulli}\left(\frac{n_t}{n}\right)\)</span>. Hence, <span class="math inline">\(W_i\)</span> takes on values 0 (control group) or 1 (treatment group), which implies that: <span class="math display">\[
-W_i^2 =
-\begin{cases}
-1 &amp;
-\text{if } W_i = 1\\[5pt]
-0 &amp;
-\text{if } W_i = 0\\[5pt]
-\end{cases}
-\qquad \implies
-W_i^2 = W_i
-\qquad \implies
-\mathbb{V}(W_i^2) = \mathbb{V}(W_i).
-\]</span> <a href="#anchor-2">↩︎️</a></p>
-</section>
-<section id="lemma-4" class="level3" data-number="4.3.4">
-<h3 data-number="4.3.4" class="anchored" data-anchor-id="lemma-4"><span class="header-section-number">4.3.4</span> Lemma 4</h3>
-<p>Given that <span class="math inline">\(W_i \sim \text{Bernoulli} \left( \frac{n_t}{n} \right)\)</span> (see <a href="experiments.html" class="quarto-xref"><span>Chapter 2</span></a>) we have: <span class="math display">\[
-\begin{align}
-\mathbb{V}(W_i) &amp;= \left(\frac{n_t}{n}\right) \left(1-\frac{n_t}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &amp;= \left(\frac{n_t}{n}\right) \left(\frac{n-n_t}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &amp;= \left(\frac{n_t}{n}\right) \left(\frac{n_c}{n}\right) \\[5pt]
-\mathbb{V}(W_i) &amp;= \frac{n_tn_c}{n^2} \\[5pt]
-\end{align}
-\]</span> From the basic result that <span class="math inline">\(\mathbb{V}(X + Y) = \mathbb{V}(X) + \mathbb{V}(Y) + 2\text{Cov}(X, Y)\)</span>, and the fact that symmetry implies that the variances and covariances of all <span class="math inline">\(W_i\)</span>s are the same, we get: <span class="math display">\[
-\begin{align}
-\mathbb{V}\left(\sum_{i=1}^{n}W_i\right)
-&amp;= \sum_{i=1}^{n}\mathbb{V}(W_i) + 2\sum_{i&lt;j}\text{Cov}(W_i, W_j)
-&amp; \\[6pt]
-\mathbb{V}\left(\sum_{i=1}^{n}W_i\right)
-&amp;= n\mathbb{V}(W_i) + 2\frac{n(n-1)}{2}\text{Cov}(W_i, W_j)
-&amp; \text{symmetry} \\[6pt]
-\mathbb{V}\left(n_t\right)
-&amp;= n\mathbb{V}(W_i) + n(n-1)\text{Cov}(W_i, W_j)
-&amp; \text{Def of }n_t \\[6pt]
-0 &amp;= n\mathbb{V}(W_i) + n(n-1)\text{Cov}(W_i, W_j)
-&amp; n_t\text{ is constant} \\[6pt]
-0 &amp;= n\left(\frac{n_tn_c}{n^2}\right) + n(n-1)\text{Cov}(W_i, W_j)
-&amp; \text{Result for } \mathbb{V}(W_i) \\[6pt]
-0 &amp;= \frac{n_tn_c}{n} + n(n-1)\text{Cov}(W_i, W_j)
-&amp; \text{} \\[6pt]
-\text{Cov}(W_i, W_j) &amp;= -\frac{n_tn_c}{n^2(n-1)}&amp; \text{}
-\end{align}
-\]</span> <a href="#anchor-2">↩︎️</a></p>
-</section>
-<section id="lemma-5" class="level3" data-number="4.3.5">
-<h3 data-number="4.3.5" class="anchored" data-anchor-id="lemma-5"><span class="header-section-number">4.3.5</span> Lemma 5</h3>
-<p>We use the fact that: <span class="math display">\[
--\sum_{i \neq j}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-\]</span> To see why this is true, remember that that sum of demeaned variables is zero. Hence, <span class="math inline">\(\sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+) = 0\)</span>. This implies that: <span class="math display">\[
-\begin{align}
-0
-&amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)
-\sum_{j=1}^{n}(Y_j^+ - \overline{Y}^+)
-\\[6pt]
-&amp;= \sum_{i=1}^{n}\sum_{j=1}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-\\[6pt]
-&amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2
-+\sum_{i \neq j}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-\\[6pt]
--\sum_{i \neq j}^{n}
-(Y_i^+ - \overline{Y}^+)(Y_j^+ - \overline{Y}^+)
-&amp;= \sum_{i=1}^{n}(Y_i^+ - \overline{Y}^+)^2.
-\end{align}
-\]</span> <a href="#anchor-2">↩︎️</a></p>
-</section>
-<section id="lemma-6" class="level3" data-number="4.3.6">
-<h3 data-number="4.3.6" class="anchored" data-anchor-id="lemma-6"><span class="header-section-number">4.3.6</span> Lemma 6</h3>
-<p>We use the fact that <span class="math display">\[
-2S_{0,1} = S^2_1 + S^2_0 - S^2_{\tau_i}
-\]</span> This holds because: <span class="math display">\[
-\begin{align}
-S_{\tau_i}^2
-&amp;= \frac{1}{n-1}\sum_{i=1}^{n}
-\left[
-Y_i(1) - Y_i(0)
-- \left(\overline{Y}(1) - \overline{Y}(0)\right)
-\right]^2
-\\[6pt]
-&amp;= \frac{1}{n-1}\sum_{i=1}^{n}
-\left[
-\left(Y_i(1) - \overline{Y}(1)\right)
-- \left(Y_i(0) - \overline{Y}(0)\right)
-\right]^2
-\\[6pt]
-&amp;= \frac{1}{n-1}\sum_{i=1}^{n}
-\Bigl[
-\left(Y_i(1) - \overline{Y}(1)\right)^2
-+ \left(Y_i(0) - \overline{Y}(0)\right)^2
-\\[6pt]
-&amp;\qquad
-- \frac{2}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
-\Bigr]
-\\[6pt]
+P\left[t &gt; \frac{z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
+\right]
++ P\left[t &lt; \frac{-z_{\alpha/2}\widehat{SE} - \Delta}{\widehat{SE}}
+\right]
+\\[5pt]
 &amp;=
-\frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)^2
-+ \frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(0) - \overline{Y}(0)\right)^2
-\\[6pt]
-&amp;\qquad
-- 2\frac{1}{n-1}\sum_{i=1}^{n}
-\left(Y_i(1) - \overline{Y}(1)\right)\left(Y_i(0) - \overline{Y}(0)\right)
-\\[6pt]
-&amp;=
-S^2_1 + S^2_0 - 2S_{0, 1}
+P\left[t &gt; z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
+\right]
++ P\left[t &lt; - z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
+\right].
 \end{align}
-\]</span> Rearranging gives the desired result. <a href="#anchor-3">↩︎️</a></p>
+\]</span></p>
+<p>Using the standard normal CDF, <span class="math inline">\(\Phi(z)\)</span>, we get:</p>
+<p><span class="math display">\[
+\begin{align}
+1 - \beta
+=1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right)
++ \Phi\left(- z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
+\end{align}
+\]</span></p>
+<p>The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect, is very small.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:</p>
+<p><span class="math display">\[
+1 - \beta =
+1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
+\]</span></p>
+<p>Using the symmetry of the standard normal distribution, which implies that <span class="math inline">\(1 - \Phi(k) = \Phi(-k)\)</span>, we can simplify this to</p>
+<p><span id="eq-power"><span class="math display">\[
+\begin{align}
+1 - \beta
+=
+\Phi\left(\frac{\Delta}{\widehat{SE}} - z_{\alpha/2}\right).
+\end{align}
+\tag{7.4}\]</span></span></p>
+<p>Next, remember that <span class="math inline">\(\Phi(z)\)</span> takes z-values and returns probabilities (the probability that a standard normal variable is less than a given z value). The inverse, <span class="math inline">\(\Phi^{-1}(p)\)</span>, thus takes probabilities and returns z-values (the <span class="math inline">\(z\)</span> value with <span class="math inline">\(p\)</span> probability mass to its left). Hence, <span class="math inline">\(\Phi^{-1}(1-\beta)\)</span> refers to the upper-tail critical value of the standard normal distribution that has <span class="math inline">\(1-\beta\)</span> probability mass to its right, and which we defined above as <span class="math inline">\(z_{1-\beta}\)</span>. Using this, we get:</p>
+<p><span id="eq-mde"><span class="math display">\[
+\begin{align}
+\Phi^{-1}(1 - \beta)
+&amp;=
+\Phi^{-1}\left(
+\Phi\left(\frac{\Delta}{\widehat{SE}} - z_{\alpha/2}\right)
+\right) \\[5pt]
+z_{1-\beta}
+&amp;=
+\frac{\Delta}{\widehat{SE}} - z_{\alpha/2} \\[5pt]
+\end{align}
+\tag{7.5}\]</span></span></p>
+<p>Rearranging, we get:</p>
+<p><span class="math display">\[
+\Delta = \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
+\]</span></p>
+</section>
+<section id="final-step" class="level3" data-number="7.1.4">
+<h3 data-number="7.1.4" class="anchored" data-anchor-id="final-step"><span class="header-section-number">7.1.4</span> Final step</h3>
+<p>All three approaches above result in following expression for the MDE:</p>
+<p><span class="math display">\[
+\Delta = \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
+\]</span></p>
+<p>The final step to get the sample size formula is to plug in the desired version for <span class="math inline">\(\widehat{SE}\)</span>. Depending on the context, we can plug in any of the standard error versions <a href="stats_of_online_experiments#standard_error">we defined earlier</a>. To arrive at <a href="#eq-sampsi" class="quarto-xref">Equation&nbsp;<span>7.1</span></a> from the introduction, we use <a href="standard_error.html#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>5.2</span></a>, which gives us:</p>
+<p><span class="math display">\[
+\begin{align}
+\Delta
+&amp;= \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
+\Delta
+&amp;= \sqrt{\frac{2s^2}{n_v}}\left(z_{\alpha/2} + z_{1-\beta}\right) \\[5pt]
+\Delta^2
+&amp;= \frac{2s^2}{n_v}\left(z_{\alpha/2} + z_{1-\beta}\right)^2 \\[5pt]
+n_v
+&amp;= 2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}.
+\end{align}
+\]</span></p>
+<p>If, instead of using <a href="standard_error.html#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>5.2</span></a> we use the standard error expressed in terms of sample proportions from <a href="standard_error.html#eq-se-prop" class="quarto-xref">Equation&nbsp;<span>5.3</span></a>, we get: <span class="math display">\[
+\begin{align}
+n &amp;= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\Delta^2},
+\end{align}
+\]</span> where the left-hand side, <span class="math inline">\(n\)</span> now refers to the total sample size in the experiment rather than the sample size per variant.</p>
+</section>
+</section>
+<section id="rule-of-thumb" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="rule-of-thumb"><span class="header-section-number">7.2</span> Rule of thumb</h2>
+<p>A commonly-used rule of thumb for the required sample size is:</p>
+<p><span class="math display">\[
+n_v \approx 16\frac{s^2}{\Delta^2}.
+\]</span> Using <a href="#eq-sampsi" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>, and the standard critical values <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(1-\beta = 0.8\)</span>, we get: <span class="math display">\[
+\begin{align}
+n_v
+&amp;=2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}\\[6pt]
+&amp;= 2\left(1.96 + 0.84\right)^2\frac{s^2}{\Delta^2}\\[6pt]
+&amp;= 15.86\frac{s^2}{\Delta^2}\\[6pt]
+&amp;\approx 16\frac{s^2}{\Delta^2}.
+\end{align}
+\]</span></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-ding2023first" class="csl-entry" role="listitem">
-Ding, Peng. 2023. <span>“A First Course in Causal Inference.”</span> <a href="https://arxiv.org/abs/2305.18793">https://arxiv.org/abs/2305.18793</a>.
+<div id="ref-bloom1995minimum" class="csl-entry" role="listitem">
+Bloom, Howard S. 1995. <span>“Minimum Detectable Effects: A Simple Way to Report the Statistical Power of Experimental Designs.”</span> <em>Evaluation Review</em> 19 (5): 547–56.
 </div>
-<div id="ref-imbens2015causal" class="csl-entry" role="listitem">
-Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
+<div id="ref-list2011so" class="csl-entry" role="listitem">
+List, John A, Sally Sadoff, and Mathis Wagner. 2011. <span>“So You Want to Run an Experiment, Now What? Some Simple Rules of Thumb for Optimal Experimental Design.”</span> <em>Experimental Economics</em> 14: 439–57.
 </div>
 </div>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p><span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> provide an alternative derivation in Appendix B of Chapter 6 that is fairly detailed but still skips a lot of steps that weren’t immediately obvious to me, and they define a helper variable I don’t find to help that much. I find the approach in <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> more transparent. But the original source skips a lot of steps and is thus not very accessible.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>I say “most” <a href="https://docs.geteppo.com/statistics/confidence-intervals/analysis-methods/">sequential testing approaches</a> do not require ex-ante power calculations.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We cannot know significance and power for a single experiment. The best we can do is follow this approach consistently to ensure that over the course of many experiments, they correspond to our desired values. See <a href="hypothesis_testing.html" class="quarto-xref"><span>Chapter 6</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This section summarises the approach presented in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This section is based on <span class="citation" data-cites="list2011so">List, Sadoff, and Wagner (<a href="references.html#ref-list2011so" role="doc-biblioref">2011</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This type of error is sometimes called a <a href="https://en.wikipedia.org/wiki/Type_III_error">Type III error</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1053,13 +938,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/unbiasedness.html" class="pagination-link" aria-label="Unbiasedness">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Unbiasedness</span></span>
+      <a href="../chapters/hypothesis_testing.html" class="pagination-link" aria-label="Hypothesis testing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/standard_error.html" class="pagination-link" aria-label="Standard error">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard error</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/experiment_setup.html" class="pagination-link" aria-label="Experiment setup">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Experiment setup</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

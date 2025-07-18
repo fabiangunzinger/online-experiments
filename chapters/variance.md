@@ -385,6 +385,6 @@ Rearranging gives the desired result.
 [↩️](#anchor-3)
 
 
-[^other]: The other main motivation was that I couldn't find a [step-by-step derivations of the sample size formula](power.md).
+[^other]: The other main motivation was that I couldn't find a [step-by-step derivations of the sample size formula](sample_size.md).
 
 [^approach]: @imbens2015causal provide an alternative derivation in Appendix B of Chapter 6 that is fairly detailed but still skips a lot of steps that weren't immediately obvious to me, and they define a helper variable I don't find to help that much. I find the approach in @ding2023first more transparent. But the original source skips a lot of steps and is thus not very accessible.

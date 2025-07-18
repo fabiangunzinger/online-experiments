@@ -19,10 +19,10 @@ book:
     - chapters/unbiasedness.md
     - chapters/variance.md
     - chapters/standard_error.md
-
     - chapters/hypothesis_testing.md
-    - chapters/power.md
-    - chapters/threats_to_validity.md
+    - chapters/sample_size.md
+    
+    # - chapters/threats_to_validity.md
     - chapters/experiment_setup.md
     - chapters/stats_foundations.md
     - chapters/faqs.md

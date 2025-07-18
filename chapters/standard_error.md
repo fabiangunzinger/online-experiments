@@ -24,14 +24,7 @@ $$
 = \sqrt{\frac{s^2}{np(1-p)}}.
 $${#eq-se-prop}
 
-Note that for $p=0.5$ and when expressing sample size in terms of $n_v$, we get:
-$$
-\widehat{SE}^{\text{prop}}_{p=1/2}
-= \sqrt{\frac{s^2}{\frac{2n_v}{4}}}
-= \sqrt{\frac{2s^2}{n_v}}
-= \widehat{SE}^{\text{equal}}
-$$
-as expected.
+Note that for $p=0.5$, @eq-se-prop collapses into @eq-se-equal.
 
 Next, we'll use the standard deviation for sample size calculation.
 
