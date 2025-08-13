@@ -26,7 +26,7 @@ book:
     # - chapters/experiment_setup.md
     # - chapters/stats_foundations.md
     # - chapters/faqs.md
-    # - chapters/references.md
+    - chapters/references.md
 
 
     # - part: Introduction
