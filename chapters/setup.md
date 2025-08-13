@@ -28,7 +28,7 @@ $$
 \end{align}
 $${#eq-estimand}
 
-This is the estimand, the statistical quantity we are trying to estimate in our experiment. In the next section we show how an experiment helps us estimate its true value.
+This is the estimand, the statistical quantity we try to estimate. In the next section we show how an experiment helps us do that.
 
 
 [^scientific_solution]: @holland1986statistics discusses two solutions to the Fundamental Problem: one is the *statistical solution*, which relies on estimating average treatment effects across a large population of units while the other is the *scientific solution*, which uses homogeneity or invariance assumptions. The scientific solution works as follows: say we have one measurement of a units outcome under treatment from today and another measurement of their outcome under control from yesterday. If we are prepared to assume that control measurements are homogenous and invariant to time – that yesterday's control measurement equals the control measurement we would have taken today – then we can calculate the individual level causal effect by comparing the two measurements taken at different points in time. Our assumption is untestable, of course, but in lab experiments it is sometimes possible to make a strong case that it is plausible. It is also the approach we informally use in daily life, whenever we conclude that taking Paracetamol helps against headaches or that going to sleep early makes us feel better the next morning.

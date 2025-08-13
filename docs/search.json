@@ -884,7 +884,7 @@
     "href": "chapters/experiments.html#footnotes",
     "title": "2  Experiments",
     "section": "",
-    "text": "For more on the difference between sampling vs design-based inference, see Abadie et al. (2020), Athey and Imbens (2017), Imbens and Rubin (2015) for discussions on sampling vs design-based inference.↩︎",
+    "text": "I use \\(\\sum_{W_i=w}\\) as a shorthand for \\(\\sum_{i:W_i=w}\\) to denote the sum over all units in a given treatment group \\(w\\).↩︎\nFor more on the difference between sampling vs design-based inference, see Abadie et al. (2020), Athey and Imbens (2017), and Imbens and Rubin (2015).↩︎",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Experiments</span>"
     ]
