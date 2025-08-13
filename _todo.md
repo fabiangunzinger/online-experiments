@@ -1,4 +1,12 @@
 
+
+Review
+- [x] Intro
+- [x] Setup
+- [x] Experiments
+- [ ] 
+
+
 - Break sections out of stats of online experiment one by one. Finish and move on.
 	- [x] Setup
 	- [x] Experiments

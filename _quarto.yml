@@ -23,10 +23,10 @@ book:
     - chapters/sample_size.md
     
     # - chapters/threats_to_validity.md
-    - chapters/experiment_setup.md
-    - chapters/stats_foundations.md
-    - chapters/faqs.md
-    - chapters/references.md
+    # - chapters/experiment_setup.md
+    # - chapters/stats_foundations.md
+    # - chapters/faqs.md
+    # - chapters/references.md
 
 
     # - part: Introduction
