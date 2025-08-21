@@ -206,24 +206,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -258,8 +240,7 @@ window.Quarto = {
 </header>
 
 
-<p>We study a sample of <span class="math inline">\(n\)</span> units to learn about the effect of a binary treatment on these units. We index units as <span class="math inline">\(i = 1, \dots, n\)</span>.</p>
-<p>The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is “binary” because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as “treatment” and “control”.</p>
+<p>We study a sample of <span class="math inline">\(n\)</span> units to learn about the effect of a binary treatment on these units. We index units as <span class="math inline">\(i = 1, \dots, n\)</span>. The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is “binary” because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as “treatment” and “control”.</p>
 <p>Each unit has two <strong>potential outcomes</strong>: <span class="math inline">\(Y_i(1)\)</span> is the outcome for unit <span class="math inline">\(i\)</span> if they are in treatment and <span class="math inline">\(Y_i(0)\)</span> is the outcome if they are in control. To simplify notation, we collect all unit-level potential outcomes in the <span class="math inline">\(n \times 1\)</span> vectors <span class="math inline">\(\mathbf{Y(1)}\)</span> and <span class="math inline">\(\mathbf{Y(0)}\)</span>. These outcomes are “potential outcomes” because before the start of the experiment, each unit could be exposed to either treatment condition so that they can potentially experience either outcome. Once the experiment has started and units are assigned to treatment, only one of the two outcomes will be observed.</p>
 <p>The causal effect of the treatment for unit <span class="math inline">\(i\)</span> is the difference between the two potential outcomes:</p>
 <p><span class="math display">\[

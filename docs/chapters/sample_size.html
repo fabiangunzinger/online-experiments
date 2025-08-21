@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/experiment_setup.html" rel="next">
+<link href="../chapters/references.html" rel="next">
 <link href="../chapters/hypothesis_testing.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -206,24 +206,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -238,14 +220,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#deriving-the-sample-size-formula" id="toc-deriving-the-sample-size-formula" class="nav-link active" data-scroll-target="#deriving-the-sample-size-formula"><span class="header-section-number">7.1</span> Deriving the sample size formula</a>
+  <li><a href="#the-sample-size-formula" id="toc-the-sample-size-formula" class="nav-link active" data-scroll-target="#the-sample-size-formula"><span class="header-section-number">7.1</span> The sample size formula</a></li>
+  <li><a href="#deriving-the-sample-size-formula" id="toc-deriving-the-sample-size-formula" class="nav-link" data-scroll-target="#deriving-the-sample-size-formula"><span class="header-section-number">7.2</span> Deriving the sample size formula</a>
   <ul class="collapse">
-  <li><a href="#bloom-approach2" id="toc-bloom-approach2" class="nav-link" data-scroll-target="#bloom-approach2"><span class="header-section-number">7.1.1</span> Bloom approach</a></li>
-  <li><a href="#two-equations-approach4" id="toc-two-equations-approach4" class="nav-link" data-scroll-target="#two-equations-approach4"><span class="header-section-number">7.1.2</span> Two-equations approach</a></li>
-  <li><a href="#first-principles-approach" id="toc-first-principles-approach" class="nav-link" data-scroll-target="#first-principles-approach"><span class="header-section-number">7.1.3</span> First-principles approach</a></li>
-  <li><a href="#final-step" id="toc-final-step" class="nav-link" data-scroll-target="#final-step"><span class="header-section-number">7.1.4</span> Final step</a></li>
+  <li><a href="#bloom-approach2" id="toc-bloom-approach2" class="nav-link" data-scroll-target="#bloom-approach2"><span class="header-section-number">7.2.1</span> Bloom approach</a></li>
+  <li><a href="#two-equations-approach4" id="toc-two-equations-approach4" class="nav-link" data-scroll-target="#two-equations-approach4"><span class="header-section-number">7.2.2</span> Two-equations approach</a></li>
+  <li><a href="#first-principles-approachrice" id="toc-first-principles-approachrice" class="nav-link" data-scroll-target="#first-principles-approachrice"><span class="header-section-number">7.2.3</span> First-principles approach</a></li>
+  <li><a href="#final-step" id="toc-final-step" class="nav-link" data-scroll-target="#final-step"><span class="header-section-number">7.2.4</span> Final step</a></li>
   </ul></li>
-  <li><a href="#rule-of-thumb" id="toc-rule-of-thumb" class="nav-link" data-scroll-target="#rule-of-thumb"><span class="header-section-number">7.2</span> Rule of thumb</a></li>
+  <li><a href="#rule-of-thumb" id="toc-rule-of-thumb" class="nav-link" data-scroll-target="#rule-of-thumb"><span class="header-section-number">7.3</span> Rule of thumb</a></li>
   </ul>
 </nav>
     </div>
@@ -272,12 +255,14 @@ window.Quarto = {
 
 
 <p>Sample size calculation is a critical component of most experiment designs.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The objective of our sample size calculation is to ensure that – over the long-run<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> – our experiments have the desired Type I error rates (controlled by the significance level, <span class="math inline">\(\alpha\)</span>) and Type II error rates (controlled by power, <span class="math inline">\(1-\beta\)</span>).</p>
+<section id="the-sample-size-formula" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="the-sample-size-formula"><span class="header-section-number">7.1</span> The sample size formula</h2>
 <p>To perform sample size calculations we use the concept of a minimum detectable effect (MDE) introduced by <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>, who defines the MDE as follows:</p>
 <blockquote class="blockquote">
 <p>The minimum detectable effect of an experiment is the smallest effect that, if true, has an X% chance of producing an impact estimate that is statistically significant at the Y level.</p>
 <p>X is the statistical power of the experiment for an alternative hypothesis equal to the minimum detectable effect. Y is the level of statistical significance used to decide whether or not a true effect exists.</p>
 </blockquote>
-<p>If we perform a two-sided test, we thus have the following two hypotheses:</p>
+<p>If we perform a two-sided test and follow Bloom’s approach we thus have the following two hypotheses:</p>
 <p><span class="math display">\[
 \begin{align}
 &amp;H_0: \tau = 0 \\[5 pt]
@@ -285,20 +270,23 @@ window.Quarto = {
 \end{align}
 \]</span></p>
 <p>where <span class="math inline">\(\Delta\)</span> is the MDE and where we use the absolute value to allow for negative or positive effects, given that we perform a two-sided test.</p>
-<p>When following this approach, required sample size of an experiment is given by a version of the following formula (e.g.&nbsp;<a href="https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details">here</a>): <span id="eq-sampsi"><span class="math display">\[ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2},  \tag{7.1}\]</span></span></p>
-<p>which shows that required sample size is determined by four factors:</p>
+<p>The required sample size of an experiment is then given by a version of the following formula: <span id="eq-sampsi"><span class="math display">\[
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2}.
+\tag{7.1}\]</span></span></p>
+<p>This formula is widely used (e.g.&nbsp;<a href="https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details">here</a>), and shows that required sample size is determined by four factors:</p>
 <ol type="1">
-<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type I error</a>, denoted by <span class="math inline">\(\alpha\)</span>, corresponds to the significance level of the test and has an associated with the upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span> in a two-sided test.</p></li>
-<li><p>The probability of making a <a href="hypothesis_testing$types_of_errors">Type II error</a>, denoted by <span class="math inline">\(\beta\)</span>, determines the power of the test, <span class="math inline">\(1-\beta\)</span>, and has associated critical value given by <span class="math inline">\(z_{1 - \beta}\)</span>.</p></li>
+<li><p>Our tolerance for making a <a href="hypothesis_testing$types_of_errors">Type I error</a>, denoted by <span class="math inline">\(\alpha\)</span> and the associated upper-tail critical value <span class="math inline">\(z_{\alpha/2}\)</span>.</p></li>
+<li><p>Our tolerance for making a <a href="hypothesis_testing$types_of_errors">Type II error</a>, denoted by <span class="math inline">\(\beta\)</span> (or, equivalently, our desired level of power, denoted by <span class="math inline">\(1-\beta\)</span>) and the associated critical value given by <span class="math inline">\(z_{1 - \beta}\)</span>.</p></li>
 <li><p>The standard deviation of the outcome variable, <span class="math inline">\(s\)</span>.</p></li>
 <li><p>The minimal detectable effect size, <span class="math inline">\(\Delta\)</span>.</p></li>
 </ol>
-<p>This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. Worse, rules of thumbs based on the formula are often misunderstood and misapplied because the underlying logic isn’t understood. The aim of this chapter is to demystify the formula by deriving it from scratch.</p>
-<section id="deriving-the-sample-size-formula" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="deriving-the-sample-size-formula"><span class="header-section-number">7.1</span> Deriving the sample size formula</h2>
+<p>This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different books and articles, both in print and online. Similarly, rules of thumbs based on the formula are often misunderstood and misapplied. The aim of this chapter is to demystify the formula by deriving it from scratch.</p>
+</section>
+<section id="deriving-the-sample-size-formula" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="deriving-the-sample-size-formula"><span class="header-section-number">7.2</span> Deriving the sample size formula</h2>
 <p>There are three ways to derive the formula. Two heuristic approaches and one approach that starts from first principles. All three can help us understand what we are doing more deeply.</p>
-<section id="bloom-approach2" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="bloom-approach2"><span class="header-section-number">7.1.1</span> Bloom approach<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></h3>
+<section id="bloom-approach2" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="bloom-approach2"><span class="header-section-number">7.2.1</span> Bloom approach<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></h3>
 <p>Figure <a href="#fig-power" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> shows the sampling distribution of <span class="math inline">\(\hat{\tau}^{\text{dm}}\)</span> under the null hypothesis (centered around 0, vertical line A) and under the alternative hypothesis (centered around the MDE, vertical line C).</p>
 <div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -316,8 +304,8 @@ Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impac
 \Delta = (z_{\alpha/2} + z_{1-\beta})\widehat{SE}.
 \]</span></p>
 </section>
-<section id="two-equations-approach4" class="level3" data-number="7.1.2">
-<h3 data-number="7.1.2" class="anchored" data-anchor-id="two-equations-approach4"><span class="header-section-number">7.1.2</span> Two-equations approach<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></h3>
+<section id="two-equations-approach4" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="two-equations-approach4"><span class="header-section-number">7.2.2</span> Two-equations approach<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></h3>
 <p>Collecting the required sample size ensures that (over the course of many experiments), our <a href="../chapters/hypothesis_testing.html#types-of-errors">Type I error rate</a> equals <span class="math inline">\(\alpha\)</span> and our <a href="../chapters/hypothesis_testing.html#types-of-errors">Type II error rate</a> equals <span class="math inline">\(\beta\)</span>. Instead of directly thinking about the type II error rate, we usually think about it’s <a href="../chapters/hypothesis_testing.html#types-of-errors">complement</a>, power, given by <span class="math inline">\(1-\beta\)</span>.</p>
 <p>Using the definition of the MDE above, we know that power is defined for an alternative hypothesis equal to the MDE. If we perform a two-sided test, we thus test the hypothesis:</p>
 <p><span class="math display">\[
@@ -345,8 +333,8 @@ Figure&nbsp;7.1: Relationship between the MDE and the standard error of an impac
 \end{align}
 \]</span></p>
 </section>
-<section id="first-principles-approach" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="first-principles-approach"><span class="header-section-number">7.1.3</span> First-principles approach</h3>
+<section id="first-principles-approachrice" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="first-principles-approachrice"><span class="header-section-number">7.2.3</span> First-principles approach<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></h3>
 <p>Power is the probability that we reject the null hypothesis if there exists a true effect of size <span class="math inline">\(\Delta\)</span>.</p>
 <p>We thus have, for a two-sided hypothesis test: <span class="math display">\[
 \begin{align}
@@ -422,7 +410,7 @@ P\left[t &gt; z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}
 + \Phi\left(- z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
 \end{align}
 \]</span></p>
-<p>The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect, is very small.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:</p>
+<p>The probability that we reject the null hypothesis for the wrong reason, because the test statistic falls below the lower critical value for a true positive effect or above the upper critical value for a true negative effect, is very small.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Hence, as the true effect size deviates from zero, one of the two terms in the expression above becomes vanishingly small and can be ignored. For the rest of this chapter, I assume we have a true positive effect and omit the second of the two terms above. We thus have:</p>
 <p><span class="math display">\[
 1 - \beta =
 1 - \Phi\left(z_{\alpha/2} - \frac{\Delta}{\widehat{SE}}\right).
@@ -453,13 +441,14 @@ z_{1-\beta}
 \Delta = \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
 \]</span></p>
 </section>
-<section id="final-step" class="level3" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="final-step"><span class="header-section-number">7.1.4</span> Final step</h3>
+<section id="final-step" class="level3" data-number="7.2.4">
+<h3 data-number="7.2.4" class="anchored" data-anchor-id="final-step"><span class="header-section-number">7.2.4</span> Final step</h3>
 <p>All three approaches above result in following expression for the MDE:</p>
 <p><span class="math display">\[
 \Delta = \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
 \]</span></p>
-<p>The final step to get the sample size formula is to plug in the desired version for <span class="math inline">\(\widehat{SE}\)</span>. Depending on the context, we can plug in any of the standard error versions <a href="stats_of_online_experiments#standard_error">we defined earlier</a>. To arrive at <a href="#eq-sampsi" class="quarto-xref">Equation&nbsp;<span>7.1</span></a> from the introduction, we use <a href="standard_error.html#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>5.2</span></a>, which gives us:</p>
+<p>This is interesting in itself, pinning down the MDE as a function of the standard error and the critical values associated with our significance level and power.</p>
+<p>The final step to get the sample size formula is to plug in the desired version for <span class="math inline">\(\widehat{SE}\)</span>. Depending on the context, we can plug in any of the standard error versions <a href="stats_of_online_experiments#standard_error">we defined earlier</a>. To arrive at <a href="#eq-sampsi" class="quarto-xref">Equation&nbsp;<span>7.1</span></a> from the introduction, we use <a href="standard_error.html#eq-se-equal" class="quarto-xref">Equation&nbsp;<span>5.2</span></a>, which gives us the the required sample size per variant as:</p>
 <p><span class="math display">\[
 \begin{align}
 \Delta
@@ -479,12 +468,12 @@ n &amp;= \frac{(z_{\alpha/2} + z_{1-\beta})^2}{p(1-p)} \frac{s^2}{\Delta^2},
 \]</span> where the left-hand side, <span class="math inline">\(n\)</span> now refers to the total sample size in the experiment rather than the sample size per variant.</p>
 </section>
 </section>
-<section id="rule-of-thumb" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="rule-of-thumb"><span class="header-section-number">7.2</span> Rule of thumb</h2>
-<p>A commonly-used rule of thumb for the required sample size is:</p>
+<section id="rule-of-thumb" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="rule-of-thumb"><span class="header-section-number">7.3</span> Rule of thumb</h2>
+<p>A commonly-used rule of thumb for the required sample size per variant is:</p>
 <p><span class="math display">\[
 n_v \approx 16\frac{s^2}{\Delta^2}.
-\]</span> Using <a href="#eq-sampsi" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>, and the standard critical values <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(1-\beta = 0.8\)</span>, we get: <span class="math display">\[
+\]</span> This rule of thumb is straightforwardly derived from <a href="#eq-sampsi" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>. Starting with that formula and plugging in the standard critical values for <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(1-\beta = 0.8\)</span>, we get: <span class="math display">\[
 \begin{align}
 n_v
 &amp;=2\left(z_{\alpha/2} + z_{1-\beta}\right)^2\frac{s^2}{\Delta^2}\\[6pt]
@@ -502,6 +491,9 @@ Bloom, Howard S. 1995. <span>“Minimum Detectable Effects: A Simple Way to Repo
 <div id="ref-list2011so" class="csl-entry" role="listitem">
 List, John A, Sally Sadoff, and Mathis Wagner. 2011. <span>“So You Want to Run an Experiment, Now What? Some Simple Rules of Thumb for Optimal Experimental Design.”</span> <em>Experimental Economics</em> 14: 439–57.
 </div>
+<div id="ref-rice2006mathematical" class="csl-entry" role="listitem">
+Rice, John A. 2006. <em>Mathematical Statistics and Data Analysis</em>. Cengage Learning.
+</div>
 </div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
@@ -509,9 +501,10 @@ List, John A, Sally Sadoff, and Mathis Wagner. 2011. <span>“So You Want to Run
 <ol>
 <li id="fn1"><p>I say “most” <a href="https://docs.geteppo.com/statistics/confidence-intervals/analysis-methods/">sequential testing approaches</a> do not require ex-ante power calculations.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>We cannot know significance and power for a single experiment. The best we can do is follow this approach consistently to ensure that over the course of many experiments, they correspond to our desired values. See <a href="hypothesis_testing.html" class="quarto-xref"><span>Chapter 6</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This section summarises the approach presented in <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This section is based on <span class="citation" data-cites="bloom1995minimum">Bloom (<a href="references.html#ref-bloom1995minimum" role="doc-biblioref">1995</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>This section is based on <span class="citation" data-cites="list2011so">List, Sadoff, and Wagner (<a href="references.html#ref-list2011so" role="doc-biblioref">2011</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>This type of error is sometimes called a <a href="https://en.wikipedia.org/wiki/Type_III_error">Type III error</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This section is based on Section 11.2.2 in <span class="citation" data-cites="rice2006mathematical">Rice (<a href="references.html#ref-rice2006mathematical" role="doc-biblioref">2006</a>)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This type of error is sometimes called a <a href="https://en.wikipedia.org/wiki/Type_III_error">Type III error</a>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -943,8 +936,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/experiment_setup.html" class="pagination-link" aria-label="Experiment setup">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Experiment setup</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

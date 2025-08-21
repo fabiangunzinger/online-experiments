@@ -220,7 +220,7 @@ s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
 s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
 \end{align}
 $$
-It can be shown that the observed treatment group variances $s_t^2$ and $s_c^2$ are unbiased estimators of the sample variances $S_1^2$ and $S_0^2$ (see, for instance, Appendix A in Chapter 6 of @imbens2015causal). The last term in @eq-var is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is:
+It can be shown that the observed treatment group variances $s_t^2$ and $s_c^2$ are unbiased estimators of the sample variances $S_1^2$ and $S_0^2$.[^1] The last term in @eq-var is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is:
 $$
 \hat{\mathbb{V}}
 = \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
@@ -388,3 +388,5 @@ Rearranging gives the desired result.
 [^other]: The other main motivation was that I couldn't find a [step-by-step derivations of the sample size formula](sample_size.md).
 
 [^approach]: @imbens2015causal provide an alternative derivation in Appendix B of Chapter 6 that is fairly detailed but still skips a lot of steps that weren't immediately obvious to me, and they define a helper variable I don't find to help that much. I find the approach in @ding2023first more transparent. But the original source skips a lot of steps and is thus not very accessible.
+
+[^1]: See, for instance, Appendix A in Chapter 6 of @imbens2015causal.

@@ -2,13 +2,15 @@
 
 Sample size calculation is a critical component of most experiment designs.[^1] The objective of our sample size calculation is to ensure that – over the long-run[^5] – our experiments have the desired Type I error rates (controlled by the significance level, $\alpha$) and Type II error rates (controlled by power, $1-\beta$).
 
+## The sample size formula
+
 To perform sample size calculations we use the concept of a minimum detectable effect (MDE) introduced by @bloom1995minimum, who defines the MDE as follows:
 
 > The minimum detectable effect of an experiment is the smallest effect that, if true, has an X% chance of producing an impact estimate that is statistically significant at the Y level.
 > 
 X is the statistical power of the experiment for an alternative hypothesis equal to the minimum detectable effect. Y is the level of statistical significance used to decide whether or not a true effect exists.
 
-If we perform a two-sided test, we thus have the following two hypotheses:
+If we perform a two-sided test and follow Bloom's approach we thus have the following two hypotheses:
 
 $$
 \begin{align}
@@ -19,21 +21,22 @@ $$
 
 where $\Delta$ is the MDE and where we use the absolute value to allow for negative or positive effects, given that we perform a two-sided test.
 
+The required sample size of an experiment is then given by a version of the following formula:
+$$
+n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2}.
+$${#eq-sampsi}
 
-When following this approach, required sample size of an experiment is given by a version of the following formula (e.g. [here](https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details)):
-$$ n_v = 2(z_{\alpha/2} + z_{1 - \beta})^2\frac{s^2}{\Delta^2}, $${#eq-sampsi}
+This formula is widely used (e.g. [here](https://docs.statsig.com/experiments-plus/power-analysis/#calculation-details)), and shows that required sample size is determined by four factors:
 
-which shows that required sample size is determined by four factors:
+1. Our tolerance for making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$ and the associated upper-tail critical value $z_{\alpha/2}$.
 
-1. The probability of making a [Type I error](hypothesis_testing$types_of_errors), denoted by $\alpha$, corresponds to the significance level of the test and has an associated with the upper-tail critical value $z_{\alpha/2}$ in a two-sided test.
-
-2. The probability of making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$, determines the power of the test, $1-\beta$, and has associated critical value given by $z_{1 - \beta}$.
+2. Our tolerance for making a [Type II error](hypothesis_testing$types_of_errors), denoted by $\beta$ (or, equivalently, our desired level of power, denoted by $1-\beta$) and the associated critical value given by $z_{1 - \beta}$.
 
 3. The standard deviation of the outcome variable, $s$.
 
 4. The minimal detectable effect size, $\Delta$.
 
-This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different articles. Worse, rules of thumbs based on the formula are often misunderstood and misapplied because the underlying logic isn't understood. The aim of this chapter is to demystify the formula by deriving it from scratch.
+This formula can be intimidating and confusing, all the more so since there are different and sometimes incorrect versions presented in different books and articles, both in print and online. Similarly, rules of thumbs based on the formula are often misunderstood and misapplied. The aim of this chapter is to demystify the formula by deriving it from scratch.
 
 ## Deriving the sample size formula
 
@@ -91,7 +94,7 @@ $$
 \end{align}
 $$
 
-### First-principles approach
+### First-principles approach[^rice]
 
 Power is the probability that we reject the null hypothesis if there exists a true effect of size $\Delta$. 
 
@@ -229,7 +232,9 @@ $$
 \Delta = \widehat{SE}\left(z_{\alpha/2} + z_{1-\beta}\right).
 $$
 
-The final step to get the sample size formula is to plug in the desired version for $\widehat{SE}$. Depending on the context, we can plug in any of the standard error versions [we defined earlier](stats_of_online_experiments#standard_error). To arrive at @eq-sampsi from the introduction, we use @eq-se-equal, which gives us:
+This is interesting in itself, pinning down the MDE as a function of the standard error and the critical values associated with our significance level and power.
+
+The final step to get the sample size formula is to plug in the desired version for $\widehat{SE}$. Depending on the context, we can plug in any of the standard error versions [we defined earlier](stats_of_online_experiments#standard_error). To arrive at @eq-sampsi from the introduction, we use @eq-se-equal, which gives us the the required sample size per variant as:
 
 $$
 \begin{align}
@@ -254,12 +259,12 @@ where the left-hand side, $n$ now refers to the total sample size in the experim
 
 ## Rule of thumb
 
-A commonly-used rule of thumb for the required sample size is:
+A commonly-used rule of thumb for the required sample size per variant is:
 
 $$
 n_v \approx 16\frac{s^2}{\Delta^2}.
 $$
-Using @eq-sampsi, and the standard critical values $\alpha = 0.05$ and $1-\beta = 0.8$, we get:
+This rule of thumb is straightforwardly derived from @eq-sampsi. Starting with that formula and plugging in the standard critical values for $\alpha = 0.05$ and $1-\beta = 0.8$, we get:
 $$
 \begin{align}
 n_v
@@ -273,10 +278,12 @@ $$
 
 [^1]: I say "most" [sequential testing approaches](https://docs.geteppo.com/statistics/confidence-intervals/analysis-methods/) do not require ex-ante power calculations. 
 
-[^2]: This section summarises the approach presented in @bloom1995minimum. 
+[^2]: This section is based on @bloom1995minimum. 
 
 [^3]: This type of error is sometimes called a [Type III error](https://en.wikipedia.org/wiki/Type_III_error).
 
 [^4]: This section is based on @list2011so.
 
 [^5]: We cannot know significance and power for a single experiment. The best we can do is follow this approach consistently to ensure that over the course of many experiments, they correspond to our desired values. See @sec-hypothesis-testing.
+
+[^rice]: This section is based on Section 11.2.2 in @rice2006mathematical.

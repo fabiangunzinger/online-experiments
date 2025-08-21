@@ -180,32 +180,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/power.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/sample_size.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sample size</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -219,8 +195,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#assuming-equal-variances-and-sample-sizes" id="toc-assuming-equal-variances-and-sample-sizes" class="nav-link active" data-scroll-target="#assuming-equal-variances-and-sample-sizes"><span class="header-section-number">5.1</span> Assuming equal variances and sample sizes</a></li>
+  <li><a href="#in-terms-of-treatment-proportion" id="toc-in-terms-of-treatment-proportion" class="nav-link" data-scroll-target="#in-terms-of-treatment-proportion"><span class="header-section-number">5.2</span> In terms of treatment proportion</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -244,17 +227,22 @@ window.Quarto = {
 </header>
 
 
-<p>The <a href="../chapters/stats_foundations.html#sampling-distribution">standard error</a> of an estimator is simply the square root of its sampling variance. Using our estimator of the sampling variance from <a href="variance.html#eq-var-est" class="quarto-xref">Equation&nbsp;<span>4.2</span></a>, the standard error is thus given by: <span id="eq-se"><span class="math display">\[
+<p>The <a href="stats_foundations.md#sampling-distribution">standard error</a> of an estimator is simply the square root of its sampling variance. Using our estimator of the sampling variance from <a href="variance.html#eq-var-est" class="quarto-xref">Equation&nbsp;<span>4.2</span></a>, the standard error is thus given by: <span id="eq-se"><span class="math display">\[
 \widehat{SE}
 = \sqrt{\frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}}.
 \tag{5.1}\]</span></span></p>
-<p>In online experiments it is sometimes convenient to assume that <strong>sample sizes and sample variances are equal</strong>. This is justified in contexts where sample sizes are large and treatment effects are small. In such a case we denote the sample size per variant as <span class="math inline">\(n_v\)</span>, with <span class="math inline">\(n_t = n_c = n_v\)</span>, and we refer to the common sample variance of the outcome variable as <span class="math inline">\(s^2\)</span>, with <span class="math inline">\(s_t^2 = s_c^2 = s^2\)</span>. The common variance <span class="math inline">\(s^2\)</span> is estimated by “pooling” the treatment group variances to create a <a href="../chapters/stats_foundations.html#degrees-of-freedom">degrees-of-freedom-weighted</a> estimator of the form: <span class="math display">\[
+<section id="assuming-equal-variances-and-sample-sizes" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="assuming-equal-variances-and-sample-sizes"><span class="header-section-number">5.1</span> Assuming equal variances and sample sizes</h2>
+<p>In online experiments it is sometimes convenient to assume that sample sizes and sample variances are equal. This is justified in contexts where sample sizes are large and treatment effects are small. In such a case we denote the sample size per variant as <span class="math inline">\(n_v\)</span>, with <span class="math inline">\(n_t = n_c = n_v\)</span>, and we refer to the common sample variance of the outcome variable as <span class="math inline">\(s^2\)</span>, with <span class="math inline">\(s_t^2 = s_c^2 = s^2\)</span>. The common variance <span class="math inline">\(s^2\)</span> is estimated by “pooling” the treatment group variances to create a <a href="stats_foundations.md#degrees-of-freedom">degrees-of-freedom-weighted</a> estimator of the form: <span class="math display">\[
 s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 \]</span> Substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we then have: <span id="eq-se-equal"><span class="math display">\[
 \widehat{SE}^{\text{equal}}
 = \sqrt{\frac{2s^2}{n_v}}.
 \tag{5.2}\]</span></span></p>
-<p>Finally, for the purpose of experiment design it is sometimes useful to express the standard error <strong>in terms of the proportion of units allocated to the treatment group</strong>. Hence, instead of assuming equal sample sizes, we use <span class="math inline">\(p\)</span> to denote that proportion and <span class="math inline">\(n\)</span> to denote total sample size, while maintaining the assumption of equal variance. Again substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we can then write: <span id="eq-se-prop"><span class="math display">\[
+</section>
+<section id="in-terms-of-treatment-proportion" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="in-terms-of-treatment-proportion"><span class="header-section-number">5.2</span> In terms of treatment proportion</h2>
+<p>For the purpose of experiment design it is also sometimes useful to express the standard error in terms of the proportion of units allocated to the treatment group. Hence, instead of assuming equal sample sizes, we use <span class="math inline">\(p\)</span> to denote that proportion and <span class="math inline">\(n\)</span> to denote total sample size, while maintaining the assumption of equal variance. Again substituting in <a href="#eq-se" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> we can then write: <span id="eq-se-prop"><span class="math display">\[
 \widehat{SE}^{\text{prop}}
 = \sqrt{\frac{s^2}{pn} + \frac{s^2}{(1-p)n}}
 = \sqrt{\frac{s^2}{np(1-p)}}.
@@ -263,6 +251,7 @@ s^2 = \frac{(n_t - 1) s_t^2 + (n_c - 1) s_c^2}{n_t + n_c - 2}.
 <p>Next, we’ll use the standard deviation for sample size calculation.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

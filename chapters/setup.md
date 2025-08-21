@@ -1,8 +1,6 @@
 # Setup {#sec-setup}
 
-We study a sample of $n$ units to learn about the effect of a binary treatment on these units. We index units as $i = 1, \dots, n$.
-
-The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
+We study a sample of $n$ units to learn about the effect of a binary treatment on these units. We index units as $i = 1, \dots, n$. The sample of units might be all visitors to an e-commerce app and the treatment a new UX feature. The treatment is "binary" because we only consider two treatment conditions: a unit either experiences the active treatment and is exposed to the new feature or experiences the control treatment and is exposed to the status-quo. We often refer to the two treatment conditions simply as "treatment" and "control".
 
 Each unit has two **potential outcomes**: $Y_i(1)$ is the outcome for unit $i$ if they are in treatment and $Y_i(0)$ is the outcome if they are in control. To simplify notation, we collect all unit-level potential outcomes in the $n \times 1$ vectors $\mathbf{Y(1)}$ and $\mathbf{Y(0)}$. These outcomes are  "potential outcomes" because before the start of the experiment, each unit could be exposed to either treatment condition so that they can potentially experience either outcome. Once the experiment has started and units are assigned to treatment, only one of the two outcomes will be observed.
 

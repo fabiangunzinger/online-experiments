@@ -9,6 +9,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;  /* Override bold styling */
 }
 
+/* Remove h2 underline and extra spacing */
+h2 {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0.5em;
+}
+
 /* Custom styling for details section */
 details {
     background-color: #f9f9f9;

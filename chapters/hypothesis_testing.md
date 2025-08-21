@@ -24,7 +24,9 @@ t = \frac{\hat{\tau}^{\text{dm}}}
 $$
 which, for large samples, follows approximately a standard normally distribution.[^1]
 
-For a given significance level $\alpha$, the critical value $z_\alpha$ is the point on the standard normal distribution that has $\alpha$ of the probability mass to its right. In our two-sided test we thus reject reject $H_0$ if $|t| \geq z_{\alpha/2}$.
+For a given significance level $\alpha$, the critical value $z_\alpha$ is the point on the standard normal distribution that has $\alpha$ of the probability mass to its right.
+
+In a two-sided test we thus reject reject $H_0$ if $|t| \geq z_{\alpha/2}$.
 
 ## Types of errors
 

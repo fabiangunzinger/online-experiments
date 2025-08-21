@@ -206,24 +206,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../chapters/references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -274,7 +256,7 @@ window.Quarto = {
 </header>
 
 
-<p>This section derives the <a href="../chapters/stats_foundations.html#sampling-distribution">sampling variance</a> of our <a href="../chapters/experiments.html">difference-in-means estimator</a>. Because we use a <a href="experiment.md">design-based approach</a> to analyse our experiment, the simple sampling-based results do not apply and the derivation is considerably more involved. It’s really extremely boring to follow! But, as with all derivations, following it at least once helps with understanding what’s going on.</p>
+<p>This section derives the <a href="stats_foundations.md#sampling-distribution">sampling variance</a> of our <a href="../chapters/experiments.html">difference-in-means estimator</a>. Because we use a <a href="experiment.md">design-based approach</a> to analyse our experiment, the simple sampling-based results do not apply and the derivation is considerably more involved. It’s really extremely boring to follow! But, as with all derivations, following it at least once helps with understanding what’s going on.</p>
 <section id="sampling-variance" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sampling-variance"><span class="header-section-number">4.1</span> Sampling variance</h2>
 <p>My approach is based on <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> but fills in a lot of steps that are skipped there in the hope that this step-by-step approach makes the logic more accessible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The derivation uses intermediary results labeled <em>lemmas</em>; their derivations appear at the bottom of the page and are linked from inside the main derivation.</p>
@@ -462,7 +444,7 @@ s_t^2 = \frac{1}{n_t-1}\sum_{i=1}^{n}W_i\left(Y_i - \overline{Y}_t\right)^2
 \qquad
 s_c^2 = \frac{1}{n_c-1}\sum_{i=1}^{n}(1-W_i)\left(Y_i - \overline{Y}_c\right)^2.
 \end{align}
-\]</span> It can be shown that the observed treatment group variances <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the sample variances <span class="math inline">\(S_1^2\)</span> and <span class="math inline">\(S_0^2\)</span> (see, for instance, Appendix A in Chapter 6 of <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>). The last term in <a href="#eq-var" class="quarto-xref">Equation&nbsp;<span>4.1</span></a> is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is: <span id="eq-var-est"><span class="math display">\[
+\]</span> It can be shown that the observed treatment group variances <span class="math inline">\(s_t^2\)</span> and <span class="math inline">\(s_c^2\)</span> are unbiased estimators of the sample variances <span class="math inline">\(S_1^2\)</span> and <span class="math inline">\(S_0^2\)</span>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The last term in <a href="#eq-var" class="quarto-xref">Equation&nbsp;<span>4.1</span></a> is the variance of unit-level treatment effects, which is impossible to observe. As a result, the most widely used estimator in practice is: <span id="eq-var-est"><span class="math display">\[
 \hat{\mathbb{V}}
 = \frac{s_t^2}{n_t} + \frac{s_c^2}{n_c}.
 \tag{4.2}\]</span></span></p>
@@ -627,6 +609,7 @@ Imbens, Guido W, and Donald B Rubin. 2015. <em>Causal Inference in Statistics, S
 <hr>
 <ol>
 <li id="fn1"><p><span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span> provide an alternative derivation in Appendix B of Chapter 6 that is fairly detailed but still skips a lot of steps that weren’t immediately obvious to me, and they define a helper variable I don’t find to help that much. I find the approach in <span class="citation" data-cites="ding2023first">Ding (<a href="references.html#ref-ding2023first" role="doc-biblioref">2023</a>)</span> more transparent. But the original source skips a lot of steps and is thus not very accessible.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See, for instance, Appendix A in Chapter 6 of <span class="citation" data-cites="imbens2015causal">Imbens and Rubin (<a href="references.html#ref-imbens2015causal" role="doc-biblioref">2015</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

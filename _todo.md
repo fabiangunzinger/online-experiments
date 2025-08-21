@@ -4,7 +4,8 @@ Review
 - [x] Intro
 - [x] Setup
 - [x] Experiments
-- [ ] 
+- [x] Remove unfinished sections
+- [ ] Continue
 
 
 - Break sections out of stats of online experiment one by one. Finish and move on.

@@ -200,32 +200,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/threats_to_validity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Threats to validity</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/experiment_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Experiment setup</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/stats_foundations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Statistics foundations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/faqs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">FAQs</span></span></a>
+  <a href="../chapters/sample_size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Sample size</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -271,7 +247,7 @@ window.Quarto = {
 </header>
 
 
-<p>An estimator is unbiased if its expected value equals the true value of the estimand. In <a href="experiments.html#eq-estimator" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> we defined our difference-in-means estimator as:</p>
+<p>An estimator is unbiased if its expected value equals the estimand. In <a href="experiments.html#eq-estimator" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> we defined our difference-in-means estimator as:</p>
 <p><span class="math display">\[
 \begin{align}
 \hat{\tau}^{\text{dm}}
@@ -286,35 +262,34 @@ window.Quarto = {
 = \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 \]</span></p>
-<p>Given that <a href="../chapters/experiments.html">we take sample sizes and potential outcomes as fixed</a>, showing that our estimator is unbiased amounts to showing that:</p>
+<p>Given that we take sample sizes <span class="math inline">\(\mathbf{n} = (n_t, n_c)\)</span> and potential outcomes <span class="math inline">\(\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})\)</span> <a href="../chapters/experiments.html">as fixed</a>, showing that our estimator is unbiased amounts to showing that:</p>
 <p><span class="math display">\[
 \begin{align}
 \mathbb{E}\left[
 \hat{\tau}^{\text{dm}}
-\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\mid \mathbf{n}, \mathbf{Y(w)}
 \right]
 &amp;=\tau
 \\[5pt]
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i - \frac{1}{n_c}\sum_{W_i=0}Y_i
-\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\mid \mathbf{n}, \mathbf{Y(w)}
 \right]
 &amp;=
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0)
 \\[5pt]
 \mathbb{E}\left[
 \frac{1}{n_t}\sum_{W_i=1}Y_i
-\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\mid \mathbf{n}, \mathbf{Y(w)}
 \right]
 - \mathbb{E}\left[
 \frac{1}{n_c}\sum_{W_i=0}Y_i
-\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}
+\mid \mathbf{n}, \mathbf{Y(w)}
 \right]
 &amp;=
-\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0),
+\frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 \]</span></p>
-<p>where <span class="math inline">\(\mathbf{Y(w)} = (\mathbf{Y(1)}, \mathbf{Y(0)})\)</span> and <span class="math inline">\(\mathbf{n} = (n_t, n_c)\)</span>.</p>
 <p>There are two pieces we need for this:</p>
 <ol type="1">
 <li><p>Link observed to potential outcomes so that <span class="math inline">\(Y_i = Y_i(W_i)\)</span>. This requires the Stable Unit Treatment Value Assumption (SUTVA).</p></li>
@@ -322,39 +297,39 @@ window.Quarto = {
 </ol>
 <section id="sutva-links-observed-outcomes-to-potential-outcomes" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sutva-links-observed-outcomes-to-potential-outcomes"><span class="header-section-number">3.1</span> SUTVA links observed outcomes to potential outcomes</h2>
-<p>We want to learn something about unit-level differences in potential outcomes <span class="math display">\[
-\tau_i = Y_i(1) - Y_i(0),
-\]</span> where a potential outcome is a unit-indexed function of the treatment level, with the treatment levels in our case simply being “treatment” and “control”, captured by the assignment indicator <span class="math inline">\(W_i \in {0, 1}\)</span>.</p>
-<p>Now say we run an experiment and unit <span class="math inline">\(i\)</span> is allocated to treatment. The <span class="math inline">\(i\)</span>-th element of the assignment vector <span class="math inline">\(\mathbf{W}\)</span> of that experiment is thus <span class="math inline">\(W_i = 1\)</span>, and we refer to this assignment vector as <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>.</p>
-<p>We know we can’t observe both <span class="math inline">\(Y_i(0)\)</span> and <span class="math inline">\(Y_i(1)\)</span>, but given that <span class="math inline">\(i\)</span> is in treatment we can observe the potential outcome under treatment, <span class="math inline">\(Y_i(1)\)</span>, which will help us estimate <span class="math inline">\(\hat{\tau}\)</span>. So we need</p>
+<p>Our aim is to estimate the average difference in individual-level potential outcomes:</p>
 <p><span class="math display">\[
-Y_i = Y_i(1).
-\]</span></p>
-<p>What we directly observe, however, is <span class="math display">\[
+\begin{align}
+\tau
+= \frac{1}{n}\sum_{i=1}^n Y_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
+= \frac{1}{n}\sum_{i=1}^n \big(Y_i(1) - Y_i(0)\big),
+\end{align}
+\]</span> and we have <a href="../chapters/setup.html">seen before</a> that for unit , the unit-level potential outcome is <span class="math display">\[
+\tau_i = Y_i(1) - Y_i(0).
+\]</span> A potential outcome, <span class="math inline">\(Y_i(w)\)</span>, is a unit-indexed function of the treatment level, <span class="math inline">\(w\)</span>. The challenge is that without any assumptions, potential outcomes are not only functions of the treatment level of each individual unit, but of the treatment levels of all units.</p>
+<p>To see this, say we run an experiment and unit <span class="math inline">\(i\)</span> is allocated to treatment, so that the <span class="math inline">\(i\)</span>-th element of the assignment vector <span class="math inline">\(\mathbf{W}\)</span> of that experiment is <span class="math inline">\(W_i = 1\)</span>. We refer to this assignment vector as <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>. What we know for sure about <span class="math inline">\(i\)</span>’s outcome in that experiment is that it is the outcome given that all treatment allocations are exactly the way they are, so that we have <span class="math display">\[
 Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right).
-\]</span> In words: the outcome we observe for unit <span class="math inline">\(i\)</span> in our experiment is not the potential outcome for <span class="math inline">\(i\)</span> under treatment, but the potential outcome for <span class="math inline">\(i\)</span> under the specific assignment vector of our experiment, <span class="math inline">\(\mathbf{W}^{(i=1)}\)</span>. What does this mean concretely? It means that the observed outcome is a function not only of <span class="math inline">\(i\)</span>’s treatment assignment but of:</p>
+\]</span> What does this mean concretely? It means that the observed outcome is a function not only of <span class="math inline">\(i\)</span>’s treatment assignment but of:</p>
 <ol type="1">
 <li>The assignment of all units in the experiment</li>
-<li>The precise form of the assigned treatment level received by <span class="math inline">\(i\)</span></li>
-<li>The way in which said assigned treatment level is administered to <span class="math inline">\(i\)</span></li>
+<li>The precise form of the assigned treatment level received by <span class="math inline">\(i\)</span> (and all other units)</li>
+<li>The way in which said assigned treatment level is administered to <span class="math inline">\(i\)</span> (and all other units)</li>
 </ol>
-<p>We need: <span class="math display">\[
+<p>What we need is: <span class="math display">\[
 Y_i = Y_i\left(\mathbf{W}^{(i=1)}\right) \overset{!}{=} Y_i(1).
 \]</span> The only way to make progress is to assume what we need: that potential outcomes for unit <span class="math inline">\(i\)</span> are a function only of the treatment level unit <span class="math inline">\(i\)</span> itself receives and independent of (i) treatment assignment of other units and (ii) the form and administration of the treatment level. (i) above is referred to as “no interference” in the literature, (ii) as “no hidden variations of treatment”.</p>
 <p>That assumption is SUTVA, the Stable Unit Treatment Value Assumption. It ensures that the potential outcomes for each unit and each treatment level are well-defined functions of the unit index and the treatment level only – that for a given unit and treatment level, the potential outcome is well-defined and, thus, “stable” <span class="citation" data-cites="rubin1980randomization">(<a href="references.html#ref-rubin1980randomization" role="doc-biblioref">Rubin 1980</a>)</span>.</p>
 <p>Note that (ii) does not mean that a treatment level has to take the same form for all units, even though it is often misinterpreted to mean that. What we need is that <span class="math inline">\(Y_i(W_i)\)</span> is a clearly defined function for all <span class="math inline">\(i\)</span> and all possible treatment levels <span class="math inline">\(W_i \in \{0, 1\}\)</span>. For this to be the case, it must be the case that there are no different forms of possible treatments, the potential outcome for each for is the same so that the differences are irrelevant, or that the experienced form is random so that the expected outcome across all units remains stable.</p>
-<p>In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends and the no-hidden-variation part means that there their precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that creates different background colours and the it is either clear whether a customer uses an Android or iOS app (or the experience is identical). But, again, SUTVA does not require that the active treatment looks exactly the same on iOS and Android apps just that for each unit in our experiment, their experience if they are part of the active treatment is pinned down.</p>
-<p>Why is this important? We want to know what happened if we rolled out our policy to everyone compared to if we didn’t roll it out to anyone. To have any hope of estimating this we can’t have treatment level’s vary over time or depending on circumstances, but need them to be pinned down for each unit. (In the context of Tech, this would mean that the experience of a feature for a given user is pinned down by, say, the size of their phone screen and the app version they use, which, by and large, is plausible.)</p>
-<p>SUTVA is a strong assumption and can be violated in a number of ways. I’ll discuss these, together with solutions, in <a href="threats_to_validity.html" class="quarto-xref"><span>Chapter 8</span></a>.</p>
-<p>If SUTVA holds we have:</p>
+<p>In the context of our e-commerce app experiment, the non-interference part of SUTVA means that potential outcomes for all customers are independent of treatment assignment of all other customers – very much including family members and friends. The no-hidden-variation part means that a customer’s precise experience is pinned down by their mobile device and remains stable over time: there are no accidental server-side bugs that create different background colours and it is either clear whether the customer uses Android or iOS, or the experiences are identical. SUTVA does not require, however, that the active treatment looks exactly the same on iOS and Android.</p>
+<p>Why is this important? We want to know what happened if we rolled out our change to all units compared to if we rolled it out to no units. To have any hope of estimating this we can’t have treatment level’s vary over time or depending on circumstances, but need them to be pinned down for each unit.</p>
+<p>%% SUTVA is a strong assumption and can be violated in a number of ways. If it holds, however, then we I’ll discuss these, together with solutions, in <span class="quarto-unresolved-ref">?sec-threats-to-validity</span>.</p>
+<p>If SUTVA holds we have: %% SUTVA is a strong assumption and can be violated in a number of ways. If it holds, however, then we have:</p>
 <p><span class="math display">\[
 Y_i = Y_i(W_i) = \begin{cases}
    Y_i(1) &amp; \text{if } W_i = 1 \\
    Y_i(0)       &amp; \text{if } W_i = 0,
   \end{cases}
-\]</span></p>
-<p>or, more compactly:</p>
-<p><span class="math display">\[
+\]</span> or, more compactly: <span class="math display">\[
 Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 \]</span></p>
 <p>This is the link between observed and potential outcomes we need, and makes clear that we observe <span class="math inline">\(Y_i(1)\)</span> for units in treatment and <span class="math inline">\(Y_i(0)\)</span> for units in control.</p>
@@ -399,7 +374,7 @@ Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 </section>
 <section id="randomisation-links-treatment-groups-to-the-population" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="randomisation-links-treatment-groups-to-the-population"><span class="header-section-number">3.2</span> Randomisation links treatment groups to the population</h2>
-<p>We start by rewriting the last equation slightly: we use the <a href="../chapters/experiments.html">definition of <span class="math inline">\(W_i\)</span></a> to write <span class="math inline">\(\sum_{W_i=1}Y_i(1)\)</span> as <span class="math inline">\(\sum_{i=1}^{n} W_iY_i(1)\)</span> for treatment units and use the corresponding expression for control units; we use the linearity of the expectation operator to move it inside the summation; and we move <span class="math inline">\(\mathbf{Y(w)}\)</span>, <a href="../chapters/experiments.html">which is fixed</a>, out of the expectation. We now have:</p>
+<p>We start by rewriting the last equation slightly: we use the <a href="../chapters/experiments.html">definition of <span class="math inline">\(W_i\)</span></a> to write <span class="math inline">\(\sum_{W_i=1}Y_i(1)\)</span> as <span class="math inline">\(\sum_{i=1}^{n} W_iY_i(1)\)</span> for treatment units and use the corresponding expression for control units; we use the linearity of the expectation operator to move it inside the summation; and we move <span class="math inline">\(Y_i(w)\)</span>, <a href="../chapters/experiments.html">which is fixed</a>, out of the expectation. We now have:</p>
 <p><span class="math display">\[
 \begin{align}
 \mathbb{E}\left[
@@ -443,7 +418,7 @@ Y_i = W_iY_i(1) + (1 - W_i)Y_i(0).
 \frac{1}{n}\sum_{i=1}^nY_i(1) - \frac{1}{n}\sum_{i=1}^nY_i(0).
 \end{align}
 \]</span></p>
-<p>This expression makes transparent that <span class="math inline">\(W_i\)</span> is the only random element. <span class="math inline">\(\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> and <span class="math inline">\(\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> are determined by the assignment mechanism. Given that we have <a href="../chapters/experiments.html">defined</a> <span class="math inline">\(W_i\)</span> as a Bernoulli random variable and given that we take potential outcomes <span class="math inline">\(\mathbf{Y(w)}\)</span> and sample sizes <span class="math inline">\(\mathbf{n}\)</span> as given we have established in <a href="experiments.html#eq-prob" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> that: <span class="math display">\[
+<p>This expression makes transparent that <span class="math inline">\(W_i\)</span> is the only random element. <span class="math inline">\(\mathbb{E}[W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> and <span class="math inline">\(\mathbb{E}[1-W_i\&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)}]\)</span> are determined by the assignment mechanism. Given that we have <a href="../chapters/experiments.html">defined</a> <span class="math inline">\(W_i\)</span> as a Bernoulli random variable, and given that we take potential outcomes <span class="math inline">\(\mathbf{Y(w)}\)</span> and sample sizes <span class="math inline">\(\mathbf{n}\)</span> as given, we have established in <a href="experiments.html#eq-prob" class="quarto-xref">Equation&nbsp;<span>2.2</span></a> that: <span class="math display">\[
 P(W_i = 1 \&gt;|\&gt;\mathbf{n}, \mathbf{Y(w)})
 =
 \frac{n_t}{n}.
