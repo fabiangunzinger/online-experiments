@@ -1,20 +1,9 @@
 
 
-Review
-- [x] Intro
-- [x] Setup
-- [x] Experiments
-- [x] Remove unfinished sections
-- [ ] Continue
-
-
-- Break sections out of stats of online experiment one by one. Finish and move on.
-	- [x] Setup
-	- [x] Experiments
-	- [x] Unbiasedness
-	- [x] Variance and standard error
-	- [ ] Hypothesis testing
-	- [ ] Power
+- [x] Review
+- [ ] Send to data science blogs
+- [ ] Send to Neil
+- [ ] Send to Berlin schools
 
 Bonus
 - Consider adding introduction.md stuff to index.md
